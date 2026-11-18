@@ -10,6 +10,8 @@ Du bist Rennleiter in einem Formel‑1‑Rennen: Flaggen setzen, Vorfälle unter
 3. Host wählt Strecke und startet.
 
 Im Mehrspieler gibt es keine Pause und keine Vorfall‑Meldungen – beobachtet das Rennen, klickt ein verdächtiges Auto an und drückt **E**.
-Der PC des Hosts berechnet das Rennen; die Verbindung läuft direkt zwischen den Spielern (PeerJS/WebRTC). Internet nötig.
+Der PC des Hosts berechnet das Rennen. Die Verbindung läuft wenn möglich direkt zwischen den Spielern (PeerJS/WebRTC). Klappt das nicht – z. B. bei verschiedenen Netzwerken oder Mobilfunk – wechselt das Spiel nach ein paar Sekunden automatisch auf einen öffentlichen WebSocket-Relay (MQTT). Internet nötig.
+
+Zum Testen des Relay-Wegs: `?relay=1` an die Adresse hängen.
 
 Einzelspieler funktioniert auch offline als einzelne HTML‑Datei.

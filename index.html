@@ -3290,12 +3290,13 @@ addEventListener('keydown',e=>{
 const MPQ=new Set(['VORFALL','UNTERSUCHUNG']);
 const PCOL=['#e10600','#3b8eea','#2fbf71','#f2c230'];
 const PEER_PREFIX='race-control-2603-';
-const NET={role:null,peer:null,conns:{},host:null,code:'',name:'',players:[],st:'',evq:[],buf:[],ct:null,sAcc:0,sN:0,rm:{},cl:[],lobbyTxt:'',lobbyTr:null,pend:null,invCd:0};
+const NET={role:null,peer:null,conns:{},host:null,code:'',name:'',players:[],st:'',evq:[],buf:[],ct:null,sAcc:0,sN:0,rm:{},cl:[],lobbyTxt:'',lobbyTr:null,pend:null,invCd:0,rel:[],rconns:{},rcli:null,via:null,joining:false};
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
 const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
 function netEv(e){if(NET.evq.length<300)NET.evq.push(e)}
-function netAll(m){for(const id in NET.conns){const c=NET.conns[id];if(c&&c.open)try{c.send(m)}catch(e){}}}
+function netAll(m){const rs=new Set();for(const id in NET.conns){const c=NET.conns[id];if(!c||!c.open)continue;
+  if(c.relay){if(!rs.has(c.cli)){rs.add(c.cli);relayPub(c.cli,RTOP+NET.code+'/a',m)}}else try{c.send(m)}catch(e){}}}
 function netTo(id,m){const c=NET.conns[id];if(c&&c.open)try{c.send(m)}catch(e){}}
 function netSend(m){if(NET.host&&NET.host.open)try{NET.host.send(m)}catch(e){}}
 function pName(id){const p=NET.players.find(p=>p.id===id);return p?p.name:'?'}
@@ -3307,11 +3308,97 @@ function loadPeer(){
     s.onload=()=>window.Peer?res():rej(new Error('x'));s.onerror=()=>rej(new Error('x'));document.head.appendChild(s);
   }).catch(()=>{throw new Error('Netzwerk-Bibliothek konnte nicht geladen werden – bist du mit dem Internet verbunden?')});
 }
+/* ---------- Verbindung über Netzwerkgrenzen hinweg ----------
+   1. Direktverbindung (WebRTC) mit mehreren STUN-Servern.
+   2. Klappt die nicht (z.B. verschiedene Netzwerke, Mobilfunk, strenge Router), läuft das Spiel automatisch
+      über einen öffentlichen WebSocket-Relay (MQTT) – funktioniert überall, wo normales Surfen geht. */
+const ICE=[{urls:['stun:stun.l.google.com:19302','stun:stun1.l.google.com:19302','stun:stun2.l.google.com:19302']},{urls:'stun:stun.cloudflare.com:3478'},{urls:'stun:global.stun.twilio.com:3478'}];
+const RELAYS=['wss://test.mosquitto.org:8081/mqtt','wss://broker.emqx.io:8084/mqtt'];
+const RTOP='race-control-2603/';
+function loadMqtt(){
+  return new Promise((res,rej)=>{
+    if(window.mqtt)return res();
+    const s=document.createElement('script');s.src='https://unpkg.com/mqtt@5.10.1/dist/mqtt.min.js';
+    s.onload=()=>window.mqtt?res():rej(new Error('x'));s.onerror=()=>rej(new Error('x'));document.head.appendChild(s);
+  });
+}
+function relayClient(url){
+  return new Promise((res,rej)=>{
+    let ok=false,c;
+    try{c=mqtt.connect(url,{connectTimeout:7000,reconnectPeriod:2000,clean:true,clientId:'rc_'+Math.random().toString(36).slice(2,12)})}catch(e){return rej(e)}
+    const t=setTimeout(()=>{if(!ok){try{c.end(true)}catch(e){}rej(new Error('timeout'))}},8000);
+    c.once('connect',()=>{ok=true;clearTimeout(t);res(c)});
+    c.on('error',()=>{if(!ok){clearTimeout(t);try{c.end(true)}catch(e){}rej(new Error('err'))}});
+  });
+}
+function relayPub(cli,topic,m){try{cli.publish(topic,JSON.stringify(m),{qos:m&&m.t==='s'?0:1})}catch(e){}}
+// Verbindungsobjekt mit derselben Schnittstelle wie eine PeerJS-Verbindung
+function mkRelayConn(cli,id,topic,wrap){
+  const h={data:[],close:[],error:[]};
+  const rc={relay:true,peer:id,open:true,cli,last:performance.now(),
+    on(ev,f){(h[ev]||(h[ev]=[])).push(f)},
+    send(m){if(rc.open)relayPub(cli,topic,wrap?{f:wrap,d:m}:m)},
+    close(){if(!rc.open)return;rc.open=false;if(NET.rconns)delete NET.rconns[id];h.close.forEach(f=>{try{f()}catch(e){}})},
+    emit(d){rc.last=performance.now();h.data.forEach(f=>f(d))}};
+  return rc;
+}
+// Host: zusätzlich über alle Relays erreichbar sein
+async function hostRelay(){
+  try{await loadMqtt()}catch(e){return}
+  for(const url of RELAYS){
+    relayClient(url).then(cli=>{
+      if(NET.role!=='host'){try{cli.end(true)}catch(e){}return}
+      NET.rel.push(cli);
+      const code=NET.code;
+      cli.subscribe(RTOP+code+'/h',{qos:1});
+      cli.on('message',(tp,buf)=>{
+        if(NET.role!=='host'||NET.code!==code)return;
+        let m;try{m=JSON.parse(String(buf))}catch(e){return}
+        if(!m||!m.f||!m.d)return;
+        const id='r:'+m.f;let c=NET.rconns[id];
+        if(!c){if(m.d.t!=='hello')return;c=NET.rconns[id]=mkRelayConn(cli,id,RTOP+code+'/c/'+m.f);hostConn(c)}
+        if(m.d.t==='ping'){c.last=performance.now();return}
+        c.emit(m.d);
+      });
+    }).catch(()=>{});
+  }
+}
+// Mitspieler: über Relay beitreten (probiert die Relays nacheinander)
+async function relayJoin(code,setCli,onData,isDone){
+  try{await loadMqtt()}catch(e){return false}
+  for(const url of RELAYS){
+    if(isDone())return true;
+    let cli;try{cli=await relayClient(url)}catch(e){continue}
+    if(isDone()){try{cli.end(true)}catch(e){}return true}
+    setCli(cli);
+    const me=Math.random().toString(36).slice(2,10);
+    const conn=mkRelayConn(cli,'host',RTOP+code+'/h',me);
+    cli.subscribe([RTOP+code+'/c/'+me,RTOP+code+'/a'],{qos:1});
+    cli.on('message',(tp,buf)=>{let m;try{m=JSON.parse(String(buf))}catch(e){return}conn.last=performance.now();if(!m||m.t==='pg')return;onData(conn,m)});
+    conn.send({t:'hello',name:NET.name});
+    const got=await new Promise(r=>{const t0=Date.now(),iv=setInterval(()=>{if(isDone()||Date.now()-t0>6000){clearInterval(iv);r(isDone())}},150)});
+    if(got)return true;
+    setCli(null);try{cli.end(true)}catch(e){}
+  }
+  return false;
+}
+// Lebenszeichen für Relay-Verbindungen (dort gibt es kein automatisches „Verbindung getrennt“)
+setInterval(()=>{
+  const now=performance.now();
+  if(NET.role==='host'){
+    netAll({t:'pg'});
+    for(const id in NET.conns){const c=NET.conns[id];if(c&&c.relay&&now-c.last>15000)c.close()}
+  }else if(NET.role==='client'&&NET.host&&NET.host.relay){
+    netSend({t:'ping'});if(now-NET.host.last>15000)NET.host.close();
+  }
+},2500);
 function genCode(){const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<5;i++)s+=A[Math.floor(Math.random()*A.length)];return s}
 function readName(){const el=$('mpName');let n=(el&&el.value||'').trim().slice(0,16);if(!n)n='Rennleiter';lsSet('rc_name',n);return n}
 function netReset(){
   try{if(NET.peer)NET.peer.destroy()}catch(e){}
-  Object.assign(NET,{role:null,peer:null,conns:{},host:null,code:'',players:[],evq:[],buf:[],ct:null,rm:{},cl:[],lobbyTxt:'',lobbyTr:null,pend:null});
+  (NET.rel||[]).forEach(c=>{try{c.end()}catch(e){}});
+  try{if(NET.rcli)NET.rcli.end()}catch(e){}
+  Object.assign(NET,{role:null,peer:null,conns:{},host:null,code:'',players:[],evq:[],buf:[],ct:null,rm:{},cl:[],lobbyTxt:'',lobbyTr:null,pend:null,rel:[],rconns:{},rcli:null,via:null,joining:false});
 }
 /* ---------- Lobby im Hauptmenü ---------- */
 function mpMenuRender(){
@@ -3320,7 +3407,7 @@ function mpMenuRender(){
   $('menu').classList.toggle('mpClient',NET.role==='client');
   if(!on)return;
   const nmOld=$('mpName')?$('mpName').value:null,cdOld=$('mpCodeIn')?$('mpCodeIn').value:JOIN_CODE;
-  const pl=`<div class="mpPl">${NET.players.map(p=>`<span><i style="background:${p.col}"></i>${esc(p.name)}${p.id==='host'?' <small class="mut">Host</small>':''}</span>`).join('')}</div>`;
+  const pl=`<div class="mpPl">${NET.players.map(p=>`<span><i style="background:${p.col}"></i>${esc(p.name)}${p.id==='host'?' <small class="mut">Host</small>':p.via==='relay'?' <small class="mut">Relay</small>':p.via==='p2p'?' <small class="mut">Direkt</small>':''}</span>`).join('')}</div>`;
   let h;
   if(NET.role==='host')h=`<div class="mrow"><div><div class="mpSt">DEIN SPIELCODE</div><div class="mpCode">${NET.code}</div></div>
     <div class="mpSt" style="flex:1;min-width:220px">Schick deinen Mitspielern den <b>Einladungslink</b> (max. 4 Spieler) – oder sie öffnen <b>${esc(SITE_URL.replace(/^https:\/\//,''))}</b>, wählen <b>Mehrspieler</b> und tippen den Code ein. Dein PC berechnet das Rennen – lass dieses Fenster bitte im Vordergrund.</div>
@@ -3331,7 +3418,7 @@ function mpMenuRender(){
     <button class="btn" data-mp="leave">Verlassen</button></div>${pl}`;
   else h=`<div class="mrow"><input id="mpName" maxlength="16" placeholder="Dein Name" value="${esc(nmOld!=null?nmOld:(NET.name||lsGet('rc_name')||''))}"></div>
     <div class="mrow"><button class="btn primary" data-mp="host">Spiel hosten</button><span class="mpSt">oder</span><input id="mpCodeIn" class="code" maxlength="6" placeholder="CODE" value="${esc(cdOld)}"><button class="btn" data-mp="join">Beitreten</button></div>
-    <div class="mpSt">Regeln im Mehrspieler: <b>keine Pause</b> und <b>keine Vorfall-Meldungen</b>. Beobachtet das Rennen, klickt ein verdächtiges Auto an und drückt <b>E</b> (Untersuchen). Während der Überprüfung läuft das Rennen im kleinen Fenster weiter. Internetverbindung nötig.</div>`;
+    <div class="mpSt">Regeln im Mehrspieler: <b>keine Pause</b> und <b>keine Vorfall-Meldungen</b>. Beobachtet das Rennen, klickt ein verdächtiges Auto an und drückt <b>E</b> (Untersuchen). Während der Überprüfung läuft das Rennen im kleinen Fenster weiter. Internetverbindung nötig – klappt auch über verschiedene Netzwerke (notfalls automatisch über einen Relay-Server).</div>`;
   if(NET.st)h+=`<div class="mpSt" style="color:var(--warn);margin-top:6px">${esc(NET.st)}</div>`;
   box.innerHTML=h;
 }
@@ -3363,8 +3450,8 @@ async function netHost(){
   NET.st='Verbinde mit dem Vermittlungsdienst …';mpMenuRender();
   let tries=0;
   const open=()=>{
-    const code=genCode(),p=new Peer(PEER_PREFIX+code,{debug:0});
-    p.on('open',()=>{NET.peer=p;NET.role='host';NET.code=code;NET.players=[{id:'host',name:NET.name,col:PCOL[0]}];NET.st='';menuRefresh()});
+    const code=genCode(),p=new Peer(PEER_PREFIX+code,{debug:0,config:{iceServers:ICE}});
+    p.on('open',()=>{NET.peer=p;NET.role='host';NET.code=code;NET.rel=[];NET.rconns={};NET.players=[{id:'host',name:NET.name,col:PCOL[0]}];NET.st='';menuRefresh();hostRelay()});
     p.on('connection',conn=>hostConn(conn));
     p.on('disconnected',()=>{try{if(NET.role==='host')p.reconnect()}catch(e){}});
     p.on('error',e=>{
@@ -3389,10 +3476,12 @@ function hostDrop(id){
 }
 function hostMsg(conn,d){
   const id=conn.peer;
+  if(d.t==='leave'){conn.close();hostDrop(id);return}
   if(d.t==='hello'){
+    if(NET.conns[id])return;
     if(NET.players.length>=4){conn.send({t:'full'});setTimeout(()=>conn.close(),400);return}
     const used=NET.players.map(p=>p.col),col=PCOL.find(c=>!used.includes(c))||'#aaa';
-    NET.players.push({id,name:String(d.name||'Spieler').slice(0,16),col});NET.conns[id]=conn;
+    NET.players.push({id,name:String(d.name||'Spieler').slice(0,16),col,via:conn.relay?'relay':'p2p'});NET.conns[id]=conn;
     conn.send({t:'welcome',code:NET.code,players:NET.players,me:id});
     netPlayers();netLobby();
     if(G&&G.mp&&!G.ended){conn.send(startMsg(G.opts));addLog('MEHRSPIELER',esc(d.name)+' ist dem Rennen beigetreten.','good')}
@@ -3436,8 +3525,10 @@ function packSnap(){
 }
 function hostNet(rdt){
   if(NET.role!=='host')return;
-  NET.sAcc+=rdt;if(NET.sAcc<.05)return;NET.sAcc=0;
-  if(!Object.keys(NET.conns).length){NET.evq.length=0;return}
+  const cs=Object.values(NET.conns);
+  // über den Relay 10 statt 20 Pakete pro Sekunde (schont den öffentlichen Server)
+  NET.sAcc+=rdt;if(NET.sAcc<(cs.some(c=>c.relay)?.1:.05))return;NET.sAcc=0;
+  if(!cs.length){NET.evq.length=0;return}
   netAll(packSnap());
 }
 /* ---------- stille Vorfälle (Host) ---------- */
@@ -3539,25 +3630,49 @@ async function netJoin(){
   if(NET.role)return;
   const code=(($('mpCodeIn')||{}).value||'').trim().toUpperCase();
   if(code.length<4){NET.st='Bitte den Spielcode des Hosts eingeben.';mpMenuRender();return}
+  if(NET.joining)return;
   NET.name=readName();NET.st='Lade Netzwerk …';mpMenuRender();
   try{await loadPeer()}catch(e){NET.st=e.message;mpMenuRender();return}
-  NET.st='Verbinde mit '+code+' …';mpMenuRender();
-  const p=new Peer({debug:0});let done=false;
-  const fail=t=>{if(done)return;done=true;NET.st=t;try{p.destroy()}catch(e){}if(NET.peer===p)NET.peer=null;mpMenuRender()};
-  const to=setTimeout(()=>fail('Keine Antwort vom Host – Code prüfen und erneut versuchen.'),15000);
-  p.on('error',e=>{clearTimeout(to);if(NET.role==='client'){clientLost();return}fail(e.type==='peer-unavailable'?'Kein Spiel mit diesem Code gefunden.':'Verbindung fehlgeschlagen ('+e.type+').')});
+  NET.joining=true;NET.st='Verbinde mit '+code+' …';mpMenuRender();
+  let done=false,p=null,rcli=null,rconn=null,relayStarted=false,p2pDead=false,relayDead=false,to=null,to2=null;
+  const cleanP2P=()=>{try{if(p)p.destroy()}catch(e){}p=null};
+  const cleanRelay=()=>{try{if(rconn)rconn.send({t:'leave'})}catch(e){}try{if(rcli)rcli.end()}catch(e){}rcli=null};
+  const fail=t=>{if(done)return;done=true;NET.joining=false;clearTimeout(to);clearTimeout(to2);cleanP2P();cleanRelay();NET.st=t;mpMenuRender()};
+  const win=(conn,via,d)=>{
+    done=true;NET.joining=false;clearTimeout(to);clearTimeout(to2);
+    if(via==='relay'){cleanP2P();NET.rcli=rcli}else{cleanRelay();NET.peer=p}
+    NET.role='client';NET.host=conn;NET.via=via;NET.code=code;NET.players=d.players;NET.st='';menuRefresh();
+  };
+  const handle=(conn,via,d)=>{
+    if(done){if(NET.host===conn)try{clientMsg(d)}catch(e){console.error(e)}return}
+    if(d.t==='full'){fail('Das Spiel ist voll (max. 4 Spieler).');return}
+    if(d.t==='welcome')win(conn,via,d);
+  };
+  const giveUp=()=>{if(p2pDead&&relayDead)fail('Keine Verbindung zum Host möglich – Code prüfen und erneut versuchen.')};
+  const startRelay=()=>{
+    if(relayStarted||done)return;relayStarted=true;
+    NET.st='Direktverbindung klappt nicht – verbinde über Relay-Server …';mpMenuRender();
+    relayJoin(code,c=>{rcli=c},(conn,d)=>{rconn=conn;handle(conn,'relay',d)},()=>done).then(ok=>{if(!ok&&!done){relayDead=true;giveUp()}});
+  };
+  to=setTimeout(()=>fail('Keine Antwort vom Host – Code prüfen und erneut versuchen.'),35000);
+  if(FORCE_RELAY){p2pDead=true;startRelay();return}
+  to2=setTimeout(startRelay,7000);    // Direktverbindung braucht zu lange → Relay versuchen
+  p=new Peer({debug:0,config:{iceServers:ICE}});
+  p.on('error',e=>{
+    if(done){if(NET.role==='client'&&NET.via==='p2p'&&NET.peer===p)clientLost();return}
+    if(e.type==='peer-unavailable'){fail('Kein Spiel mit diesem Code gefunden.');return}
+    p2pDead=true;startRelay();giveUp();
+  });
   p.on('open',()=>{
-    NET.peer=p;
     const conn=p.connect(PEER_PREFIX+code,{reliable:true,serialization:'json'});
     conn.on('open',()=>conn.send({t:'hello',name:NET.name}));
-    conn.on('data',d=>{
-      if(d.t==='full'){clearTimeout(to);fail('Das Spiel ist voll (max. 4 Spieler).');return}
-      if(d.t==='welcome'){clearTimeout(to);done=true;NET.role='client';NET.host=conn;NET.code=code;NET.players=d.players;NET.st='';menuRefresh();return}
-      try{clientMsg(d)}catch(e){console.error(e)}
-    });
-    conn.on('close',()=>{if(NET.role==='client')clientLost()});
+    conn.on('data',d=>handle(conn,'p2p',d));
+    conn.on('iceStateChanged',s=>{if(s==='failed'&&!done)startRelay()});
+    conn.on('close',()=>{if(done){if(NET.host===conn&&NET.role==='client')clientLost()}else{p2pDead=true;startRelay();giveUp()}});
   });
 }
+let FORCE_RELAY=false;
+try{FORCE_RELAY=new URLSearchParams(location.search).get('relay')==='1'}catch(e){}
 function clientLost(){
   netReset();
   if(G){G=null;$('hud').classList.add('hide');$('inc').classList.add('hide');$('hl').classList.add('hide');$('results').classList.add('hide');$('pip').classList.add('hide');document.body.classList.remove('mpm');initMenu();$('menu').classList.remove('hide')}
@@ -3566,6 +3681,7 @@ function clientLost(){
 function netLeave(){
   const was=NET.role;
   if(was==='host')netAll({t:'bye'});
+  if(was==='client')netSend({t:'leave'});
   setTimeout(()=>{},0);
   netReset();NET.st='';
   if(G){if(was)toMenu()}else menuRefresh();
@@ -3632,7 +3748,7 @@ function applySnap(m){
 }
 function netInterp(rdt){
   const B=NET.buf;if(!B.length)return;
-  const target=B[B.length-1].st-.1;
+  const target=B[B.length-1].st-(NET.via==='relay'?.3:.1);
   NET.ct=(NET.ct==null||Math.abs(NET.ct-target)>1.5)?target:NET.ct+rdt+(target-NET.ct)*.08;
   let a=B[0],b=B[0];
   if(NET.ct>=B[0].st){for(let i=B.length-1;i>=0;i--){if(B[i].st<=NET.ct){a=B[i];b=B[i+1]||B[i];break}}}
