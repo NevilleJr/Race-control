@@ -30,6 +30,8 @@ button{font-family:inherit;color:inherit}
 .row b{letter-spacing:.04em}
 .row .g{color:var(--mut);text-align:right;font-variant-numeric:tabular-nums}
 .row em{font-style:normal;font-size:10px;color:var(--warn)}
+.tst{font-size:8px;font-weight:800;letter-spacing:.04em;padding:1px 4px;border-radius:3px;margin-right:3px;font-style:normal}.tst.i{background:#ff9f0a;color:#111}.tst.n{background:#2b3440;color:#cfd6df}
+.dca{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.dca .btn{padding:5px 8px;font-size:11px}
 #side{position:fixed;right:12px;top:12px;width:246px;z-index:4;display:flex;flex-direction:column;gap:8px}
 #meters{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
 .mt{display:grid;grid-template-columns:92px 1fr 26px;gap:8px;align-items:center;font-size:10.5px;letter-spacing:.08em;color:var(--mut);height:20px}
@@ -256,6 +258,14 @@ h3{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut
 .facts li{font-size:12.5px;line-height:1.45;padding:6px 0 6px 14px;border-bottom:1px solid var(--line);color:#d5d9df}
 .facts li:last-child{border-bottom:0}
 .facts li:before{background:var(--acc);width:4px;height:4px;top:13px}
+.revl{list-style:none;margin:14px 0;display:flex;flex-direction:column;gap:8px}
+.revi{display:flex;gap:12px;align-items:center;background:#14171c;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:12.5px;line-height:1.45}
+.revi>div{flex:1}.rvb{font-size:9.5px;font-weight:800;letter-spacing:.08em;padding:3px 6px;border-radius:4px;background:#3a1d1b;color:#ff8a80;white-space:nowrap}
+.rvb.prot{background:#1c2a3a;color:#8cc4ff}
+.jgw canvas{position:static;inset:auto;width:100%;height:auto;aspect-ratio:640/340;display:block;border-radius:8px;background:#0b0d10;border:1px solid var(--line);margin-bottom:6px}
+.jgb{display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.jgb .btn{padding:4px 8px;font-size:11px}.jgb .btn.on{border-color:var(--acc);color:#fff;background:rgba(225,6,0,.18)}
+#jgr{flex:1;min-width:110px;accent-color:var(--acc)}
 .var{background:rgba(59,142,234,.08);border:1px solid rgba(59,142,234,.22);border-radius:8px;font-size:12px;color:#c3daf2;padding:8px 11px;margin-top:10px}
 .var b{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#6aaef0}
 .drv{background:var(--panel2);border:1px solid var(--line);border-radius:var(--r);padding:9px 10px 10px;margin-bottom:7px}
@@ -706,7 +716,7 @@ function placeGrid(list,base){
     c.d=(r%2?1:-1)*15;c.line=c.d;c.v=0;c.mode='rail';c.lapN=Math.floor(c.dist/T.L);
     c.passT=0;c.passSide=0;c.cool=0;c.weaveT=0;c.wideT=0;c.bt=null;c.btT=0;c.dying=false;c.pit=0;
     c.hist=[];c.hT=0;c.mvWhy='line';c.passEndT=-99;c.recT=-99;c.lapStart=null;
-    c.st=c.stBase;c.errT=0;c.slideT=0;c.backT=0;c.weaveHard=false;c.tlMon=null;
+    c.st=c.stBase;c.errT=0;c.slideT=0;c.backT=0;c.weaveHard=false;c.tlMon=null;c.react=null;
     const p=posAt(c.s,c.d);c.x=p.x;c.y=p.y;c.a=p.a;
   });
 }
@@ -727,7 +737,9 @@ function newGame(o,grid){
   G.season=SEASON?{n:SEASON.idx+1,of:SEASON.cal.length}:null;
   G.cars=DRIVERS.map((d,i)=>makeCar(i));
   placeGrid(idx.map(i=>G.cars[i]),-18);
-  if(Math.random()<.15*G.chaos){const c=G.cars[idx[ri(2,20)]];G.jumpCar=c}
+  // Frühstart-Verdacht: echter Frühstart, nur Rollen (stoppt wieder) oder extrem schnelle, aber legale Reaktion
+  G.lightSim=[];G.stTel=null;G.jumpPlan=null;
+  if(Math.random()<.17*G.chaos){const c=G.cars[idx[ri(2,20)]];G.jumpCar=c;G.jumpPlan={id:c.id,type:pick(['jump','jump','creep','react']),early:rnd(.1,.36)}}
   G.startCrashPlan=Math.random()<{calm:.08,normal:.22,wild:.55}[o.chaos];
   rollMods(o);
   // „Wild“: das ganze Feld fährt hitziger, nimmt Gelb weniger ernst, Ketten-Unfälle häufiger
@@ -764,9 +776,9 @@ function simStep(dt){
   if(G.phase==='grid'){
     G.gridT+=dt;
     const n=clamp(Math.floor(G.gridT),0,5);
-    if(n!==G.lightN){G.lightN=n;setLights(n);if(n>0)beep(520,.12,'square',.04);if(n===5){banner('LEERTASTE: LICHTER AUS','warn');addLog('START','Alle Lichter an – Leertaste gibt das Rennen frei.','warn')}}
+    if(n!==G.lightN){if(n>0)(G.lightSim||(G.lightSim=[]))[n-1]=G.simT;G.lightN=n;setLights(n);if(n>0)beep(520,.12,'square',.04);if(n===5){banner('LEERTASTE: LICHTER AUS','warn');addLog('START','Alle Lichter an – Leertaste gibt das Rennen frei.','warn')}}
     if(G.gridT>=G.lightsOut){
-      G.phase='race';setLights(-1);beep(880,.5,'square',.05);if(!G.raceT0)G.raceT0=G.simT;G.raceT=0;
+      G.phase='race';G.loSim=G.simT;setLights(-1);beep(880,.5,'square',.05);if(!G.raceT0)G.raceT0=G.simT;G.raceT=0;
       banner('LOS GEHT\u2019S','good');addLog('START','Lichter aus – das Rennen läuft!','good');
       if(G.jumpCar){startJump(G.jumpCar);G.jumpCar=null}
       if(G.restarts===0)hlQueue({t:G.simT+2.2,pre:2.6,post:3.4,title:'Lichter aus – das Rennen läuft!',sub:'DER START',ids:standings().slice(0,6).map(c=>c.id),pri:7,kind:'start'});
@@ -777,6 +789,8 @@ function simStep(dt){
         hlQueue({t:G.simT+1,pre:1.5,post:3,title:c.drv.n+' bleibt am Start stehen',sub:'ABGEWÜRGT',ids:[c.id],pri:6,kind:'inc'})}
     }
   }else if(G.phase==='race')G.raceT+=dt;
+  if(G.jumpPlan&&!G.client)startTelStep();
+  if(G.mp&&!G.client)clipStep();
   weatherStep(dt);obstaclesStep(dt);debrisStep(dt);flagStep(dt);carsStep(dt);
   if(G.phase==='race'){
     interactions(dt);btStep(dt);
@@ -819,7 +833,7 @@ function restartRace(){
   const order=standings().filter(c=>!c.out&&!c.dsq&&!c.gone);
   if(!order.length)return;
   placeGrid(order,order[0].dist);
-  G.phase='grid';G.gridT=0;G.lightN=-1;G.lightsOut=1e9;G.restarts++;G.jumpCar=null;G.startCrashPlan=Math.random()<.12;
+  G.phase='grid';G.gridT=0;G.lightN=-1;G.lightsOut=1e9;G.restarts++;G.jumpCar=null;G.jumpPlan=null;G.stTel=null;G.lightSim=[];G.startCrashPlan=Math.random()<.12;
   for(const c of G.cars)if(c.mode==='free'&&!c.out)recover(c);
   addLog('RENNLEITUNG','Neustart aus dem Stand – Fahrer formieren sich.');
 }
@@ -983,16 +997,37 @@ function startPass(c,lead){
   if(!best){c.cool=1.2;return}
   c.passSide=best.side;c.passT=7;c.passTarget=lead.id;
 }
+/* Länge der Geraden voraus (für DRS-Angriffe) – einmal je Strecke berechnet */
+function straightAhead(s){
+  if(!T._sa){const n=Math.ceil(T.L/10),a=new Float32Array(n);let run=0;
+    for(let k=2*n-1;k>=0;k--){const i=k%n;run=Math.abs(kapAt(i*10))>.003?0:run+10;if(k<n)a[i]=run}T._sa=a}
+  return T._sa[Math.floor(mod(s,T.L)/10)%T._sa.length];
+}
+/* Ideallinie: vor der Kurve außen, am Scheitelpunkt innen */
+function idealD(s){const w=HALF*.5;return clamp((kapAt(s)-kapAt(s+110)*.8)*2500,-w,w)}
 function updateRail(c,dt){
   const f=G.flag,wetF=1-.2*G.wet;
   let vt=profAt(c.s)*c.pace*(1+c.form)*c.dmg*c.tm*wetF;
-  let lead=null,gm=1e9;
+  let lead=null,gm=1e9,ah=null,ag=1e9,bg=1e9;
   for(const o of G.cars){
     if(o===c||o.gone||o.mode!=='rail'||o.stallT>0)continue;
     const dd=mod(o.s-c.s,T.L);
+    if(dd>0&&dd<ag&&!o.pit){ag=dd;ah=o}
+    const db=T.L-dd;if(db>0&&db<bg)bg=db;
     if(dd>0&&dd<220&&Math.abs(o.d-c.d)<CW*1.3&&dd<gm){gm=dd;lead=o}
   }
-  c.lead=lead;c.gap=lead?gm-CL:999;c.drs=!!lead&&c.gap<T.av*.8&&c.gap>6&&G.flag==='green'&&G.phase==='race'&&G.raceT>8&&Math.abs(kapAt(c.s))<.0025&&Math.abs(kapAt(c.s+60))<.0025;
+  c.lead=lead;c.gap=lead?gm-CL:999;
+  /* DRS wie in echt: auf der Geraden aktiv, wenn < 1 s hinter dem Vordermann (egal auf welcher Spur).
+     Der Flügel bleibt bis zur nächsten Bremszone offen – auch beim Ausscheren und Vorbeifahren. */
+  const onStr=Math.abs(kapAt(c.s))<.0025&&Math.abs(kapAt(c.s+60))<.0025;
+  c.ahGap=ah?Math.max(0,ag-CL)/T.av:99;
+  if(c.drs){if(Math.abs(kapAt(c.s+25))>.0035||G.flag!=='green'||c.pit||c.out)c.drs=false}
+  else if(onStr&&ah&&c.ahGap<1&&G.flag==='green'&&G.phase==='race'&&G.raceT>8&&!c.pit&&!c.out&&!c.finished)c.drs=true;
+  // Mehr Tempo nur, solange die Gerade noch lang genug ist – vor der Bremszone ist der Vorteil weg
+  if(onStr&&G.phase==='race'&&!c.pit&&G.flag==='green'&&straightAhead(c.s)>150){
+    if(c.drs)vt*=1.045;                                   // Flügel flach: höhere Endgeschwindigkeit
+    if(ah&&c.ahGap<.6)vt*=1+.022*(1-c.ahGap/.6);          // Windschatten
+  }
   let passing=false;const S=SP(c);
   if(c.errT>0)c.errT-=dt;
   if(c.slideT>0)c.slideT-=dt;
@@ -1006,13 +1041,18 @@ function updateRail(c,dt){
     else if(passing)vt*=Math.abs(kapAt(c.s))<.0025?1.05:1.01;
     if(G.phase==='race'&&f==='green'&&c.passT<=0&&c.cool<=0&&c.backT<=0&&c.gap<T.av*.8&&!c.finished&&!c.dying){
       const adv=c.pace*(1+c.form)*c.dmg*c.tm-lead.pace*(1+lead.form)*lead.dmg*lead.tm;
-      const stt=Math.abs(kapAt(c.s))<.0025&&Math.abs(kapAt(c.s+80))<.0025,ed=adv+(stt?.014*Math.max(0,1-c.gap/80):0)+(c.drs?.02:0);
+      const stt=Math.abs(kapAt(c.s))<.0025&&Math.abs(kapAt(c.s+80))<.0025,ed=adv+(stt?.014*Math.max(0,1-c.gap/80):0)+(c.drs?.03:0);
+      // Mit DRS / Windschatten früh ausscheren und die ganze Gerade nutzen (statt hinterherzufahren)
+      const strL=straightAhead(c.s),atk=(c.drs||(stt&&c.gap<T.av*.3))&&strL>T.av*1.1&&c.gap<T.av*.55;
+      if(atk&&Math.random()<(1+c.ag*2.2)*S.pass*(c.drs?1:.45)*dt)startPass(c,lead);
       // Taktiker greifen nur auf Geraden / mit DRS an
-      if((c.st!=='tak'||stt||c.drs)&&Math.random()<(.18+c.ag*.6)*S.pass*clamp(ed*90/S.minAdv,.03,3)*dt)startPass(c,lead);
+      else if((c.st!=='tak'||stt||c.drs)&&Math.random()<(.18+c.ag*.6)*S.pass*clamp(ed*90/S.minAdv,.03,3)*dt)startPass(c,lead);
     }
   }
-  let dt0=c.line,why='line';
-  if(G.raceT>5||G.phase==='grid'&&false)dt0=0;
+  let dt0=c.line,why='line';c.onIdeal=false;
+  // Ideallinie nur mit freier Fahrt (niemand dicht davor/dahinter) – im Zweikampf hält man seine Spur
+  if(G.raceT>5){if(ag>170&&bg>110){dt0=idealD(c.s);c.onIdeal=true}else dt0=c.wasIdeal?c.d:0}
+  c.wasIdeal=c.onIdeal||(c.wasIdeal&&!(G.raceT>5&&Math.abs(c.d)<2));
   if(c.dying){dt0=c.dyD;why='dying'}
   else if(c.slideT>0){dt0=c.slideTo;why='slide'}
   else if(c.wideT>0){c.wideT-=dt;dt0=c.wideTo;why='wide'}
@@ -1025,6 +1065,8 @@ function updateRail(c,dt){
       dt0=clamp(want,-LIM,LIM);
       const rel=mod(tg.s-c.s+T.L/2,T.L)-T.L/2;
       if(rel<-(CL+8)){c.passT=0;c.cool=2.5;c.passSide=0}
+      // Bremszone kommt und man ist noch nicht daneben → zurückstecken statt Harakiri
+      else if(rel>CL*.55&&straightAhead(c.s)<T.av*.22&&Math.random()<5*dt){c.passT=0;c.backT=.6;c.cool=2}
       else{
         // Manöver abbrechen, wenn die Lücke zugeht und man nicht weit genug daneben ist
         const squeezed=Math.abs(want-dt0)>5||!laneFree(c,dt0,tg);
@@ -1098,7 +1140,7 @@ function updateRail(c,dt){
     const P=T.pit;
     if(c.pit===1&&mod(c.s-P.s0,T.L)<90){const R=latRange(c),lim=P.side<0?R.lo:R.hi;
       if(P.side<0?dt0<lim:dt0>lim){dt0=P.side<0?Math.min(c.d,lim):Math.max(c.d,lim);vt=Math.min(vt,c.v*.96)}}}}
-  if(why==='line'&&Math.abs(dt0-c.d)>3)why=G.simT-c.recT<8?'rejoin':G.simT-c.passEndT<3?'return':'drift';
+  if(why==='line'&&Math.abs(dt0-c.d)>(c.onIdeal?10:3))why=G.simT-c.recT<8?'rejoin':G.simT-c.passEndT<3?'return':'drift';
   c.mvWhy=why;
   if(G.ly&&G.ly.length)for(const y of G.ly){if(G.simT>y.until)continue;const da=mod(y.s-c.s,T.L);if(da<520||da>T.L-60){
     // manche (v. a. aggressive) Fahrer nehmen Gelb nicht ernst → Fall für die Rennleitung
@@ -1111,7 +1153,8 @@ function updateRail(c,dt){
   if(c.bagT>0){c.bagT-=dt;vt*=.94;if(c.bagT<=0)addLog('TECHNIK',`${c.drv.c}: Tüte ist weggeflogen – Temperaturen normalisieren sich.`)}
   if(c.yieldT>0){c.yieldT-=dt;vt*=.86}                  // blaue Flagge: Platz machen
   if(c.stallT>0){c.stallT-=dt;vt=0;if(c.stallT<=0)addLog('START',`${c.drv.c} ist wieder angesprungen.`)}
-  if(G.phase==='grid')vt=(c.jump&&G.gridT>G.lightsOut-.8)?45:0;
+  if(G.phase==='grid')vt=gridV(c);
+  else if(G.phase==='race'&&G.raceT<.6){if(c.react==null)c.react=rnd(.17,.3);if(G.raceT<c.react&&c.v<1)vt=0}   // Reaktionszeit beim Start
   if(c.dying)vt=0;
   if(c.finished)vt=Math.min(vt,85);
   if(c.dsq)vt=Math.min(vt,40);
@@ -1439,10 +1482,37 @@ function tlEval(c,m){
   G.minors.push({inc,exp:G.simT+28});renderToasts();
   addLog('UNTERSUCHUNG',`Streckenlimits ${c.drv.c}: ${why==='repeat'?'wiederholter Verstoß':why==='pos'?'Position außerhalb der Strecke gewonnen':'dauerhafter Vorteil'}.`,'warn');beep(700,.1,'square',.03);
 }
+/* ---------- Frühstart: Start-Telemetrie (Lichter + Tempo + Weg) ---------- */
+function gridV(c){
+  const J=G.jumpPlan;if(!J||J.id!==c.id||G.lightsOut>1e8)return 0;
+  const tt=G.gridT-G.lightsOut;
+  if(J.type==='jump')return tt>-J.early?60:0;                     // rollt los, bevor die Lichter ausgehen
+  if(J.type==='creep')return (tt>-J.early-.22&&tt<-J.early)?3.5:0;  // zuckt kurz an und steht wieder
+  return 0;
+}
+function startTelStep(){
+  const J=G.jumpPlan;
+  if(!G.stTel){
+    const st=standings(),c=G.cars[J.id],i=st.indexOf(c);
+    const ids=[c.id,...[st[i-1],st[i+1],st[i-2]].filter(Boolean).slice(0,2).map(o=>o.id)];
+    G.stTel={ids,d0:ids.map(id=>G.cars[id].dist),fr:[],lights:[],lo:null,done:false,k:0};
+  }
+  const S=G.stTel;if(S.done)return;
+  if(++S.k%2)return;                                           // 30 Messpunkte pro Sekunde
+  S.fr.push([+G.simT.toFixed(3),...S.ids.map(id=>Math.round(G.cars[id].v*10)/10),...S.ids.map((id,k)=>Math.round((G.cars[id].dist-S.d0[k])*100)/100)]);
+  if(G.phase==='grid'){while(S.fr.length&&S.fr[0][0]<G.simT-3.2)S.fr.shift()}
+  else if(G.loSim!=null&&G.simT>G.loSim+1.4){S.done=true;S.lo=G.loSim;S.lights=(G.lightSim||[]).slice(0,5)}
+}
 function startJump(c){
-  const inc={kind:'jump',base:'jump',minor:true,noFlag:true,sev:.05,intent:false,truth:{},
-    inv:[{c,fault:.7,role:'solo'}],x:c.x,y:c.y,s:c.s,t:G.simT};
-  inc.title='Frühstart: '+c.drv.c;inc.desc=`${c.drv.n} setzt sich offenbar vor dem Erlöschen der Lichter in Bewegung.`;
+  const J=G.jumpPlan||{type:'jump',early:.15};
+  const S=G.stTel,k=S?S.ids.indexOf(c.id):-1;
+  let mv=0,vAt=0;if(S&&k>=0&&S.fr.length){const L=S.fr[S.fr.length-1];vAt=L[1+k];mv=L[1+S.ids.length+k]}
+  if(J.type==='react')c.react=rnd(.05,.09);
+  const big=J.type==='jump'&&J.early>.22;
+  const fault=J.type==='jump'?(big?.92:.82):.08,sev=J.type==='jump'?(big?.58:.3):.05;
+  const inc={kind:'jump',base:'jump',minor:true,noFlag:true,sev,intent:false,truth:{jt:J.type,early:J.type==='jump'?J.early:0,mv,vAt},
+    inv:[{c,fault,role:'solo'}],x:c.x,y:c.y,s:c.s,t:G.simT,tel:S};
+  inc.title='Frühstart-Verdacht: '+c.drv.c;inc.desc=`Der Startsensor von ${c.drv.n} hat ausgelöst – Frühstart oder nicht?`;
   finishInc(inc);if(G.mp){mpSilent(inc,40);return}G.minors.push({inc,exp:G.simT+40});renderToasts();
   addLog('UNTERSUCHUNG','Verdacht auf Frühstart: '+c.drv.c+'.','warn');
 }
@@ -1879,8 +1949,9 @@ function buildFacts(inc){
     else{f.push('Telemetrie: Öldruck bricht schlagartig ein');f.push(tr.oil?'Ölspur auf der Ideallinie gemeldet – Rutschgefahr für Nachfolgende!':'Kein Flüssigkeitsverlust festgestellt')}
     if(tr.fire)f.push('Brandmelder aktiv – Feuerwehr alarmiert');
   }else if(inc.base==='jump'){
-    f.push(`Sensor: Bewegung von ${ri(20,60)} cm vor Erlöschen der Lichter`);
-    f.push(`Reaktionszeit ${a}: ${(-rnd(.02,.12)).toFixed(2)} s`);
+    f.push('Startsensor (Transponder) hat ausgelöst – Auswertung in der Start-Grafik oben');
+    f.push('Regel: Fährt das Auto beim Erlöschen der Lichter schon, ist es ein Frühstart (5 s, deutlich zu früh 10 s)');
+    f.push('Kurzes Anrollen, das vor dem Signal wieder stoppt (< 30 cm), wird nicht bestraft');
   }else if(inc.base==='limits'){
     f.push(`Onboard-Kamera: alle vier Räder außerhalb der weißen Linie (${m_(tr.over)} m)`);
     f.push(tr.why==='repeat'?`Verstoß Nr. ${tr.n} – die ersten drei wurden bereits verwarnt (schwarz-weiße Flagge)`:tr.why==='pos'?`Positionsgewinn außerhalb der Strecke (Verstoß Nr. ${tr.n})`:`Verstoß Nr. ${tr.n} mit dauerhaftem Vorteil`);
@@ -1900,7 +1971,7 @@ function buildStmts(inc){
     }else if(inc.base==='solo'||inc.base==='tech'||inc.base==='jump'||inc.base==='limits'){
       const tc=inc.truth&&inc.truth.cause;
       if(inc.base==='tech')t='Engine is dead, I cannot do anything!';
-      else if(inc.base==='jump')t=Math.random()<.5?'I only reacted to the lights!':'The clutch slipped a bit, sorry.';
+      else if(inc.base==='jump'){const jt=inc.truth&&inc.truth.jt;t=jt==='react'?pick(['That was just a perfect reaction!','I went when the lights went out.']):jt==='creep'?pick(['The clutch bit a little, but I stopped.','I rolled a few centimetres, no more.']):pick(['I only reacted to the lights!','The clutch slipped a bit, sorry.','I thought the lights were out.'])}
       else if(inc.base==='limits')t=pick(['The corner was just dirty.','I was still on the tarmac!','Okay, I overdid it slightly.']);
       else if(tc&&tc!=='wet')t=pick(T_HAZ);else t=pick(T_SOLO);
     }else if(inc.base==='revenge'){t=e.role==='att'?pick(T_REV):fmt(pick(T_ACC),{o:o.drv.c})}
@@ -1972,7 +2043,9 @@ function renderModal(reset){
 const FLS={green:'Grün',yellow:'Gelb',vsc:'VSC',sc:'SC',red:'Rot'};
 function modalHTML(){
   const M=G.modal,inc=M.inc,col=GFX[inc.kind]||'#e10600';
-  let h=incGfx(inc)+`<div class="tag"><i style="background:${col}"></i>${inc.minor?'Untersuchung':'Vorfall'} · Runde ${inc.lap} · ${inc.where}</div><h2>${inc.title}</h2>`;
+  if(M.view)return viewHTML(M);
+  let h=(inc.base==='jump'&&inc.tel&&inc.tel.fr&&inc.tel.fr.length>3?jumpGfxHTML(M):incGfx(inc))+`<div class="tag"><i style="background:${col}"></i>${M.rev?'Nachbesprechung':inc.minor?'Untersuchung':'Vorfall'} · Runde ${inc.lap} · ${inc.where}</div><h2>${inc.title}</h2>`;
+  if(M.rev)h+=`<p class="desc" style="margin:-4px 0 8px">Verpasster Vorfall – nachträgliche Entscheidung zählt nur ${Math.round(REV_W*100)} %.</p>`;
   h+=`<ul class="facts">${inc.facts.slice(0,3).map(f=>`<li>${f}</li>`).join('')}</ul>`;
   if(M.hint)h+=`<div class="var"><b>Videoassistent</b>${M.hint}</div>`;
   h+=`<h3>Strafe</h3>`;
@@ -1984,6 +2057,61 @@ function modalHTML(){
   }
   h+=`<div class="acts"><button class="btn" data-act="ask" ${(M.asked||G.varLeft<=0)?'disabled':''}>VAR · ${G.varLeft}</button>${G.mp?'<button class="btn" data-act="mpclose">Schließen<kbd>Esc</kbd></button>':''}<button class="btn primary" data-act="confirm">Entscheiden<kbd>⏎</kbd></button></div>`;
   return h;
+}
+/* Frühstart-Grafik: Startampel + Tempo + zurückgelegter Weg – in Zeitlupe abspielbar */
+function jumpGfxHTML(M){
+  if(!M.jg){const S=M.inc.tel,lo=S.lo!=null?S.lo:M.inc.t;M.jg={t:lo-1.6,play:true,spd:.08}}
+  const sp=[[.04,'0,04×'],[.08,'0,08×'],[.25,'0,25×'],[1,'1×']];
+  return `<div class="jgw"><canvas id="jgc" width="640" height="340"></canvas>
+   <div class="jgb"><button class="btn" data-jg="play" title="Abspielen / Anhalten">${M.jg.play?'❚❚':'▶'}</button><button class="btn" data-jg="re" title="Von vorn">⟲</button>${sp.map(([v,l])=>`<button class="btn${M.jg.spd===v?' on':''}" data-jg="s${v}">${l}</button>`).join('')}<input id="jgr" type="range" min="0" max="1000" value="0" title="Zeitpunkt wählen"></div></div>`;
+}
+function jumpGfxTick(rdt){
+  const M=G.modal,J=M&&M.jg,cv2=$('jgc');if(!J||!cv2)return;
+  const S=M.inc.tel,fr=S.fr,n=S.ids.length;if(!fr||fr.length<2)return;
+  const lo=S.lo!=null?S.lo:M.inc.t,t0=Math.max(fr[0][0],lo-1.6),t1=Math.max(t0+.5,Math.min(fr[fr.length-1][0],lo+.9));
+  if(J.play){J.t+=rdt*J.spd;if(J.t>=t1){J.t=t1;J.play=false;const b=document.querySelector('[data-jg="play"]');if(b)b.textContent='▶'}}
+  J.t=clamp(J.t,t0,t1);J.t0=t0;J.t1=t1;
+  const rg=$('jgr');if(rg&&document.activeElement!==rg)rg.value=Math.round((J.t-t0)/(t1-t0)*1000);
+  const g=cv2.getContext('2d'),W=640,H=340;g.clearRect(0,0,W,H);
+  const at=(t,col)=>{let i=0;while(i<fr.length-2&&fr[i+1][0]<=t)i++;const a=fr[i],b=fr[i+1],q=clamp((t-a[0])/Math.max(1e-3,b[0]-a[0]),0,1);return a[col]+(b[col]-a[col])*q};
+  const cars=S.ids.map(id=>G.cars[id]);
+  // Startampel
+  g.font='600 11px system-ui';g.fillStyle='#8b93a1';g.fillText('STARTAMPEL',16,24);
+  for(let i=0;i<5;i++){const lt=S.lights&&S.lights[i],on=lt!=null&&J.t>=lt&&J.t<lo,x=150+i*54;
+    g.fillStyle='#16181c';g.fillRect(x-20,8,40,64);
+    for(const y of [25,55]){g.beginPath();g.arc(x,y,12,0,TAU);g.fillStyle=on?'#ff2a1f':'#2b1214';g.fill();if(on){g.shadowColor='#ff2a1f';g.shadowBlur=14;g.fill();g.shadowBlur=0}}}
+  const rel=J.t-lo;
+  g.textAlign='right';g.font='800 30px ui-monospace,monospace';g.fillStyle=rel<0?'#ff5a52':'#34c759';
+  g.fillText((rel<0?'−':'+')+Math.abs(rel).toFixed(3).replace('.',',')+' s',W-16,42);
+  g.font='600 11px system-ui';g.fillStyle=rel<0?'#8b93a1':'#34c759';g.fillText(rel<0?'BIS LICHTER AUS':'LICHTER AUS',W-16,62);g.textAlign='left';
+  // Diagramm: Tempo über der Zeit
+  const X0=46,X1=440,Y0=96,Y1=300;
+  let vmax=40;for(const f of fr)if(f[0]>=t0&&f[0]<=t1)for(let k=0;k<n;k++)vmax=Math.max(vmax,kmh(f[1+k]));vmax=Math.ceil(vmax/20)*20;
+  const tx=t=>X0+(t-t0)/(t1-t0)*(X1-X0),vy=v=>Y1-v/vmax*(Y1-Y0);
+  g.strokeStyle='#22262d';g.lineWidth=1;g.fillStyle='#69707d';g.font='10px system-ui';
+  for(let v=0;v<=vmax;v+=20){g.beginPath();g.moveTo(X0,vy(v));g.lineTo(X1,vy(v));g.stroke();g.fillText(v,X0-26,vy(v)+3)}
+  g.fillText('km/h',X0-30,Y0-8);
+  for(let k=Math.ceil((t0-lo)*2)/2;k<=t1-lo+1e-6;k+=.5){const x=tx(lo+k);g.fillText((k>0?'+':'')+k.toFixed(1).replace('.',','),x-9,Y1+14)}
+  // Lampen-Markierungen + Signal
+  (S.lights||[]).forEach((lt,i)=>{if(lt==null||lt<t0||lt>t1)return;const x=tx(lt);g.fillStyle='#ff2a1f';g.beginPath();g.arc(x,Y0-4,3,0,TAU);g.fill()});
+  {const x=tx(lo);g.strokeStyle='#e8eaed';g.setLineDash([5,4]);g.beginPath();g.moveTo(x,Y0-12);g.lineTo(x,Y1);g.stroke();g.setLineDash([]);g.fillStyle='#e8eaed';g.font='700 10px system-ui';g.fillText('SIGNAL',x+4,Y0-6)}
+  // Kurven (bis zum aktuellen Zeitpunkt)
+  for(let k=n-1;k>=0;k--){const c=cars[k];g.strokeStyle=c?c.color:'#888';g.lineWidth=k===0?3:1.4;g.globalAlpha=k===0?1:.55;g.beginPath();let st=false;
+    for(const f of fr){if(f[0]<t0)continue;if(f[0]>J.t)break;const x=tx(f[0]),y=vy(kmh(f[1+k]));if(!st){g.moveTo(x,y);st=true}else g.lineTo(x,y)}
+    if(st){g.lineTo(tx(J.t),vy(kmh(at(J.t,1+k))))}g.stroke();g.globalAlpha=1}
+  // erster Bewegungsmoment des Verdächtigen
+  let mvT=null;for(const f of fr){if(f[1+n]>.06){mvT=f[0];break}}
+  if(mvT!=null&&mvT<=J.t){const x=tx(mvT);g.strokeStyle=cars[0].color;g.setLineDash([2,3]);g.beginPath();g.moveTo(x,Y0);g.lineTo(x,Y1);g.stroke();g.setLineDash([]);
+    g.fillStyle=cars[0].color;g.font='700 10px system-ui';g.fillText('Bewegung '+((mvT-lo)<0?'−':'+')+Math.abs(mvT-lo).toFixed(2).replace('.',',')+' s',Math.min(x+4,X1-90),Y1-6)}
+  // Messwerte rechts
+  g.font='600 10px system-ui';g.fillStyle='#8b93a1';g.fillText('TRANSPONDER',458,104);
+  cars.forEach((c,k)=>{if(!c)return;const y=124+k*58,v=kmh(at(J.t,1+k)),m=Math.round(at(J.t,1+n+k)*16);
+    g.fillStyle=k===0?'rgba(255,255,255,.06)':'transparent';g.fillRect(452,y-14,176,52);
+    g.fillStyle=c.color;g.fillRect(458,y-8,4,40);
+    g.fillStyle='#e8eaed';g.font='800 14px system-ui';g.fillText(c.drv.c+(k===0?'  ⚑':''),468,y+4);
+    g.font='600 12px ui-monospace,monospace';g.fillStyle='#c9ced6';g.fillText(v+' km/h',468,y+22);
+    g.fillStyle=m>30?'#ff5a52':m>0?'#ffd60a':'#c9ced6';g.fillText(m+' cm',552,y+22)});
+  g.fillStyle='#69707d';g.font='10px system-ui';g.fillText('Toleranz Startbox: 30 cm',458,124+n*58);
 }
 const GFX={unsafe:'#ff9f0a',pitspeed:'#ffd60a',blue:'#2f8cff',yellowpass:'#ffd60a',side:'#ffb020',cut:'#ff6a3d',block:'#ff453a',rear:'#ff5a4f',revenge:'#ff2d55',start:'#ff9f0a',solo:'#4aa3ff',tech:'#c28bff',limits:'#e6e9ec',jump:'#ff3b30'};
 function carSv(x,y,r,col,s){return `<g transform="translate(${x} ${y}) rotate(${r}) scale(${s||1})"><rect x="-14" y="-6" width="3" height="12" fill="#222"/><rect x="-8" y="-7.5" width="6" height="3.5" fill="#111"/><rect x="-8" y="4" width="6" height="3.5" fill="#111"/><rect x="5" y="-7.5" width="5" height="3" fill="#111"/><rect x="5" y="4.5" width="5" height="3" fill="#111"/><path d="M-11 -3L4 -4 15 -1V1L4 4-11 3Z" fill="${col}"/><circle r="1.8" fill="#eee"/></g>`}
@@ -2010,11 +2138,44 @@ function incGfx(inc){
   else{g='<rect y="20" width="300" height="60" fill="#262a31"/>'+[0,1,2,3,4].map(i=>`<circle cx="${90+i*30}" cy="36" r="8" fill="#ff2a1f"/>`).join('')+carSv(150,70,0,a.color,1.6)+'<rect x="60" y="64" width="180" height="2" fill="#eee"/>'+tx('FR\u00dcHSTART-VERDACHT')}
   return `<svg viewBox="0 0 300 120" style="width:100%;border-radius:8px;margin-bottom:10px;background:linear-gradient(135deg,${ac}33,#111)">${g}</svg>`;
 }
+/* Status in der Rangliste wie in der echten Zeitnahme */
+function carStatus(c){
+  if(G.modal&&!G.modal.view&&G.modal.inc&&G.modal.inc.inv&&G.modal.inc.inv.some(e=>e.c===c))return 'inv';
+  if(G.mp){
+    const cl=G.client?(NET.cl||[]):(G.open||[]).filter(o=>o.claim).map(o=>[o.claim,o.inc.inv[0].c.drv.c]);
+    return cl.some(x=>x[1]===c.drv.c)?'inv':'';
+  }
+  if(G.pending&&G.pending.inv&&G.pending.inv.some(e=>e.c===c))return 'noted';
+  if(G.minors&&G.minors.some(m=>m.inc.inv.some(e=>e.c===c)))return 'noted';
+  return '';
+}
+/* Rückblick: die letzten 15 s eines Fahrers ansehen (im Mehrspieler läuft das Rennen im kleinen Fenster weiter) */
+function openCarView(id){
+  if(!G||G.modal||G.ended||G.pending)return;const c=G.cars[id];if(!c||G.snaps.length<10)return;
+  const fr=G.snaps,tEnd=fr[fr.length-1].t;let a=0;for(let i=0;i<fr.length;i++)if(fr[i].t>=tEnd-15){a=i;break}
+  const sl=fr.slice(a);
+  G.modal={inc:{kind:'view',inv:[{c,fault:0,role:'view'}],t:tEnd,x:c.x,y:c.y,title:c.drv.n,facts:[]},view:true,stage:'view',pen:{}};
+  G.replay={fr:sl,f:0,hold:0,ci:sl.length-1,paused:false,zoom:1,fps:(sl.length-1)/Math.max(.1,sl[sl.length-1].t-sl[0].t)};
+  $('inc').classList.remove('hide');renderModal(true);
+}
+function viewHTML(M){
+  const c=M.inc.inv[0].c,mi=G.mp?-1:(G.minors||[]).findIndex(m=>m.inc.inv.some(e=>e.c===c));
+  return `<div class="tag"><i style="background:${c.color}"></i>Rückblick · letzte 15 Sekunden</div><h2>${c.drv.n}</h2>
+   <p class="desc">Wiederholung von ${c.drv.c} (${c.team.n}). Leertaste = Pause, ← → spulen, ↑ ↓ zoomen.${G.mp?' Das Rennen läuft unten links im kleinen Fenster weiter.':' Das Rennen ist so lange angehalten.'}</p>
+   <div class="acts">${G.mp?'<button class="btn primary" data-act="vinv">Untersuchen<kbd>E</kbd></button>':mi>=0?'<button class="btn primary" data-act="vinv">Gemeldeten Vorfall öffnen</button>':''}<button class="btn" data-act="next">Schließen<kbd>Esc</kbd></button></div>`;
+}
+function viewInvestigate(){
+  const M=G.modal;if(!M||!M.view)return;const c=M.inc.inv[0].c;closeModal();
+  if(G.mp){G.sel=c.id;NET.invCd=0;mpInvestigate()}
+  else{const mi=(G.minors||[]).findIndex(m=>m.inc.inv.some(e=>e.c===c));if(mi>=0)openMinor(mi)}
+}
 function dcard(){
-  const el=$('dcard'),c=G.sel>=0&&G.cars[G.sel];if(!c){el.classList.add('hide');return}
+  const el=$('dcard'),c=G.sel>=0&&G.cars[G.sel];if(!c){el.classList.add('hide');el.dataset.ak='';return}
   const st=standings(),p=st.indexOf(c)+1,ld=st[0],b=(l,v)=>`<div class="mt" style="grid-template-columns:62px 1fr 26px"><span>${l}</span><div class="bar"><div style="width:${v}%;background:${c.color}"></div></div><b>${v}</b></div>`;
   el.classList.remove('hide');
-  el.innerHTML=`<svg viewBox="0 0 200 46" style="width:100%;border-radius:5px;background:linear-gradient(90deg,${c.color}66,transparent)">${carSv(100,23,0,c.color,1.5)}</svg><b style="font-size:14px">${c.drv.n}</b><div style="color:var(--mut)">${c.team.n} \u00b7 ${c.drv.c}</div><div>${c.dsq?'DSQ':c.out?'Ausfall':'P'+p+' \u00b7 '+(c===ld?'F\u00fchrender':'+'+Math.max(0,(ld.dist-c.dist)/T.av).toFixed(1)+' s')}</div><div style="color:var(--warn)">Strafen: ${c.penT?'+'+c.penT+' s':'keine'}${c.warns?' \u00b7 \u26a0'+c.warns+'/3':''}</div><div>Reifen: <b style="color:${TY[c.tyre].c}">${TY[c.tyre].n}</b> · Verschleiß ${Math.min(100,Math.round(c.tw*100))} % · Stopps ${c.stops}</div><div>Strategie: <b style="color:${c.st==='aggr'?'#ff453a':c.st==='def'?'#4aa3ff':c.st==='tak'?'#ffd60a':'var(--tx)'}">${SP(c).n}</b>${c.st!==c.stBase?` <span style="color:var(--mut)">(sonst ${STRATS[c.stBase].n})</span>`:''}${c.tl?` · Limits ${c.tl}/3`:''}</div>${b('Pace',Math.round((c.drv.pc-.97)/.025*100))}${b('Technik',Math.round(c.drv.sk*100))}${b('Aggression',Math.round(c.drv.ag*100))}`;
+  const ak=c.id+'|'+(G.mp?1:0);
+  if(el.dataset.ak!==ak){el.dataset.ak=ak;el.innerHTML=`<div class="dci"></div><div class="dca"><button class="btn" data-act="cview" title="Wiederholung der letzten 15 Sekunden">▶ Letzte 15 s</button>${G.mp?'<button class="btn" data-act="inv">Untersuchen<kbd>E</kbd></button>':''}</div>`}
+  el.querySelector('.dci').innerHTML=`<svg viewBox="0 0 200 46" style="width:100%;border-radius:5px;background:linear-gradient(90deg,${c.color}66,transparent)">${carSv(100,23,0,c.color,1.5)}</svg><b style="font-size:14px">${c.drv.n}</b><div style="color:var(--mut)">${c.team.n} \u00b7 ${c.drv.c}</div><div>${c.dsq?'DSQ':c.out?'Ausfall':'P'+p+' \u00b7 '+(c===ld?'F\u00fchrender':'+'+Math.max(0,(ld.dist-c.dist)/T.av).toFixed(1)+' s')}</div><div style="color:var(--warn)">Strafen: ${c.penT?'+'+c.penT+' s':'keine'}${c.warns?' \u00b7 \u26a0'+c.warns+'/3':''}</div><div>Reifen: <b style="color:${TY[c.tyre].c}">${TY[c.tyre].n}</b> · Verschleiß ${Math.min(100,Math.round(c.tw*100))} % · Stopps ${c.stops}</div><div>Strategie: <b style="color:${c.st==='aggr'?'#ff453a':c.st==='def'?'#4aa3ff':c.st==='tak'?'#ffd60a':'var(--tx)'}">${SP(c).n}</b>${c.st!==c.stBase?` <span style="color:var(--mut)">(sonst ${STRATS[c.stBase].n})</span>`:''}${c.tl?` · Limits ${c.tl}/3`:''}</div>${b('Pace',Math.round((c.drv.pc-.97)/.025*100))}${b('Technik',Math.round(c.drv.sk*100))}${b('Aggression',Math.round(c.drv.ag*100))}`;
 }
 /* Boxengasse: Fast Lane (Durchfahrt mit Tempolimit) + Arbeitsspur mit den Boxen.
    Ein Auto biegt erst kurz vor seiner Box in die Arbeitsspur, hält an, fährt direkt wieder los –
@@ -2214,6 +2375,11 @@ function applyPenalty(c,P){
 function closeModal(){
   const M=G.modal;if(!M)return;
   const inc=M.inc;
+  if(M.view){G.modal=null;G.replay=null;$('inc').classList.add('hide');return}
+  if(M.rev){
+    if(G.client){if(M.stage!=='result')netSend({t:'revClose',id:M.rev})}else if(M.stage!=='result')revRelease(M.rev);
+    G.modal=null;G.replay=null;$('inc').classList.add('hide');showReview();return;
+  }
   if(G.mp)mpOnClose(M);
   if(M.appliedFlag&&M.appliedFlag!==G.flag)setFlag(M.appliedFlag,'player');
   const mi=G.minors.findIndex(m=>m.inc===inc);if(mi>=0){G.minors.splice(mi,1);renderToasts()}
@@ -2285,7 +2451,7 @@ function hlCapture(q){
 function endRace(reason){
   if(G.ended)return;
   hlStep(true);
-  if(G.mp&&NET.role==='host'){awardSeasonPoints();netAll(packSnap());netAll({t:'end',reason,season:SEASON,stats:G.stats})}
+  if(G.mp&&NET.role==='host'){G.review=buildReview();netAll(packSnap());netAll({t:'end',reason,season:SEASON,stats:G.stats});netAll({t:'rev',items:revList()})}
   G.ended=true;G.phase='done';G.endReason=reason;
   G.modal=null;G.pending=null;G.replay=null;$('inc').classList.add('hide');$('pip').classList.add('hide');document.body.classList.remove('mpm');
   $('hud').classList.add('hide');setLights(-1);$('toasts').innerHTML='';
@@ -2306,6 +2472,7 @@ function renderHL(){
 function hlNext(){const E=G.end;E.ci=(E.ci+1)%E.clips.length;if(E.ci===0)E.loops++;E.f=0;E.hold=0;E.snap=true;renderHL()}
 function afterHighlights(){
   $('hl').classList.add('hide');
+  if(G.mp){showReview();return}
   if(G.protest)showResults(2);else showPodium();
 }
 function endTick(rdt){
@@ -2506,7 +2673,7 @@ function fired(why){
   mpClientActs(el);
 }
 function makeProtest(){
-  const cls=classify().filter(r=>!r.out&&!r.dsq&&r.fin);
+  const cls=classify().filter(r=>!r.out&&!r.dsq&&(r.fin||G.mp));   // Mehrspieler: auch Autos, die beim Abwinken noch fahren
   if(cls.length<4)return null;
   const lenient=G.hist.filter(h=>h.entries.some(e=>e.diff<=-1&&e.fault>=.5));
   const lowTeam=G.mood.map((m,i)=>[m,i]).sort((a,b)=>a[0]-b[0])[0];
@@ -2540,7 +2707,12 @@ function makeProtest(){
     opts:[{l:'Protest abweisen',fn:()=>{}},{l:'Nachträglich +10 s für '+off.c.drv.c,fn:()=>{off.c.penT+=10}},{l:'Nachträglich +20 s für '+off.c.drv.c,fn:()=>{off.c.penT+=20}}],ideal,team:off.c.ti,prot:vic.c.ti,who:off.c};
 }
 function resolveProtest(i){
-  const p=G.protest;if(!p||G.protDone)return;G.protDone=true;const diff=i-p.ideal,lines=[];
+  if(!G.protest||G.protDone)return;
+  G.protRes=protestVerdict(i);
+  showResults('p');
+}
+function protestVerdict(i){
+  const p=G.protest;G.protDone=true;const diff=i-p.ideal,lines=[];
   p.opts[i].fn();G.stats.prot++;
   const dm=(k,v)=>{G.meters[k]=clamp(G.meters[k]+v,0,100)};
   let head;
@@ -2548,8 +2720,7 @@ function resolveProtest(i){
   else if(Math.abs(diff)===1){dm('f',2);head='Vertretbar.';lines.push(diff<0?'Etwas milde – aber niemand legt weiter Einspruch ein.':'Etwas hart – ein Team murrt, akzeptiert es aber.')}
   else{dm('f',-9);G.mood[p.team]=clamp(G.mood[p.team]-6,0,100);head=diff<0?'Ein Skandal-Freispruch?':'Ein Skandal-Urteil?';lines.push(diff<0?'Die Beweise waren eindeutig – die Presse wirft dir Kumpanei vor.':'Die Beweise reichten nicht – das betroffene Team kündigt rechtliche Schritte an.')}
   lines.push(`Entscheidung: ${p.opts[i].l}. (Ideal: ${p.opts[p.ideal].l})`);
-  G.protRes={head,lines};
-  showResults('p');
+  return {head,lines};
 }
 
 /* =====================================================================
@@ -2809,6 +2980,7 @@ function render(rdt){
     ctx.fillText(near?'ZEITLUPE':'',W-28,H*.09-14);
   }
   if(G&&G.mp)renderPip(rdt);
+  if(G&&G.modal&&G.modal.jg)jumpGfxTick(rdt);
 }
 
 /* =====================================================================
@@ -2943,7 +3115,7 @@ function tick(rdt){
   if(!G){MENUT+=rdt;return}
   if(G.client){clientTick(rdt);return}
   camUpdate(rdt);
-  if(G.ended){endTick(rdt);return}
+  if(G.ended){endTick(rdt);if(G.modal)replayAdvance(rdt);return}
   if(G.modal){replayAdvance(rdt);if(!G.mp)return}        // Mehrspieler: Rennen läuft während der Überprüfung weiter
   if(G.paused&&!G.mp)return;
   if(G.pending){G.crashT-=rdt;if(G.crashT<=0){finishPending();return}}
@@ -2972,7 +3144,7 @@ function updateHud(){
     let g='';
     if(c.dsq)g='DSQ';else if(c.out)g='OUT';else if(i===0)g=c.finished?'ZIEL':'Leader';
     else{const gd=ld.dist-c.dist;g=gd>T.L?'+'+Math.floor(gd/T.L)+' R':'+'+(gd/T.av).toFixed(1)}
-    const pn=(c.pit?'PIT ':'')+(c.drs?'DRS ':'')+(c.penT?'+'+c.penT+'s':'')+(c.warns?' ⚠'+c.warns:'');
+    const cs=carStatus(c),pn=(cs==='inv'?'<b class="tst i" title="Wird gerade untersucht">UNTERS.</b>':cs==='noted'?'<b class="tst n" title="Vorfall notiert">NOTIERT</b>':'')+(c.pit?'PIT ':'')+(c.drs?'DRS ':'')+(c.penT?'+'+c.penT+'s':'')+(c.warns?' ⚠'+c.warns:'');
     h+=`<div class="row${G.sel===c.id?' sel':''}${hovered===c.id?' hover':''}" data-car="${c.id}"><span class="p">${i+1}</span><i style="background:${c.color}"></i><b>${c.drv.c}<u style="color:${TY[c.tyre].c};text-decoration:none;font-size:9px;margin-left:3px">${c.tyre}</u></b><span class="g">${g}</span><em>${pn}</em></div>`;
   });
   tower.innerHTML=h;dcard();radioRender();
@@ -3137,11 +3309,17 @@ towerEl.addEventListener('pointerdown',e=>{
   G.sel=G.sel===id?-1:id;
   updateHud();
 });
+document.addEventListener('input',e=>{
+  if(e.target&&e.target.id==='jgr'&&G&&G.modal&&G.modal.jg){const J=G.modal.jg;J.play=false;J.t=J.t0+(+e.target.value/1000)*(J.t1-J.t0);const b=document.querySelector('[data-jg="play"]');if(b)b.textContent='▶'}
+});
 document.addEventListener('click',e=>{
   actx();
   const t=e.target;if(!t||!t.closest)return;
   let q;
   if((q=t.closest('[data-mp]'))){mpMenuAct(q.dataset.mp);return}
+  if((q=t.closest('[data-jg]'))&&G&&G.modal&&G.modal.jg){const J=G.modal.jg,v=q.dataset.jg;
+    if(v==='play'){if(!J.play&&J.t>=(J.t1||1e9)-1e-3)J.t=J.t0;J.play=!J.play}else if(v==='re'){J.t=J.t0!=null?J.t0:J.t;J.play=true}else if(v[0]==='s')J.spd=+v.slice(1);
+    renderModal();return}
   if((q=t.closest('#pip'))&&G){G.pip=G.pip||{};G.pip.tv=!G.pip.tv;$('pipm').textContent=G.pip.tv?'TV-Regie · Klick = Übersicht':'Übersicht · Klick = TV';return}
   if((q=t.closest('[data-track]'))&&!G&&NET.role!=='client'){
     const i=+q.dataset.track;
@@ -3168,6 +3346,7 @@ document.addEventListener('click',e=>{
     const a=q.dataset.act;
     if(a==='confirm')doConfirm();else if(a==='ask')doAsk();else if(a==='next'||a==='mpclose')closeModal();
     else if(a==='inv')mpInvestigate();
+    else if(a==='cview'&&G.sel>=0)openCarView(G.sel);else if(a==='vinv')viewInvestigate();
     else if(a==='pause')togglePause();else if(a==='speed'&&!G.modal)cycleSpeed();
     else if(a==='follow')cycleCam();else if(a==='mute')MUTE=!MUTE;
     return;
@@ -3183,9 +3362,16 @@ document.addEventListener('click',e=>{
     else if(v==='hlskip'&&G.end&&G.end.stage==='hl')afterHighlights();
     else if(v==='hlnext'&&G.end&&G.end.stage==='hl')hlNext();
     else if(v==='pod'||v==='3')showPodium();else if(v==='final')showFinal();
+    else if(v==='revdone'&&NET.role==='host')revFinish();
     return;
   }
   if((q=t.closest('[data-prot]'))){resolveProtest(+q.dataset.prot);return}
+  if((q=t.closest('[data-rev]'))&&G.end&&G.end.stage==='rev'){const id=+q.dataset.rev;if(G.client)netSend({t:'revOpen',id});else revOpen(id,'host');return}
+  if((q=t.closest('[data-rprot]'))&&G.end&&G.end.stage==='rev'){const [a,b]=q.dataset.rprot.split(':');
+    if(b==='x'){if(G.revProt&&G.revProt.id&&!G.revProt.res){if(G.client)netSend({t:'revClose',id:+a});else revRelease(+a)}G.revProt=null;showReview();return}
+    if(G.client){netSend({t:'revPick',id:+a,i:+b});G.revProt={res:1};$('results').innerHTML='<div class="rwrap"><h2>Entscheidung wird übermittelt …</h2></div>'}
+    else{const r=revProtDecide(+a,+b,'host');if(r)revShowRes(r)}
+    return}
 });
 cv.addEventListener('click',e=>{
   if(!G||G.modal||G.ended)return;
@@ -3224,7 +3410,7 @@ addEventListener('keydown',e=>{
   if(!G){if(e.key==='Enter'&&document.activeElement&&document.activeElement.id==='mpCodeIn')netJoin();return}
   const k=e.key.toLowerCase();
   if(G.client&&G.end&&k==='enter'&&(G.end.stage==='final'||G.end.stage==='sfinal'))return;   // Mitspieler: Host steuert den Ablauf
-  if(G.end){
+  if(G.end&&!(G.end.stage==='rev'&&G.modal)){
     const st=G.end.stage;
     if(st==='hl'){
       if(k==='arrowright'){e.preventDefault();hlNext()}
@@ -3234,16 +3420,18 @@ addEventListener('keydown',e=>{
       if(st==='pod')showFinal();
       else if(st==='final'){if(!SEASON)toMenu();else if(SEASON.idx+1<SEASON.cal.length){SEASON.idx++;startSeasonRace()}else showSeasonEnd()}
       else if(st==='sfinal')toMenu();
+      else if(st==='rev'&&NET.role==='host'&&!G.revProt)revFinish();
     }
     return;
   }
   if(G.modal){
+    if(G.modal.view){if(k==='escape'){e.preventDefault();closeModal();return}if(k==='e'){e.preventDefault();viewInvestigate();return}}
     if(G.mp){
       if(k==='escape'){e.preventDefault();closeModal();return}
       const mf={g:'green',y:'yellow',v:'vsc',s:'sc',r:'red'}[k];if(mf){mpFlag(mf);return}
     }
     const R=G.replay;
-    if(R&&G.modal.stage==='decide'){
+    if(R&&(G.modal.stage==='decide'||G.modal.view)){
       if(k==='arrowleft'){e.preventDefault();R.f=Math.max(0,R.f-3);R.hold=0;return}
       if(k==='arrowright'){e.preventDefault();R.f=Math.min(R.fr.length-1,R.f+3);R.hold=0;return}
       if(k==='arrowup'){e.preventDefault();R.zoom=clamp((R.zoom||1)*1.15,.65,2.5);return}
@@ -3565,6 +3753,7 @@ function hostMsg(conn,d){
     return;
   }
   if(NET.conns[id]!==conn)return;
+  if(G&&G.mp&&G.ended&&G.review){revHostMsg(conn,id,d);return}
   if(!G||!G.mp||G.ended)return;
   const M=NET.rm[id];
   if(d.t==='flag'&&LV[d.f]!=null){setFlag(d.f,'player')}
@@ -3610,7 +3799,7 @@ function hostNet(rdt){
 }
 /* ---------- stille Vorfälle (Host) ---------- */
 function mpSilent(inc,life){
-  inc.noFlag=true;(G.open||(G.open=[])).push({inc,exp:G.simT+life,claim:null});
+  inc.noFlag=true;(G.open||(G.open=[])).push({inc,exp:G.simT+life,claim:null});(G.clipQ||(G.clipQ=[])).push(inc);
   // einziger möglicher Hinweis: ein Fahrer beschwert sich am Funk (wie im echten Rennen)
   if(inc.inv.length>1&&inc.stmts&&Math.random()<.35){
     const v=inc.inv.reduce((a,b)=>b.fault<a.fault?b:a,inc.inv[0]),s=inc.stmts.find(x=>x.code===v.c.drv.c);
@@ -3621,7 +3810,7 @@ function mpOpenStep(){
   const L=G.open||[];
   for(let i=L.length-1;i>=0;i--){
     const o=L[i];if(o.claim||G.simT<=o.exp)continue;
-    L.splice(i,1);
+    L.splice(i,1);(G.missed||(G.missed=[])).push(o.inc);
     const inc=o.inc,e0=inc.inv.reduce((a,b)=>b.fault>a.fault?b:a,inc.inv[0]),I=idealPen(e0.fault,inc.sev,inc.intent,inc.base);
     if(I>=2){G.meters.f=clamp(G.meters.f-(inc.minor?2:3),0,100);inc.inv.forEach(v=>{if(v!==e0&&v.fault<.3)G.mood[v.c.ti]=clamp(G.mood[v.c.ti]-2,0,100)});
       addLog('ÜBERSEHEN',`${inc.title} – ${e0.c.drv.c} blieb ohne Strafe (fällig: ${PEN[I].b}).`,'bad')}
@@ -3648,6 +3837,100 @@ function mpOnClose(M){
   if(G.client){if(M.stage!=='result')netSend({t:'close'});return}
   if(M.stage!=='result'){const o=(G.open||[]).find(o=>o.inc===M.inc);if(o)o.claim=null}
 }
+/* ---------- Nachbesprechung (Mehrspieler): verpasste Vorfälle + Proteste nach dem Rennen ----------
+   Verpasste Vorfälle können nachträglich mit Wiederholung entschieden werden – das zählt nur 40 %.
+   Proteste der Teams werden wie im Einzelspieler bewertet (volle Punkte). */
+const REV_W=.4;
+function makeClip(inc){
+  const out=[];let k=0;
+  for(const f of G.snaps){if(f.t<inc.t-3||f.t>inc.t+3.2)continue;if(k++%2)continue;
+    out.push({t:+f.t.toFixed(2),c:f.c.map(a=>a?[Math.round(a[0]*10)/10,Math.round(a[1]*10)/10,Math.round(a[2]*100)/100,a[3],a[4]]:null)})}
+  return out;
+}
+function clipStep(){const Q=G.clipQ;if(!Q||!Q.length)return;for(let i=Q.length-1;i>=0;i--)if(G.simT>=Q[i].t+3.3){Q[i].clip=makeClip(Q[i]);Q.splice(i,1)}}
+function buildReview(){
+  (G.clipQ||[]).forEach(inc=>{inc.clip=makeClip(inc)});G.clipQ=[];
+  const miss=(G.missed||[]).concat((G.open||[]).map(o=>o.inc));G.open=[];
+  const seen=new Set(),items=[];let n=0;
+  miss.sort((a,b)=>(b.sev||0)-(a.sev||0)).forEach(inc=>{if(seen.has(inc)||items.length>=8)return;seen.add(inc);items.push({id:++n,k:'miss',inc,title:inc.title,lap:inc.lap,where:inc.where,st:'open',by:null,head:''})});
+  items.sort((a,b)=>a.inc.t-b.inc.t);
+  const pk=p=>p.title.split(': ')[1].split(' ')[0],pr=[];for(let i=0;i<6&&pr.length<2;i++){const p=makeProtest();if(p&&!pr.some(q=>pk(q)===pk(p)))pr.push(p)}
+  pr.forEach(p=>items.push({id:++n,k:'prot',prot:p,title:p.title,st:'open',by:null,head:''}));
+  return {items,rm:{}};
+}
+function revList(){return G.review.items.map(it=>({id:it.id,k:it.k,title:it.title,lap:it.lap||0,where:it.where||'',st:it.st,by:it.by,head:it.head}))}
+function revPub(){if(NET.role==='host')netAll({t:'rev',items:revList()});if(G.end&&G.end.stage==='rev'&&!G.modal&&!G.revProt)showReview()}
+function showReview(){
+  G.end=Object.assign(G.end||{},{stage:'rev'});
+  const el=$('results');el.classList.remove('hide','pod');$('hl').classList.add('hide');
+  const items=NET.role==='host'?revList():(G.revItems||[]);
+  const host=NET.role==='host';
+  const row=it=>{const st=it.st==='open'?'<span class="mut">offen</span>':it.st==='busy'?`<span style="color:${pCol(it.by)}">wird geprüft von ${esc(pName(it.by))}</span>`:`<span style="color:var(--ok)">entschieden</span>${it.by?` · ${esc(pName(it.by))}`:''}${it.head?` – ${it.head}`:''}`;
+    return `<li class="revi"><span class="rvb ${it.k}">${it.k==='prot'?'PROTEST':'VERPASST'}</span><div><b>${it.title}</b>${it.lap?`<br><span class="mut">Runde ${it.lap}${it.where?' · '+it.where:''}</span>`:''}<br>${st}</div>${it.st==='open'?`<button class="btn" data-rev="${it.id}">${it.k==='prot'?'Prüfen':'Ansehen'}</button>`:''}</li>`};
+  el.innerHTML=`<div class="rwrap"><div class="tag">NACHBESPRECHUNG · STEWARDS</div><h2>Offene Fälle nach dem Rennen</h2>
+   <p class="desc">Vorfälle, die im Rennen niemand untersucht hat, könnt ihr jetzt mit Wiederholung nachträglich entscheiden – das zählt aber nur ${Math.round(REV_W*100)} %. Proteste der Teams werden voll bewertet. Strafen ändern das Endergebnis.</p>
+   ${items.length?`<ul class="revl">${items.map(row).join('')}</ul>`:'<p class="desc" style="margin-top:12px">Keine offenen Fälle – sauber geleitet!</p>'}
+   <div class="acts">${host?`<button class="btn primary" data-res="revdone">Zur Siegerehrung<kbd>⏎</kbd></button>`:'<span class="mpSt" style="align-self:center">Der Host schließt die Nachbesprechung ab …</span><button class="btn" data-res="leave">Mehrspieler verlassen</button>'}</div></div>`;
+}
+// Host: ein Fall wird geöffnet (by = 'host' oder Spieler-ID)
+function revOpen(id,by,conn){
+  const it=G.review.items.find(x=>x.id===id);if(!it||it.st!=='open')return null;
+  it.st='busy';it.by=by;revPub();
+  if(it.k==='miss'){const M={inc:it.inc,pen:{},flag:G.flag,stage:'decide',asked:false,res:null,hint:'',by,rev:id};it.inc.inv.forEach(e=>{M.pen[e.c.id]=0});
+    if(by==='host')openRevModal(M,it.inc.clip||[]);else{G.review.rm[by]=M;conn.send({t:'revInc',id,inc:Object.assign(incPack(it.inc),{clip:it.inc.clip||[]}),vl:G.varLeft})}}
+  else{const p=it.prot,pk={id,title:p.title,desc:p.desc,facts:p.facts,opts:p.opts.map(o=>o.l)};if(by==='host')showRevProt(pk);else conn.send(Object.assign({t:'revProt'},pk))}
+  return it;
+}
+function openRevModal(M,clip){
+  G.modal=M;G.revProt=null;$('results').classList.add('hide');
+  let ci=0;for(let i=0;i<clip.length;i++)if(clip[i].t>=M.inc.t){ci=i;break}
+  G.replay={fr:clip.length?clip:[{t:M.inc.t,c:[]}],f:0,hold:0,ci,paused:false,zoom:1,fps:clip.length>1?(clip.length-1)/Math.max(.1,clip[clip.length-1].t-clip[0].t):15};
+  $('inc').classList.remove('hide');renderModal(true);beep(500,.08,'square',.03);
+}
+// Host: nachträgliche Entscheidung auswerten (nur 40 % Wirkung auf die Werte)
+function revDecide(M){
+  const m0={...G.meters},md0=G.mood.slice();
+  confirmDecision(M);
+  const r=M.res;if(!r)return;
+  for(const k of ['f','s','e'])G.meters[k]=clamp(m0[k]+(G.meters[k]-m0[k])*REV_W,0,100);
+  G.mood=G.mood.map((v,i)=>clamp(md0[i]+(v-md0[i])*REV_W,0,100));
+  for(const k in r.d)r.d[k]=Math.round((r.d[k]||0)*REV_W);for(const k in r.tm)r.tm[k]=Math.round(r.tm[k]*REV_W);
+  r.lines.push(`<span class="mut">Nachträgliche Entscheidung – zählt nur ${Math.round(REV_W*100)} %</span>`);
+  const it=G.review.items.find(x=>x.id===M.rev);if(it){it.st='done';it.head=r.head}
+  revPub();
+}
+function revRelease(id){const it=G.review.items.find(x=>x.id===id);if(it&&it.st==='busy'){it.st='open';it.by=null;revPub()}}
+// Protest anzeigen (Host lokal oder Mitspieler)
+function showRevProt(p){
+  G.revProt=p;const el=$('results');el.classList.remove('hide','pod');
+  el.innerHTML=`<div class="rwrap"><div class="tag">PROTEST NACH DEM RENNEN</div><h2>${p.title}</h2><p class="desc">${p.desc}</p><h3>BEWEISE</h3><ul class="facts">${p.facts.map(f=>`<li>${f}</li>`).join('')}</ul><h3>EURE ENTSCHEIDUNG</h3><div class="acts" style="flex-direction:column">${p.opts.map((o,i)=>`<button class="btn" data-rprot="${p.id}:${i}" style="text-align:left">${o}</button>`).join('')}<button class="btn" data-rprot="${p.id}:x" style="text-align:left;opacity:.7">← Zurück zur Liste</button></div></div>`;
+}
+function revProtDecide(id,i,by){
+  const it=G.review.items.find(x=>x.id===id);if(!it||it.k!=='prot'||it.st==='done')return null;
+  const sv=G.protest,svd=G.protDone;G.protest=it.prot;G.protDone=false;
+  const r=protestVerdict(i);G.protest=sv;G.protDone=svd;
+  it.st='done';it.by=by;it.head=r.head;revPub();
+  return r;
+}
+function revShowRes(r){
+  G.revProt={res:1};const el=$('results');el.classList.remove('hide','pod');
+  el.innerHTML=`<div class="rwrap"><div class="tag">PROTEST – ENTSCHEIDUNG</div><h2>${r.head}</h2><ul class="facts">${r.lines.map(l=>`<li>${l}</li>`).join('')}</ul><div class="acts"><button class="btn primary" data-rprot="0:x">Zurück zur Liste</button></div></div>`;
+}
+// Host schließt ab → Strafen stehen fest, Punkte werden vergeben, alle gehen zur Siegerehrung
+function revFinish(){
+  if(NET.role!=='host')return;
+  if(G.modal){G.modal=null;G.replay=null;$('inc').classList.add('hide')}
+  G.revProt=null;awardSeasonPoints();
+  netAll({t:'revDone',season:SEASON,cars:G.cars.map(c=>[c.penT,c.dsq?1:0,c.warns]),m:[G.meters.f,G.meters.s,G.meters.e],mood:G.mood,stats:G.stats});
+  showPodium();
+}
+function revHostMsg(conn,id,d){
+  if(d.t==='revOpen')revOpen(+d.id,id,conn);
+  else if(d.t==='revClose'){const M=G.review.rm[id];if(M){revRelease(M.rev);delete G.review.rm[id]}else if(d.id)revRelease(+d.id)}
+  else if(d.t==='var'){const M=G.review.rm[id];if(M){askVar(M);conn.send({t:'incHint',hint:M.hint,vl:G.varLeft})}}
+  else if(d.t==='dec'){const M=G.review.rm[id];if(M&&M.inc.id===d.id){M.pen={};M.inc.inv.forEach(e=>{M.pen[e.c.id]=clamp(+(d.pen||{})[e.c.id]||0,0,6)});revDecide(M);conn.send({t:'incRes',res:M.res});delete G.review.rm[id]}}
+  else if(d.t==='revPick'){const r=revProtDecide(+d.id,+d.i,id);if(r)conn.send({t:'revRes',head:r.head,lines:r.lines})}
+}
 /* ---------- lokale Aktionen (Host und Mitspieler) ---------- */
 function mpToast(txt){
   const el=document.createElement('div');el.className='toast mpToast';el.innerHTML=`<span>${txt}</span>`;
@@ -3665,6 +3948,7 @@ function mpInvestigate(){
 function doConfirm(){
   if(!G||!G.modal)return;
   if(G.client){const M=G.modal;if(M.stage!=='decide')return;M.stage='wait';netSend({t:'dec',id:M.inc.id,pen:M.pen});renderModal(true);return}
+  if(G.modal.rev){if(G.modal.stage==='decide'){revDecide(G.modal);renderModal(true)}return}
   confirmDecision();
 }
 function doAsk(){
@@ -3793,12 +4077,19 @@ function clientMsg(d){
       if(G.modal){G.modal=null;G.replay=null}endRace(d.reason)}break;
     case 'fired':if(G&&G.client){G.modal=null;G.replay=null;fired(d.why)}break;
     case 'bye':clientLost();NET.st='Der Host hat das Spiel beendet.';mpMenuRender();break;
+    case 'rev':if(G){G.revItems=d.items;if(G.end&&G.end.stage==='rev'&&!G.modal&&!G.revProt)showReview()}break;
+    case 'revInc':if(G&&G.ended&&!G.modal){const inc=incUnpack(d.inc);G.varLeft=d.vl;const M={inc,pen:{},flag:G.flag,stage:'decide',asked:false,res:null,hint:'',by:'me',rev:d.id};inc.inv.forEach(e=>{M.pen[e.c.id]=0});openRevModal(M,d.inc.clip||[])}break;
+    case 'revProt':if(G&&G.ended)showRevProt(d);break;
+    case 'revRes':if(G&&G.ended)revShowRes(d);break;
+    case 'revDone':if(G&&G.client){SEASON=d.season||null;d.cars.forEach((a,i)=>{const c=G.cars[i];if(c){c.penT=a[0];c.dsq=!!a[1];c.warns=a[2]}});
+      G.meters.f=d.m[0];G.meters.s=d.m[1];G.meters.e=d.m[2];if(d.mood)G.mood=d.mood;if(d.stats)G.stats=d.stats;
+      G.modal=null;G.replay=null;G.revProt=null;$('inc').classList.add('hide');$('hl').classList.add('hide');showPodium()}break;
   }
 }
 function incPack(inc){
   const tr=inc.truth||{},cs=inc.cause;
   return {id:inc.id,kind:inc.kind,base:inc.base,minor:!!inc.minor,title:inc.title,where:inc.where,lap:inc.lap,facts:inc.facts,x:inc.x,y:inc.y,t:inc.t,sev:inc.sev,
-    inv:inc.inv.map(e=>({id:e.c.id,role:e.role})),tr:{type:tr.type,out:!!tr.out,fire:!!tr.fire},
+    inv:inc.inv.map(e=>({id:e.c.id,role:e.role})),tr:{type:tr.type,out:!!tr.out,fire:!!tr.fire,jt:tr.jt},tel:inc.tel&&inc.tel.fr?{ids:inc.tel.ids,fr:inc.tel.fr,lights:inc.tel.lights,lo:inc.tel.lo}:null,
     cause:cs?{cu:cs.culprit?cs.culprit.id:-1,vi:cs.victim?cs.victim.id:-1,label:cs.label,cause:cs.cause}:null};
 }
 function incUnpack(p){
@@ -3855,7 +4146,7 @@ function netInterp(rdt){
   G.sc.dist=a.sc+(b.sc-a.sc)*q;
 }
 function clientTick(rdt){
-  if(G.ended){camUpdate(rdt);endTick(rdt);return}
+  if(G.ended){camUpdate(rdt);endTick(rdt);if(G.modal)replayAdvance(rdt);return}
   netInterp(rdt);
   camUpdate(rdt);
   if(G.modal)replayAdvance(rdt);
