@@ -258,6 +258,8 @@ h3{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut
 .facts li{font-size:12.5px;line-height:1.45;padding:6px 0 6px 14px;border-bottom:1px solid var(--line);color:#d5d9df}
 .facts li:last-child{border-bottom:0}
 .facts li:before{background:var(--acc);width:4px;height:4px;top:13px}
+#pingTag{position:fixed;top:3px;right:8px;z-index:60;font:600 10px ui-monospace,monospace;color:#9aa3ae;background:rgba(10,12,15,.6);padding:2px 6px;border-radius:4px;pointer-events:none;letter-spacing:.02em}
+#pingTag b{font-weight:800}
 .revl{list-style:none;margin:14px 0;display:flex;flex-direction:column;gap:8px}
 .revi{display:flex;gap:12px;align-items:center;background:#14171c;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:12.5px;line-height:1.45}
 .revi>div{flex:1}.rvb{font-size:9.5px;font-weight:800;letter-spacing:.08em;padding:3px 6px;border-radius:4px;background:#3a1d1b;color:#ff8a80;white-space:nowrap}
@@ -349,7 +351,7 @@ body.mpm #bar{z-index:22;left:calc((100% - 400px)/2)}
 </div>
 
 <div id="inc" class="hide"></div>
-<div id="pip" class="hide"><canvas id="pipc"></canvas><b>● LIVE</b><em id="pipm">Übersicht · Klick = TV</em></div>
+<div id="pingTag" class="hide"></div><div id="pip" class="hide"><canvas id="pipc"></canvas><b>● LIVE</b><em id="pipm">Übersicht · Klick = TV</em></div>
 <div id="pauseTag" class="hide">PAUSE</div>
 
 <div id="menu">
@@ -1014,7 +1016,7 @@ function updateRail(c,dt){
     const dd=mod(o.s-c.s,T.L);
     if(dd>0&&dd<ag&&!o.pit){ag=dd;ah=o}
     const db=T.L-dd;if(db>0&&db<bg)bg=db;
-    if(dd>0&&dd<220&&Math.abs(o.d-c.d)<CW*1.3&&dd<gm){gm=dd;lead=o}
+    if(dd>0&&dd<220&&dd<gm&&(Math.abs(o.d-c.d)<CW*1.3||(c.onIdeal&&dd<140&&Math.abs(o.d-idealD(o.s))<CW*1.1))){gm=dd;lead=o}
   }
   c.lead=lead;c.gap=lead?gm-CL:999;
   /* DRS wie in echt: auf der Geraden aktiv, wenn < 1 s hinter dem Vordermann (egal auf welcher Spur).
@@ -1044,15 +1046,23 @@ function updateRail(c,dt){
       const stt=Math.abs(kapAt(c.s))<.0025&&Math.abs(kapAt(c.s+80))<.0025,ed=adv+(stt?.014*Math.max(0,1-c.gap/80):0)+(c.drs?.03:0);
       // Mit DRS / Windschatten früh ausscheren und die ganze Gerade nutzen (statt hinterherzufahren)
       const strL=straightAhead(c.s),atk=(c.drs||(stt&&c.gap<T.av*.3))&&strL>T.av*1.1&&c.gap<T.av*.55;
+      // Kurveneingang: Vordermann holt außen Schwung → innen reinstechen
+      const kA=kapAt(c.s+130),dive=Math.abs(kA)>.004&&strL<T.av*.6&&c.gap<T.av*.28&&lead.d*Math.sign(kA)<-4;
       if(atk&&Math.random()<(1+c.ag*2.2)*S.pass*(c.drs?1:.45)*dt)startPass(c,lead);
+      else if(dive&&Math.random()<(.45+c.ag*1.5)*S.pass*dt)startPass(c,lead);
       // Taktiker greifen nur auf Geraden / mit DRS an
       else if((c.st!=='tak'||stt||c.drs)&&Math.random()<(.18+c.ag*.6)*S.pass*clamp(ed*90/S.minAdv,.03,3)*dt)startPass(c,lead);
     }
   }
   let dt0=c.line,why='line';c.onIdeal=false;
-  // Ideallinie nur mit freier Fahrt (niemand dicht davor/dahinter) – im Zweikampf hält man seine Spur
-  if(G.raceT>5){if(ag>170&&bg>110){dt0=idealD(c.s);c.onIdeal=true}else dt0=c.wasIdeal?c.d:0}
-  c.wasIdeal=c.onIdeal||(c.wasIdeal&&!(G.raceT>5&&Math.abs(c.d)<2));
+  // Ideallinie: vor der Kurve außen, am Scheitel innen – aber Platz lassen für Autos daneben / knapp dahinter
+  if(G.raceT>5){dt0=idealD(c.s);c.onIdeal=true;
+    for(const q of G.cars){
+      if(q===c||q.gone||q.mode!=='rail'||q.pit)continue;
+      const ds=mod(q.s-c.s+T.L/2,T.L)-T.L/2;if(ds>CL*1.2||ds<-CL*3)continue;
+      const dq=q.d-c.d;if(Math.abs(dq)<CW*.9)continue;
+      if(dq>0)dt0=Math.min(dt0,Math.max(c.d,q.d-CW*1.5));else dt0=Math.max(dt0,Math.min(c.d,q.d+CW*1.5));
+    }}
   if(c.dying){dt0=c.dyD;why='dying'}
   else if(c.slideT>0){dt0=c.slideTo;why='slide'}
   else if(c.wideT>0){c.wideT-=dt;dt0=c.wideTo;why='wide'}
@@ -1160,7 +1170,8 @@ function updateRail(c,dt){
   if(c.dsq)vt=Math.min(vt,40);
   if(!c.pit&&Math.abs(c.d)>HALF+14)vt=Math.min(vt,70);
   if(c.v<vt)c.v=Math.min(vt,c.v+(f==='red'?220:170)*dt);else c.v=Math.max(vt,c.v-(f==='red'?200:320)*dt);
-  const pd=c.d;c.d+=clamp(dt0-c.d,-42*dt,42*dt);c.latV=(c.d-pd)/dt;
+  const lr=(c.mvWhy==='line'||c.mvWhy==='drift')&&c.onIdeal?15:42;   // Ideallinie: sanft hinübergleiten, nicht rüberreißen
+  const pd=c.d;c.d+=clamp(dt0-c.d,-lr*dt,lr*dt);c.latV=(c.d-pd)/dt;
   c.dist+=c.v*dt;c.s=mod(c.dist,T.L);
   const p=posAt(c.s,c.d);c.x=p.x;c.y=p.y;
   const ta=p.a+Math.atan2(c.latV*.6,Math.max(30,c.v));
@@ -1377,10 +1388,12 @@ function forceIncident(){
 function minorsStep(dt){
   G.minorT-=dt;
   if(G.minorT<=0){
-    G.minorT=rnd(22,40)/Math.sqrt(G.chaos)/((G.mf&&G.mf.limits)||1);
+    G.minorT=rnd(13,26)/Math.sqrt(G.chaos)/((G.mf&&G.mf.limits)||1);
     if(G.flag==='green'&&!G.pending&&!G.leaderFin&&G.raceT>12){
-      const cs=G.cars.filter(c=>c.mode==='rail'&&!c.gone&&!c.finished&&!c.dying&&!c.out&&Math.abs(kapAt(c.s))>.004);
-      if(cs.length)limitsIncident(pick(cs));
+      const cs=G.cars.filter(c=>c.mode==='rail'&&!c.gone&&!c.finished&&!c.dying&&!c.out&&!c.pit&&Math.abs(kapAt(c.s))>.004);
+      // wer gerade kämpft (überholt / verteidigt), geht eher ans Limit
+      const fight=cs.filter(c=>c.passT>0||c.ahGap<.5);
+      if(cs.length)limitsIncident(fight.length&&Math.random()<.6?pick(fight):pick(cs));
     }
   }
   for(let i=G.minors.length-1;i>=0;i--){
@@ -1461,6 +1474,8 @@ function limitsIncident(c){
 }
 function tlEval(c,m){
   if(m.max<=0){
+    // knapper Fall: der Kerb-Sensor löst trotzdem oft aus → Fehlmeldung, die per Video geprüft werden muss
+    if(m.max>-CW/2&&Math.random()<.5){limitsReport(c,m,false,'sensor',rnd(.01,.08));return}
     if(m.max>-CW/2&&Math.random()<.25)addLog('STRECKENLIMITS',`${c.drv.c}: Räder auf/über der Linie, aber nicht alle vier – erlaubt.`);
     return;
   }
@@ -1473,14 +1488,19 @@ function tlEval(c,m){
     return;
   }
   const why=c.tl>3?'repeat':gainedPos?'pos':'adv';
-  const inc={kind:'limits',base:'limits',minor:true,noFlag:true,sev:.15,intent:false,truth:{adv,out:true,over:m.max,n:c.tl,why},
-    inv:[{c,fault:why==='repeat'?.9:why==='pos'?.85:.7,role:'solo'}],x:c.x,y:c.y,s:m.s,t:G.simT};
-  inc.title=`Streckenlimits: ${c.drv.c} (Verstoß ${c.tl})`;
-  inc.desc=`${c.drv.n} verlässt in ${cornerLabel(m.s)} mit allen vier Rädern die Strecke.`;
+  limitsReport(c,m,true,why,adv);
+}
+/* Meldung an die Rennleitung – echter Verstoß ODER Fehlmeldung des Sensors. Nur das Video zeigt es sicher. */
+function limitsReport(c,m,out,why,adv){
+  const n=out?c.tl:c.tl+1,cl=cornerLabel(m.s);
+  const inc={kind:'limits',base:'limits',minor:true,noFlag:true,sev:.15,intent:false,truth:{adv,out,over:m.max,n,why,pos:out&&why==='pos'},
+    inv:[{c,fault:!out?.06:why==='repeat'?.9:why==='pos'?.85:.7,role:'solo'}],x:c.x,y:c.y,s:m.s,t:G.simT};
+  inc.title=`Streckenlimits-Meldung: ${c.drv.c}`;
+  inc.desc=`Der Kerb-Sensor meldet ${c.drv.n} in ${cl}. Waren wirklich alle vier Räder neben der Strecke?`;
   finishInc(inc);
-  if(G.mp){mpSilent(inc,28);return}
-  G.minors.push({inc,exp:G.simT+28});renderToasts();
-  addLog('UNTERSUCHUNG',`Streckenlimits ${c.drv.c}: ${why==='repeat'?'wiederholter Verstoß':why==='pos'?'Position außerhalb der Strecke gewonnen':'dauerhafter Vorteil'}.`,'warn');beep(700,.1,'square',.03);
+  if(G.mp){mpSilent(inc,42);addLog('STRECKENLIMITS',`Meldung: <b>${c.drv.c}</b> in ${cl} – Videoanalyse nötig (Auto anklicken, E).`,'warn');beep(700,.1,'square',.03);return}
+  G.minors.push({inc,exp:G.simT+30});renderToasts();
+  addLog('UNTERSUCHUNG',`Streckenlimits-Meldung ${c.drv.c} (${cl}) – Videoanalyse nötig.`,'warn');beep(700,.1,'square',.03);
 }
 /* ---------- Frühstart: Start-Telemetrie (Lichter + Tempo + Weg) ---------- */
 function gridV(c){
@@ -1953,9 +1973,9 @@ function buildFacts(inc){
     f.push('Regel: Fährt das Auto beim Erlöschen der Lichter schon, ist es ein Frühstart (5 s, deutlich zu früh 10 s)');
     f.push('Kurzes Anrollen, das vor dem Signal wieder stoppt (< 30 cm), wird nicht bestraft');
   }else if(inc.base==='limits'){
-    f.push(`Onboard-Kamera: alle vier Räder außerhalb der weißen Linie (${m_(tr.over)} m)`);
-    f.push(tr.why==='repeat'?`Verstoß Nr. ${tr.n} – die ersten drei wurden bereits verwarnt (schwarz-weiße Flagge)`:tr.why==='pos'?`Positionsgewinn außerhalb der Strecke (Verstoß Nr. ${tr.n})`:`Verstoß Nr. ${tr.n} mit dauerhaftem Vorteil`);
-    f.push(`Zeitmessung: Vorteil ca. ${tr.adv.toFixed(2).replace('.',',')} s`);
+    f.push('Kerb-Sensor hat ausgelöst – Standbild oben und Wiederholung genau prüfen (Fehlmeldungen kommen vor)');
+    f.push(`Regel: Verstoß nur, wenn ALLE VIER Räder jenseits der weißen Linie sind · ${a} hat schon ${tr.n-1} bestätigte Verstöße${tr.n>3?' (ab dem 4. gibt es eine Strafe)':''}`);
+    f.push(`Zeitmessung: Vorteil ca. ${tr.adv.toFixed(2).replace('.',',')} s${tr.pos?' · Position in diesem Moment gewonnen':''}`);
   }
   if(inc.kind==='start'){f.push('Startfreigabe war korrekt, kein Frühstart erkannt');f.push(`Beteiligte Fahrzeuge: ${iv.length}`)}
   if(wet&&inc.base!=='solo')f.push('Nasse Strecke: verlängerter Bremsweg');
@@ -2126,7 +2146,10 @@ function incGfx(inc){
   else if(k==='blue'){g=road+carSv(170,57,0,a.color,2)+carSv(110,57,0,b.color,2)+flag(232,30,'#2f8cff')+tx('BLAUE FLAGGE IGNORIERT','#2f8cff')}
   else if(k==='yellowpass'){g=road+carSv(150,42,0,a.color,2)+carSv(130,70,0,b.color,2)+flag(232,30,'#ffd60a')+'<path d="M175 44h22l-6-5m6 5l-6 5" stroke="#ffd60a" stroke-width="2" fill="none"/>'+tx('ÜBERHOLT UNTER GELB','#ffd60a')}
   else if(k==='tech'&&inc.truth.type==='brakes'){g=road+'<path d="M40 57h120l60 30" stroke="#ff453a" stroke-width="2" stroke-dasharray="5 4" fill="none"/>'+carSv(230,88,30,a.color,2.2)+'<rect x="200" y="96" width="80" height="6" fill="#d8343a"/>'+tx('BREMSVERSAGEN','#ff453a')}
-  else if(k==='limits'){const o=!!inc.truth.out;g=road+carSv(150,o?16:34,-6,a.color,2.2)+tx(o?'ALLE 4 R\u00c4DER AUSSERHALB DER LINIE':'RAD AUF DER LINIE',o?'#ff453a':'#4fd37a')}
+  else if(k==='limits'){
+    // Standbild der größten Abweichung: weiße Linie bei y=58, darüber neben der Strecke; nur genaues Hinsehen zeigt den Verstoß
+    const ov=inc.truth.over||0,cy=58-ov*2.55-16.5;
+    g='<rect width="300" height="58" fill="#25402a"/><rect y="58" width="300" height="62" fill="#262a31"/>'+Array.from({length:15},(_,i)=>`<rect x="${i*20}" y="60" width="10" height="7" fill="#d8343a"/><rect x="${i*20+10}" y="60" width="10" height="7" fill="#eee"/>`).join('')+'<rect y="57" width="300" height="3" fill="#fff"/>'+carSv(150,cy,0,a.color,2.2)+'<text x="8" y="14" font-size="8" font-weight="700" letter-spacing="1.2" fill="#cfd6df">STANDBILD · GRÖSSTE ABWEICHUNG</text>'+tx('ALLE VIER RÄDER JENSEITS DER LINIE?','#e6e9ec')}
   else if(k==='block'){g=road+carSv(132,42,0,a.color,2)+carSv(170,70,0,b.color,2)+'<path d="M151 34l18 18m-18 0l18-18" stroke="#ff453a" stroke-width="3"/>'+tx('KEIN PLATZ GELASSEN','#ff453a')}
   else if(k==='cut'&&inc.cause){const cu=inc.cause.culprit,vi=inc.cause.victim;g=road+carSv(150,70,0,vi.color,2)+carSv(176,42,22,cu.color,2)+'<path d="M150 34q22 4 30 18" stroke="#ff6a3d" stroke-width="2.5" fill="none" stroke-dasharray="4 3"/><circle cx="186" cy="60" r="8" fill="#ffd60a"/>'+tx('IN DIE LINIE GEZOGEN')}
   else if(k==='side'){g=road+carSv(120,44,0,a.color,2)+carSv(160,66,0,b.color,2)+'<circle cx="170" cy="55" r="9" fill="#ffd60a"/>'+tx('SEITLICHER KONTAKT')}
@@ -2143,7 +2166,9 @@ function carStatus(c){
   if(G.modal&&!G.modal.view&&G.modal.inc&&G.modal.inc.inv&&G.modal.inc.inv.some(e=>e.c===c))return 'inv';
   if(G.mp){
     const cl=G.client?(NET.cl||[]):(G.open||[]).filter(o=>o.claim).map(o=>[o.claim,o.inc.inv[0].c.drv.c]);
-    return cl.some(x=>x[1]===c.drv.c)?'inv':'';
+    if(cl.some(x=>x[1]===c.drv.c))return 'inv';
+    const nt=G.client?(NET.nt||[]):(G.open||[]).filter(o=>!o.claim&&o.inc.kind==='limits').map(o=>o.inc.inv[0].c.drv.c);
+    return nt.includes(c.drv.c)?'noted':'';
   }
   if(G.pending&&G.pending.inv&&G.pending.inv.some(e=>e.c===c))return 'noted';
   if(G.minors&&G.minors.some(m=>m.inc.inv.some(e=>e.c===c)))return 'noted';
@@ -3476,7 +3501,7 @@ addEventListener('keydown',e=>{
    man muss beobachten, ein verdächtiges Auto anklicken und mit E untersuchen.
    ===================================================================== */
 const MPQ=new Set(['VORFALL','UNTERSUCHUNG']);
-const PCOL=['#e10600','#3b8eea','#2fbf71','#f2c230'];
+const PCOL=['#e10600','#3b8eea','#2fbf71','#f2c230','#b06cff'];const MAXP=5;
 const PEER_PREFIX='race-control-2603-';
 const NET={role:null,peer:null,conns:{},host:null,code:'',name:'',players:[],st:'',evq:[],buf:[],ct:null,sAcc:0,sN:0,rm:{},cl:[],lobbyTxt:'',lobbyTr:null,pend:null,invCd:0,rel:[],rconns:{},rcli:null,via:null,joining:false};
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -3505,7 +3530,7 @@ const RELAYS=[
   {n:'emqx',url:'wss://broker.emqx.io:8084/mqtt',o:{}}
 ];
 const RTOP='race-control-2603/';
-const NETV=3;   // Version der Verbindungs-Logik (wird im Menü angezeigt)
+const NETV=4;   // Version der Verbindungs-Logik (wird im Menü angezeigt)
 function loadScript(urls,ok){
   return new Promise((res,rej)=>{
     if(ok())return res();
@@ -3621,14 +3646,26 @@ setInterval(()=>{
   }else if(NET.role==='client'&&NET.host&&NET.host.relay){
     netSend({t:'ping'});if(now-NET.host.last>15000)NET.host.close();
   }
+  if(NET.role==='client')netSend({t:'pq',ts:now});
+  pingShow();
 },2500);
+/* kleine Ping-Anzeige oben rechts */
+function pingShow(){
+  const el=$('pingTag');if(!el)return;
+  if(!NET.role){el.classList.add('hide');return}
+  const col=v=>v==null?'#9aa3ae':v<90?'#34c759':v<200?'#ffd60a':'#ff453a';
+  let h;
+  if(NET.role==='client')h=`Ping <b style="color:${col(NET.ping)}">${NET.ping!=null?NET.ping+' ms':'…'}</b>${NET.via==='relay'?' · Relay':''}`;
+  else{const ps=NET.players.filter(p=>p.id!=='host');h=ps.length?'Ping '+ps.map(p=>`${esc(p.name.slice(0,7))} <b style="color:${col(p.ping)}">${p.ping!=null?p.ping:'…'}</b>`).join(' · ')+' ms':'Host · keine Mitspieler'}
+  el.innerHTML=h;el.classList.remove('hide');
+}
 function genCode(){const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<5;i++)s+=A[Math.floor(Math.random()*A.length)];return s}
 function readName(){const el=$('mpName');let n=(el&&el.value||'').trim().slice(0,16);if(!n)n='Rennleiter';lsSet('rc_name',n);return n}
 function netReset(){
   try{if(NET.peer)NET.peer.destroy()}catch(e){}
   (NET.rel||[]).forEach(c=>{try{c.end()}catch(e){}});
   try{if(NET.rcli)NET.rcli.end()}catch(e){}
-  Object.assign(NET,{role:null,peer:null,conns:{},host:null,code:'',players:[],evq:[],buf:[],ct:null,rm:{},cl:[],lobbyTxt:'',lobbyTr:null,pend:null,rel:[],rconns:{},rcli:null,via:null,joining:false,offs:[],idel:0});
+  NET.ping=null;Object.assign(NET,{role:null,peer:null,conns:{},host:null,code:'',players:[],evq:[],buf:[],ct:null,rm:{},cl:[],lobbyTxt:'',lobbyTr:null,pend:null,rel:[],rconns:{},rcli:null,via:null,joining:false,offs:[],idel:0});
 }
 /* ---------- Lobby im Hauptmenü ---------- */
 function mpMenuRender(){
@@ -3640,7 +3677,7 @@ function mpMenuRender(){
   const pl=`<div class="mpPl">${NET.players.map(p=>`<span><i style="background:${p.col}"></i>${esc(p.name)}${p.id==='host'?' <small class="mut">Host</small>':p.via==='relay'?' <small class="mut">Relay</small>':p.via==='p2p'?' <small class="mut">Direkt</small>':''}</span>`).join('')}</div>`;
   let h;
   if(NET.role==='host')h=`<div class="mrow"><div><div class="mpSt">DEIN SPIELCODE</div><div class="mpCode">${NET.code}</div></div>
-    <div class="mpSt" style="flex:1;min-width:220px">Schick deinen Mitspielern den <b>Einladungslink</b> (max. 4 Spieler) – oder sie öffnen <b>${esc(SITE_URL.replace(/^https:\/\//,''))}</b>, wählen <b>Mehrspieler</b> und tippen den Code ein. Dein PC berechnet das Rennen – lass dieses Fenster bitte im Vordergrund.</div>
+    <div class="mpSt" style="flex:1;min-width:220px">Schick deinen Mitspielern den <b>Einladungslink</b> (max. 5 Spieler) – oder sie öffnen <b>${esc(SITE_URL.replace(/^https:\/\//,''))}</b>, wählen <b>Mehrspieler</b> und tippen den Code ein. Dein PC berechnet das Rennen – lass dieses Fenster bitte im Vordergrund.</div>
     <button class="btn" data-mp="leave">Lobby schließen</button></div>
     <div class="mrow"><input id="mpLink" readonly value="${esc(inviteLink())}" style="flex:1;min-width:220px" onclick="this.select()"><button class="btn" data-mp="copy">Link kopieren</button></div>${pl}`;
   else if(NET.role==='client')h=`<div class="mrow"><div><div class="mpSt">VERBUNDEN · CODE</div><div class="mpCode">${NET.code}</div></div>
@@ -3735,7 +3772,7 @@ function hostMsg(conn,d){
     conn.pid=pid;
     let pl=NET.players.find(p=>p.id===pid);
     if(!pl){
-      if(NET.players.length>=4){conn.send({t:'full'});setTimeout(()=>conn.close(),400);return}
+      if(NET.players.length>=MAXP){conn.send({t:'full'});setTimeout(()=>conn.close(),400);return}
       const used=NET.players.map(p=>p.col),col=PCOL.find(c=>!used.includes(c))||'#aaa';
       pl={id:pid,name:String(d.name||'Spieler').slice(0,16),col,via:conn.relay?'relay':'p2p',t0:performance.now()};
       NET.players.push(pl);NET.conns[pid]=conn;
@@ -3746,6 +3783,8 @@ function hostMsg(conn,d){
   }
   const id=conn.pid;if(!id)return;
   const pl=NET.players.find(p=>p.id===id);
+  if(d.t==='pq'){conn.send({t:'pa',ts:d.ts});return}                 // Ping-Messung
+  if(d.t==='pr'){if(pl)pl.ping=Math.round(+d.ms||0);return}
   if(d.t==='pick'){if(pl)hostPicked(conn,pl);return}
   if(d.t==='leave'){
     if(pl&&pl.picked&&NET.conns[id]===conn){conn.close();hostDrop(id)}
@@ -3781,7 +3820,7 @@ function packSnap(){
     ly:(G.ly||[]).filter(y=>G.simT<y.until).map(y=>[r1(y.s),r1(y.until),y.id]),
     hz:G.hazards.filter(h=>h.active).map(h=>[h.id,h.kind,r1(h.s),r1(h.d),h.hw,r1(h.vd||0),r1(h.age)]),
     ob:G.obs.map(o=>r1(o.s)),
-    cl:(G.open||[]).filter(o=>o.claim).map(o=>[o.claim,o.inc.inv[0].c.drv.c]),
+    cl:(G.open||[]).filter(o=>o.claim).map(o=>[o.claim,o.inc.inv[0].c.drv.c]),nt:(G.open||[]).filter(o=>!o.claim&&o.inc.kind==='limits').map(o=>o.inc.inv[0].c.drv.c),
     c:G.cars.map(c=>[r1(c.x),r1(c.y),Math.round(c.a*1000)/1000,r1(c.s),r1(c.d),r1(c.v),r1(c.dist),
       (c.gone?1:0)|(c.out?2:0)|(c.stopped?4:0)|(c.smoke?8:0)|(c.fire?16:0)|(c.dsq?32:0)|(c.finished?64:0)|(c.drs?128:0)|(c.punct?256:0)|(c.mode==='free'?512:0),
       c.pit,c.penT,c.warns,c.tyre,c.lapN,c.lapsDone,r1(c.finT||0),r1(c.blackT||0),c.passSide?1:0,c.stops,Math.round(c.tw*100)/100,c.st,c.tl||0]),
@@ -4008,7 +4047,7 @@ async function netJoin(){
   // Relay-Antwort erst nach 3 s annehmen, damit eine funktionierende Direktverbindung Vorrang hat
   const handle=(conn,via,d)=>{
     if(done){if(NET.host===conn)try{clientMsg(d)}catch(e){console.error(e)}return}
-    if(d.t==='full'){fail('Das Spiel ist voll (max. 4 Spieler).');return}
+    if(d.t==='full'){fail('Das Spiel ist voll (max. 5 Spieler).');return}
     if(d.t!=='welcome')return;
     if(via==='p2p'||p2pDead||performance.now()-t0>3000)win(conn,via,d);else if(!held)held={conn,d};
   };
@@ -4076,6 +4115,7 @@ function clientMsg(d){
       const L=NET.buf[NET.buf.length-1];if(L)G.cars.forEach((c,k)=>{const a=L.c[k];c.x=a[0];c.y=a[1];c.a=a[2];c.s=a[3];c.d=a[4];c.v=a[5];c.dist=a[6]});
       if(G.modal){G.modal=null;G.replay=null}endRace(d.reason)}break;
     case 'fired':if(G&&G.client){G.modal=null;G.replay=null;fired(d.why)}break;
+    case 'pa':{const ms=performance.now()-d.ts;NET.ping=NET.ping?Math.round(NET.ping*.6+ms*.4):Math.round(ms);netSend({t:'pr',ms:NET.ping});pingShow();break}
     case 'bye':clientLost();NET.st='Der Host hat das Spiel beendet.';mpMenuRender();break;
     case 'rev':if(G){G.revItems=d.items;if(G.end&&G.end.stage==='rev'&&!G.modal&&!G.revProt)showReview()}break;
     case 'revInc':if(G&&G.ended&&!G.modal){const inc=incUnpack(d.inc);G.varLeft=d.vl;const M={inc,pen:{},flag:G.flag,stage:'decide',asked:false,res:null,hint:'',by:'me',rev:d.id};inc.inv.forEach(e=>{M.pen[e.c.id]=0});openRevModal(M,d.inc.clip||[])}break;
@@ -4089,7 +4129,7 @@ function clientMsg(d){
 function incPack(inc){
   const tr=inc.truth||{},cs=inc.cause;
   return {id:inc.id,kind:inc.kind,base:inc.base,minor:!!inc.minor,title:inc.title,where:inc.where,lap:inc.lap,facts:inc.facts,x:inc.x,y:inc.y,t:inc.t,sev:inc.sev,
-    inv:inc.inv.map(e=>({id:e.c.id,role:e.role})),tr:{type:tr.type,out:!!tr.out,fire:!!tr.fire,jt:tr.jt},tel:inc.tel&&inc.tel.fr?{ids:inc.tel.ids,fr:inc.tel.fr,lights:inc.tel.lights,lo:inc.tel.lo}:null,
+    inv:inc.inv.map(e=>({id:e.c.id,role:e.role})),tr:{type:tr.type,out:!!tr.out,fire:!!tr.fire,jt:tr.jt,over:tr.over},tel:inc.tel&&inc.tel.fr?{ids:inc.tel.ids,fr:inc.tel.fr,lights:inc.tel.lights,lo:inc.tel.lo}:null,
     cause:cs?{cu:cs.culprit?cs.culprit.id:-1,vi:cs.victim?cs.victim.id:-1,label:cs.label,cause:cs.cause}:null};
 }
 function incUnpack(p){
@@ -4109,7 +4149,7 @@ function applySnap(m){
   G.flagLvl=LV[G.flag];
   if(m.ph==='grid'){if(m.ln!==G.lightN)setLights(m.ln)}else if(G.phase==='grid')setLights(-1);
   G.phase=m.ph;G.lightN=m.ln;G.lightsOut=m.lo?1e9:0;G.raceT=m.rt;G.raceT0=m.r0;G.leaderFin=!!m.lf;
-  G.sc.on=!!m.sc[1];G.wet=m.w;G.meters.f=m.m[0];G.meters.s=m.m[1];G.meters.e=m.m[2];G.mood=m.mo;G.fl=m.flp;G.fs=m.fsp;G.varLeft=m.vl;NET.cl=m.cl||[];
+  G.sc.on=!!m.sc[1];G.wet=m.w;G.meters.f=m.m[0];G.meters.s=m.m[1];G.meters.e=m.m[2];G.mood=m.mo;G.fl=m.flp;G.fs=m.fsp;G.varLeft=m.vl;NET.cl=m.cl||[];NET.nt=m.nt||[];
   G.ly=m.ly.map(y=>({s:y[0],until:y[1],id:y[2]}));
   G.hazards=m.hz.map(h=>({id:h[0],kind:h[1],s:h[2],d:h[3],hw:h[4],vd:h[5],age:h[6],active:true,label:(HZ[h[1]]||{}).label||''}));
   G.obs=m.ob.map(s=>({s,kind:'x'}));
