@@ -562,6 +562,54 @@ div.sp{display:block;margin:6px 0 0;font-size:12px;font-weight:600;letter-spacin
 .c3res{margin:12px 0;padding:10px 14px;border-radius:10px;background:rgba(0,0,0,.25);border:1px solid rgba(0,180,255,.25)}.c3res h5{margin:0 0 6px;font-size:11px;letter-spacing:.14em;color:#7fd4ff}
 .c3res .ok{color:var(--ok)}.c3res .no{color:#ff8a80}
 @media (max-width:980px){.c3grid{grid-template-columns:1fr}}
+
+/* ===== MOBIL (nur body.mob) ===== */
+#fullBtn.hide,#mobTw{display:none}
+body.mob{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
+body.mob #cv{touch-action:none}
+/* Startmenü */
+body.mob #menu.lst .lhead{padding:6px 12px;gap:10px;flex-wrap:nowrap}body.mob #menu.lst .lhead .lclock{margin-left:auto}@media (max-width:480px){body.mob #menu.lst .lhead .lclock{display:none}body.mob #menu.lst .lhead #fullBtn{margin-left:auto}}body.mob #menu.lst .lhead .logo{font-size:22px}body.mob #menu.lst .lsub,body.mob #menu.lst .lled{display:none}
+body.mob #menu.lst #lHome.lgrid{height:auto;width:calc(100vw - 20px);margin:10px auto;gap:8px;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;grid-auto-rows:minmax(118px,auto)}
+@media (orientation:landscape){body.mob #menu.lst #lHome.lgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+body.mob #menu.lst #lHome .mon.big{grid-area:auto/span 2}
+body.mob #menu.lst #lHome .mbody{padding:7px 10px;font-size:12px}body.mob #menu.lst #lHome .mbody .big{font-size:20px}body.mob #menu.lst #lHome .mon.big .mbody .big{font-size:32px}
+body.mob .gear{width:42px;height:42px}
+body.mob .btn{min-height:40px}body.mob .seg span{padding-top:9px;padding-bottom:9px}
+body.mob #lSetup .mwrap,body.mob .lbar{width:calc(100vw - 16px)}body.mob #lSetup .mwrap{padding:12px}
+/* Rennen: nur das Wesentliche */
+body.mob #top{top:4px!important;gap:4px}body.mob #top .chip{font-size:11px;padding:3px 7px}
+body.mob #cSes,body.mob #cGap,body.mob #cWx,body.mob #cSpd,body.mob #top2{display:none!important}
+body.mob #tower{left:6px!important;top:6px!important;width:150px;padding:27px 3px 3px!important;font-size:10px!important;overflow-y:auto;overscroll-behavior:contain}
+body.mob.mobTwOff #tower{display:none}
+body.mob #side{display:flex!important;right:6px!important;top:6px!important;width:168px;gap:5px}
+body.mob #log,body.mob #radarW,body.mob #radio{display:none!important}
+body.mob #meters{padding:26px 8px 5px!important;font-size:9.5px}body.mob #mmapW{padding-top:26px!important}
+body.mob .mmh{display:none}
+body.mob #dcard{left:162px!important;top:42px!important;width:180px!important;padding-top:28px!important;max-height:calc(100vh - 116px);overflow-y:auto;font-size:10.5px!important}
+body.mob.mobTwOff #dcard{left:6px!important}
+body.mob #toasts{left:162px!important;bottom:58px!important;width:min(300px,42vw)!important;font-size:11px;padding-top:26px!important}
+body.mob.mobTwOff #toasts{left:6px!important}
+body.mob #bar{bottom:4px!important;padding:4px!important;gap:4px!important;max-width:calc(100vw - 8px);flex-wrap:nowrap}
+body.mob #bar .btn{min-height:44px;padding:8px 11px;font-size:13px}body.mob #bar kbd{display:none}
+body.mob #quitBtn{top:auto!important;bottom:60px!important;right:8px!important;left:auto!important;padding:9px 12px}
+body.mob #repBtn{top:auto!important;bottom:60px!important;right:110px!important;left:auto!important;padding:9px 12px}
+body.mob #mobTw{display:block;position:fixed;left:6px;bottom:60px;z-index:41;background:rgba(12,18,28,.9);color:#7fd4ff;border:1px solid rgba(0,180,255,.4);border-radius:8px;padding:9px 12px;font:700 11px Barlow,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+body.mob #mobTw.off{color:var(--mut)}body.mob #hud.hide~#mobTw{display:none}
+body.mob #banner{font-size:18px!important}
+body.mob #lights{transform:translateX(-50%) scale(.75)}
+/* Untersuchungen: Replay links, Entscheidung rechts – beides gut sichtbar */
+body.mob #inc:not(.big){top:0!important;bottom:0!important;right:0!important;left:auto!important;height:auto!important;width:min(46vw,420px)!important;padding:10px 12px 16px!important;font-size:12.5px;border-top:0!important;border-left:1px solid var(--line)!important}
+body.mob #inc h2{font-size:18px}body.mob #inc .btn{min-height:42px}body.mob #inc .facts{font-size:12px}
+body.mob #inc.big{width:98vw!important;max-height:98vh!important;padding:10px!important;overflow-y:auto}
+body.mob .qwrap{zoom:.72}body.mob #results{overflow-y:auto}
+body.mob #ttCard{max-width:min(420px,60vw);font-size:12.5px}
+body.mob.mobInc :is(#tower,#toasts,#bar,#side,#dcard,#mobTw,#quitBtn,#repBtn,#top){display:none!important}
+/* Hinweise */
+#mobRot{position:fixed;inset:0;z-index:95;display:none;align-items:center;justify-content:center;text-align:center;background:rgba(3,6,12,.94);color:#e6e9ec}
+#mobRot.on{display:flex}#mobRot b{display:block;font-size:20px;margin:14px 0 6px}#mobRot span{font-size:14px;color:var(--mut)}#mobRot svg{color:#14c0ff;animation:mobRot 2s ease-in-out infinite}
+@keyframes mobRot{0%,30%{transform:rotate(0)}60%,100%{transform:rotate(-90deg)}}
+#mobToast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,20px);opacity:0;z-index:96;max-width:86vw;padding:10px 14px;border-radius:10px;background:#0b111b;border:1px solid rgba(0,180,255,.4);font-size:13px;transition:.3s;pointer-events:none}
+#mobToast.on{opacity:1;transform:translate(-50%,0)}
 </style>
 </head>
 <body>
@@ -5612,7 +5660,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='35.0';
+const GAMEVER='35.1';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -6622,6 +6670,95 @@ setInterval(()=>{
   box.innerHTML=`<h5>KARRIERE · HERAUSFORDERUNGEN${dbl>1?' (doppelt)':''}</h5>${ch.map((id,k)=>`<div class="${res[k]?'ok':'no'}">${res[k]?'✓':'✗'} ${CHAL.find(c=>c.id===id).t}</div>`).join('')}<div class="mut sm">Bewertung dieses Rennens: ${SEASON.ratings[i]} · Ruf beim Verband: ${C.rep}${C.event?' · Vor dem nächsten Rennen wartet ein Ereignis.':''}</div>`;
   last.parentNode.insertBefore(box,last);trAll();
 },400);
+
+/* =====================================================================
+   RACE CONTROL MOBIL – eigenes GUI + Touch-Steuerung für Handys/Tablets.
+   Nur aktiv auf Mobilgeräten (oder per Einstellung) – der Desktop bleibt unverändert.
+   ===================================================================== */
+function mobDetect(){
+  const q=new URLSearchParams(location.search).get('mobile');if(q==='1')return true;if(q==='0')return false;
+  const m=(SETS&&SETS.mob)||'auto';if(m==='on')return true;if(m==='off')return false;
+  const ua=navigator.userAgent||'',touch=(navigator.maxTouchPoints||0)>0||'ontouchstart' in window;
+  const coarse=matchMedia&&matchMedia('(pointer:coarse)').matches,small=Math.min(screen.width,screen.height)<=900;
+  return /Android|iPhone|iPod|Mobile|Windows Phone/i.test(ua)||(/iPad|Macintosh/.test(ua)&&touch&&coarse)||(touch&&coarse&&small);
+}
+let MOB=mobDetect();
+function mobApply(){
+  document.body.classList.toggle('mob',MOB);
+  if(MOB){let m=document.querySelector('meta[name=viewport]');if(m)m.setAttribute('content','width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover')}
+  mobBtns();if(G)hudLayout();
+}
+/* ---------- Vollbild-Knopf im Startmenü ---------- */
+function mobFull(){
+  const d=document.documentElement,on=!!(document.fullscreenElement||document.webkitFullscreenElement);
+  try{if(on)(document.exitFullscreen||document.webkitExitFullscreen).call(document);
+    else{const p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d,{navigationUI:'hide'});if(p&&p.then)p.then(()=>{try{screen.orientation.lock('landscape').catch(()=>{})}catch(e){}}).catch(()=>mobToast(tl('Vollbild wird von diesem Browser nicht unterstützt – über „Zum Startbildschirm hinzufügen“ läuft das Spiel ohne Leisten.')))}}
+  catch(e){mobToast(tl('Vollbild wird von diesem Browser nicht unterstützt – über „Zum Startbildschirm hinzufügen“ läuft das Spiel ohne Leisten.'))}
+}
+function mobToast(t){let el=$('mobToast');if(!el){el=document.createElement('div');el.id='mobToast';document.body.appendChild(el)}el.textContent=t;el.classList.add('on');clearTimeout(mobToast.t);mobToast.t=setTimeout(()=>el.classList.remove('on'),4200)}
+function mobBtns(){
+  const h=document.querySelector('#menu .lhead');if(!h)return;let b=$('fullBtn');
+  if(!b){b=document.createElement('button');b.id='fullBtn';b.className='gear';b.type='button';
+    b.innerHTML='<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+    b.addEventListener('click',e=>{e.stopPropagation();mobFull()});const g=$('gearBtn');h.insertBefore(b,g||null)}
+  b.title=tl('Vollbild');b.classList.toggle('hide',!MOB);
+  // Rennen: Knopf zum Ein-/Ausblenden der Rangliste
+  let t=$('mobTw');if(!t){t=document.createElement('button');t.id='mobTw';t.type='button';t.addEventListener('click',e=>{e.stopPropagation();document.body.classList.toggle('mobTwOff');mobLay()});document.body.appendChild(t)}
+  t.textContent=tl('Rangliste');
+}
+document.addEventListener('fullscreenchange',()=>{setTimeout(()=>{if(G)hudLayout()},300)});
+/* ---------- Renn-GUI: Positionen (nur Mobil) ---------- */
+function mobLay(){
+  if(!MOB||!G)return;const W=innerWidth,H=innerHeight;
+  const tw=$('tower'),off=document.body.classList.contains('mobTwOff');
+  if(tw)tw.style.maxHeight=(H-118)+'px';
+  const t=$('toasts');if(t){t.style.maxHeight=Math.max(90,H*.42)+'px'}
+  const mt=$('mobTw');if(mt)mt.classList.toggle('off',off);
+}
+{const hl0=hudLayout;hudLayout=function(){if(MOB&&G){mobLay();return}return hl0()}}
+{const vr0=viewRect;viewRect=function(){
+  if(!MOB)return vr0();const W=innerWidth,H=innerHeight;
+  if(G&&G.modal){const iw=$('inc')&&!$('inc').classList.contains('big')?Math.min(W*.46,420):0;return {l:0,r:Math.max(220,W-iw),t:0,b:H}}
+  if(G&&G.ended||!G)return {l:0,r:W,t:0,b:H};
+  const lw=document.body.classList.contains('mobTwOff')?0:158;
+  return {l:lw,r:W-178,t:40,b:H-58};
+}}
+/* Unwichtiges im Rennen weglassen: keine Funksprüche, kein Meldungs-Ticker (Vorfälle & Flaggen bleiben) */
+{const rl0=renderLog;renderLog=function(){if(MOB)return;return rl0()}}
+/* ---------- Touch: Ziehen = verschieben, zwei Finger = zoomen, Doppeltipp = TV-Regie ---------- */
+(()=>{
+  const P=new Map();let pinch=null,lastTap=0,lastXY=[0,0];
+  const cvs=()=>document.getElementById('cv')||document.querySelector('canvas#c')||document.querySelector('body>canvas');
+  addEventListener('pointerdown',e=>{if(!MOB||e.pointerType!=='touch'||!G||G.modal||G.ended)return;const c=cvs();if(!c||e.target!==c)return;
+    P.set(e.pointerId,[e.clientX,e.clientY]);
+    if(P.size===2){const [a,b]=[...P.values()];if(G.cm!==3){G.free={x:G.cam.x,y:G.cam.y,z:G.cam.z};setCam(3)}
+      pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1])||1,z:G.free.z,mx:(a[0]+b[0])/2,my:(a[1]+b[1])/2};G.dragged=true}
+  },true);
+  addEventListener('pointermove',e=>{if(!MOB||!P.has(e.pointerId))return;P.set(e.pointerId,[e.clientX,e.clientY]);
+    if(pinch&&P.size>=2&&G&&G.free){e.stopImmediatePropagation();const [a,b]=[...P.values()];const d=Math.hypot(a[0]-b[0],a[1]-b[1])||1;
+      const F=G.free,nz=clamp(pinch.z*d/pinch.d,fitZoom(viewRect())*.7,4.5),wx=(pinch.mx-G.vc.x)/G.cam.z+G.cam.x,wy=(pinch.my-G.vc.y)/G.cam.z+G.cam.y;
+      F.x=wx-(wx-F.x)*F.z/nz;F.y=wy-(wy-F.y)*F.z/nz;F.z=nz}
+  },true);
+  const up=e=>{if(!P.has(e.pointerId))return;P.delete(e.pointerId);if(P.size<2)pinch=null;
+    if(MOB&&G&&!G.modal&&e.type==='pointerup'&&!G.dragged){const now=performance.now();
+      if(now-lastTap<320&&Math.hypot(e.clientX-lastXY[0],e.clientY-lastXY[1])<40){G.cz=1;G.sel=-1;setCam(0);banner('KAMERA: TV-REGIE','');lastTap=0}else{lastTap=now;lastXY=[e.clientX,e.clientY]}}};
+  addEventListener('pointerup',up,true);addEventListener('pointercancel',up,true);
+})();
+/* Auswahl per Tipp etwas großzügiger (Finger statt Maus) */
+/* ---------- Hochformat-Hinweis im Rennen ---------- */
+(()=>{const el=document.createElement('div');el.id='mobRot';el.innerHTML='<div><svg viewBox="0 0 24 24" width="54" height="54"><rect x="7" y="2.5" width="10" height="19" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 14a9 9 0 0 0 9 8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 21l2 1-1 2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><b></b><span></span></div>';document.body.appendChild(el);
+  setInterval(()=>{const show=MOB&&!!G&&innerHeight>innerWidth*1.05;el.classList.toggle('on',show);if(show){el.querySelector('b').textContent=tl('Bitte Gerät quer halten');el.querySelector('span').textContent=tl('Das Rennen ist im Querformat am besten zu überblicken.')}},600)})();
+/* ---------- Einstellung: Mobile Ansicht ---------- */
+{const sh0=setHTML;setHTML=function(){const h=sh0();const m=SETS.mob||'auto';
+  const seg=`<div><h4>MOBILE ANSICHT</h4><div class="seg setg" data-sk="mob">${[['auto','Automatisch'],['on','An'],['off','Aus']].map(([v,l])=>`<span data-sv="${v}" class="${m===v?'on':''}">${l}</span>`).join('')}</div><div class="mut sm">${MOB?'Gerade aktiv':'Gerade aus'} · Automatisch erkennt Handys und Tablets.</div></div>`;
+  return h.replace('<div><h4>RENNFENSTER</h4>',seg+'<div><h4>RENNFENSTER</h4>')}}
+{const sa0=setApply;setApply=function(){sa0();const was=MOB;MOB=mobDetect();if(was!==MOB||document.body.classList.contains('mob')!==MOB)mobApply()}}
+Object.assign(EN,{'Vollbild':'Fullscreen','Rangliste':'Standings','MOBILE ANSICHT':'MOBILE VIEW','Automatisch':'Automatic','Bitte Gerät quer halten':'Please rotate your device','Das Rennen ist im Querformat am besten zu überblicken.':'The race is best viewed in landscape.',
+ 'Vollbild wird von diesem Browser nicht unterstützt – über „Zum Startbildschirm hinzufügen“ läuft das Spiel ohne Leisten.':'This browser does not support fullscreen – add the game to your home screen to play without bars.'});
+Object.assign(LA,{'Vollbild':'Plena tabula','Rangliste':'Ordo','MOBILE ANSICHT':'SPECIES MOBILIS','Automatisch':'Sponte','Bitte Gerät quer halten':'Verte instrumentum'});
+mobApply();
+/* Während einer Untersuchung: nur Replay + Entscheidungsfenster */
+setInterval(()=>{document.body.classList.toggle('mobInc',MOB&&!!G&&!!G.modal&&!$('inc').classList.contains('hide'))},150);
 
 if(JOIN_CODE){const sg=document.querySelector('.seg[data-k="net"]');if(sg)sg.querySelectorAll('span').forEach(x=>x.classList.toggle('on',x.dataset.v==='mp'))}
 initMenu();
