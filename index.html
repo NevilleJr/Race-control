@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <script>const BETA_CODE="F1.Beta",IS_BETA=/\/beta\.html$/i.test(location.pathname);(function(){try{var on=localStorage.getItem("rc_beta")==="1";if(location.protocol==="file:")return;if(!IS_BETA&&on)location.replace("beta.html"+location.search+location.hash);else if(IS_BETA&&!on)location.replace("./"+location.search+location.hash)}catch(e){}})();</script>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#060a12"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
 <title>RACE CONTROL</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media=&#39;all&#39;">
 <style>
@@ -563,53 +563,223 @@ div.sp{display:block;margin:6px 0 0;font-size:12px;font-weight:600;letter-spacin
 .c3res .ok{color:var(--ok)}.c3res .no{color:#ff8a80}
 @media (max-width:980px){.c3grid{grid-template-columns:1fr}}
 
-/* ===== MOBIL (nur body.mob) ===== */
-#fullBtn.hide,#mobTw{display:none}
-body.mob{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
-body.mob #cv{touch-action:none}
-/* Startmenü */
-body.mob #menu.lst .lhead{padding:6px 12px;gap:10px;flex-wrap:nowrap}body.mob #menu.lst .lhead .lclock{margin-left:auto}@media (max-width:480px){body.mob #menu.lst .lhead .lclock{display:none}body.mob #menu.lst .lhead #fullBtn{margin-left:auto}}body.mob #menu.lst .lhead .logo{font-size:22px}body.mob #menu.lst .lsub,body.mob #menu.lst .lled{display:none}
-body.mob #menu.lst #lHome.lgrid{height:auto;width:calc(100vw - 20px);margin:10px auto;gap:8px;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;grid-auto-rows:minmax(118px,auto)}
-@media (orientation:landscape){body.mob #menu.lst #lHome.lgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-body.mob #menu.lst #lHome .mon.big{grid-area:auto/span 2}
-body.mob #menu.lst #lHome .mbody{padding:7px 10px;font-size:12px}body.mob #menu.lst #lHome .mbody .big{font-size:20px}body.mob #menu.lst #lHome .mon.big .mbody .big{font-size:32px}
-body.mob .gear{width:42px;height:42px}
-body.mob .btn{min-height:40px}body.mob .seg span{padding-top:9px;padding-bottom:9px}
-body.mob #lSetup .mwrap,body.mob .lbar{width:calc(100vw - 16px)}body.mob #lSetup .mwrap{padding:12px}
-/* Rennen: nur das Wesentliche */
-body.mob #top{top:4px!important;gap:4px}body.mob #top .chip{font-size:11px;padding:3px 7px}
-body.mob #cSes,body.mob #cGap,body.mob #cWx,body.mob #cSpd,body.mob #top2{display:none!important}
-body.mob #tower{left:6px!important;top:6px!important;width:150px;padding:27px 3px 3px!important;font-size:10px!important;overflow-y:auto;overscroll-behavior:contain}
-body.mob.mobTwOff #tower{display:none}
-body.mob #side{display:flex!important;right:6px!important;top:6px!important;width:168px;gap:5px}
-body.mob #log,body.mob #radarW,body.mob #radio{display:none!important}
-body.mob #meters{padding:26px 8px 5px!important;font-size:9.5px}body.mob #mmapW{padding-top:26px!important}
-body.mob .mmh{display:none}
-body.mob #dcard{left:162px!important;top:42px!important;width:180px!important;padding-top:28px!important;max-height:calc(100vh - 116px);overflow-y:auto;font-size:10.5px!important}
-body.mob.mobTwOff #dcard{left:6px!important}
-body.mob #toasts{left:162px!important;bottom:58px!important;width:min(300px,42vw)!important;font-size:11px;padding-top:26px!important}
-body.mob.mobTwOff #toasts{left:6px!important}
-body.mob #bar{bottom:4px!important;padding:4px!important;gap:4px!important;max-width:calc(100vw - 8px);flex-wrap:nowrap}
-body.mob #bar .btn{min-height:44px;padding:8px 11px;font-size:13px}body.mob #bar kbd{display:none}
-body.mob #quitBtn{top:auto!important;bottom:60px!important;right:8px!important;left:auto!important;padding:9px 12px}
-body.mob #repBtn{top:auto!important;bottom:60px!important;right:110px!important;left:auto!important;padding:9px 12px}
-body.mob #mobTw{display:block;position:fixed;left:6px;bottom:60px;z-index:41;background:rgba(12,18,28,.9);color:#7fd4ff;border:1px solid rgba(0,180,255,.4);border-radius:8px;padding:9px 12px;font:700 11px Barlow,sans-serif;letter-spacing:.08em;text-transform:uppercase}
-body.mob #mobTw.off{color:var(--mut)}body.mob #hud.hide~#mobTw{display:none}
-body.mob #banner{font-size:18px!important}
-body.mob #lights{transform:translateX(-50%) scale(.75)}
-/* Untersuchungen: Replay links, Entscheidung rechts – beides gut sichtbar */
-body.mob #inc:not(.big){top:0!important;bottom:0!important;right:0!important;left:auto!important;height:auto!important;width:min(46vw,420px)!important;padding:10px 12px 16px!important;font-size:12.5px;border-top:0!important;border-left:1px solid var(--line)!important}
-body.mob #inc h2{font-size:18px}body.mob #inc .btn{min-height:42px}body.mob #inc .facts{font-size:12px}
-body.mob #inc.big{width:98vw!important;max-height:98vh!important;padding:10px!important;overflow-y:auto}
-body.mob .qwrap{zoom:.72}body.mob #results{overflow-y:auto}
-body.mob #ttCard{max-width:min(420px,60vw);font-size:12.5px}
-body.mob.mobInc :is(#tower,#toasts,#bar,#side,#dcard,#mobTw,#quitBtn,#repBtn,#top){display:none!important}
-/* Hinweise */
-#mobRot{position:fixed;inset:0;z-index:95;display:none;align-items:center;justify-content:center;text-align:center;background:rgba(3,6,12,.94);color:#e6e9ec}
-#mobRot.on{display:flex}#mobRot b{display:block;font-size:20px;margin:14px 0 6px}#mobRot span{font-size:14px;color:var(--mut)}#mobRot svg{color:#14c0ff;animation:mobRot 2s ease-in-out infinite}
-@keyframes mobRot{0%,30%{transform:rotate(0)}60%,100%{transform:rotate(-90deg)}}
-#mobToast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,20px);opacity:0;z-index:96;max-width:86vw;padding:10px 14px;border-radius:10px;background:#0b111b;border:1px solid rgba(0,180,255,.4);font-size:13px;transition:.3s;pointer-events:none}
-#mobToast.on{opacity:1;transform:translate(-50%,0)}
+/* =====================================================================
+   RACE CONTROL – MOBILE (Hochkant) · Version 2
+   Strecke bildschirmfüllend, alles Wichtige als schlanke Einblendung darüber.
+   Aktiv nur mit body.mob (Handy erkannt oder ?mobile=1). Desktop bleibt unverändert.
+   ===================================================================== */
+body.mob{--sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px);--sar:env(safe-area-inset-right,0px);--sal:env(safe-area-inset-left,0px);
+  --mTop:52px;--mBot:60px;--mTw:118px;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;overscroll-behavior:none}
+body.mob #cv,body.mob #egoc{touch-action:none}
+body.mob kbd{display:none!important}
+body.mob .row:hover{background:transparent}
+
+/* unnötige Fenster weg */
+body.mob #radio,body.mob #log,body.mob #radarW,body.mob #top2,body.mob #side,body.mob #cGap,body.mob #cWx,body.mob #pingTag,body.mob .mmh{display:none!important}
+
+/* ---------- Statuszeile ---------- */
+body.mob #top{left:0!important;right:0;transform:none;max-width:none!important;top:calc(var(--sat) + 4px)!important;padding:0 44px 0 6px;gap:4px!important;
+  flex-wrap:nowrap!important;justify-content:flex-start!important;overflow-x:auto;scrollbar-width:none;z-index:9}
+body.mob #top::-webkit-scrollbar{display:none}
+body.mob #top .chip{flex:0 0 auto;padding:4px 8px;font-size:10.5px;letter-spacing:.06em}
+body.mob #cSes{max-width:150px;overflow:hidden;text-overflow:ellipsis}
+#mMeters{display:none}
+body.mob #mMeters{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;position:fixed;left:6px;right:44px;top:calc(var(--sat) + 32px);z-index:9;pointer-events:none}
+#mMeters div{display:flex;align-items:center;gap:4px;font:700 8.5px/1 "Barlow Condensed",system-ui;letter-spacing:.08em;color:#9fb0c6}
+#mMeters i{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.1);overflow:hidden;position:relative}
+#mMeters i b{position:absolute;left:0;top:0;bottom:0;border-radius:2px;transition:width .4s}
+#mMeters em{font-style:normal;color:#e6edf6;min-width:14px;text-align:right}
+body.mob #mTopBg{position:fixed;left:0;right:0;top:0;height:calc(var(--sat) + var(--mTop) + 10px);z-index:8;pointer-events:none;background:linear-gradient(180deg,rgba(6,10,18,.9),rgba(6,10,18,.55) 70%,rgba(6,10,18,0))}
+body.mob #quitBtn{top:calc(var(--sat) + 4px);right:5px;width:34px;height:28px;padding:0;font-size:0;z-index:41}
+body.mob #quitBtn:before{content:"✕";font-size:14px}
+body.mob #quitBtn.arm{width:auto;padding:0 8px;font-size:10.5px}body.mob #quitBtn.arm:before{content:""}
+
+/* ---------- Zeitnahme als schmale Spalte links ---------- */
+body.mob #tower{left:calc(4px + var(--sal))!important;top:calc(var(--sat) + var(--mTop))!important;width:var(--mTw)!important;max-height:calc(100% - var(--sat) - var(--mTop) - var(--mBot) - 8px);overflow-y:auto;
+  padding:3px 2px!important;font-size:10.5px;background:rgba(7,12,21,.62)!important;border-color:rgba(0,180,255,.14)!important;box-shadow:none!important;z-index:6;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+body.mob #tower::-webkit-scrollbar{display:none}
+body.mob #tower:before,body.mob #tower:after{display:none}
+body.mob #tower .row{height:16px;grid-template-columns:13px 3px 34px minmax(0,1fr) 6px;gap:3px;padding:0 3px;border-radius:4px}
+body.mob #tower .row b{font-size:10.5px;white-space:nowrap;overflow:hidden}
+body.mob #tower .row b u{font-size:8px!important;margin-left:1px!important}
+body.mob #tower .row .g{font-size:9.5px;white-space:nowrap;overflow:hidden}
+body.mob #tower .row em{font-size:0;width:6px;height:6px;border-radius:50%;overflow:hidden}body.mob #tower .row em *{display:none!important}
+body.mob #tower .row em:not(:empty){background:#ffb000}
+body.mob #tower .row em:has(.tst.i){background:#ff2d48}
+body.mob.mTwOff #tower{display:none}
+
+/* ---------- Fahrerdaten / Karte: Einblendungen bei Bedarf ---------- */
+body.mob #dcard{left:auto!important;right:calc(54px + var(--sar));top:calc(var(--sat) + var(--mTop))!important;width:min(62vw,250px)!important;max-height:calc(100% - var(--sat) - var(--mTop) - var(--mBot) - 90px);
+  overflow-y:auto;padding:8px!important;padding-top:8px!important;font-size:11px;z-index:14;background:rgba(7,12,21,.93)!important}
+body.mob #dcard:before,body.mob #dcard:after{display:none}
+body.mob #dcard .btn{padding:7px 8px;font-size:11px}
+#mDx{display:none}
+body.mob #mDx{position:fixed;z-index:15;right:calc(56px + var(--sar));top:calc(var(--sat) + var(--mTop) + 2px);width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:#0d1522;color:#fff;font-size:13px}
+body.mob.mSel #mDx{display:block}
+body.mob #mmapW{position:fixed!important;right:calc(54px + var(--sar));top:calc(var(--sat) + var(--mTop));width:min(70vw,300px);padding:6px!important;z-index:14;background:rgba(7,12,21,.93)!important}
+body.mob #mmapW:before,body.mob #mmapW:after{display:none}
+body.mob #mmap{height:min(58vw,240px)}
+body.mob #mmapW .mHint{font-size:10.5px;color:#8fa0b6;text-align:center;margin-top:3px}
+body.mob #wxF{font-size:10.5px}
+body.mob:not(.mMap) #mmapW{display:none!important}
+body.mob.mMap #dcard{display:none!important}body.mob.mMap #mDx{display:none}
+body.mob #meters{display:none!important}
+
+/* ---------- offene Fälle: Kärtchen über den Flaggen ---------- */
+body.mob #toasts{left:0!important;right:0;bottom:calc(var(--mBot) + 4px)!important;width:auto!important;padding:0 8px!important;background:transparent!important;border:0!important;box-shadow:none!important;
+  display:flex!important;flex-direction:row;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;z-index:11;-webkit-backdrop-filter:none;backdrop-filter:none}
+body.mob #toasts::-webkit-scrollbar{display:none}
+body.mob #toasts:before,body.mob #toasts:after{display:none}
+body.mob #toasts:empty{display:none!important}
+body.mob #toasts .toast{flex:0 0 auto;width:min(84vw,340px);scroll-snap-align:start;flex-direction:column;align-items:stretch;gap:5px;padding:7px 9px;background:rgba(30,8,14,.94);border:1px solid rgba(255,45,72,.45);border-left:3px solid var(--warn)}
+body.mob #toasts .toast.maj{border-left-color:#ff2d48}
+body.mob #toasts .toast .tx span{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.mob #toasts .toast .tx small{font-size:10px}
+body.mob #toasts .toast .tb{display:grid;grid-template-columns:2fr 1fr 1fr;gap:5px}
+body.mob #toasts .toast .tb .btn{padding:7px 4px;font-size:11.5px;min-height:32px}
+body.mob #toasts .toast .tb .btn:first-child{background:var(--acc);border-color:var(--acc);color:#02121d;font-weight:800}
+#mFloat{display:none}
+body.mob #mFloat{display:flex;flex-direction:column;gap:5px;position:fixed;left:calc(var(--mTw) + 12px);right:56px;top:calc(var(--sat) + var(--mTop) + 4px);z-index:13;pointer-events:none}
+body.mob #mFloat .toast{font-size:11.5px;padding:6px 9px}
+
+/* ---------- Flaggen-Leiste ---------- */
+body.mob #bar{left:0!important;right:0;bottom:0!important;transform:none;width:auto!important;max-width:none!important;display:grid!important;grid-template-columns:repeat(5,1fr);
+  gap:4px!important;padding:5px 5px calc(5px + var(--sab))!important;border-radius:12px 12px 0 0!important;border-bottom:0!important;z-index:12;background:rgba(6,10,18,.96)!important}
+body.mob #bar .btn{flex-direction:row;justify-content:center;gap:5px!important;padding:4px 2px!important;min-height:42px;font-size:11.5px;font-weight:700;border-radius:9px;background:rgba(255,255,255,.04)}
+body.mob #bar .fb:before{width:10px;height:10px}
+body.mob #bar .fb.on{background:color-mix(in srgb,var(--c) 26%,transparent)!important;box-shadow:inset 0 0 0 1px var(--c)}
+body.mob #bar .sep,body.mob #bar [data-act=pause],body.mob #bar #invBtn{display:none!important}
+
+/* ---------- Bedienknöpfe rechts ---------- */
+#mAct,#mRep,#mIncT{display:none}
+body.mob #mAct{display:flex;flex-direction:column;gap:5px;position:fixed;right:calc(5px + var(--sar));top:calc(var(--sat) + var(--mTop));z-index:11}
+.mBtn{width:42px;height:42px;border-radius:12px;border:1px solid rgba(0,180,255,.28);background:rgba(7,12,21,.78);color:#e6edf6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  font:800 15px/1 "Barlow Condensed",system-ui,sans-serif;cursor:pointer;padding:0;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.mBtn small{font:700 7.5px/1 "Barlow",system-ui,sans-serif;letter-spacing:.04em;color:#8fa0b6;text-transform:uppercase;max-width:40px;overflow:hidden;white-space:nowrap}
+.mBtn:active{transform:scale(.93);background:rgba(0,180,255,.25)}
+.mBtn.on{background:rgba(0,180,255,.24);border-color:#14c0ff}
+.mBtn.hot{background:linear-gradient(180deg,#14c0ff,#0090d6);border-color:#14c0ff;color:#02121d;animation:mHot 1.2s infinite}.mBtn.hot small{color:#02121d}
+.mBtn.hide{display:none}
+@keyframes mHot{50%{box-shadow:0 0 0 6px rgba(20,192,255,.28)}}
+body.mob.mModal #dcard,body.mob.mModal #mDx,body.mob.mModal #mmapW,body.mob.mModal #mAct,body.mob.mEnded #mAct,body.mob.mModal #mMeters,body.mob.mModal #top,body.mob.mModal #mTopBg,body.mob.mModal #quitBtn,body.mob.mModal #toasts,body.mob.mModal #tower{display:none!important}
+
+/* ---------- schwebende Spielelemente ---------- */
+body.mob #lights{top:calc(var(--sat) + var(--mTop) + 40px);left:calc(50% + var(--mTw)/2 - 20px);gap:6px;padding:7px 9px;cursor:pointer;pointer-events:auto}
+body.mob #lights i{width:20px;height:20px}
+body.mob #banner{top:calc(var(--sat) + var(--mTop) + 100px);left:calc(50% + var(--mTw)/2 - 20px);font-size:clamp(16px,5.4vw,26px);letter-spacing:.08em;width:calc(100% - var(--mTw) - 60px);padding:0}
+body.mob #pauseTag{font-size:28px;left:calc(50% + var(--mTw)/2 - 20px)}
+body.mob #egoHud{left:calc(var(--mTw) + 10px)!important;transform:none;width:calc(100% - var(--mTw) - 66px)!important;bottom:calc(var(--mBot) + 80px);z-index:9}
+body.mob #pip{left:auto;right:54px;top:auto;bottom:calc(var(--mBot) + 80px);width:44vw;height:27vw;z-index:9}
+body.mob #rsOffer{top:calc(var(--sat) + var(--mTop) + 6px);width:calc(100% - 16px)}
+body.mob #tutBox{top:calc(var(--sat) + var(--mTop) + 6px)}
+body.mob #tutBox.side{left:50%;bottom:auto}
+body.mob.mpm #bar{left:0!important}
+body.mob #err{bottom:calc(var(--mBot) + 4px)}
+
+/* ---------- Untersuchung: Wiederholung oben groß, Fenster unten einklappbar ---------- */
+body.mob #inc{left:0!important;right:0!important;top:auto!important;bottom:0!important;transform:none!important;width:100%!important;max-width:none!important;height:56vh;max-height:none!important;
+  border-left:0!important;border-top:1px solid rgba(0,180,255,.35)!important;border-radius:16px 16px 0 0!important;padding:22px 14px calc(18px + var(--sab))!important;z-index:30;
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain;transition:height .25s}
+body.mob.mIncMin #inc:not(.big){height:28vh}
+body.mob #inc.big{top:0!important;height:auto;border-radius:0!important;border:0!important;padding-top:calc(14px + var(--sat))!important}
+body.mob #inc .pens{grid-template-columns:repeat(4,1fr)!important;gap:5px}
+body.mob #inc .pen,body.mob #inc .flg{padding:11px 0;font-size:11.5px}
+body.mob #inc .acts{position:sticky;bottom:calc(-18px - var(--sab));margin-left:-14px;margin-right:-14px;padding:10px 14px calc(10px + var(--sab));background:rgba(11,13,16,.98);border-top:1px solid var(--line);flex-wrap:wrap}
+body.mob #inc .acts .btn{min-height:44px;font-size:13px}
+body.mob #inc .jgb .btn{padding:8px 10px;font-size:12px}
+body.mob #inc h2{font-size:17px}
+body.mob #inc .scbox{grid-template-columns:1fr}
+body.mob.mModal.mRepOn #mIncT{display:flex;position:fixed;left:50%;transform:translateX(-50%);z-index:31;bottom:calc(var(--incH) - 15px);height:28px;padding:0 14px;align-items:center;gap:6px;
+  border-radius:14px;border:1px solid rgba(0,180,255,.45);background:#0b1626;color:#7fd4ff;font:800 11px "Barlow Condensed",system-ui;letter-spacing:.12em;transition:bottom .25s}
+body.mob.mModal.mRepOn #mRep{display:flex;position:fixed;left:50%;transform:translateX(-50%);top:calc(var(--sat) + 7vh + 4px);z-index:31;gap:5px;padding:4px;border-radius:13px;background:rgba(7,12,21,.85);border:1px solid rgba(0,180,255,.3)}
+#mRep .mBtn{width:40px;height:36px}
+
+/* ---------- Menü ---------- */
+body.mob .lhead{padding:calc(10px + var(--sat)) 14px 10px;gap:10px;flex-wrap:nowrap}
+body.mob .lhead .logo{font-size:22px;letter-spacing:.1em;white-space:nowrap}
+body.mob .lhead .lsub,body.mob .lhead .lled{display:none}
+body.mob .lclock{font-size:14px;margin-left:auto}
+#mFs{display:none}
+body.mob #mFs{display:inline-flex;padding:6px 10px;min-height:32px;font-size:11px}
+body.mob .lgrid{grid-template-columns:1fr!important;width:calc(100% - 24px);margin:14px auto calc(24px + var(--sab));gap:12px;grid-auto-rows:auto}
+body.mob .mon.big,body.mob .mon.wide{grid-column:auto;grid-row:auto}
+body.mob .mon:hover{transform:none}
+body.mob .mbody{padding:12px 14px;font-size:13.5px}
+body.mob .mbody .big{font-size:24px}
+body.mob .mon.big .mbody .big{font-size:38px}
+body.mob .mt2{font-size:12px;padding:8px 12px}
+body.mob .mfoot{padding:9px 12px}
+body.mob .lbar{width:calc(100% - 24px);margin-top:calc(12px + var(--sat));gap:10px}
+body.mob .lbar h2{font-size:19px;letter-spacing:.1em}
+body.mob #lSetup .mwrap{width:calc(100% - 16px);padding:14px 12px calc(16px + var(--sab));margin-bottom:20px}
+body.mob .opts{grid-template-columns:1fr!important;gap:6px}
+body.mob .seg span{padding:11px 3px;font-size:13px}
+body.mob .cards{grid-template-columns:repeat(2,1fr)!important}
+body.mob .go{padding:16px;position:sticky;bottom:calc(8px + var(--sab));z-index:3;box-shadow:0 8px 24px rgba(0,0,0,.6)}
+body.mob .help{display:none!important}
+#mHelp{display:none;font-size:13px;color:#b9c8da;line-height:1.6}
+body.mob #mHelp{display:block}
+#mHelp b{color:#7fd4ff}
+body.mob #mpBox input,body.mob .fb input,body.mob .fb select,body.mob .fb textarea{font-size:16px}
+body.mob .cl{flex-wrap:wrap}
+body.mob .cst{min-width:0;flex:1 1 140px}
+
+/* ---------- Ergebnisse, Quali, Siegerehrung ---------- */
+body.mob #results{padding:calc(6px + var(--sat)) 0 calc(10px + var(--sab))}
+body.mob .rwrap{width:calc(100% - 20px);padding:16px 0}
+body.mob .qwrap{grid-template-columns:1fr!important;width:calc(100% - 16px);gap:12px;padding:12px 0}
+body.mob .qcase,body.mob .qtab{padding:12px}
+body.mob .qhead,body.mob .qr{grid-template-columns:20px 4px minmax(0,1fr) 70px 54px 30px;gap:6px}
+body.mob .st2,body.mob .scbox{grid-template-columns:1fr!important}
+body.mob .rgrid{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+body.mob table{font-size:12px}
+body.mob td,body.mob th{padding:6px 5px}
+body.mob .acts{flex-wrap:wrap}
+body.mob .acts .btn{min-height:44px}
+body.mob .big{font-size:24px}
+body.mob .score{font-size:42px}
+body.mob .verb .vres{font-size:34px}
+body.mob .podStage{height:min(640px,calc(100vh - 20px))}
+body.mob .podActs{left:0;right:0;display:flex;justify-content:center;bottom:calc(8px + var(--sab))}
+body.mob .podRow{bottom:16%}
+body.mob .declist li{grid-template-columns:38px 1fr auto}
+body.mob #hl .hlTag{left:14px;top:calc(var(--sat) + 14px)}
+body.mob #hl .lower{left:14px;right:14px;max-width:none;bottom:calc(120px + var(--sab))}
+body.mob #hl .ctrl{left:14px;right:14px;bottom:calc(18px + var(--sab));flex-wrap:wrap;justify-content:flex-end}
+body.mob #hl .dots{width:100%;margin:0 0 6px}
+body.mob #ttCard{padding:12px 14px;max-height:52vh;overflow-y:auto}
+body.mob #ttCard h3{font-size:19px}
+body.mob #ttCard p{font-size:13px}
+
+/* ---------- Querformat ---------- */
+@media (orientation:landscape){
+  body.mob #bar{left:auto!important;right:0;top:0;bottom:0!important;width:76px!important;grid-template-columns:1fr;grid-template-rows:repeat(5,1fr);padding:calc(6px + var(--sat)) calc(5px + var(--sar)) 6px 5px!important;border-radius:12px 0 0 12px!important}
+  body.mob #bar .btn{flex-direction:column;min-height:0}
+  body.mob{--mBot:4px}
+  body.mob #mAct{right:calc(84px + var(--sar));flex-wrap:wrap-reverse;align-content:flex-start;max-height:calc(100% - var(--sat) - var(--mTop) - 6px)}
+  body.mob #top,body.mob #mMeters{right:84px}
+  body.mob #quitBtn{right:86px}
+  body.mob #dcard,body.mob #mmapW{right:auto;left:calc(var(--mTw) + 12px)}
+  body.mob #mDx{right:auto;left:calc(var(--mTw) + 12px + min(62vw,250px) - 34px)}
+  body.mob #toasts{left:calc(var(--mTw) + 10px)!important;right:180px;bottom:6px!important}
+  body.mob #toasts .toast{width:300px}
+  body.mob #tower .row{height:15px}
+  body.mob #inc{height:auto;top:0!important;left:auto!important;width:min(440px,58vw)!important;border-radius:0!important;border-left:1px solid rgba(0,180,255,.35)!important;border-top:0!important}
+  body.mob.mIncMin #inc:not(.big){height:auto}
+  body.mob.mModal.mRepOn #mIncT{display:none}
+  body.mob.mModal.mRepOn #mRep{left:calc((100vw - min(440px,58vw))/2)}
+}
+
+/* ---------- Anpassungen an Version 35/36 ---------- */
+body.mob #quitBtn{top:calc(var(--sat) + 4px)!important;right:5px!important;left:auto!important;bottom:auto!important}
+body.mob #repBtn{top:calc(var(--sat) + 4px)!important;right:44px!important;left:auto!important;bottom:auto!important;padding:5px 8px;font-size:10px}
+body.mob.uzoom :is(#bar,#quitBtn){zoom:1!important}
+body.mob #menu.lst #lHome.lgrid{height:auto!important;min-height:0;grid-template-columns:1fr!important;grid-template-rows:none!important;width:calc(100% - 24px)!important;margin:14px auto calc(24px + var(--sab))!important;gap:12px}
+body.mob #menu.lst #lHome .mon.big{grid-area:auto!important}
+body.mob #menu.lst #lHome .mbody{padding:12px 14px;font-size:13.5px}body.mob #menu.lst #lHome .mbody .big{font-size:24px}body.mob #menu.lst #lHome .mon.big .mbody .big{font-size:38px}
+body.mob #menu.lst .lhead{padding:calc(10px + var(--sat)) 14px 10px}
+body.light :is(#mAct,#mMeters,#mRep,#mIncT,#mDx){filter:invert(.94) hue-rotate(180deg)}
+@media (orientation:landscape){body.mob #quitBtn{right:86px!important}body.mob #repBtn{right:126px!important}}
 </style>
 </head>
 <body>
@@ -5660,7 +5830,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='35.1';
+const GAMEVER='35.2';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -6671,99 +6841,205 @@ setInterval(()=>{
   last.parentNode.insertBefore(box,last);trAll();
 },400);
 
-/* =====================================================================
-   RACE CONTROL MOBIL – eigenes GUI + Touch-Steuerung für Handys/Tablets.
-   Nur aktiv auf Mobilgeräten (oder per Einstellung) – der Desktop bleibt unverändert.
-   ===================================================================== */
-function mobDetect(){
-  const q=new URLSearchParams(location.search).get('mobile');if(q==='1')return true;if(q==='0')return false;
-  const m=(SETS&&SETS.mob)||'auto';if(m==='on')return true;if(m==='off')return false;
-  const ua=navigator.userAgent||'',touch=(navigator.maxTouchPoints||0)>0||'ontouchstart' in window;
-  const coarse=matchMedia&&matchMedia('(pointer:coarse)').matches,small=Math.min(screen.width,screen.height)<=900;
-  return /Android|iPhone|iPod|Mobile|Windows Phone/i.test(ua)||(/iPad|Macintosh/.test(ua)&&touch&&coarse)||(touch&&coarse&&small);
-}
-let MOB=mobDetect();
-function mobApply(){
-  document.body.classList.toggle('mob',MOB);
-  if(MOB){let m=document.querySelector('meta[name=viewport]');if(m)m.setAttribute('content','width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover')}
-  mobBtns();if(G)hudLayout();
-}
-/* ---------- Vollbild-Knopf im Startmenü ---------- */
-function mobFull(){
-  const d=document.documentElement,on=!!(document.fullscreenElement||document.webkitFullscreenElement);
-  try{if(on)(document.exitFullscreen||document.webkitExitFullscreen).call(document);
-    else{const p=(d.requestFullscreen||d.webkitRequestFullscreen).call(d,{navigationUI:'hide'});if(p&&p.then)p.then(()=>{try{screen.orientation.lock('landscape').catch(()=>{})}catch(e){}}).catch(()=>mobToast(tl('Vollbild wird von diesem Browser nicht unterstützt – über „Zum Startbildschirm hinzufügen“ läuft das Spiel ohne Leisten.')))}}
-  catch(e){mobToast(tl('Vollbild wird von diesem Browser nicht unterstützt – über „Zum Startbildschirm hinzufügen“ läuft das Spiel ohne Leisten.'))}
-}
-function mobToast(t){let el=$('mobToast');if(!el){el=document.createElement('div');el.id='mobToast';document.body.appendChild(el)}el.textContent=t;el.classList.add('on');clearTimeout(mobToast.t);mobToast.t=setTimeout(()=>el.classList.remove('on'),4200)}
-function mobBtns(){
-  const h=document.querySelector('#menu .lhead');if(!h)return;let b=$('fullBtn');
-  if(!b){b=document.createElement('button');b.id='fullBtn';b.className='gear';b.type='button';
-    b.innerHTML='<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
-    b.addEventListener('click',e=>{e.stopPropagation();mobFull()});const g=$('gearBtn');h.insertBefore(b,g||null)}
-  b.title=tl('Vollbild');b.classList.toggle('hide',!MOB);
-  // Rennen: Knopf zum Ein-/Ausblenden der Rangliste
-  let t=$('mobTw');if(!t){t=document.createElement('button');t.id='mobTw';t.type='button';t.addEventListener('click',e=>{e.stopPropagation();document.body.classList.toggle('mobTwOff');mobLay()});document.body.appendChild(t)}
-  t.textContent=tl('Rangliste');
-}
-document.addEventListener('fullscreenchange',()=>{setTimeout(()=>{if(G)hudLayout()},300)});
-/* ---------- Renn-GUI: Positionen (nur Mobil) ---------- */
-function mobLay(){
-  if(!MOB||!G)return;const W=innerWidth,H=innerHeight;
-  const tw=$('tower'),off=document.body.classList.contains('mobTwOff');
-  if(tw)tw.style.maxHeight=(H-118)+'px';
-  const t=$('toasts');if(t){t.style.maxHeight=Math.max(90,H*.42)+'px'}
-  const mt=$('mobTw');if(mt)mt.classList.toggle('off',off);
-}
-{const hl0=hudLayout;hudLayout=function(){if(MOB&&G){mobLay();return}return hl0()}}
-{const vr0=viewRect;viewRect=function(){
-  if(!MOB)return vr0();const W=innerWidth,H=innerHeight;
-  if(G&&G.modal){const iw=$('inc')&&!$('inc').classList.contains('big')?Math.min(W*.46,420):0;return {l:0,r:Math.max(220,W-iw),t:0,b:H}}
-  if(G&&G.ended||!G)return {l:0,r:W,t:0,b:H};
-  const lw=document.body.classList.contains('mobTwOff')?0:158;
-  return {l:lw,r:W-178,t:40,b:H-58};
-}}
-/* Unwichtiges im Rennen weglassen: keine Funksprüche, kein Meldungs-Ticker (Vorfälle & Flaggen bleiben) */
-{const rl0=renderLog;renderLog=function(){if(MOB)return;return rl0()}}
-/* ---------- Touch: Ziehen = verschieben, zwei Finger = zoomen, Doppeltipp = TV-Regie ---------- */
-(()=>{
-  const P=new Map();let pinch=null,lastTap=0,lastXY=[0,0];
-  const cvs=()=>document.getElementById('cv')||document.querySelector('canvas#c')||document.querySelector('body>canvas');
-  addEventListener('pointerdown',e=>{if(!MOB||e.pointerType!=='touch'||!G||G.modal||G.ended)return;const c=cvs();if(!c||e.target!==c)return;
-    P.set(e.pointerId,[e.clientX,e.clientY]);
-    if(P.size===2){const [a,b]=[...P.values()];if(G.cm!==3){G.free={x:G.cam.x,y:G.cam.y,z:G.cam.z};setCam(3)}
-      pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1])||1,z:G.free.z,mx:(a[0]+b[0])/2,my:(a[1]+b[1])/2};G.dragged=true}
-  },true);
-  addEventListener('pointermove',e=>{if(!MOB||!P.has(e.pointerId))return;P.set(e.pointerId,[e.clientX,e.clientY]);
-    if(pinch&&P.size>=2&&G&&G.free){e.stopImmediatePropagation();const [a,b]=[...P.values()];const d=Math.hypot(a[0]-b[0],a[1]-b[1])||1;
-      const F=G.free,nz=clamp(pinch.z*d/pinch.d,fitZoom(viewRect())*.7,4.5),wx=(pinch.mx-G.vc.x)/G.cam.z+G.cam.x,wy=(pinch.my-G.vc.y)/G.cam.z+G.cam.y;
-      F.x=wx-(wx-F.x)*F.z/nz;F.y=wy-(wy-F.y)*F.z/nz;F.z=nz}
-  },true);
-  const up=e=>{if(!P.has(e.pointerId))return;P.delete(e.pointerId);if(P.size<2)pinch=null;
-    if(MOB&&G&&!G.modal&&e.type==='pointerup'&&!G.dragged){const now=performance.now();
-      if(now-lastTap<320&&Math.hypot(e.clientX-lastXY[0],e.clientY-lastXY[1])<40){G.cz=1;G.sel=-1;setCam(0);banner('KAMERA: TV-REGIE','');lastTap=0}else{lastTap=now;lastXY=[e.clientX,e.clientY]}}};
-  addEventListener('pointerup',up,true);addEventListener('pointercancel',up,true);
-})();
-/* Auswahl per Tipp etwas großzügiger (Finger statt Maus) */
-/* ---------- Hochformat-Hinweis im Rennen ---------- */
-(()=>{const el=document.createElement('div');el.id='mobRot';el.innerHTML='<div><svg viewBox="0 0 24 24" width="54" height="54"><rect x="7" y="2.5" width="10" height="19" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 14a9 9 0 0 0 9 8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 21l2 1-1 2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><b></b><span></span></div>';document.body.appendChild(el);
-  setInterval(()=>{const show=MOB&&!!G&&innerHeight>innerWidth*1.05;el.classList.toggle('on',show);if(show){el.querySelector('b').textContent=tl('Bitte Gerät quer halten');el.querySelector('span').textContent=tl('Das Rennen ist im Querformat am besten zu überblicken.')}},600)})();
-/* ---------- Einstellung: Mobile Ansicht ---------- */
-{const sh0=setHTML;setHTML=function(){const h=sh0();const m=SETS.mob||'auto';
-  const seg=`<div><h4>MOBILE ANSICHT</h4><div class="seg setg" data-sk="mob">${[['auto','Automatisch'],['on','An'],['off','Aus']].map(([v,l])=>`<span data-sv="${v}" class="${m===v?'on':''}">${l}</span>`).join('')}</div><div class="mut sm">${MOB?'Gerade aktiv':'Gerade aus'} · Automatisch erkennt Handys und Tablets.</div></div>`;
-  return h.replace('<div><h4>RENNFENSTER</h4>',seg+'<div><h4>RENNFENSTER</h4>')}}
-{const sa0=setApply;setApply=function(){sa0();const was=MOB;MOB=mobDetect();if(was!==MOB||document.body.classList.contains('mob')!==MOB)mobApply()}}
-Object.assign(EN,{'Vollbild':'Fullscreen','Rangliste':'Standings','MOBILE ANSICHT':'MOBILE VIEW','Automatisch':'Automatic','Bitte Gerät quer halten':'Please rotate your device','Das Rennen ist im Querformat am besten zu überblicken.':'The race is best viewed in landscape.',
- 'Vollbild wird von diesem Browser nicht unterstützt – über „Zum Startbildschirm hinzufügen“ läuft das Spiel ohne Leisten.':'This browser does not support fullscreen – add the game to your home screen to play without bars.'});
-Object.assign(LA,{'Vollbild':'Plena tabula','Rangliste':'Ordo','MOBILE ANSICHT':'SPECIES MOBILIS','Automatisch':'Sponte','Bitte Gerät quer halten':'Verte instrumentum'});
-mobApply();
-/* Während einer Untersuchung: nur Replay + Entscheidungsfenster */
-setInterval(()=>{document.body.classList.toggle('mobInc',MOB&&!!G&&!!G.modal&&!$('inc').classList.contains('hide'))},150);
-
 if(JOIN_CODE){const sg=document.querySelector('.seg[data-k="net"]');if(sg)sg.querySelectorAll('span').forEach(x=>x.classList.toggle('on',x.dataset.v==='mp'))}
 initMenu();
 if(JOIN_CODE)setTimeout(()=>{const n=$('mpName');if(n){n.focus();n.placeholder='Dein Name – dann „Beitreten“'}},50);
 requestAnimationFrame(frame);
+</script>
+<script id="mobileJs">
+/* =====================================================================
+   RACE CONTROL – MOBILE (Hochkant) · Version 2
+   Schaltet sich auf Handys automatisch ein (?mobile=1 erzwingt, ?mobile=0 aus).
+   Strecke bildschirmfüllend; darüber: Statuszeile + Bewertungsbalken, schmale
+   Zeitnahme links, Bedienknöpfe rechts, offene Fälle als Kärtchen über den Flaggen.
+   Kamera: ein Finger = Bild verschieben (bleibt bei der Regie), zwei Finger = Zoom,
+   doppelt tippen = zurücksetzen. Funktioniert auch in der Wiederholung.
+   ===================================================================== */
+(function(){
+const qp=new URLSearchParams(location.search).get('mobile');
+const coarse=matchMedia('(pointer:coarse)').matches,small=Math.min(screen.width||innerWidth,screen.height||innerHeight)<820;
+const pref=(typeof SETS!=='undefined'&&SETS.mob)||'auto';
+const MOB=window.MOB={on:qp==='1'||(qp!=='0'&&pref!=='off'&&(pref==='on'||(coarse&&small)||innerWidth<700))};
+if(!MOB.on)return;
+const body=document.body;body.classList.add('mob');body.classList.remove('hudMir');
+if(typeof layApply==='function'){const la=layApply;layApply=function(){la();body.classList.remove('hudMir')}}
+const el=(tag,attrs,html)=>{const e=document.createElement(tag);if(attrs)for(const k in attrs)e.setAttribute(k,attrs[k]);if(html!=null)e.innerHTML=html;return e};
+const key=k=>window.dispatchEvent(new KeyboardEvent('keydown',{key:k,bubbles:true,cancelable:true}));
+const hud=$('hud');
+
+/* ---------- Grundgerüst ---------- */
+hud.prepend(el('div',{id:'mTopBg'}));
+hud.appendChild(el('div',{id:'mMeters'},['GER','SICH','SPAN','TEAM'].map(n=>`<div>${n}<i><b></b></i><em>–</em></div>`).join('')));
+hud.appendChild($('mmapW'));                          // Karte aus der (versteckten) rechten Spalte holen
+$('mmapW').appendChild(el('div',{class:'mHint'},'Sektor antippen: Gelb → Doppelgelb → frei'));
+$('mmapW').appendChild($('wxF'));
+hud.appendChild(el('button',{id:'mDx'},'✕'));
+hud.appendChild(el('div',{id:'mFloat'}));
+const act=el('div',{id:'mAct'},
+ `<button class="mBtn" data-mk="go" id="mGo"><span>▶</span><small>Start</small></button>
+  <button class="mBtn hot hide" data-mk="enter" id="mEnter"><span>⏭</span><small>Weiter</small></button>
+  <button class="mBtn" data-mk="cam" id="mCam"><span>◉</span><small>TV</small></button>
+  <button class="mBtn" data-mk="map" id="mMapB"><span>⌖</span><small>Karte</small></button>
+  <button class="mBtn on" data-mk="tw" id="mTwB"><span>☰</span><small>Pos.</small></button>
+  <button class="mBtn" data-mk="spd" id="mSpd"><span>×1</span><small>Tempo</small></button>
+  <button class="mBtn" data-mk="mute" id="mMute"><span>♪</span><small>Ton</small></button>`);
+hud.appendChild(act);
+body.appendChild(el('div',{id:'mRep'},
+ `<button class="mBtn" data-rk="ArrowLeft"><span>◀◀</span></button><button class="mBtn" data-rk=" " id="mRepP"><span>❚❚</span></button>
+  <button class="mBtn" data-rk="ArrowRight"><span>▶▶</span></button><button class="mBtn" data-rk="ArrowDown"><span>−</span></button><button class="mBtn" data-rk="ArrowUp"><span>+</span></button>`));
+body.appendChild(el('button',{id:'mIncT'},'▼ WIEDERHOLUNG GRÖSSER'));
+document.querySelectorAll('#bar .fb').forEach(b=>{const n=b.firstChild;if(n&&n.nodeType===3&&/Safety/.test(n.textContent))n.textContent='SC'});
+
+/* ---------- Kamera: Verschiebung, die über der Regie liegt ---------- */
+const OFF={live:{x:0,y:0},rep:{x:0,y:0}};
+const curOff=()=>G&&G.modal?OFF.rep:OFF.live;
+const resetOff=o=>{(o||OFF.live).x=0;(o||OFF.live).y=0};
+const cu0=camUpdate;
+camUpdate=function(rdt){
+  const o=curOff();if(!G||!G.cam)return cu0(rdt);
+  const z=G.cam.z||1;G.cam.x-=o.x/z;G.cam.y-=o.y/z;
+  cu0(rdt);
+  const z2=G.cam.z||1;G.cam.x+=o.x/z2;G.cam.y+=o.y/z2;
+};
+let lastModal=null;
+setInterval(()=>{const m=G&&G.modal||null;if(m!==lastModal){lastModal=m;resetOff(OFF.rep);body.classList.remove('mIncMin')}},200);
+
+/* ---------- Sichtbereich = freie Fläche zwischen den Einblendungen ---------- */
+viewRect=function(){
+  const W=innerWidth,H=innerHeight;
+  if(!G||G.ended)return {l:0,r:W,t:0,b:H};
+  if(G.modal){const inc=$('inc');if(inc.classList.contains('hide')||inc.classList.contains('big'))return {l:0,r:W,t:0,b:H};
+    const r=inc.getBoundingClientRect();
+    if(r.width<W*.8)return {l:0,r:Math.max(200,r.left),t:0,b:H};
+    return {l:0,r:W,t:0,b:Math.max(150,r.top)};}
+  const land=W>H;
+  const tw=$('tower').getBoundingClientRect(),mm=$('mMeters').getBoundingClientRect(),bar=$('bar').getBoundingClientRect(),ts=$('toasts').getBoundingClientRect();
+  const l=tw.width?tw.right+2:0,r=land?bar.left-4:W-50,t=(mm.bottom||50)+4;
+  let b=land?H:bar.top;if(ts.height)b=Math.min(b,ts.top-2);
+  return {l,r:Math.max(l+120,r),t,b:Math.max(t+120,b)};
+};
+hudLayout=function(){};
+
+/* ---------- Touch auf der Strecke ---------- */
+{
+  const pts=new Map();let pinch=null,drag=null,tap=null;
+  const two=()=>{const [a,b]=[...pts.values()];return {d:Math.hypot(a.x-b.x,a.y-b.y)}};
+  const zoom=f=>{
+    if(!G||G.ended)return;
+    if(G.modal){if(G.replay)G.replay.zoom=clamp((G.replay.zoom||1)*f,.5,3.5);return}
+    if(G.cm===3&&G.free)G.free.z=clamp(G.free.z*f,fitZoom(viewRect())*.8,4);else G.cz=clamp((G.cz||1)*f,.45,3);
+  };
+  cv.addEventListener('pointerdown',e=>{
+    if(!G||G.ended)return;
+    e.stopImmediatePropagation();                       // eigenes Verschieben statt „freie Kamera“
+    pts.set(e.pointerId,{x:e.clientX,y:e.clientY,sx:e.clientX,sy:e.clientY});
+    if(pts.size>=2){pinch=two();drag=null;tap=null}else drag={x:e.clientX,y:e.clientY,moved:false};
+  },true);
+  addEventListener('pointermove',e=>{
+    const q=pts.get(e.pointerId);if(!q)return;q.x=e.clientX;q.y=e.clientY;e.stopImmediatePropagation();
+    if(pinch&&pts.size>=2){const p=two();if(pinch.d>10)zoom(p.d/pinch.d);pinch=p;return}
+    if(drag){const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+      if(!drag.moved&&Math.hypot(e.clientX-q.sx,e.clientY-q.sy)<7)return;drag.moved=true;
+      const o=curOff(),lim=Math.max(innerWidth,innerHeight)*.9;o.x=clamp(o.x-dx,-lim,lim);o.y=clamp(o.y-dy,-lim,lim);drag.x=e.clientX;drag.y=e.clientY}
+  },true);
+  const up=e=>{
+    const q=pts.get(e.pointerId);if(!q)return;pts.delete(e.pointerId);
+    if(pinch){if(pts.size<2){pinch=null;pts.clear();drag=null}if(G)G.dragged=true;return}
+    const moved=drag&&drag.moved;drag=null;
+    if(moved){if(G)G.dragged=true;tap=null;return}
+    const now=performance.now();
+    if(tap&&now-tap.t<330&&Math.hypot(e.clientX-tap.x,e.clientY-tap.y)<30){tap=null;
+      resetOff(curOff());if(G&&G.modal&&G.replay)G.replay.zoom=1;else if(G&&!G.modal){G.cz=1;setCam(0);banner('KAMERA: TV-REGIE','')}}
+    else tap={t:now,x:e.clientX,y:e.clientY};
+  };
+  addEventListener('pointerup',up,true);addEventListener('pointercancel',up,true);
+  cv.addEventListener('wheel',e=>{if(G&&G.modal&&G.replay){e.preventDefault();zoom(Math.exp(-e.deltaY*.0015))}},{passive:false});
+}
+
+/* ---------- Knöpfe ---------- */
+act.addEventListener('click',e=>{
+  const b=e.target.closest('[data-mk]');if(!b||!G)return;const k=b.dataset.mk;
+  if(k==='go')key(' ');
+  else if(k==='enter')key('Enter');
+  else if(k==='cam'){resetOff();key('f')}
+  else if(k==='map'){body.classList.toggle('mMap');requestAnimationFrame(()=>{try{mmapDraw()}catch(e){}})}
+  else if(k==='tw')body.classList.toggle('mTwOff');
+  else if(k==='spd')key(G.speed===1?'2':G.speed===2?'3':'1');
+  else if(k==='mute')key('m');
+  setTimeout(sync,30);
+});
+$('mRep').addEventListener('click',e=>{const b=e.target.closest('[data-rk]');if(b){key(b.dataset.rk);setTimeout(sync,30)}});
+$('mIncT').addEventListener('click',()=>{body.classList.toggle('mIncMin');setTimeout(sync,280)});
+$('mDx').addEventListener('click',()=>{if(G){G.sel=-1;if(G.cm===2)setCam(0);updateHud()}});
+$('lights').addEventListener('click',()=>key(' '));
+// Auto antippen öffnet Fahrerdaten → Karte schließen
+cv.addEventListener('click',()=>setTimeout(()=>{if(G&&G.sel>=0)body.classList.remove('mMap')},0));
+
+/* ---------- Zustand abgleichen ---------- */
+function sync(){
+  if(!G){body.classList.remove('mModal','mEnded','mRepOn','mSel');return}
+  body.classList.toggle('mModal',!!G.modal);body.classList.toggle('mEnded',!!G.ended);
+  const inc=$('inc'),incBig=inc.classList.contains('big')&&!inc.classList.contains('hide');
+  body.classList.toggle('mRepOn',!!(G.modal&&G.replay&&!incBig&&!G.modal.jg&&(G.modal.stage==='decide'||G.modal.view)));
+  body.style.setProperty('--incH',(inc.classList.contains('hide')?0:inc.getBoundingClientRect().height)+'px');
+  $('mIncT').textContent=body.classList.contains('mIncMin')?'▲ DETAILS & ENTSCHEIDUNG':'▼ WIEDERHOLUNG GRÖSSER';
+  if(G.replay)$('mRepP').firstElementChild.textContent=G.replay.paused?'▶':'❚❚';
+  body.classList.toggle('mSel',G.sel>=0&&!$('dcard').classList.contains('hide'));
+  const ready=G.phase==='grid'&&G.lightN>=5&&G.lightsOut>1e8,go=$('mGo');
+  if(ready){go.className='mBtn hot';go.innerHTML='<span>▶</span><small>Start</small>'}
+  else if(G.mp||G.phase==='grid'||G.phase==='form'||G.quali)go.className='mBtn hide';
+  else{go.className='mBtn'+(G.paused?' on':'');go.innerHTML=G.paused?'<span>▶</span><small>Weiter</small>':'<span>❚❚</span><small>Pause</small>'}
+  const en=$('mEnter'),showEnter=(G.phase==='form'&&!G.client)||(G.quali&&G.Q&&G.Q.ci>=G.Q.cases.length);
+  en.classList.toggle('hide',!showEnter);en.querySelector('small').textContent=G.phase==='form'?'Startaufst.':'Weiter';
+  $('mCam').querySelector('small').textContent=({0:'TV',1:'Übers.',2:'Fahrer',3:'Frei'})[G.cm||0];
+  $('mMapB').classList.toggle('on',body.classList.contains('mMap'));
+  $('mTwB').classList.toggle('on',!body.classList.contains('mTwOff'));
+  const sp=$('mSpd');sp.classList.toggle('hide',!!G.mp);sp.firstElementChild.textContent='×'+G.speed;
+  $('mMute').firstElementChild.textContent=MUTE?'✕':'♪';$('mMute').classList.toggle('on',!!MUTE);
+  const s=$('cSpd');if(s&&/LEERTASTE/.test(s.textContent))s.textContent='▶ = START';
+  const ses=$('cSes');if(ses&&ses.textContent.includes('(⏎)'))ses.textContent=ses.textContent.replace(' (⏎)','');
+  if(ses)ses.textContent=ses.textContent.replace(/^(EINZELRENNEN|SAISON|PROBEMISSION) · /,'');
+  if(body.classList.contains('mMap'))try{mmapDraw()}catch(e){}
+  // Bewertung als Mini-Balken
+  if(G.meters){const m=G.meters,t=typeof tmAvg==='function'?tmAvg():60;
+    [m.f,m.s,m.e,t].forEach((v,i)=>{const d=$('mMeters').children[i];const b=d.querySelector('b');b.style.width=clamp(v,0,100)+'%';b.style.background=typeof colF==='function'?colF(v):'#2fd27a';d.querySelector('em').textContent=Math.round(v)})}
+}
+setInterval(sync,250);
+// Mehrspieler-Hinweise oben einblenden statt im Fälle-Streifen
+new MutationObserver(ms=>{for(const m of ms)for(const n of m.addedNodes)if(n.classList&&n.classList.contains('mpToast'))$('mFloat').appendChild(n)}).observe($('toasts'),{childList:true});
+
+/* ---------- Tutorial ---------- */
+if(typeof ttShow==='function'){const ts0=ttShow;ttShow=function(){const s=TT.steps[TT.i];
+  body.classList.toggle('mMap',!!(s&&s.sel==='#mmapW'));if(s&&s.sel==='#tower')body.classList.remove('mTwOff');return ts0.apply(this,arguments)}}
+if(typeof ttAllowPt==='function'){const ta0=ttAllowPt;ttAllowPt=function(e){
+  const s=TT.steps[TT.i];
+  if(s&&s.task&&e.target&&e.target.closest&&e.target.closest('#mAct,#mRep,#mIncT,#lights,#toasts'))return true;
+  return ta0(e)}}
+
+/* ---------- Menü: Touch-Hilfe + Vollbild ---------- */
+const help=$('lHelp');
+if(help)help.appendChild(el('div',{id:'mHelp'},
+ `<b>Strecke:</b> ein Finger = Bild verschieben · zwei Finger = zoomen · doppelt tippen = zurücksetzen · Auto antippen = Fahrerdaten<br>
+  <b>Links:</b> Zeitnahme (antippen = Fahrer wählen) · <b>oben:</b> Status und Bewertung<br>
+  <b>Rechts:</b> Start/Pause · Kamera · Streckenkarte (Sektoren gelb setzen) · Zeitnahme ein/aus · Tempo · Ton<br>
+  <b>Unten:</b> offene Fälle (wischen) und die Flaggen Grün/Gelb/VSC/SC/Rot<br>
+  <b>Wiederholung:</b> ebenfalls verschieben und zoomen · „Wiederholung größer“ klappt das Fenster ein`));
+const fsOK=document.documentElement.requestFullscreen||document.documentElement.webkitRequestFullscreen,lh=document.querySelector('.lhead');
+if(lh&&fsOK){const b=el('button',{class:'btn',id:'mFs'},'⛶ Vollbild');lh.appendChild(b);
+  b.addEventListener('click',async()=>{try{const d=document.documentElement;
+    if(document.fullscreenElement||document.webkitFullscreenElement)(document.exitFullscreen||document.webkitExitFullscreen).call(document);
+    else{await (d.requestFullscreen||d.webkitRequestFullscreen).call(d);try{await screen.orientation.lock('portrait')}catch(e){}}}catch(e){}})}
+})();
+
+/* ---------- Ergänzungen für Version 35/36 ---------- */
+// Einstellung „Mobile Ansicht“ (wirkt nach dem Speichern sofort per Neuladen)
+{const sh0=setHTML;setHTML=function(){const h=sh0(),m=SETS.mob||'auto';
+  const seg=`<div><h4>MOBILE ANSICHT</h4><div class="seg setg" data-sk="mob">${[['auto','Automatisch'],['on','An'],['off','Aus']].map(([v,l])=>`<span data-sv="${v}" class="${m===v?'on':''}">${l}</span>`).join('')}</div><div class="mut sm">${window.MOB&&MOB.on?'Gerade aktiv':'Gerade aus'} · Automatisch erkennt Handys.</div></div>`;
+  return h.replace('<div><h4>RENNFENSTER</h4>',seg+'<div><h4>RENNFENSTER</h4>')}}
+{const MOB0=(typeof SETS!=='undefined'&&SETS.mob)||'auto';const sc1=setCommit;setCommit=function(){sc1();if((SETS.mob||'auto')!==MOB0)setTimeout(()=>location.reload(),400)}}
+Object.assign(EN,{'Start':'Start','Weiter':'Next','TV':'TV','Karte':'Map','Pos.':'Pos.','Tempo':'Speed','Ton':'Sound','Übers.':'Overv.','Fahrer':'Driver','Frei':'Free','Startaufst.':'Grid',
+ 'Sektor antippen: Gelb → Doppelgelb → frei':'Tap sector: yellow → double yellow → clear','⛶ Vollbild':'⛶ Fullscreen','MOBILE ANSICHT':'MOBILE VIEW','Automatisch':'Automatic','GER':'FAIR','SICH':'SAFE','SPAN':'EXC.','TEAM':'TEAM'});
+Object.assign(LA,{'Karte':'Tabula','Tempo':'Celeritas','Ton':'Sonus','MOBILE ANSICHT':'SPECIES MOBILIS','Automatisch':'Sponte'});
 </script>
 </body>
 </html>
