@@ -562,6 +562,20 @@ div.sp{display:block;margin:6px 0 0;font-size:12px;font-weight:600;letter-spacin
 .c3res{margin:12px 0;padding:10px 14px;border-radius:10px;background:rgba(0,0,0,.25);border:1px solid rgba(0,180,255,.25)}.c3res h5{margin:0 0 6px;font-size:11px;letter-spacing:.14em;color:#7fd4ff}
 .c3res .ok{color:var(--ok)}.c3res .no{color:#ff8a80}
 @media (max-width:980px){.c3grid{grid-template-columns:1fr}}
+
+/* ===== RACE CONTROL 36 – Schutz & Melden ===== */
+#modWarn,#repBox{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;background:rgba(2,5,10,.72);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+#modWarn.hide,#repBox.hide{display:none}
+.mwBox{width:min(520px,92vw);background:#0b111b;border:1px solid rgba(255,90,82,.6);border-radius:14px;padding:20px 22px;box-shadow:0 20px 60px rgba(0,0,0,.6);animation:mwIn .35s cubic-bezier(.3,1.4,.5,1)}
+.mwBox.rep{border-color:rgba(0,180,255,.45)}.mwBox p{font-size:14px;line-height:1.5;margin:10px 0}
+.mwT{font-family:"Barlow Condensed",sans-serif;font-size:24px;font-weight:800;letter-spacing:.14em;color:#ff5a52}.mwBox.rep .mwT{color:#7fd4ff;font-size:20px}
+.mwBox input,.mwBox select,.mwBox textarea{width:100%;background:#05090f;border:1px solid rgba(0,180,255,.25);border-radius:8px;color:var(--tx);padding:8px 10px;font:inherit;font-size:14px}
+.mwBox h4{margin:12px 0 5px}.repChk{display:flex;gap:8px;align-items:center;margin-top:10px;font-size:13px}.repChk input{width:auto}
+@keyframes mwIn{from{transform:scale(.9);opacity:0}to{transform:none;opacity:1}}
+#repBtn{position:fixed;right:16px;bottom:16px;z-index:41;background:rgba(12,18,28,.9);color:#ffb23e;border:1px solid rgba(255,178,62,.5);border-radius:8px;padding:5px 12px;font:700 12px Barlow,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+#repBtn.hide{display:none}#repBtn:hover{background:rgba(80,50,10,.9)}
+.fbRep{display:flex;align-items:center;gap:10px;margin:12px 0 0;padding:8px 10px;border-radius:8px;background:rgba(255,178,62,.08);border:1px solid rgba(255,178,62,.3)}
+body.light :is(#modWarn,#repBox,#repBtn){filter:invert(.94) hue-rotate(180deg)}
 </style>
 </head>
 <body>
@@ -4405,7 +4419,7 @@ function hostMsg(conn,d){
     if(!pl){
       if(NET.players.length>=MAXP){conn.send({t:'full'});setTimeout(()=>conn.close(),400);return}
       const used=NET.players.map(p=>p.col),col=PCOL.find(c=>!used.includes(c))||'#aaa';
-      pl={id:pid,name:String(d.name||'Spieler').slice(0,16),col,via:conn.relay?'relay':'p2p',t0:performance.now()};
+      pl={id:pid,name:modName(String(d.name||'Spieler').slice(0,16),'Spieler '+(NET.players.length+1)),col,via:conn.relay?'relay':'p2p',t0:performance.now()};
       NET.players.push(pl);NET.conns[pid]=conn;
     }
     conn.send({t:'welcome',code:NET.code,players:NET.players,me:pid});
@@ -5612,7 +5626,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='35.0';
+const GAMEVER='36.0';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -6622,6 +6636,157 @@ setInterval(()=>{
   box.innerHTML=`<h5>KARRIERE · HERAUSFORDERUNGEN${dbl>1?' (doppelt)':''}</h5>${ch.map((id,k)=>`<div class="${res[k]?'ok':'no'}">${res[k]?'✓':'✗'} ${CHAL.find(c=>c.id===id).t}</div>`).join('')}<div class="mut sm">Bewertung dieses Rennens: ${SEASON.ratings[i]} · Ruf beim Verband: ${C.rep}${C.event?' · Vor dem nächsten Rennen wartet ein Ereignis.':''}</div>`;
   last.parentNode.insertBefore(box,last);trAll();
 },400);
+
+/* =====================================================================
+   RACE CONTROL 36 – Schutz vor verfassungsfeindlichen, rassistischen und
+   beleidigenden Inhalten (Namen, Streckennamen, gezeichnete Strecken) + Melden
+   ===================================================================== */
+/* ---------- Text normalisieren (Umgehungen wie H1tl3r, H.i.t.l.e.r, Ümläute) ---------- */
+function modNorm(s){
+  return String(s||'').toLowerCase()
+    .replace(/[äÄ]/g,'ae').replace(/[öÖ]/g,'oe').replace(/[üÜ]/g,'ue').replace(/ß/g,'ss')
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[@4]/g,'a').replace(/[3€]/g,'e').replace(/[1!|]/g,'i').replace(/[0]/g,'o').replace(/[5$]/g,'s').replace(/[7]/g,'t').replace(/ph/g,'f');
+}
+const MOD_SUB=[ // überall im Text (nach Entfernen aller Trennzeichen)
+ 'hitler','heilhitler','siegheil','nazi','nsdap','hakenkreuz','swastika','swastica','waffenss','gestapo','auschwitz','buchenwald','dachau','holocaust','endloesung','judensau','judenschwein','judenpack',
+ 'untermensch','herrenrasse','arierrasse','whitepower','whitepride','whitesupremacy','kukluxklan','kluxklan','fourteenwords','vierzehnwoerter','reichsbuerger','blutundehre','bloodandhonour','bloodandhonor',
+ 'mussolini','faschist','fascist','neonazi','rassenkrieg','heilsieg','meinfuehrer','derfuehrer','adolfh','eichmann','himmler','goebbels','mengele','reinhardheydrich','totenkopfss','schwarzesonne','wolfsangel',
+ 'nigger','nigga','niggr','negerkind','kanake','kanacke','zigeunerpack','kameltreiber','bimbo','neger',
+ 'hurensohn','hurenkind','fotze','wichser','missgeburt','schlampe','arschloch','fickdich','fuckyou','motherfucker','fucker','bitch','retard','faggot','schwuchtel','spasti','vergasen','vergast'];
+const MOD_WORD=['88','18','1488','hh','ss','sa','kkk','kz','heil','hure','fick','fuck','shit','cunt','spast','juden','zigeuner']; // nur als eigenes Wort
+const MOD_OK=['nazion','nazar','scunthorpe','mongol'];  // harmlose Wörter, die verbotene Teile enthalten
+const MOD_NUM=/(^|\D)(1488|14\s*88|88\s*14)(\D|$)/;
+function modCheck(raw){
+  if(!raw)return null;const n=modNorm(raw);
+  if(MOD_NUM.test(String(raw)))return '1488';
+  let joined=n.replace(/[^a-z0-9]+/g,'');MOD_OK.forEach(o=>{joined=joined.split(o).join('_')});
+  const single=joined.replace(/(.)\1+/g,'$1');
+  for(const w of MOD_SUB){if(joined.includes(w)||single.includes(w.replace(/(.)\1+/g,'$1')))return w}
+  const words=n.split(/[^a-z0-9]+/).filter(Boolean);
+  for(const w of words){if(MOD_WORD.includes(w))return w}
+  // Ziffern-Codes ohne Leetspeak-Umwandlung prüfen (88, 18 …)
+  for(const w of String(raw).toLowerCase().split(/[^a-z0-9]+/).filter(Boolean))if(MOD_WORD.includes(w))return w;
+  return null;
+}
+function modName(n,fb){return modCheck(n)?(fb||'Spieler'):n}
+/* ---------- Formprüfung: verbotene Symbole als Strecke ---------- */
+/* Erkennt Formen mit vierfacher Drehsymmetrie, die NICHT spiegelsymmetrisch sind (typisch für Hakenkreuze),
+   sowie dreiarmige gedrehte Formen (Triskele) – jeweils nur bei vielen scharfen Ecken. */
+function modShape(pts){
+  if(!pts||pts.length<20)return null;
+  const P=resamplePts(pts,240);let cx=0,cy=0;P.forEach(p=>{cx+=p[0];cy+=p[1]});cx/=P.length;cy/=P.length;
+  let Q=P.map(p=>[p[0]-cx,p[1]-cy]);
+  // Streckung/Stauchung ausgleichen (Weißung über die Kovarianz)
+  {let a=0,b=0,c=0;Q.forEach(p=>{a+=p[0]*p[0];b+=p[0]*p[1];c+=p[1]*p[1]});a/=Q.length;b/=Q.length;c/=Q.length;
+   const tr=a+c,dt=Math.sqrt(Math.max(0,(a-c)*(a-c)/4+b*b)),l1=tr/2+dt,l2=tr/2-dt;
+   if(l2>1e-9){const th=.5*Math.atan2(2*b,a-c),co=Math.cos(th),si=Math.sin(th),s1=1/Math.sqrt(l1),s2=1/Math.sqrt(l2);
+     Q=Q.map(p=>{const u=(p[0]*co+p[1]*si)*s1,v=(-p[0]*si+p[1]*co)*s2;return [u*co-v*si,u*si+v*co]})}}
+  let R=0;Q.forEach(p=>R=Math.max(R,Math.hypot(p[0],p[1])));if(!R)return null;
+  const N=Q.map(p=>[p[0]/R,p[1]/R]);
+  const near=(A,B)=>{let s=0;for(const a of A){let m=1e9;for(const b of B){const d=(a[0]-b[0])**2+(a[1]-b[1])**2;if(d<m)m=d}s+=Math.sqrt(m)}return s/A.length};
+  const rot=(A,t)=>{const c=Math.cos(t),s=Math.sin(t);return A.map(p=>[p[0]*c-p[1]*s,p[0]*s+p[1]*c])};
+  // scharfe Ecken zählen (Richtungswechsel > 55° auf kurzer Strecke)
+  let corners=0;for(let i=0;i<N.length;i+=2){const a=N[(i-4+N.length)%N.length],b=N[i],c=N[(i+4)%N.length];
+    const t1=Math.atan2(b[1]-a[1],b[0]-a[0]),t2=Math.atan2(c[1]-b[1],c[0]-b[0]);let d=Math.abs(wrapA(t2-t1));if(d>.95){corners++;i+=6}}
+  const sub=N.filter((_,i)=>i%3===0);
+  const best=(k)=>{let m=1e9;for(let o=0;o<12;o++){const t=2*Math.PI/k+o*0;m=Math.min(m,near(sub,rot(N,t)))}return m};
+  // Spiegelprüfung: 90-%-Abstand zur besten Spiegelung (gespiegelte Haken liegen weit daneben)
+  const mirror=()=>{const H=N.filter((_,i)=>i%2===0);let m=1e9;for(let a=0;a<72;a++){const t=a*Math.PI/72,c=Math.cos(2*t),s=Math.sin(2*t);const M=N.map(p=>[p[0]*c+p[1]*s,p[0]*s-p[1]*c]);
+    const D=H.map(h=>{let q=1e9;for(const b of M){const d=(h[0]-b[0])**2+(h[1]-b[1])**2;if(d<q)q=d}return Math.sqrt(q)}).sort((x,y)=>x-y);m=Math.min(m,D[Math.floor(D.length*.9)])}return m};
+  const c4=best(4),c3=best(3);
+  // echte Strecken liegen bei c4/c3 ≥ 0,15 – gedrehte, nicht spiegelbare Symbole nahe 0
+  if(corners>=4&&c4<.07&&mirror()>.06)return 'symbol4';
+  if(corners>=3&&c3<.06&&mirror()>.06)return 'symbol3';
+  return null;
+}
+/* ---------- Verwarnung ---------- */
+function modWarnCount(){try{return +(localStorage.getItem('rc_warn')||0)}catch(e){return 0}}
+function modWarn(what,detail){
+  let n=modWarnCount()+1;try{localStorage.setItem('rc_warn',String(n))}catch(e){}
+  let el=$('modWarn');if(!el){el=document.createElement('div');el.id='modWarn';document.body.appendChild(el)}
+  el.innerHTML=`<div class="mwBox"><div class="mwT">VERWARNUNG${n>1?' · '+n+'.':''}</div>
+    <p>${what} wurde <b>gelöscht</b>. Race Control duldet keine verfassungsfeindlichen, nationalsozialistischen, rassistischen oder beleidigenden Inhalte – weder in Namen noch als gezeichnete Strecken.</p>
+    ${detail?`<p class="mut sm">${detail}</p>`:''}
+    <button class="btn primary" data-mw="ok">Verstanden</button></div>`;
+  el.classList.remove('hide');trAll&&trAll();
+}
+document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-mw]');if(q){e.stopPropagation();$('modWarn').classList.add('hide')}},true);
+/* ---------- Prüfpunkte ---------- */
+// eigene Strecken: beim Laden prüfen (auch alte Speicherstände)
+function modCheckSaved(){
+  let bad=0;CUST.forEach((c,i)=>{if(c&&(modCheck(c.name)||modShape(c.pts))){CUST[i]=null;bad++}});
+  if(bad){custSave();custApply();setTimeout(()=>modWarn(bad>1?bad+' gespeicherte Strecken':'Eine gespeicherte Strecke'),600)}
+}
+modCheckSaved();
+// Strecken-Editor: Form + Name
+function teBanned(){return TE&&((TE.raw&&TE.raw.length>20&&modShape(TE.raw))||(TE.def&&modShape(TE.def.pts)))}
+{const tb0=teBuild;teBuild=function(){tb0();if(!TE||!TE.def||TE.dragI!=null)return;const sh=teBanned();TE.banned=sh;if(sh){TE.ok=false;teStatus(tl('✗ Diese Form ist nicht erlaubt.'),'bad')}}}
+{const ts0=teSave;teSave=function(){
+  const nm=($('teName')&&$('teName').value||'').trim();
+  if(modCheck(nm)){$('teName').value='';TE.name='';modWarn('Der Streckenname „'+esc(nm.slice(0,28))+'“');return}
+  if(teBanned()){TE.raw=null;TE.ctrl=null;TE.img=null;TE.def=null;TE.tr=null;teRender();modWarn('Die gezeichnete Strecke','Die Form ähnelt einem verbotenen Symbol.');return}
+  ts0()}}
+// Spielername: Einstellungen, Mehrspieler, Feedback
+{const sc0=setCommit;setCommit=function(){const i=$('setName');if(i&&modCheck(i.value)){const v=i.value;i.value='';try{if(modCheck(lsGet('rc_name')))lsSet('rc_name','')}catch(_){}modWarn('Der Name „'+esc(v.slice(0,16))+'“');return}sc0()}}
+{const rn0=readName;readName=function(){const el=$('mpName');if(el&&modCheck(el.value)){const v=el.value;el.value='';lsSet('rc_name','Rennleiter');modWarn('Der Name „'+esc(v.slice(0,16))+'“');return 'Rennleiter'}return rn0()}}
+{const fs0=fbSend;fbSend=async function(){const i=$('fbName');if(i&&modCheck(i.value)){const v=i.value;i.value='';modWarn('Der Name „'+esc(v.slice(0,30))+'“');return}return fs0()}}
+// Bereits gespeicherter Name
+try{if(modCheck(lsGet('rc_name'))){lsSet('rc_name','');lsSet('rc_fb_name','');setTimeout(()=>modWarn('Dein gespeicherter Name'),800)}}catch(e){}
+// Mehrspieler: Namen und Strecken der anderen bei jedem Empfänger prüfen
+function modPlayers(L){if(Array.isArray(L))L.forEach((p,k)=>{if(p&&modCheck(p.name))p.name='Spieler '+(k+1)})}
+{const cm0=clientMsg;clientMsg=function(d){if(d){if(d.players)modPlayers(d.players);if(d.ctr)modTracks(d.ctr)}return cm0(d)}}
+function modTracks(ctr){for(const k in ctr){const t=ctr[k];if(t&&(modCheck(t.name)||modShape(t.pts))){ctr[k]=Object.assign({},TRACKS[0],{name:'Gesperrte Strecke',sub:'vom Spiel ersetzt',custom:true});
+  setTimeout(()=>addLog&&G&&addLog('RENNLEITUNG',tl('Eine unzulässige Strecke des Hosts wurde durch eine Standardstrecke ersetzt.'),'bad'),1500)}}}
+setInterval(()=>{if(typeof NET!=='undefined'&&NET.players)modPlayers(NET.players)},1000);
+/* ---------- Melden (Google-Formular wie Feedback) ---------- */
+const REP_WHY=['Verfassungsfeindliches Symbol / NS-Anspielung','Rassismus','Beleidigung','Unpassender Name','Unpassende Strecke','Sonstiges'];
+function repTrackImg(){
+  try{const tr=(G&&T)?T:(TRACKS[SEL.track]?buildTrack(TRACKS[SEL.track]):null);if(!tr)return '';
+    const cv=document.createElement('canvas');cv.width=420;cv.height=280;const c=cv.getContext('2d');c.fillStyle='#0b111b';c.fillRect(0,0,420,280);previewDraw(c,tr);
+    let q=.8,d=cv.toDataURL('image/jpeg',q);while(d.length>45000&&q>.3){q-=.1;d=cv.toDataURL('image/jpeg',q)}return d.length<45000?d:''}catch(e){return ''}
+}
+function repOpen(pre){
+  let el=$('repBox');if(!el){el=document.createElement('div');el.id='repBox';document.body.appendChild(el)}
+  const me=(typeof NET!=='undefined'&&NET.myId)||null;
+  const pl=(typeof NET!=='undefined'&&NET.players||[]).filter(p=>p.id!==me).map(p=>p.name);
+  const trName=G&&G.opts&&TRACKS[G.opts.track]?TRACKS[G.opts.track].name:(TRACKS[SEL.track]||{}).name||'';
+  el.innerHTML=`<div class="mwBox rep"><div class="mwT">SPIELER ODER INHALT MELDEN</div>
+   <p class="mut sm">Die Meldung geht direkt an den Entwickler – mit Spielername, Strecke (als Bild), Lobby-Code, Uhrzeit und Spielversion.</p>
+   <h4>WER / WAS?</h4><input id="repWho" maxlength="40" list="repList" placeholder="Spielername oder Strecke" value="${esc(pre&&pre.who||'')}"><datalist id="repList">${pl.map(n=>`<option value="${esc(n)}">`).join('')}${trName?`<option value="Strecke: ${esc(trName)}">`:''}</datalist>
+   <h4>GRUND</h4><select id="repWhy">${REP_WHY.map(r=>`<option value="${r}">${r}</option>`).join('')}</select>
+   <h4>BESCHREIBUNG</h4><textarea id="repText" rows="4" maxlength="2000" placeholder="Was ist passiert?"></textarea>
+   <label class="repChk"><input type="checkbox" id="repImg" checked> Bild der aktuellen Strecke anhängen</label>
+   <div class="fbrow"><button class="btn primary" data-rp="send">Meldung senden</button><button class="btn" data-rp="close">Abbrechen</button><span id="repSt" class="mut"></span></div></div>`;
+  el.classList.remove('hide');trAll&&trAll();
+}
+async function repSend(){
+  const who=($('repWho').value||'').trim(),why=$('repWhy').value,text=($('repText').value||'').trim(),st=$('repSt');
+  if(!who){st.textContent=tl('Bitte angeben, wen oder was du meldest.');st.style.color='var(--warn)';return}
+  const me=(lsGet('rc_name')||lsGet('rc_fb_name')||'Unbekannt').slice(0,30),lobby=(typeof NET!=='undefined'&&NET.code)||'–';
+  const full=`[MELDUNG] Gemeldet: ${who}\nGrund: ${why}\nLobby: ${lobby} · Strecke: ${G&&G.opts&&TRACKS[G.opts.track]?TRACKS[G.opts.track].name:'–'} · Zeit: ${new Date().toLocaleString('de-DE')}\nSpieler in der Lobby: ${(typeof NET!=='undefined'&&NET.players||[]).map(p=>p.name).join(', ')||'–'}\n\n${text||'(keine Beschreibung)'}`;
+  const img=$('repImg').checked?repTrackImg():'';
+  st.textContent=tl('Wird gesendet …');st.style.color='';
+  try{const fd=new FormData();fd.append(BUGFORM.name,modName(me,'Unbekannt'));fd.append(BUGFORM.kind,'Meldung');fd.append(BUGFORM.area,why);fd.append(BUGFORM.text,full);
+    if(BUGFORM.ver)fd.append(BUGFORM.ver,GAMEVER+' · '+navigator.userAgent.slice(0,120));if(img&&BUGFORM.imgs)fd.append(BUGFORM.imgs[0],img);
+    if(BUGFORM.who)fd.append(BUGFORM.who,who);if(BUGFORM.why)fd.append(BUGFORM.why,why);if(BUGFORM.lobby)fd.append(BUGFORM.lobby,lobby);
+    await fetch(BUGFORM.url,{method:'POST',mode:'no-cors',body:fd});
+    st.textContent=tl('✓ Danke! Die Meldung wurde an den Entwickler geschickt.');st.style.color='var(--ok)';setTimeout(()=>$('repBox').classList.add('hide'),1600)}
+  catch(e){st.textContent=tl('Senden fehlgeschlagen – bist du online?');st.style.color='var(--acc2)'}
+}
+document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-rp]');if(!q)return;e.stopPropagation();
+  if(q.dataset.rp==='send')repSend();else if(q.dataset.rp==='close')$('repBox').classList.add('hide');else if(q.dataset.rp==='open')repOpen()},true);
+// Melden-Knopf: im Mehrspieler (Lobby + Rennen) und im Feedback-Fenster
+(()=>{const b=document.createElement('button');b.id='repBtn';b.className='hide';b.dataset.rp='open';b.textContent='Melden';document.body.appendChild(b);
+  setInterval(()=>{const mp=typeof NET!=='undefined'&&!!NET.role&&NET.players&&NET.players.length>1;b.classList.toggle('hide',!mp);b.textContent=tl('Melden');
+    const q=$('quitBtn');if(mp&&G&&q&&!q.classList.contains('hide')){const r=q.getBoundingClientRect();b.style.left=(r.right+6)+'px';b.style.top=r.top+'px';b.style.right='auto';b.style.bottom='auto'}else{b.style.left='';b.style.top='';b.style.right='';b.style.bottom=''}},400)})();
+{const fh0=fbHTML;fbHTML=function(){return fh0().replace('<h4>BESCHREIBUNG</h4>','<div class="fbRep"><span class="mut sm">Einen Spieler, Namen oder eine Strecke melden?</span> <button class="btn sm" type="button" data-rp="open">Meldung erstellen</button></div><h4>BESCHREIBUNG</h4>')}}
+Object.assign(EN,{'VERWARNUNG':'WARNING','Verstanden':'Understood','Melden':'Report','SPIELER ODER INHALT MELDEN':'REPORT A PLAYER OR CONTENT','WER / WAS?':'WHO / WHAT?','GRUND':'REASON','Meldung senden':'Send report','Abbrechen':'Cancel',
+ 'Bild der aktuellen Strecke anhängen':'Attach image of the current track','Meldung erstellen':'Create report','Einen Spieler, Namen oder eine Strecke melden?':'Report a player, name or track?',
+ '✗ Diese Form ist nicht erlaubt.':'✗ This shape is not allowed.','✓ Danke! Die Meldung wurde an den Entwickler geschickt.':'✓ Thanks! The report was sent to the developer.','Bitte angeben, wen oder was du meldest.':'Please state who or what you are reporting.',
+ 'Verfassungsfeindliches Symbol / NS-Anspielung':'Anti-constitutional symbol / Nazi reference','Rassismus':'Racism','Beleidigung':'Insult','Unpassender Name':'Inappropriate name','Unpassende Strecke':'Inappropriate track',
+ 'Die Meldung geht direkt an den Entwickler – mit Spielername, Strecke (als Bild), Lobby-Code, Uhrzeit und Spielversion.':'The report goes straight to the developer – with player name, track (as image), lobby code, time and game version.'});
+Object.assign(LA,{'VERWARNUNG':'ADMONITIO','Verstanden':'Intellexi','Melden':'Defer','Abbrechen':'Desine','Meldung senden':'Delationem mitte','GRUND':'CAUSA'});
 
 if(JOIN_CODE){const sg=document.querySelector('.seg[data-k="net"]');if(sg)sg.querySelectorAll('span').forEach(x=>x.classList.toggle('on',x.dataset.v==='mp'))}
 initMenu();
