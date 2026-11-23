@@ -5891,7 +5891,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='38.1';
+const GAMEVER='38.2';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -7272,27 +7272,28 @@ function scProject(x,y,i0){
   return {i:bi,d};
 }
 scDriveStep=function(dt,tg){
-  const k=scInput(),S=G.sc,M=T.M;
-  // Einstieg: Position/Richtung aus der aktuellen Lage übernehmen
-  if(!S.free){const p=posAt(S.dist,S.d||0);S.x=p.x;S.y=p.y;S.h=p.a+(S.yaw||0);S.ix=((Math.floor(mod(S.dist,T.L)/T.ds)%M)+M)%M;S.free=true}
-  // Gas/Bremse
-  if(k.w&&!k.s)S.v+=78*dt;else if(k.s)S.v-=200*dt;else S.v-=16*dt;
+  const k=scInput(),S=G.sc;
+  /* Streckenbezogenes Fahrmodell: Fahrt entlang der Strecke (dist), seitliche Lage (d), Winkel zur Strecke (yaw) */
+  S.free=false;
+  // Tempo: Gas/Bremse – ohne Pedal pendelt es sanft auf ca. 80 km/h (Tempohilfe)
+  const vT=80/.82;
+  if(k.w&&!k.s)S.v+=70*dt;else if(k.s)S.v-=200*dt;else S.v+=clamp(vT-S.v,-26*dt,22*dt);
   S.v=clamp(S.v,0,175);
-  // Lenken: nur durch den Spieler – begrenzt durch die Haftung (zu schnell = schiebt geradeaus)
-  const steer=(k.d?1:0)-(k.a?1:0),want=steer*2.4*Math.min(1,S.v/22),grip=185/Math.max(S.v,1);
-  // Fahrhilfe (minimal): ein Teil der Kurve wird mitgelenkt, das Auto richtet sich sanft in Streckenrichtung aus
-  const ff=(T.KS[S.ix]||0)*S.v*.45;
-  const yr=clamp(want+ff,-grip,grip);S.slide=Math.abs(want+ff)>grip+.05;
-  S.h+=yr*dt;
-  {const ang=T.ANG[S.ix];let err=wrapA(S.h-ang);S.h-=err*(steer?0.35:1.1)*dt;err=wrapA(S.h-ang);
-   if(Math.abs(err)>1.0)S.h=ang+Math.sign(err)*1.0}      // nie quer oder rückwärts: max. ca. 57° zur Streckenrichtung
-  S.x+=Math.cos(S.h)*S.v*dt;S.y+=Math.sin(S.h)*S.v*dt;
-  // Lage zur Strecke bestimmen
-  const pr=scProject(S.x,S.y,S.ix);let di=pr.i-S.ix;if(di>M/2)di-=M;if(di<-M/2)di+=M;S.dist+=di*T.ds;S.ix=pr.i;
-  S.d=pr.d;S.yaw=wrapA(S.h-T.ANG[pr.i]);
+  // Lenken + Hilfe zur Ideallinie (wirkt immer, beim Lenken etwas schwächer)
+  const s=mod(S.dist,T.L),look=Math.max(60,S.v*.9),tgtD=idealD(s+look*.5);
+  const aim=Math.atan2(tgtD-(S.d||0),look);                       // Winkel, der zur Ideallinie führt
+  const steer=(k.d?1:0)-(k.a?1:0);
+  let y=S.yaw||0;
+  y+=steer*1.25*Math.min(1,S.v/22)*dt;                              // Spieler lenkt
+  y+=(aim-y)*(steer?0.9:2.2)*dt;                                    // Hilfe richtet zur Ideallinie aus
+  // Kurvenphysik: zu schnell für die Kurve → nach außen schieben
+  const M=T.M,i=((Math.floor(s/T.ds)%M)+M)%M,kc=T.KS[i]||0,vmax=Math.sqrt(190/Math.max(Math.abs(kc),1e-4));
+  if(S.v>vmax){y-=Math.sign(kc)*(S.v-vmax)/vmax*1.4*dt}
+  y=clamp(y,-.6,.6);S.yaw=y;                                         // nie quer oder rückwärts (max. ca. 35°)
+  S.dist+=S.v*Math.cos(y)*dt;S.d=(S.d||0)+S.v*Math.sin(y)*dt;
   const wall=(T.street?HALF+11:HALF+48);
   if(Math.abs(S.d)>=wall){
-    const sd=Math.sign(S.d)*(wall-.5);S.x=T.X[pr.i]-T.TY[pr.i]*sd;S.y=T.Y[pr.i]+T.TX[pr.i]*sd;S.d=sd;
+    S.d=Math.sign(S.d)*(wall-.5);S.yaw=0;
     if(S.v*.82>15&&!G.scCrash){G.scCrash=true;S.v=0;addLog('SAFETY CAR',tl('Das Safety Car ist in die Mauer gekracht!'),'bad');banner(tl('SAFETY CAR IN DER MAUER'),'red');try{thud()}catch(_){}
       setTimeout(()=>{if(G&&!G.ended)fired('sc')},1600);return}
     S.v=Math.min(S.v,6);
