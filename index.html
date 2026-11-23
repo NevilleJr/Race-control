@@ -594,6 +594,8 @@ body.mob #scHud{bottom:calc(var(--mBot,60px) + 84px);min-width:200px;padding:5px
 .scDrv{flex-direction:column;align-items:stretch!important;gap:6px;margin-top:8px;padding:8px 10px;border-radius:8px;background:rgba(255,159,10,.07);border:1px solid rgba(255,159,10,.3)}
 .scDrvSeg span{cursor:pointer}
 body.light :is(#scHud,#scPad){filter:invert(.94) hue-rotate(180deg)}
+#scHud.off{border-color:#ff3b30;background:rgba(60,8,8,.94);animation:shOff .5s infinite alternate}@keyframes shOff{to{box-shadow:0 0 30px rgba(255,59,48,.6)}}
+.shG{font-size:11px;margin-top:2px;color:#ffd34d}body.mob .shG{display:none}
 
 /* =====================================================================
    RACE CONTROL – MOBILE (Hochkant) · Version 2
@@ -5862,7 +5864,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='37.0';
+const GAMEVER='37.1';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -7041,19 +7043,42 @@ function scDriveStep(dt,tg){
   const k=scInput(),S=G.sc;
   if(k.w&&!k.s)S.v+=78*dt;else if(k.s)S.v-=190*dt;else S.v-=14*dt;
   S.v=clamp(S.v,0,175);
-  const lim=Math.max(6,HALF-8),steer=(k.d?1:0)-(k.a?1:0),od=S.d||0;
-  S.d=clamp(od+steer*clamp(S.v,15,120)*.55*dt,-lim,lim);
+  // Lenken + Fliehkraft (in Kurven drückt es das Auto nach außen – zu schnell = Ausritt)
+  const od=S.d||0,steer=(k.d?1:0)-(k.a?1:0);
+  const M=T.M,i=((Math.floor(mod(S.dist,T.L)/T.ds)%M)+M)%M,kc=T.KS[i]||0;
+  let nd=od+steer*48*Math.min(1,S.v/30)*dt-kc*S.v*S.v*.1*dt;
+  const wall=(T.street?HALF+11:HALF+48);
+  if(Math.abs(nd)>=wall){
+    nd=Math.sign(nd)*wall;
+    if(kmh(S.v)/KMH_F>15&&!G.scCrash){G.scCrash=true;S.v=0;addLog('SAFETY CAR',tl('Das Safety Car ist in die Mauer gekracht!'),'bad');banner(tl('SAFETY CAR IN DER MAUER'),'red');try{thud()}catch(_){}
+      setTimeout(()=>{if(G&&!G.ended)fired('sc')},1600);return}
+    S.v=Math.min(S.v,8);
+  }
+  S.d=nd;
   S.yaw=clamp(Math.atan2((S.d-od)/Math.max(dt,1e-3),Math.max(S.v,25)),-.5,.5);
-  // Bewertung: Tempo im sinnvollen Bereich halten
-  const r=S.v/Math.max(tg,20),R=G.scRate||(G.scRate={t:0,good:0,fast:0,slow:0,msgT:0});R.t+=dt;
-  if(r>1.45)R.fast+=dt;else if(r<.55&&G.flagT>4)R.slow+=dt;else R.good+=dt;
+  const R=G.scRate||(G.scRate={t:0,good:0,fast:0,slow:0,msgT:0,offMsg:false});
+  // Neben der Strecke: lebensgefährlich – Sicherheit bricht ein
+  if(Math.abs(S.d)>HALF+1){G.meters.s=clamp(G.meters.s-6*dt,0,100);
+    if(!R.offMsg){R.offMsg=true;addLog('SAFETY CAR',tl('Safety Car neben der Strecke – lebensgefährlich!'),'bad');banner(tl('SAFETY CAR NEBEN DER STRECKE'),'red')}}
+  else R.offMsg=false;
+  // Richtwert ca. 80 km/h (grüner Bereich 65–95 km/h)
+  const kv=S.v*.82;R.t+=dt;
+  if(kv>95)R.fast+=dt;else if(kv<60&&G.flagT>4)R.slow+=dt;else if(kv>=65)R.good+=dt;
   if(R.t>=3){
-    if(R.fast>1.5){G.meters.s=clamp(G.meters.s-1.2,0,100);if(G.simT>R.msgT){addLog('SAFETY CAR',tl('Zu schnell – das Feld kann nicht sicher folgen!'),'bad');R.msgT=G.simT+8}}
-    else if(R.slow>1.5){G.meters.e=clamp(G.meters.e-.8,0,100);if(G.simT>R.msgT){addLog('SAFETY CAR',tl('Zu langsam – Reifen und Bremsen kühlen aus, die Teams murren.'),'warn');R.msgT=G.simT+8}}
+    if(R.fast>1.5){G.meters.s=clamp(G.meters.s-1.5,0,100);if(G.simT>R.msgT){addLog('SAFETY CAR',tl('Zu schnell – das Feld kann nicht sicher folgen!'),'bad');R.msgT=G.simT+8}}
+    else if(R.slow>1.5){G.mood=G.mood.map(v=>clamp(v-1,0,100));if(G.simT>R.msgT){addLog('SAFETY CAR',tl('Zu langsam – die Teams sind unzufrieden, Reifen und Bremsen kühlen aus.'),'warn');R.msgT=G.simT+8}}
     else if(R.good>2){G.meters.s=clamp(G.meters.s+.4,0,100);G.scGood=(G.scGood||0)+1}
     R.t=0;R.good=0;R.fast=0;R.slow=0;
   }
 }
+/* Entlassung nach Crash mit dem Safety Car */
+{const fi2=fired;fired=function(w){
+  if(w!=='sc')return fi2(w);
+  if(!G||G.ended)return;if(G.mp&&NET.role==='host')netAll({t:'fired',why:'sc'});
+  fi2('s');const el=$('results');const b=el.querySelector('.big'),d=el.querySelector('.desc');
+  if(b)b.textContent=tl('ENTLASSEN: SAFETY CAR IN DER MAUER');
+  if(d)d.textContent=tl('Das Safety Car ist mit hohem Tempo in die Mauer gekracht. Ein solcher Unfall der Rennleitung ist unverzeihlich – der Verband entlässt dich mit sofortiger Wirkung.');
+}}
 /* Tasten: nur abfangen, solange man selbst das Safety Car fährt (sonst bleibt S = Safety-Car-Flagge) */
 function scKey(e,down){
   const k=(e.key||'').toLowerCase();if(!'wasd'.includes(k)||k.length!==1)return;
@@ -7097,7 +7122,7 @@ function scHud(on){
   let el=$('scHud');
   if(!el){el=document.createElement('div');el.id='scHud';el.className='hide';
     el.innerHTML=`<div class="shT">SAFETY CAR</div><div class="shV"><b id="shSpd">0</b><span id="shUnit">km/h</span></div>
-      <div class="shBar"><i id="shBand"></i><s id="shCur"></s></div><div class="shK mut sm" id="shKeys">W Gas · S Bremse · A/D lenken</div>`;
+      <div class="shBar"><i id="shBand"></i><s id="shCur"></s></div><div class="shK mut sm" id="shKeys">W Gas · S Bremse · A/D lenken</div><div class="shG mut sm" id="shGoal">Richtwert ca. 80 km/h · auf der Strecke bleiben!</div>`;
     document.body.appendChild(el);
     const pad=document.createElement('div');pad.id='scPad';pad.className='hide';
     pad.innerHTML='<div class="spL"><button data-sk="a">◀</button><button data-sk="d">▶</button></div><div class="spR"><button data-sk="s" class="br">BREMSE</button><button data-sk="w" class="gs">GAS</button></div>';
@@ -7109,11 +7134,12 @@ function scHud(on){
   }
   el.classList.toggle('hide',!on);const pad=$('scPad');pad.classList.toggle('hide',!on||!document.body.classList.contains('mob'));
   if(!on)return;
-  const v=kmh(G.sc.v),tg=G.scTg||80,lo=kmh(tg*.55),hi=kmh(tg*1.45),mx=kmh(175);
+  const v=kmh(G.sc.v),lo=kmh(65/.82),hi=kmh(95/.82),mx=kmh(175);
+  $('scHud').classList.toggle('off',Math.abs(G.sc.d||0)>HALF+1);
   $('shSpd').textContent=v;$('shUnit').textContent=SETS.units==='imperial'?'mph':'km/h';
   $('shBand').style.left=(lo/mx*100)+'%';$('shBand').style.width=((hi-lo)/mx*100)+'%';
   $('shCur').style.left=clamp(v/mx*100,0,100)+'%';$('shCur').className=v>hi?'fast':v<lo?'slow':'';
-  $('shKeys').textContent=tl('W Gas · S Bremse · A/D lenken');
+  $('shKeys').textContent=tl('W Gas · S Bremse · A/D lenken');$('shGoal').textContent=SETS.units==='imperial'?tl('Richtwert ca. 50 mph · auf der Strecke bleiben!'):tl('Richtwert ca. 80 km/h · auf der Strecke bleiben!');
 }
 /* ---------- Einzelspieler: Schalter in den Rennoptionen ---------- */
 function scOptHTML(){return `<div id="scOpt"><h4>SAFETY CAR</h4><div class="seg" data-k="scd"><span data-v="ai" class="${SEL.scd!=='me'?'on':''}">KI fährt</span><span data-v="me" class="${SEL.scd==='me'?'on':''}">Ich fahre (W/A/S/D)</span></div></div>`}
@@ -7136,7 +7162,11 @@ document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.targ
 {const mf0=menuRefresh;menuRefresh=function(){const r=mf0();try{scOptPlace()}catch(e){}return r}}
 Object.assign(EN,{'SAFETY CAR':'SAFETY CAR','KI fährt':'AI drives','Ich fahre (W/A/S/D)':'I drive (W/A/S/D)','DU FÄHRST DAS SAFETY CAR':'YOU ARE DRIVING THE SAFETY CAR','fährt das Safety Car.':'is driving the safety car.',
  'W Gas · S Bremse · A/D lenken':'W throttle · S brake · A/D steer','Zu schnell – das Feld kann nicht sicher folgen!':'Too fast – the field cannot follow safely!','Zu langsam – Reifen und Bremsen kühlen aus, die Teams murren.':'Too slow – tyres and brakes cool down, the teams grumble.',
- 'GAS':'GAS','BREMSE':'BRAKE','SAFETY-CAR-FAHRER':'SAFETY CAR DRIVER','SAFETY-CAR-FAHRER:':'SAFETY CAR DRIVER:'});
+ 'GAS':'GAS','BREMSE':'BRAKE','Das Safety Car ist in die Mauer gekracht!':'The safety car crashed into the wall!','SAFETY CAR IN DER MAUER':'SAFETY CAR IN THE WALL',
+ 'Safety Car neben der Strecke – lebensgefährlich!':'Safety car off the track – life-threatening!','SAFETY CAR NEBEN DER STRECKE':'SAFETY CAR OFF TRACK',
+ 'Zu langsam – die Teams sind unzufrieden, Reifen und Bremsen kühlen aus.':'Too slow – the teams are unhappy, tyres and brakes cool down.','ENTLASSEN: SAFETY CAR IN DER MAUER':'FIRED: SAFETY CAR IN THE WALL',
+ 'Das Safety Car ist mit hohem Tempo in die Mauer gekracht. Ein solcher Unfall der Rennleitung ist unverzeihlich – der Verband entlässt dich mit sofortiger Wirkung.':'The safety car crashed into the wall at speed. Such an accident by race control is unforgivable – the federation fires you with immediate effect.',
+ 'Richtwert ca. 80 km/h · auf der Strecke bleiben!':'Guideline approx. 80 km/h · stay on the track!','Richtwert ca. 50 mph · auf der Strecke bleiben!':'Guideline approx. 50 mph · stay on the track!','SAFETY-CAR-FAHRER':'SAFETY CAR DRIVER','SAFETY-CAR-FAHRER:':'SAFETY CAR DRIVER:'});
 Object.assign(LA,{'KI fährt':'Machina agit','Ich fahre (W/A/S/D)':'Ego agito (W/A/S/D)','DU FÄHRST DAS SAFETY CAR':'TU CURRUM TUTELAE AGIS','GAS':'CELERA','BREMSE':'SISTE'});
 
 if(JOIN_CODE){const sg=document.querySelector('.seg[data-k="net"]');if(sg)sg.querySelectorAll('span').forEach(x=>x.classList.toggle('on',x.dataset.v==='mp'))}
