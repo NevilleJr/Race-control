@@ -624,6 +624,20 @@ body.eveCruise :is(#bar,#toasts,#meters,#scChip,#rsOffer,#repBtn,#mMeters){displ
 body.mob #evePanel{top:calc(var(--sat,0px) + 8px);left:8px;width:190px;font-size:11px}
 body.light #evePanel{filter:invert(.94) hue-rotate(180deg)}
 
+/* ===== RACE CONTROL 39 – Einstellungen ===== */
+.sNew .sCards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;margin-top:10px}
+.sCard{background:linear-gradient(180deg,rgba(14,22,36,.95),rgba(8,13,22,.95));border:1px solid rgba(0,180,255,.2);border-radius:14px;padding:12px 14px 14px;display:flex;flex-direction:column;gap:10px}
+.sCard header{display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:1px solid rgba(0,180,255,.12);color:#7fd4ff}
+.sCard header h3{margin:0;font:800 13px "Barlow Condensed",sans-serif;letter-spacing:.18em}
+.sCard.sHot{border-color:rgba(255,159,10,.45)}.sCard.sHot header{color:#ffb340;border-bottom-color:rgba(255,159,10,.2)}
+.sRow{display:flex;flex-direction:column;gap:5px}.sRow>label{font:700 10.5px "Barlow Condensed",sans-serif;letter-spacing:.16em;color:var(--mut)}
+.sRow .seg{display:flex;width:100%}.sRow .seg span{flex:1;text-align:center;padding:8px 4px;font-size:12.5px}
+.sRow input{width:100%}.sRow .btn{align-self:flex-start}
+.scRes{margin:12px 0;padding:10px 14px;border-radius:10px;background:rgba(20,12,2,.5);border:1px solid rgba(255,159,10,.4);display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;font-size:13px}
+.scResT{width:100%;font:800 11px "Barlow Condensed",sans-serif;letter-spacing:.16em;color:#ffb340}
+.scLvl{display:inline-block;padding:1px 8px;border-radius:5px;font-weight:700;font-size:12px}.scLvl.none{background:rgba(255,90,82,.2);color:#ff8a80}.scLvl.light{background:rgba(255,211,77,.18);color:#ffd34d}.scLvl.strong{background:rgba(47,210,122,.18);color:#6ff0a6}
+body.mob .sNew .sCards{grid-template-columns:1fr}
+
 /* =====================================================================
    RACE CONTROL – MOBILE (Hochkant) · Version 2
    Strecke bildschirmfüllend, alles Wichtige als schlanke Einblendung darüber.
@@ -5891,7 +5905,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='38.2';
+const GAMEVER='38.3';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -7118,9 +7132,9 @@ addEventListener('keyup',e=>scKey(e,false),true);
 addEventListener('blur',()=>{for(const k in SCK)SCK[k]=false;scSendIn()});
 /* Mehrspieler: Eingaben des Fahrers an den Host */
 let scLastSend=0;
-function scSendIn(){if(G&&G.client&&scAmDriver()){netSend({t:'scin',k:Object.assign({},SCK)});scLastSend=performance.now()}}
+function scSendIn(){if(G&&G.client&&scAmDriver()){netSend({t:'scin',k:Object.assign({},SCK),a:SETS.scAssist||'strong'});scLastSend=performance.now()}}
 setInterval(()=>{if(G&&G.client&&scAmDriver()&&scActive()&&performance.now()-scLastSend>250)scSendIn()},250);
-{const hm0=hostMsg;hostMsg=function(conn,d){if(d&&d.t==='scin'){if(G&&conn.pid&&conn.pid===G.scDriverId&&d.k)G.scIn={w:!!d.k.w,a:!!d.k.a,s:!!d.k.s,d:!!d.k.d};return}return hm0(conn,d)}}
+{const hm0=hostMsg;hostMsg=function(conn,d){if(d&&d.t==='scin'){if(G&&conn.pid&&conn.pid===G.scDriverId&&d.k)G.scIn={w:!!d.k.w,a:!!d.k.a,s:!!d.k.s,d:!!d.k.d};G.scInA=['none','light','strong'].includes(d.a)?d.a:'strong';return}return hm0(conn,d)}}
 /* Rennstart: Fahrer festlegen */
 function scMpDriver(){const ids=(NET.players||[]).map(p=>p.id);return ids.includes(SEL.scdMp)?SEL.scdMp:'host'}
 {const sm1=startMsg;startMsg=function(o){const m=sm1(o);m.scd=scMpDriver();if(G)G.scDriverId=m.scd;return m}}
@@ -7277,19 +7291,21 @@ scDriveStep=function(dt,tg){
   S.free=false;
   // Tempo: Gas/Bremse – ohne Pedal pendelt es sanft auf ca. 80 km/h (Tempohilfe)
   const vT=80/.82;
-  if(k.w&&!k.s)S.v+=70*dt;else if(k.s)S.v-=200*dt;else S.v+=clamp(vT-S.v,-26*dt,22*dt);
+  const A=scAssistCfg();
+  if(k.w&&!k.s)S.v+=70*dt;else if(k.s)S.v-=200*dt;else if(A.speed)S.v+=clamp(vT-S.v,-26*dt,22*dt);else S.v-=14*dt;
   S.v=clamp(S.v,0,175);
   // Lenken + Hilfe zur Ideallinie (wirkt immer, beim Lenken etwas schwächer)
   const s=mod(S.dist,T.L),look=Math.max(60,S.v*.9),tgtD=idealD(s+look*.5);
   const aim=Math.atan2(tgtD-(S.d||0),look);                       // Winkel, der zur Ideallinie führt
   const steer=(k.d?1:0)-(k.a?1:0);
   let y=S.yaw||0;
+  {const M0=T.M,i0=((Math.floor(s/T.ds)%M0)+M0)%M0;y-=(T.KS[i0]||0)*S.v*dt*(1-A.follow)}   // Strecke biegt ab → ohne Hilfe muss man selbst mitlenken
   y+=steer*1.25*Math.min(1,S.v/22)*dt;                              // Spieler lenkt
-  y+=(aim-y)*(steer?0.9:2.2)*dt;                                    // Hilfe richtet zur Ideallinie aus
+  y+=(aim-y)*(steer?A.aimS:A.aim)*dt;                                    // Hilfe richtet zur Ideallinie aus
   // Kurvenphysik: zu schnell für die Kurve → nach außen schieben
   const M=T.M,i=((Math.floor(s/T.ds)%M)+M)%M,kc=T.KS[i]||0,vmax=Math.sqrt(190/Math.max(Math.abs(kc),1e-4));
   if(S.v>vmax){y-=Math.sign(kc)*(S.v-vmax)/vmax*1.4*dt}
-  y=clamp(y,-.6,.6);S.yaw=y;                                         // nie quer oder rückwärts (max. ca. 35°)
+  y=clamp(y,-A.lim,A.lim);S.yaw=y;                                         // nie quer oder rückwärts (max. ca. 35°)
   S.dist+=S.v*Math.cos(y)*dt;S.d=(S.d||0)+S.v*Math.sin(y)*dt;
   const wall=(T.street?HALF+11:HALF+48);
   if(Math.abs(S.d)>=wall){
@@ -7443,6 +7459,84 @@ setInterval(()=>{
     if(c.v<2){c.pstk=(c.pstk||0)+.25;if(c.pstk>5){c.pstk=0;c.pew=9;c.s=mod(c.s+12,T.L);c.dist+=12;c.v=Math.max(c.v,25)}}else c.pstk=0;
   }
 },250);
+
+/* =====================================================================
+   RACE CONTROL 39 – Fahrhilfe-Stufen, neue Einstellungen, Standardwerte
+   ===================================================================== */
+const SET_DEF={scAssist:'strong',defLaps:'8',defChaos:'normal',defWx:'dry',defQuali:'on',defForm:'on'};
+for(const k in SET_DEF)if(SETS[k]==null)SETS[k]=SET_DEF[k];
+/* ---------- Fahrhilfe ---------- */
+const SC_ASSIST={
+  none:{n:'Keine',speed:false,follow:0,aim:0,aimS:0,lim:1.0},
+  light:{n:'Wenig',speed:false,follow:.45,aim:.45,aimS:.12,lim:.8},
+  strong:{n:'Stark',speed:true,follow:.8,aim:1.4,aimS:.55,lim:.6}};
+function scAssistKey(){return G&&G.mp&&!scAmDriver()?(G.scInA||'strong'):(SETS.scAssist||'strong')}
+function scAssistCfg(){return SC_ASSIST[scAssistKey()]||SC_ASSIST.strong}
+/* für den Endbildschirm merken, wer mit welcher Hilfe gefahren ist */
+setInterval(()=>{if(!G||!scActive()||!G.scDriverId)return;const S=G.scStat||(G.scStat={who:null,lvl:{}});S.who=scDriverName();const k=scAssistKey();S.lvl[k]=(S.lvl[k]||0)+1},500);
+setInterval(()=>{
+  if(!G||!G.scStat||!G.ended)return;const el=$('results');if(!el||el.classList.contains('hide')||el.querySelector('.scRes'))return;
+  const acts=el.querySelectorAll('.acts'),last=acts[acts.length-1];if(!last)return;
+  const L=G.scStat.lvl,used=Object.keys(L).sort((a,b)=>L[b]-L[a]);
+  const box=document.createElement('div');box.className='scRes';
+  box.innerHTML=`<div class="scResT">SAFETY CAR</div><div><span class="mut">${tl('Gefahren von')}</span> <b>${esc(G.scStat.who||'–')}</b></div>
+    <div><span class="mut">${tl('Fahrhilfe')}</span> ${used.map(k=>`<span class="scLvl ${k}">${tl(SC_ASSIST[k].n)}</span>`).join(' ')}</div>
+    <div><span class="mut">${tl('Ausritte')}</span> <b>${G.scOffs||0}</b></div>`;
+  last.parentNode.insertBefore(box,last);trAll&&trAll();
+},400);
+/* ---------- Standardwerte für neue Rennen ---------- */
+function applyDefaults(){
+  SEL.laps=+SETS.defLaps||8;SEL.chaos=SETS.defChaos;SEL.wx=SETS.defWx;SEL.quali=SETS.defQuali;SEL.form=SETS.defForm;
+  try{['laps','chaos','wx','quali','form'].forEach(k=>setSeg(k,SEL[k]))}catch(e){}
+}
+applyDefaults();
+{const sc5=setCommit;setCommit=function(){sc5();applyDefaults()}}
+/* ---------- Einstellungen: einheitliches Karten-Design ---------- */
+const SICON={
+ user:'<path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm-7 8a7 7 0 0 1 14 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+ eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/>',
+ ruler:'<path d="M3 17 17 3l4 4L7 21z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 13l2 2M10 10l2 2M13 7l2 2" stroke="currentColor" stroke-width="2"/>',
+ sound:'<path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+ car:'<path d="M3 15l2-6h14l2 6v4H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7" cy="17" r="1.6" fill="currentColor"/><circle cx="17" cy="17" r="1.6" fill="currentColor"/><path d="M10 6h4" stroke="#ffb300" stroke-width="2.4" stroke-linecap="round"/>',
+ flag:'<path d="M5 21V4m0 0h12l-2 4 2 4H5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'};
+function sCard(icon,title,body,cls){return `<section class="sCard ${cls||''}"><header><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">${SICON[icon]}</svg><h3>${title}</h3></header>${body}</section>`}
+function sRow(label,ctrl,hint){return `<div class="sRow"><label>${label}</label>${ctrl}${hint?`<div class="mut sm">${hint}</div>`:''}</div>`}
+setHTML=function(){
+  const nm=esc(lsGet('rc_name')||''),langs=[['de','Deutsch',FLAG.de]];if(SETS.la)langs.push(['la','Latina',FLAG.la]);langs.push(['en','English',FLAG.en]);
+  const light=SETS.theme==='light',mob=SETS.mob||'auto',as=SETS.scAssist||'strong';
+  const asTxt={none:'Keine Hilfe: Tempo und Richtung komplett selbst – auch in Kurven mitlenken.',light:'Wenig: keine Tempohilfe, die Richtung wird nur minimal Richtung Ideallinie unterstützt.',strong:'Stark: Tempo pendelt auf ca. 80 km/h, das Auto richtet sich zur Ideallinie aus.'}[as];
+  return `<div class="fb setw sNew">
+   <p class="desc">Änderungen werden mit „Speichern“ übernommen und bleiben in diesem Browser.</p>
+   <div class="sCards">
+    ${sCard('user','PROFIL',sRow('NAME',`<input id="setName" maxlength="16" placeholder="Dein Name" value="${nm}" autocomplete="off">`,'Wird im Mehrspieler und im Feedback verwendet.'))}
+    ${sCard('eye','DARSTELLUNG',
+      sRow('SPRACHE',setSegH('lang',langs))+
+      sRow('MODUS',`<div class="thRow"><span class="thLbl ${light?'':'on'}">Dunkel</span><button class="thSw ${light?'lt':''}" id="thSw" type="button" aria-label="Hell/Dunkel"><span class="thSky"><i></i><i></i><i></i><b></b></span><span class="thKnob">${SUN}${MOON}</span></button><span class="thLbl ${light?'on':''}">Hell</span></div>`)+
+      sRow('OBERFLÄCHE',setSegH('ui',[[90,'Klein'],[100,'Normal'],[115,'Groß'],[130,'Sehr groß']]))+
+      sRow('MOBILE ANSICHT',setSegH('mob',[['auto','Automatisch'],['on','An'],['off','Aus']]))+
+      sRow('RENNFENSTER',`<button class="btn" type="button" data-set="lay">Rennfenster anordnen ▸</button>`))}
+    ${sCard('car','SAFETY CAR',sRow('FAHRHILFE',setSegH('scAssist',[['none','Keine'],['light','Wenig'],['strong','Stark']]),asTxt),'sHot')}
+    ${sCard('flag','STANDARD FÜR NEUE RENNEN',
+      sRow('RUNDEN',setSegH('defLaps',[['5','5'],['8','8'],['12','12']]))+
+      sRow('CHAOS',setSegH('defChaos',[['calm','Ruhig'],['normal','Normal'],['wild','Wild']]))+
+      sRow('WETTER',setSegH('defWx',[['dry','Trocken'],['mixed','Wechselhaft'],['rain','Regen']]))+
+      sRow('QUALIFYING',setSegH('defQuali',[['on','Mit Qualifying'],['off','Ohne']]))+
+      sRow('EINFÜHRUNGSRUNDE',setSegH('defForm',[['on','Ja'],['off','Nein']])))}
+    ${sCard('ruler','EINHEITEN & ZEIT',sRow('EINHEITEN',setSegH('units',[['metric','Metrisch (km, km/h)'],['imperial','Imperial (mi, mph)']]))+sRow('UHRZEIT',setSegH('clock',[['24','24 Stunden'],['12','12 Stunden (AM/PM)']])))}
+    ${sCard('sound','TON',sRow('TON',setSegH('sound',[['true','An'],['false','Aus']])))}
+   </div>
+   <div class="setFoot"><span id="setSt" class="mut"></span><button class="btn primary" type="button" data-set="save">Speichern</button></div>
+   <div class="betaBox">${IS_BETA?`<span class="betaOn">BETA ${GAMEVER}</span><button class="btn sm" type="button" data-set="betaOff">Beta beenden</button>`:`<input id="betaCode" class="betaIn" maxlength="12" placeholder="Code" autocomplete="off" spellcheck="false">`}</div>
+  </div>`;
+};
+// Beschreibung der Fahrhilfe sofort aktualisieren
+document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('.setg[data-sk="scAssist"] span');if(!q)return;setTimeout(()=>{const nm=$('setName')&&$('setName').value;setOpen();if(nm!=null&&$('setName'))$('setName').value=nm;setMsg('Noch nicht gespeichert – „Speichern“ drücken.','var(--warn)')},0)},true);
+Object.assign(EN,{'PROFIL':'PROFILE','DARSTELLUNG':'APPEARANCE','MODUS':'MODE','FAHRHILFE':'DRIVING AID','Keine':'None','Wenig':'Light','Stark':'Strong','STANDARD FÜR NEUE RENNEN':'DEFAULTS FOR NEW RACES','EINHEITEN & ZEIT':'UNITS & TIME',
+ 'Keine Hilfe: Tempo und Richtung komplett selbst – auch in Kurven mitlenken.':'No aid: speed and direction entirely by yourself – steer through corners too.',
+ 'Wenig: keine Tempohilfe, die Richtung wird nur minimal Richtung Ideallinie unterstützt.':'Light: no speed aid, direction is only slightly guided towards the racing line.',
+ 'Stark: Tempo pendelt auf ca. 80 km/h, das Auto richtet sich zur Ideallinie aus.':'Strong: speed settles at approx. 80 km/h, the car aligns with the racing line.',
+ 'Änderungen werden mit „Speichern“ übernommen und bleiben in diesem Browser.':'Press “Save” to keep your changes in this browser.','Gefahren von':'Driven by','Fahrhilfe':'Driving aid'});
+Object.assign(LA,{'PROFIL':'PERSONA','FAHRHILFE':'AUXILIUM','Keine':'Nullum','Wenig':'Parvum','Stark':'Magnum','EINHEITEN & ZEIT':'MENSURAE ET HORA'});
 
 if(JOIN_CODE){const sg=document.querySelector('.seg[data-k="net"]');if(sg)sg.querySelectorAll('span').forEach(x=>x.classList.toggle('on',x.dataset.v==='mp'))}
 initMenu();

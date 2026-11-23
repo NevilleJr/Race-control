@@ -5905,7 +5905,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='38.3';
+const GAMEVER='38.4';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -7324,7 +7324,7 @@ scDriveStep=function(dt,tg){
   if(R.t>=3){
     if(R.fast>1.5){G.meters.s=clamp(G.meters.s-1.5,0,100);if(G.simT>R.msgT){addLog('SAFETY CAR',tl('Zu schnell – das Feld kann nicht sicher folgen!'),'bad');R.msgT=G.simT+8}}
     else if(R.slow>1.5){G.mood=G.mood.map(v=>clamp(v-1,0,100));if(G.simT>R.msgT){addLog('SAFETY CAR',tl('Zu langsam – die Teams sind unzufrieden, Reifen und Bremsen kühlen aus.'),'warn');R.msgT=G.simT+8}}
-    else if(R.good>2){G.meters.s=clamp(G.meters.s+.4,0,100)}
+    else if(R.good>2){G.meters.s=clamp(G.meters.s+.8,0,100)}
     R.t=0;R.good=0;R.fast=0;R.slow=0;
   }
 };
@@ -7537,6 +7537,87 @@ Object.assign(EN,{'PROFIL':'PROFILE','DARSTELLUNG':'APPEARANCE','MODUS':'MODE','
  'Stark: Tempo pendelt auf ca. 80 km/h, das Auto richtet sich zur Ideallinie aus.':'Strong: speed settles at approx. 80 km/h, the car aligns with the racing line.',
  'Änderungen werden mit „Speichern“ übernommen und bleiben in diesem Browser.':'Press “Save” to keep your changes in this browser.','Gefahren von':'Driven by','Fahrhilfe':'Driving aid'});
 Object.assign(LA,{'PROFIL':'PERSONA','FAHRHILFE':'AUXILIUM','Keine':'Nullum','Wenig':'Parvum','Stark':'Magnum','EINHEITEN & ZEIT':'MENSURAE ET HORA'});
+/* =====================================================================
+   RACE CONTROL 40 – Safety-Car-Regeln wie in echt
+   · Feld passt sein Tempo dem Safety Car an (Nachzügler schließen kontrolliert auf)
+   · „Safety Car in dieser Runde“: Licht aus, SC fährt bis zur Boxeneinfahrt
+   · Restart: Überholverbot bis zur Ziellinie, Spitzenreiter gibt das Tempo vor
+   · Sicherheit steigt, wenn das SC sauber im Rahmen fährt; Bonus für vorbildliche Phase
+   ===================================================================== */
+scCap=function(c,vt){
+  const S=G.sc;let cap;
+  if(c===G.scLeader){
+    const gap=S.dist-c.dist-CL;
+    cap=S.v+(gap-38)*1.1;                         // hält ca. 2 Wagenlängen Abstand zum SC
+    if(gap<22)cap=Math.min(cap,S.v*.8);            // zu nah → deutlich lupfen
+  }else{
+    const g=c.lead?c.gap:400,lv=c.lead?c.lead.v:S.v;
+    const follow=lv+(g-24)*1.3;                    // Abstand zum Vordermann
+    const catchUp=S.v+clamp(g-24,0,260)*.45+8;     // an das SC-Tempo gekoppelt: Lücke kontrolliert schließen
+    cap=Math.min(follow,catchUp);
+  }
+  return Math.min(vt,clamp(cap,0,175));
+};
+/* ---------- „Safety Car in dieser Runde“ ---------- */
+function scEndBanner(){banner(tl('SAFETY CAR IN DIESER RUNDE'),'warn');addLog('RENNLEITUNG',tl('Safety Car in dieser Runde – die Lichter am Safety Car sind aus.'),'warn');try{beep(600,.15,'triangle',.05)}catch(_){}}
+{const sf4=setFlag;setFlag=function(f,...a){
+  if(G&&!G.scSolo&&!G.cruise&&G.flag==='sc'&&f==='green'&&!G.scEndForce){
+    if(!G.scEnding){
+      const s=mod(G.sc.dist,T.L),toPit=mod(T.pit.s0-40-s,T.L);
+      G.scEnding=true;G.scEndAt=G.sc.dist+(toPit<180?toPit+T.L:toPit);G.scEndT=G.simT;scEndBanner();
+      if(G.mp&&NET.role==='host')netEv(['ban',tl('SAFETY CAR IN DIESER RUNDE'),'warn']);
+      return;
+    }
+    if(a[0]==='auto')return;           // Automatik wartet, bis das SC an der Boxeneinfahrt ist
+    // zweites Mal Grün durch den Spieler: sofort beenden
+    scEndNow();return;
+  }
+  if(G&&f==='sc'){G.scEnding=false;G.restartHold=false}
+  return sf4(f,...a)}}
+function scEndNow(){
+  G.scEnding=false;G.restartHold=true;G.restartLap=activeLeader();G.restartPrev=G.restartLap?mod(G.restartLap.s,T.L):0;
+  G.scEndForce=true;try{setFlag('green','sc-end')}finally{G.scEndForce=false}
+  addLog('RENNLEITUNG',tl('Safety Car in der Box – Restart! Überholen erst ab der Ziellinie.'),'good');
+  scPhaseEval();
+}
+/* Überholverbot bis zur Ziellinie */
+{const sp0=startPass;startPass=function(c,lead){if(G&&G.restartHold)return;return sp0(c,lead)}}
+/* ---------- Bewertung der Safety-Car-Phase ---------- */
+function scPhaseEval(){
+  const P=G.scPh;G.scPh=null;if(!P)return;
+  const tot=P.good+P.bad;
+  if(P.drove&&tot>6){
+    if(P.offs===0&&P.good/tot>=.7){G.meters.s=clamp(G.meters.s+5,0,100);addLog('SAFETY CAR',tl('Vorbildliche Safety-Car-Phase – sauber im Rahmen gefahren (+5 Sicherheit).'),'good')}
+    else if(P.good/tot<.35)addLog('SAFETY CAR',tl('Unruhige Safety-Car-Phase – Tempo selten im Zielbereich.'),'warn');
+  }
+  // Feld eng zusammengeführt → spannender Restart
+  const st=standings().filter(c=>!c.out&&!c.gone),L=st[0],K=st[Math.min(9,st.length-1)];
+  if(L&&K&&L.dist-K.dist<T.L*.12){G.meters.e=clamp(G.meters.e+3,0,100);addLog('RENNLEITUNG',tl('Feld eng zusammengeführt – spannender Restart (+3 Spannung).'),'good')}
+}
+setInterval(()=>{
+  if(!G||G.ended||G.client)return;
+  // Phase messen (nur wenn ein Spieler fährt)
+  if(G.flag==='sc'&&G.sc&&G.sc.on&&!G.scSolo){
+    const P=G.scPh||(G.scPh={good:0,bad:0,offs:0,drove:false,offs0:G.scOffs||0});
+    if(G.scDriverId&&scDriven()){P.drove=true;const kv=G.sc.v*.82,on=Math.abs(G.sc.d||0)<=HALF+1;if(on&&kv>=65&&kv<=95)P.good+=.1;else P.bad+=.1;P.offs=(G.scOffs||0)-P.offs0}
+  }
+  // „in dieser Runde“: an der Boxeneinfahrt (oder nach 45 s) beenden
+  if(G.scEnding&&G.flag==='sc'&&(G.sc.dist>=G.scEndAt||G.simT-G.scEndT>45))scEndNow();
+  if(G.scEnding&&G.flag!=='sc')G.scEnding=false;
+  // Restart: Überholverbot endet, wenn der Spitzenreiter die Ziellinie kreuzt
+  if(G.restartHold){const L=G.restartLap||activeLeader();if(!L){G.restartHold=false;return}const s=mod(L.s,T.L);
+    if(G.restartPrev>T.L*.7&&s<T.L*.3){G.restartHold=false;banner(tl('RENNEN FREIGEGEBEN'),'good')}G.restartPrev=s;
+    if(G.flag!=='green')G.restartHold=false}
+},100);
+/* Lichter am Safety Car aus, solange es „in dieser Runde“ reinkommt */
+{const dr0=drawRoadCar;drawRoadCar=function(x,y,a){if(G&&G.scEnding&&G.sc){const on=G.sc.on;G.sc.on=false;const ex=G.sc.ex;G.sc.ex=1;try{dr0(x,y,a)}finally{G.sc.on=on;G.sc.ex=ex}return}return dr0(x,y,a)}}
+/* Fahranzeige: Hinweis in der letzten Runde */
+setInterval(()=>{const h=$('scHud');if(!h)return;const t=h.querySelector('.shT');if(!t)return;t.textContent=G&&G.scEnding?tl('SAFETY CAR · IN DIESER RUNDE – zur Boxeneinfahrt'):'SAFETY CAR'},250);
+Object.assign(EN,{'SAFETY CAR IN DIESER RUNDE':'SAFETY CAR IN THIS LAP','Safety Car in dieser Runde – die Lichter am Safety Car sind aus.':'Safety car in this lap – the safety car lights are off.',
+ 'Safety Car in der Box – Restart! Überholen erst ab der Ziellinie.':'Safety car in the pits – restart! No overtaking before the control line.','RENNEN FREIGEGEBEN':'RACE ON',
+ 'Vorbildliche Safety-Car-Phase – sauber im Rahmen gefahren (+5 Sicherheit).':'Exemplary safety car period – driven cleanly within limits (+5 safety).','Unruhige Safety-Car-Phase – Tempo selten im Zielbereich.':'Unsettled safety car period – speed rarely in the target range.',
+ 'Feld eng zusammengeführt – spannender Restart (+3 Spannung).':'Field bunched up – exciting restart (+3 excitement).','SAFETY CAR · IN DIESER RUNDE – zur Boxeneinfahrt':'SAFETY CAR · IN THIS LAP – head to pit entry'});
+Object.assign(LA,{'SAFETY CAR IN DIESER RUNDE':'CURRUS TUTELAE HOC CIRCUITU','RENNEN FREIGEGEBEN':'CERTAMEN LIBERUM'});
 
 if(JOIN_CODE){const sg=document.querySelector('.seg[data-k="net"]');if(sg)sg.querySelectorAll('span').forEach(x=>x.classList.toggle('on',x.dataset.v==='mp'))}
 initMenu();
