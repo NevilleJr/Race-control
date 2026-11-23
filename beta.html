@@ -606,6 +606,24 @@ body.mob #scChip{left:calc(var(--mTw,118px) + 12px);bottom:auto;top:calc(var(--s
 #scHud.off{border-color:#ff3b30;background:rgba(60,8,8,.94);animation:shOff .5s infinite alternate}@keyframes shOff{to{box-shadow:0 0 30px rgba(255,59,48,.6)}}
 .shG{font-size:11px;margin-top:2px;color:#ffd34d}body.mob .shG{display:none}
 
+/* ===== RACE CONTROL 38 – Vortag ===== */
+#menu.lst #lHome .mon.big{grid-area:auto}#menu.lst #lHome .mon.big .mbody .big{font-size:clamp(22px,2.6vw,34px)}
+.mon.eveM{border-color:rgba(255,159,10,.45)}.mon.eveM .mt2{color:#ffb340;background:linear-gradient(90deg,rgba(255,159,10,.16),transparent);border-bottom-color:rgba(255,159,10,.3)}.mon.eveM .mfoot b{color:#ffb340}
+.eveCards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.eveCard{padding:14px;border-radius:12px;background:#0b111b;border:1px solid rgba(0,180,255,.2);cursor:pointer;display:flex;flex-direction:column;gap:6px;transition:border-color .2s,transform .2s}
+.eveCard:hover{transform:translateY(-2px)}.eveCard.on{border-color:#ffb340;box-shadow:0 0 0 1px #ffb340 inset}.eveCard b{font:800 16px "Barlow Condensed",sans-serif;letter-spacing:.12em;color:#ffb340}.eveCard span{font-size:13px;line-height:1.45;color:#b9c8da}
+.eve select{width:100%;background:#0b111b;border:1px solid rgba(0,180,255,.25);border-radius:8px;color:var(--tx);padding:9px 11px;font:inherit}
+@media (max-width:640px){.eveCards{grid-template-columns:1fr}}
+body.eveSolo :is(#tower,#side,#toasts,#bar,#top,#top2,#lights,#dcard,#radio,#scChip,#mAct,#mMeters,#mTopBg,#mmapW,#repBtn){display:none!important}
+body.eveSolo #scHud .shAi{display:none}
+body.eveCruise :is(#bar,#toasts,#meters,#scChip,#rsOffer,#repBtn,#mMeters){display:none!important}body.eveCruise #mmapW{pointer-events:none}
+#evePanel{position:fixed;left:14px;top:14px;z-index:30;width:230px;padding:10px 12px;border-radius:12px;background:rgba(7,12,21,.9);border:1px solid rgba(255,159,10,.5);font-size:12.5px}
+#evePanel.hide{display:none}.evT{font:800 11px "Barlow Condensed",sans-serif;letter-spacing:.16em;color:#ffb340;margin-bottom:6px}
+.evRow{display:flex;justify-content:space-between;padding:2px 0}.evRow b{font-family:"Barlow Condensed",sans-serif;font-size:15px}
+.evLaps{margin-top:6px;border-top:1px solid rgba(255,255,255,.08);padding-top:5px;font-size:11.5px;color:#b9c8da}.evLaps .dirty{color:#ff8a80}
+body.mob #evePanel{top:calc(var(--sat,0px) + 8px);left:8px;width:190px;font-size:11px}
+body.light #evePanel{filter:invert(.94) hue-rotate(180deg)}
+
 /* =====================================================================
    RACE CONTROL – MOBILE (Hochkant) · Version 2
    Strecke bildschirmfüllend, alles Wichtige als schlanke Einblendung darüber.
@@ -5873,7 +5891,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='37.2';
+const GAMEVER='38.0';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -7241,6 +7259,173 @@ setInterval(()=>{const h=$('scHud');if(!h)return;let b=h.querySelector('.shAi');
   if(!b){b=document.createElement('button');b.className='btn sm shAi';b.type='button';b.textContent='An KI übergeben';h.appendChild(b);
     b.addEventListener('click',e=>{e.stopPropagation();if(G&&!G.mp){G.scDriverId=null;for(const k in SCK)SCK[k]=false}})}
   b.classList.toggle('hide',!(G&&!G.mp));b.textContent=tl('An KI übergeben')},500);
+
+/* =====================================================================
+   RACE CONTROL 38 – Safety Car wirklich selbst lenken, Modus „Vortag“
+   (Safety Car allein / Zuschauen ohne Unfälle), neues Safety-Car-Design
+   ===================================================================== */
+/* ---------- Freie Fahrphysik: keine Spurführung mehr ---------- */
+function scProject(x,y,i0){
+  const M=T.M;let bi=i0,bd=1e18;
+  for(let k=-70;k<=70;k++){const i=((i0+k)%M+M)%M,dx=x-T.X[i],dy=y-T.Y[i],d=dx*dx+dy*dy;if(d<bd){bd=d;bi=i}}
+  const d=(x-T.X[bi])*(-T.TY[bi])+(y-T.Y[bi])*T.TX[bi];
+  return {i:bi,d};
+}
+scDriveStep=function(dt,tg){
+  const k=scInput(),S=G.sc,M=T.M;
+  // Einstieg: Position/Richtung aus der aktuellen Lage übernehmen
+  if(!S.free){const p=posAt(S.dist,S.d||0);S.x=p.x;S.y=p.y;S.h=p.a+(S.yaw||0);S.ix=((Math.floor(mod(S.dist,T.L)/T.ds)%M)+M)%M;S.free=true}
+  // Gas/Bremse
+  if(k.w&&!k.s)S.v+=78*dt;else if(k.s)S.v-=200*dt;else S.v-=16*dt;
+  S.v=clamp(S.v,0,175);
+  // Lenken: nur durch den Spieler – begrenzt durch die Haftung (zu schnell = schiebt geradeaus)
+  const steer=(k.d?1:0)-(k.a?1:0),want=steer*2.4*Math.min(1,S.v/22),grip=185/Math.max(S.v,1);
+  const yr=clamp(want,-grip,grip);S.slide=Math.abs(want)>grip+.05;
+  S.h+=yr*dt;S.x+=Math.cos(S.h)*S.v*dt;S.y+=Math.sin(S.h)*S.v*dt;
+  // Lage zur Strecke bestimmen
+  const pr=scProject(S.x,S.y,S.ix);let di=pr.i-S.ix;if(di>M/2)di-=M;if(di<-M/2)di+=M;S.dist+=di*T.ds;S.ix=pr.i;
+  S.d=pr.d;S.yaw=wrapA(S.h-T.ANG[pr.i]);
+  const wall=(T.street?HALF+11:HALF+48);
+  if(Math.abs(S.d)>=wall){
+    const sd=Math.sign(S.d)*(wall-.5);S.x=T.X[pr.i]-T.TY[pr.i]*sd;S.y=T.Y[pr.i]+T.TX[pr.i]*sd;S.d=sd;
+    if(S.v*.82>15&&!G.scCrash){G.scCrash=true;S.v=0;addLog('SAFETY CAR',tl('Das Safety Car ist in die Mauer gekracht!'),'bad');banner(tl('SAFETY CAR IN DER MAUER'),'red');try{thud()}catch(_){}
+      setTimeout(()=>{if(G&&!G.ended)fired('sc')},1600);return}
+    S.v=Math.min(S.v,6);
+  }
+  const R=G.scRate||(G.scRate={t:0,good:0,fast:0,slow:0,msgT:0,offMsg:false});
+  if(Math.abs(S.d)>HALF+1){if(!G.scSolo)G.meters.s=clamp(G.meters.s-6*dt,0,100);
+    if(!R.offMsg){R.offMsg=true;G.scOffs=(G.scOffs||0)+1;if(G.scSolo)G.eveLapClean=false;if(!G.scSolo)addLog('SAFETY CAR',tl('Safety Car neben der Strecke – lebensgefährlich!'),'bad');banner(tl('SAFETY CAR NEBEN DER STRECKE'),'red')}}
+  else R.offMsg=false;
+  if(G.scSolo)return;
+  const kv=S.v*.82;R.t+=dt;
+  if(kv>95)R.fast+=dt;else if(kv<60&&G.flagT>4)R.slow+=dt;else if(kv>=65)R.good+=dt;
+  if(R.t>=3){
+    if(R.fast>1.5){G.meters.s=clamp(G.meters.s-1.5,0,100);if(G.simT>R.msgT){addLog('SAFETY CAR',tl('Zu schnell – das Feld kann nicht sicher folgen!'),'bad');R.msgT=G.simT+8}}
+    else if(R.slow>1.5){G.mood=G.mood.map(v=>clamp(v-1,0,100));if(G.simT>R.msgT){addLog('SAFETY CAR',tl('Zu langsam – die Teams sind unzufrieden, Reifen und Bremsen kühlen aus.'),'warn');R.msgT=G.simT+8}}
+    else if(R.good>2){G.meters.s=clamp(G.meters.s+.4,0,100)}
+    R.t=0;R.good=0;R.fast=0;R.slow=0;
+  }
+};
+// Wechsel zur KI: wieder auf der Ideallinie weiterführen
+setInterval(()=>{if(G&&G.sc&&G.sc.free&&!(scDriven()&&G.scDriverId))G.sc.free=false},100);
+/* ---------- Neues Safety-Car-Design ---------- */
+drawRoadCar=function(x,y,a){
+  ctx.save();ctx.translate(x,y);ctx.rotate(a);
+  const t=performance.now(),lit=!(G&&G.sc&&!G.sc.on&&(G.sc.ex||0)>0),ph=Math.floor(t/220)%2;
+  // Lichtschein
+  if(lit){const gl=ctx.createRadialGradient(-1,0,0,-1,0,26);gl.addColorStop(0,`rgba(255,${ph?150:110},20,.35)`);gl.addColorStop(1,'rgba(255,140,20,0)');ctx.fillStyle=gl;ctx.fillRect(-27,-27,54,54)}
+  ctx.fillStyle='rgba(0,0,0,.35)';ctx.beginPath();ctx.roundRect(-15,-6,32,14,4);ctx.fill();
+  // Räder
+  ctx.fillStyle='#0b0b0c';[[-11,-8.2],[-11,5],[6.5,-8.2],[6.5,5]].forEach(w=>{ctx.beginPath();ctx.roundRect(w[0],w[1],6.4,3.2,1);ctx.fill()});
+  // Karosserie (silbern, flach, breite Kotflügel)
+  const bg=ctx.createLinearGradient(0,-7,0,7);bg.addColorStop(0,'#f2f4f7');bg.addColorStop(.5,'#c9ced6');bg.addColorStop(1,'#8f98a4');
+  ctx.fillStyle=bg;ctx.beginPath();ctx.moveTo(-15.5,-5.2);ctx.quadraticCurveTo(-16.5,0,-15.5,5.2);ctx.lineTo(-8,6.6);ctx.lineTo(8,6.4);ctx.quadraticCurveTo(15,5.2,16.6,1.6);ctx.lineTo(16.6,-1.6);ctx.quadraticCurveTo(15,-5.2,8,-6.4);ctx.lineTo(-8,-6.6);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=.5;ctx.stroke();
+  // Streifen: orange/gelb über Motorhaube und Dach
+  ctx.fillStyle='#ff8a00';ctx.fillRect(-15,-1.6,31,1.1);ctx.fillStyle='#ffd34d';ctx.fillRect(-15,.5,31,1.1);
+  // Kühlergrill + Scheinwerfer
+  ctx.fillStyle='#1b1f26';ctx.beginPath();ctx.roundRect(14.8,-3.2,1.7,6.4,.8);ctx.fill();
+  ctx.fillStyle='#e9f6ff';ctx.fillRect(14.2,-5.2,1.6,1.4);ctx.fillRect(14.2,3.8,1.6,1.4);
+  ctx.fillStyle='#ff2d2d';ctx.fillRect(-15.6,-5,1,1.6);ctx.fillRect(-15.6,3.4,1,1.6);
+  // Scheiben
+  ctx.fillStyle='#16202c';ctx.beginPath();ctx.moveTo(6,-4.6);ctx.lineTo(9.5,-3.6);ctx.lineTo(9.5,3.6);ctx.lineTo(6,4.6);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(-6.5,-4.4);ctx.lineTo(-9,-3.4);ctx.lineTo(-9,3.4);ctx.lineTo(-6.5,4.4);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#dfe3e9';ctx.beginPath();ctx.roundRect(-6.5,-4.6,12.5,9.2,1.6);ctx.fill();
+  // Lichtbalken auf dem Dach
+  ctx.fillStyle='#20252d';ctx.beginPath();ctx.roundRect(-2.4,-5.4,3.6,10.8,1.2);ctx.fill();
+  ctx.fillStyle=lit&&ph?'#ffb300':'#5a3a00';ctx.beginPath();ctx.roundRect(-2,-5,2.8,3.6,.8);ctx.fill();
+  ctx.fillStyle=lit&&!ph?'#ffb300':'#5a3a00';ctx.beginPath();ctx.roundRect(-2,1.4,2.8,3.6,.8);ctx.fill();
+  ctx.fillStyle=lit&&Math.floor(t/120)%3===0?'#39ff7a':'#0f3b20';ctx.fillRect(-1.6,-1.2,2,2.4);
+  ctx.restore();
+};
+/* ---------- Modus „Vortag“ ---------- */
+let EVE={kind:'solo',track:0,laps:8};
+function eveHTML(){
+  const opts=TRACKS.map((t,i)=>`<option value="${i}" ${i===EVE.track?'selected':''}>${esc(t.name)}</option>`).join('');
+  return `<div class="fb eve">
+   <p class="desc">Am <b>Vortag des Rennens</b> gehört die Strecke dir: Die Rennleitung testet das Safety Car, und abends drehen die Teams noch ein paar ruhige Runden.</p>
+   <div class="eveCards">
+    <div class="eveCard ${EVE.kind==='solo'?'on':''}" data-eve="solo"><b>SAFETY CAR TESTEN</b><span>Allein auf der Strecke – keine anderen Autos. Runden fahren, Zeiten messen, sauber auf der Strecke bleiben. W/A/S/D.</span></div>
+    <div class="eveCard ${EVE.kind==='cruise'?'on':''}" data-eve="cruise"><b>ZUSCHAUEN & ENTSPANNEN</b><span>Die Formel-1-Autos fahren ihre Runden – ohne Unfälle, ohne Strafen. Du kannst nicht eingreifen, nur zuschauen.</span></div>
+   </div>
+   <div class="setGrid">
+    <div><h4>STRECKE</h4><select id="eveTrack">${opts}</select></div>
+    <div class="${EVE.kind==='cruise'?'':'hide'}" id="eveLapsBox"><h4>RUNDEN</h4><div class="seg" id="eveLaps">${[5,10,20].map(n=>`<span data-evl="${n}" class="${EVE.laps===n?'on':''}">${n}</span>`).join('')}</div></div>
+   </div>
+   <div class="fbrow"><button class="btn primary" data-eve="go">${EVE.kind==='solo'?'Losfahren':'Zuschauen'}</button></div>
+  </div>`;
+}
+function eveOpen(){
+  ['lHelp','lOpts','lFb','lTe','lSet'].forEach(id=>$(id)&&$(id).classList.add('hide'));
+  let p=$('lEve');if(!p){p=document.createElement('div');p.id='lEve';$('lSet').parentNode.appendChild(p)}
+  p.classList.remove('hide');p.innerHTML=eveHTML();lShow('setup','VORTAG DES RENNENS');trAll&&trAll();
+}
+document.addEventListener('click',e=>{
+  const q=e.target&&e.target.closest&&e.target.closest('[data-eve],[data-evl]');if(!q)return;e.stopPropagation();
+  if(q.dataset.evl){EVE.laps=+q.dataset.evl;eveOpen();return}
+  const v=q.dataset.eve;if(v==='go'){EVE.track=+$('eveTrack').value;eveStart();return}
+  EVE.track=+($('eveTrack')||{value:EVE.track}).value;EVE.kind=v;eveOpen();
+},true);
+{const ha4=homeAct;homeAct=function(a){if(a==='eve'){eveOpen();return}if($('lEve'))$('lEve').classList.add('hide');return ha4(a)}}
+{const im4=initMenu;initMenu=function(){im4();if($('lEve'))$('lEve').classList.add('hide')}}
+function eveStart(){
+  if(NET.role)netLeave();
+  const o=Object.assign({},SEL,{track:EVE.track,laps:EVE.kind==='cruise'?EVE.laps:99,chaos:'calm',wx:'dry',quali:'off',form:'off',mode:'single',tier:null});
+  SEASON=null;startGame(o);
+  if(!G)return;G.eve=EVE.kind;document.body.classList.toggle('eveSolo',EVE.kind==='solo');document.body.classList.toggle('eveCruise',EVE.kind==='cruise');
+  G.startCrashPlan=false;G.jumpPlan=null;
+  if(EVE.kind==='solo'){
+    G.scSolo=true;G.cars.forEach(c=>{c.gone=true});G.flag='sc';G.flagLvl=3;G.sc.on=true;G.sc.dist=40;G.sc.v=0;G.sc.d=0;G.sc.free=false;G.scDriverId='local';G.scSeen=true;G.scAsk=false;
+    G.eveLaps=[];G.eveLapT0=null;G.eveLapClean=true;G.scOffs=0;G.eveCrash=0;G.evePrev=mod(G.sc.dist,T.L);
+    addLog('VORTAG',tl('Strecke frei für den Safety-Car-Test. W Gas · S Bremse · A/D lenken.'),'good');
+  }else{G.cruise=true;addLog('VORTAG',tl('Ruhige Runden am Abend – keine Unfälle, keine Strafen. Lehn dich zurück.'),'good')}
+}
+/* Sperren im Vortag-Modus */
+{const tf0=toFree;toFree=function(...a){if(G&&G.cruise)return;return tf0(...a)}}
+for(const n of ['crashCar','directorStep','forceIncident','minorsStep','blockingIncident','limitsIncident','techFail','puncture','minorDefect','spawnHazard','spawnHazardAt','startJump','finishInc','rsOffer']){
+  try{const f0=window[n]||eval(n);const w=function(...a){if(G&&(G.cruise||G.scSolo))return;return f0.apply(this,a)};eval(n+'=w')}catch(e){}
+}
+{const sf3=setFlag;setFlag=function(f,...a){if(G&&G.cruise)return;if(G&&G.scSolo&&f!=='sc')return;return sf3(f,...a)}}
+{const fi3=fired;fired=function(w){
+  if(G&&G.cruise)return;
+  if(G&&G.scSolo){if(w==='sc'){G.eveCrash=(G.eveCrash||0)+1;G.scCrash=false;const S=G.sc;S.free=false;S.v=0;S.d=0;S.dist=Math.floor(S.dist/T.L)*T.L+40;G.eveLapT0=null;G.eveLapClean=true;banner(tl('UNFALL – ZURÜCK AN DIE START-LINIE'),'red')}return}
+  return fi3(w)}}
+addEventListener('keydown',e=>{
+  if(!G||!(G.cruise||G.scSolo))return;const k=(e.key||'').toLowerCase();
+  const blocked=G.scSolo?[' ','g','y','v','r','e','enter']:[' ','g','y','v','s','r','e','enter','b'];
+  if(blocked.includes(k)){e.stopImmediatePropagation();e.preventDefault()}
+},true);
+/* Rundenzeiten + Zuschau-Start */
+function fmtLap(t){const m=Math.floor(t/60),s=t-m*60;return (m?m+':':'')+(m?String(s.toFixed(2)).padStart(5,'0'):s.toFixed(2))}
+setInterval(()=>{
+  if(!G){document.body.classList.remove('eveSolo','eveCruise');evePanel(false);return}
+  if(G.cruise&&G.phase==='grid'&&G.lightN>=5&&G.lightsOut>1e8)G.lightsOut=G.gridT+.6;
+  if(!G.scSolo){evePanel(false);return}
+  G.sc.on=true;G.flag='sc';
+  const s=mod(G.sc.dist,T.L),now=performance.now()/1000;
+  if(G.eveLapT0==null&&G.sc.v>5)G.eveLapT0=now;
+  if(G.evePrev>T.L*.85&&s<T.L*.15&&G.eveLapT0!=null){const lt=now-G.eveLapT0;G.eveLaps.push({t:lt,clean:G.eveLapClean});G.eveLapT0=now;G.eveLapClean=true;
+    banner(`${tl('RUNDE')} ${G.eveLaps.length}: ${fmtLap(lt)}${G.eveLaps[G.eveLaps.length-1].clean?'':' · '+tl('NICHT SAUBER')}`,'good');try{beep(880,.12,'triangle',.05)}catch(_){}}
+  G.evePrev=s;evePanel(true);
+},50);
+function evePanel(on){
+  let el=$('evePanel');if(!el){el=document.createElement('div');el.id='evePanel';el.className='hide';document.body.appendChild(el)}
+  el.classList.toggle('hide',!on);if(!on)return;
+  const L=G.eveLaps,clean=L.filter(l=>l.clean),best=clean.length?Math.min(...clean.map(l=>l.t)):null,cur=G.eveLapT0!=null?performance.now()/1000-G.eveLapT0:0;
+  el.innerHTML=`<div class="evT">${tl('VORTAG · SAFETY-CAR-TEST')}</div><div class="evRow"><span>${tl('Aktuelle Runde')}</span><b>${fmtLap(cur)}</b></div>
+   <div class="evRow"><span>${tl('Beste saubere Runde')}</span><b>${best!=null?fmtLap(best):'–'}</b></div>
+   <div class="evRow"><span>${tl('Runden')}</span><b>${L.length}</b></div><div class="evRow"><span>${tl('Ausritte')}</span><b>${G.scOffs||0}</b></div><div class="evRow"><span>${tl('Unfälle')}</span><b>${G.eveCrash||0}</b></div>
+   <div class="evLaps">${L.slice(-5).reverse().map((l,k)=>`<div class="${l.clean?'':'dirty'}">R${L.length-k}: ${fmtLap(l.t)}${l.clean?'':' ✗'}</div>`).join('')}</div>`;
+}
+Object.assign(EN,{'VORTAG':'RACE EVE','VORTAG DES RENNENS':'THE DAY BEFORE THE RACE','SAFETY CAR TESTEN':'TEST THE SAFETY CAR','ZUSCHAUEN & ENTSPANNEN':'WATCH & RELAX','Losfahren':'Drive','Zuschauen':'Watch',
+ 'Allein auf der Strecke – keine anderen Autos. Runden fahren, Zeiten messen, sauber auf der Strecke bleiben. W/A/S/D.':'Alone on track – no other cars. Drive laps, set times, stay on the track. W/A/S/D.',
+ 'Die Formel-1-Autos fahren ihre Runden – ohne Unfälle, ohne Strafen. Du kannst nicht eingreifen, nur zuschauen.':'The F1 cars lap the circuit – no crashes, no penalties. You cannot intervene, just watch.',
+ 'VORTAG · SAFETY-CAR-TEST':'RACE EVE · SAFETY CAR TEST','Aktuelle Runde':'Current lap','Beste saubere Runde':'Best clean lap','Runden':'Laps','Ausritte':'Off-tracks','Unfälle':'Crashes','RUNDE':'LAP','NICHT SAUBER':'NOT CLEAN',
+ 'UNFALL – ZURÜCK AN DIE START-LINIE':'CRASH – BACK TO THE START LINE','AM VORTAG':'THE DAY BEFORE','TESTEN & ZUSCHAUEN':'TEST & WATCH','Safety Car allein fahren oder den Autos entspannt zuschauen.':'Drive the safety car alone or relax and watch the cars.','LOS ▸':'GO ▸'});
+Object.assign(LA,{'VORTAG DES RENNENS':'PRIDIE CERTAMINIS','SAFETY CAR TESTEN':'CURRUM TUTELAE PROBA','ZUSCHAUEN & ENTSPANNEN':'SPECTA ET QUIESCE','Losfahren':'Proficiscere','Zuschauen':'Specta','AM VORTAG':'PRIDIE'});
+/* Startmenü-Kachel */
+(()=>{const lh=$('lHome');if(!lh||document.querySelector('.mon.eveM'))return;
+  lh.insertAdjacentHTML('beforeend','<div class="mon eveM" data-home="eve"><div class="mt2"><i></i>AM VORTAG</div><div class="mbody"><div class="big">TESTEN & ZUSCHAUEN</div>Safety Car allein fahren oder den Autos entspannt zuschauen.</div><div class="mfoot"><b>LOS ▸</b></div></div>');trAll&&trAll()})();
 
 if(JOIN_CODE){const sg=document.querySelector('.seg[data-k="net"]');if(sg)sg.querySelectorAll('span').forEach(x=>x.classList.toggle('on',x.dataset.v==='mp'))}
 initMenu();
