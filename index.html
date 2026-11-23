@@ -577,6 +577,24 @@ div.sp{display:block;margin:6px 0 0;font-size:12px;font-weight:600;letter-spacin
 .fbRep{display:flex;align-items:center;gap:10px;margin:12px 0 0;padding:8px 10px;border-radius:8px;background:rgba(255,178,62,.08);border:1px solid rgba(255,178,62,.3)}
 body.light :is(#modWarn,#repBox,#repBtn){filter:invert(.94) hue-rotate(180deg)}
 
+/* ===== RACE CONTROL 37 – Safety Car fahren ===== */
+#scHud{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);z-index:30;min-width:240px;padding:8px 14px 9px;border-radius:12px;background:rgba(20,12,2,.92);border:1px solid rgba(255,159,10,.6);box-shadow:0 0 24px rgba(255,159,10,.18);pointer-events:none;text-align:center}
+#scHud.hide,#scPad.hide{display:none}
+.shT{font:800 11px "Barlow Condensed",sans-serif;letter-spacing:.2em;color:#ffb340}
+.shV b{font:800 30px "Barlow Condensed",sans-serif;color:#fff}.shV span{font-size:12px;color:var(--mut);margin-left:4px}
+.shBar{position:relative;height:8px;border-radius:5px;background:rgba(255,255,255,.1);margin:4px 0 5px}
+.shBar i{position:absolute;top:0;bottom:0;border-radius:5px;background:rgba(47,210,122,.45)}
+.shBar s{position:absolute;top:-3px;width:4px;height:14px;margin-left:-2px;border-radius:2px;background:#fff;transition:left .15s}.shBar s.fast{background:#ff5a52}.shBar s.slow{background:#ffd34d}
+#scPad{position:fixed;left:0;right:0;bottom:calc(var(--mBot,60px) + 8px);z-index:29;display:flex;justify-content:space-between;padding:0 10px;pointer-events:none}
+#scPad>div{display:flex;gap:10px;pointer-events:auto}
+#scPad button{width:64px;height:64px;border-radius:16px;border:1px solid rgba(255,159,10,.5);background:rgba(20,12,2,.85);color:#ffb340;font:800 18px "Barlow Condensed",sans-serif;touch-action:none;user-select:none;-webkit-user-select:none}
+#scPad button.gs{width:84px;color:#6ff0a6;border-color:rgba(80,220,140,.6)}#scPad button.br{width:84px;color:#ff8a80;border-color:rgba(255,90,82,.6)}
+#scPad button.on{background:rgba(255,159,10,.35);transform:scale(.95)}
+body.mob #scHud{bottom:calc(var(--mBot,60px) + 84px);min-width:200px;padding:5px 10px}body.mob .shV b{font-size:22px}body.mob #shKeys{display:none}
+.scDrv{flex-direction:column;align-items:stretch!important;gap:6px;margin-top:8px;padding:8px 10px;border-radius:8px;background:rgba(255,159,10,.07);border:1px solid rgba(255,159,10,.3)}
+.scDrvSeg span{cursor:pointer}
+body.light :is(#scHud,#scPad){filter:invert(.94) hue-rotate(180deg)}
+
 /* =====================================================================
    RACE CONTROL – MOBILE (Hochkant) · Version 2
    Strecke bildschirmfüllend, alles Wichtige als schlanke Einblendung darüber.
@@ -1330,7 +1348,7 @@ function flagStep(dt){
   G.flagT+=dt;G.flagLvl=LV[G.flag];
   const th=G.threat;
   if(G.flag==='sc'){
-    const tg=Math.min(profAt(G.sc.dist)*.8,96);G.sc.v+=clamp(tg-G.sc.v,-200*dt,100*dt);G.sc.dist+=G.sc.v*dt;
+    const tg=Math.min(profAt(G.sc.dist)*.8,96);G.scTg=tg;if(scDriven())scDriveStep(dt,tg);else{G.sc.v+=clamp(tg-G.sc.v,-200*dt,100*dt);G.sc.d=(G.sc.d||0)*Math.exp(-2*dt);G.sc.yaw=0}G.sc.dist+=G.sc.v*dt;
     G.scLeader=activeLeader();
   }else G.sc.on=false;
   if(G.flag==='red'){
@@ -2884,7 +2902,7 @@ function egoRender(){
     const c=G.cars[k];if(o.tyre!==c.tyre){o.tyre=c.tyre;o.ring.color.set(TY[c.tyre]?TY[c.tyre].c:'#ffd400')}
     o.lightM.emissive.set(wet>.3&&blink?'#ff2010':'#000000')});
   const sc=E3.sc,son=!!(G.sc&&(G.sc.on||G.flag==='sc'))&&!E.rep;sc.g.visible=son;
-  if(son){const sp=posAt(G.sc.dist,0);sc.g.position.set(sp.x,0,sp.y);sc.g.rotation.y=-sp.a;sc.amb[0].emissiveIntensity=blink?1.4:0;sc.amb[1].emissiveIntensity=blink?0:1.4}
+  if(son){const sp=posAt(G.sc.dist,G.sc.d||0);sc.g.position.set(sp.x,0,sp.y);sc.g.rotation.y=-sp.a;sc.amb[0].emissiveIntensity=blink?1.4:0;sc.amb[1].emissiveIntensity=blink?0:1.4}
   // Startampel
   if(E3.startL)E3.startL.forEach((m,i)=>{m.emissiveIntensity=G.phase==='grid'&&G.lightN>i?2:0});
   // Kamera: über dem Helm (T-Cam) – Blick über die Nase, Vorderräder bleiben im Bild
@@ -3780,8 +3798,8 @@ function drawGameWorld(z,t){
     if(z<1.6)drawLabel(c.drv.c,c.x,c.y-17*csc-6/z,z,c.out?'#7b838d':c.id===sel?'#fff':'#d6dbe1');
   }
   if(G.sc.on||G.flag==='sc'){
-    const p=posAt(G.sc.dist,0);
-    drawRoadCar(p.x,p.y,p.a);
+    const p=posAt(G.sc.dist,G.sc.d||0);
+    drawRoadCar(p.x,p.y,p.a+(G.sc.yaw||0));
     
     drawLabel('SAFETY CAR',p.x,p.y-20,z,'#ffb340',true);
   }
@@ -4585,7 +4603,7 @@ async function netHost(){
   const ready_=(code,p)=>{
     if(ready)return;ready=true;clearTimeout(fb);
     NET.peer=p||null;NET.role='host';NET.code=code;NET.rel=[];NET.rconns={};
-    NET.players=[{id:'host',name:NET.name,col:PCOL[0]}];NET.st='';menuRefresh();hostRelay();
+    NET.myId='host';NET.players=[{id:'host',name:NET.name,col:PCOL[0]}];NET.st='';menuRefresh();hostRelay();
   };
   const relayOnly=()=>{if(!ready)ready_(genCode(),null)};
   fb=setTimeout(relayOnly,9000);
@@ -4679,7 +4697,7 @@ function netStart(o){NET.evq=[];NET.rm={};netAll(startMsg(o))}
 const r1=v=>Math.round(v*10)/10;
 function packSnap(){
   NET.sN++;
-  const m={t:'s',st:Math.round(G.simT*1000)/1000,rt:r1(G.raceT),ph:G.phase,fl:G.flag,ln:G.lightN,lo:G.lightsOut>1e8?1:0,sc:[r1(G.sc.dist),G.sc.on?1:0],
+  const m={t:'s',st:Math.round(G.simT*1000)/1000,rt:r1(G.raceT),ph:G.phase,fl:G.flag,ln:G.lightN,lo:G.lightsOut>1e8?1:0,sc:[r1(G.sc.dist),G.sc.on?1:0,r1(G.sc.d||0),r1(G.sc.v),Math.round((G.sc.yaw||0)*100)/100],
     w:Math.round(G.wet*100)/100,m:[r1(G.meters.f),r1(G.meters.s),r1(G.meters.e)],mo:G.mood.map(r1),flp:G.fl||null,fsp:G.fs||null,vl:G.varLeft,r0:G.raceT0,lf:G.leaderFin?1:0,
     ly:(G.ly||[]).filter(y=>G.simT<y.until).map(y=>[r1(y.s),r1(y.until),y.id]),
     hz:G.hazards.filter(h=>h.active).map(h=>[h.id,h.kind,r1(h.s),r1(h.d),h.hw,r1(h.vd||0),r1(h.age)]),
@@ -4908,7 +4926,7 @@ async function netJoin(){
     if(via==='relay'){cleanP2P();NET.rcli=conn.cli}else NET.peer=p;
     tries.forEach(c=>{if(c!==conn)dropTry(c)});
     conn.send({t:'pick'});
-    NET.role='client';NET.host=conn;NET.via=via;NET.code=code;NET.players=d.players;NET.st='';menuRefresh();
+    NET.myId=d.me;NET.role='client';NET.host=conn;NET.via=via;NET.code=code;NET.players=d.players;NET.st='';menuRefresh();
   };
   // Relay-Antwort erst nach 3 s annehmen, damit eine funktionierende Direktverbindung Vorrang hat
   const handle=(conn,via,d)=>{
@@ -5016,7 +5034,7 @@ function applySnap(m){
   G.flagLvl=LV[G.flag];
   if(m.ph==='grid'){if(m.ln!==G.lightN)setLights(m.ln)}else if(G.phase==='grid')setLights(-1);
   G.phase=m.ph;G.lightN=m.ln;G.lightsOut=m.lo?1e9:0;G.raceT=m.rt;G.raceT0=m.r0;G.leaderFin=!!m.lf;
-  G.sc.on=!!m.sc[1];G.wet=m.w;G.meters.f=m.m[0];G.meters.s=m.m[1];G.meters.e=m.m[2];G.mood=m.mo;G.fl=m.flp;G.fs=m.fsp;G.varLeft=m.vl;NET.cl=m.cl||[];NET.nt=m.nt||[];if(m.sf)G.secF=m.sf;if(m.wc){G.cells=m.wc.map(a=>({x:a[0],y:a[1],r:a[2],k:a[3],vx:0,vy:0}));G.wxF=m.wf;G.wind={x:m.wd[0],y:m.wd[1]}}
+  G.sc.on=!!m.sc[1];G.sc.d=m.sc[2]||0;G.sc.v=m.sc[3]||G.sc.v;G.sc.yaw=m.sc[4]||0;G.scTg=G.scTg||80;G.wet=m.w;G.meters.f=m.m[0];G.meters.s=m.m[1];G.meters.e=m.m[2];G.mood=m.mo;G.fl=m.flp;G.fs=m.fsp;G.varLeft=m.vl;NET.cl=m.cl||[];NET.nt=m.nt||[];if(m.sf)G.secF=m.sf;if(m.wc){G.cells=m.wc.map(a=>({x:a[0],y:a[1],r:a[2],k:a[3],vx:0,vy:0}));G.wxF=m.wf;G.wind={x:m.wd[0],y:m.wd[1]}}
   G.ly=m.ly.map(y=>({s:y[0],until:y[1],id:y[2]}));
   G.hazards=m.hz.map(h=>({id:h[0],kind:h[1],s:h[2],d:h[3],hw:h[4],vd:h[5],age:h[6],active:true,label:(HZ[h[1]]||{}).label||''}));
   G.obs=m.ob.map(s=>({s,kind:'x'}));
@@ -5334,7 +5352,7 @@ function mmapDraw(){
   const t=performance.now()/1000;
   for(const o of G.obs){const n=needLv(o.threat);if(!n)continue;const p=posAt(o.s,o.d),ok=cover(o)>=n;g.fillStyle=ok?'#ffd60a':'#ff3b30';g.beginPath();g.arc(ox+p.x*sc,oy+p.y*sc,ok?3.2:4+Math.sin(t*8)*1.4,0,TAU);g.fill()}
   for(const c of G.cars){if(c.gone)continue;g.fillStyle=c.color;g.beginPath();g.arc(ox+c.x*sc,oy+c.y*sc,c.id===G.sel?3.4:2.1,0,TAU);g.fill();if(c.id===G.sel){g.strokeStyle='#fff';g.lineWidth=1.2;g.stroke()}}
-  if(G.sc.on||G.flag==='sc'){const p=posAt(G.sc.dist,0);g.fillStyle='#ff9f0a';g.fillRect(ox+p.x*sc-3,oy+p.y*sc-3,6,6)}
+  if(G.sc.on||G.flag==='sc'){const p=posAt(G.sc.dist,G.sc.d||0);g.fillStyle='#ff9f0a';g.fillRect(ox+p.x*sc-3,oy+p.y*sc-3,6,6)}
 }
 function radarDraw(){
   const cv2=$('radar');if(!cv2||!G||!G.wxC)return;const W=cv2.clientWidth,H=cv2.clientHeight;if(!W||!H)return;
@@ -5844,7 +5862,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='36.2';
+const GAMEVER='37.0';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -7005,6 +7023,121 @@ Object.assign(EN,{'VERWARNUNG':'WARNING','Verstanden':'Understood','Melden':'Rep
  'Verfassungsfeindliches Symbol / NS-Anspielung':'Anti-constitutional symbol / Nazi reference','Rassismus':'Racism','Beleidigung':'Insult','Unpassender Name':'Inappropriate name','Unpassende Strecke':'Inappropriate track',
  'Die Meldung geht direkt an den Entwickler – mit Spielername, Strecke (als Bild), Lobby-Code, Uhrzeit und Spielversion.':'The report goes straight to the developer – with player name, track (as image), lobby code, time and game version.'});
 Object.assign(LA,{'VERWARNUNG':'ADMONITIO','Verstanden':'Intellexi','Melden':'Defer','Abbrechen':'Desine','Meldung senden':'Delationem mitte','GRUND':'CAUSA'});
+
+/* =====================================================================
+   RACE CONTROL 37 – Safety Car selbst fahren
+   W = Gas · S = Bremse · A/D = links/rechts. Einzelspieler: Schalter „Ich fahre“.
+   Mehrspieler: Pflicht – der Host bestimmt vor dem Start, wer das Safety Car fährt.
+   ===================================================================== */
+if(SEL.scd==null)SEL.scd='ai';if(SEL.scdMp==null)SEL.scdMp='host';
+const SCK={w:false,a:false,s:false,d:false};
+function scLocalId(){return G&&G.mp?(NET.myId||null):'local'}
+function scAmDriver(){return !!(G&&G.scDriverId&&G.scDriverId===scLocalId())}
+function scActive(){return !!(G&&G.flag==='sc'&&G.sc&&G.sc.on&&!G.ended)}
+function scDriven(){return !!(G&&G.scDriverId&&scActive())}
+function scInput(){if(scAmDriver())return SCK;return G.scIn||{w:false,a:false,s:false,d:false}}
+/* Fahrphysik (läuft beim Host bzw. im Einzelspieler) */
+function scDriveStep(dt,tg){
+  const k=scInput(),S=G.sc;
+  if(k.w&&!k.s)S.v+=78*dt;else if(k.s)S.v-=190*dt;else S.v-=14*dt;
+  S.v=clamp(S.v,0,175);
+  const lim=Math.max(6,HALF-8),steer=(k.d?1:0)-(k.a?1:0),od=S.d||0;
+  S.d=clamp(od+steer*clamp(S.v,15,120)*.55*dt,-lim,lim);
+  S.yaw=clamp(Math.atan2((S.d-od)/Math.max(dt,1e-3),Math.max(S.v,25)),-.5,.5);
+  // Bewertung: Tempo im sinnvollen Bereich halten
+  const r=S.v/Math.max(tg,20),R=G.scRate||(G.scRate={t:0,good:0,fast:0,slow:0,msgT:0});R.t+=dt;
+  if(r>1.45)R.fast+=dt;else if(r<.55&&G.flagT>4)R.slow+=dt;else R.good+=dt;
+  if(R.t>=3){
+    if(R.fast>1.5){G.meters.s=clamp(G.meters.s-1.2,0,100);if(G.simT>R.msgT){addLog('SAFETY CAR',tl('Zu schnell – das Feld kann nicht sicher folgen!'),'bad');R.msgT=G.simT+8}}
+    else if(R.slow>1.5){G.meters.e=clamp(G.meters.e-.8,0,100);if(G.simT>R.msgT){addLog('SAFETY CAR',tl('Zu langsam – Reifen und Bremsen kühlen aus, die Teams murren.'),'warn');R.msgT=G.simT+8}}
+    else if(R.good>2){G.meters.s=clamp(G.meters.s+.4,0,100);G.scGood=(G.scGood||0)+1}
+    R.t=0;R.good=0;R.fast=0;R.slow=0;
+  }
+}
+/* Tasten: nur abfangen, solange man selbst das Safety Car fährt (sonst bleibt S = Safety-Car-Flagge) */
+function scKey(e,down){
+  const k=(e.key||'').toLowerCase();if(!'wasd'.includes(k)||k.length!==1)return;
+  if(!G||!scAmDriver()||!scActive())return;
+  if(e.target&&/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
+  e.stopImmediatePropagation();e.preventDefault();if(SCK[k]===down)return;SCK[k]=down;scSendIn();
+}
+addEventListener('keydown',e=>scKey(e,true),true);
+addEventListener('keyup',e=>scKey(e,false),true);
+addEventListener('blur',()=>{for(const k in SCK)SCK[k]=false;scSendIn()});
+/* Mehrspieler: Eingaben des Fahrers an den Host */
+let scLastSend=0;
+function scSendIn(){if(G&&G.client&&scAmDriver()){netSend({t:'scin',k:Object.assign({},SCK)});scLastSend=performance.now()}}
+setInterval(()=>{if(G&&G.client&&scAmDriver()&&scActive()&&performance.now()-scLastSend>250)scSendIn()},250);
+{const hm0=hostMsg;hostMsg=function(conn,d){if(d&&d.t==='scin'){if(G&&conn.pid&&conn.pid===G.scDriverId&&d.k)G.scIn={w:!!d.k.w,a:!!d.k.a,s:!!d.k.s,d:!!d.k.d};return}return hm0(conn,d)}}
+/* Rennstart: Fahrer festlegen */
+function scMpDriver(){const ids=(NET.players||[]).map(p=>p.id);return ids.includes(SEL.scdMp)?SEL.scdMp:'host'}
+{const sm1=startMsg;startMsg=function(o){const m=sm1(o);m.scd=scMpDriver();if(G)G.scDriverId=m.scd;return m}}
+{const sg0=startGame;startGame=function(o,...a){const r=sg0(o,...a);if(G){G.scSeen=false;if(!G.mp)G.scDriverId=(SEL.scd==='me'&&!G.tut)?'local':null}return r}}
+{const cm2=clientMsg;clientMsg=function(d){const r=cm2(d);if(d&&d.t==='start'&&G)G.scDriverId=d.scd||null;return r}}
+function scDriverName(){if(!G||!G.scDriverId)return '';if(G.scDriverId==='local')return lsGet('rc_name')||'Du';const p=(NET.players||[]).find(p=>p.id===G.scDriverId);return p?p.name:'?'}
+/* Kamera folgt dem Safety Car, solange man selbst fährt */
+{const cu1=camUpdate;camUpdate=function(rdt){
+  if(G&&scAmDriver()&&scActive()&&!G.modal){const p=posAt(G.sc.dist,G.sc.d||0);
+    if(G.cm!==3||!G.scCam){G.scCam=true;G.scZ=Math.max(1.35,G.cam.z||1);setCam(3)}
+    G.free={x:p.x,y:p.y,z:G.free&&G.scCam?G.free.z:G.scZ}}
+  else if(G&&G.scCam){G.scCam=false;setCam(0)}
+  return cu1(rdt)}}
+/* Hinweise beim Ausrücken */
+setInterval(()=>{
+  if(!G){scHud(false);return}
+  const act=scActive();
+  if(act&&!G.scSeen&&G.scDriverId){G.scSeen=true;
+    if(scAmDriver()){banner(tl('DU FÄHRST DAS SAFETY CAR'),'warn');try{beep(520,.15,'square',.05);setTimeout(()=>beep(780,.2,'square',.05),160)}catch(_){}}
+    else addLog('SAFETY CAR',`${esc(scDriverName())} ${tl('fährt das Safety Car.')}`,'warn')}
+  if(!act){G.scSeen=false;for(const k in SCK)SCK[k]=false}
+  scHud(act&&scAmDriver());
+},200);
+/* Fahr-Anzeige + Touch-Pedale */
+function scHud(on){
+  let el=$('scHud');
+  if(!el){el=document.createElement('div');el.id='scHud';el.className='hide';
+    el.innerHTML=`<div class="shT">SAFETY CAR</div><div class="shV"><b id="shSpd">0</b><span id="shUnit">km/h</span></div>
+      <div class="shBar"><i id="shBand"></i><s id="shCur"></s></div><div class="shK mut sm" id="shKeys">W Gas · S Bremse · A/D lenken</div>`;
+    document.body.appendChild(el);
+    const pad=document.createElement('div');pad.id='scPad';pad.className='hide';
+    pad.innerHTML='<div class="spL"><button data-sk="a">◀</button><button data-sk="d">▶</button></div><div class="spR"><button data-sk="s" class="br">BREMSE</button><button data-sk="w" class="gs">GAS</button></div>';
+    document.body.appendChild(pad);
+    const set=(b,v)=>{const k=b.dataset.sk;if(SCK[k]!==v){SCK[k]=v;b.classList.toggle('on',v);scSendIn()}};
+    pad.querySelectorAll('button').forEach(b=>{
+      b.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();try{b.setPointerCapture(e.pointerId)}catch(_){}set(b,true)});
+      ['pointerup','pointercancel','pointerleave'].forEach(t=>b.addEventListener(t,()=>set(b,false)))});
+  }
+  el.classList.toggle('hide',!on);const pad=$('scPad');pad.classList.toggle('hide',!on||!document.body.classList.contains('mob'));
+  if(!on)return;
+  const v=kmh(G.sc.v),tg=G.scTg||80,lo=kmh(tg*.55),hi=kmh(tg*1.45),mx=kmh(175);
+  $('shSpd').textContent=v;$('shUnit').textContent=SETS.units==='imperial'?'mph':'km/h';
+  $('shBand').style.left=(lo/mx*100)+'%';$('shBand').style.width=((hi-lo)/mx*100)+'%';
+  $('shCur').style.left=clamp(v/mx*100,0,100)+'%';$('shCur').className=v>hi?'fast':v<lo?'slow':'';
+  $('shKeys').textContent=tl('W Gas · S Bremse · A/D lenken');
+}
+/* ---------- Einzelspieler: Schalter in den Rennoptionen ---------- */
+function scOptHTML(){return `<div id="scOpt"><h4>SAFETY CAR</h4><div class="seg" data-k="scd"><span data-v="ai" class="${SEL.scd!=='me'?'on':''}">KI fährt</span><span data-v="me" class="${SEL.scd==='me'?'on':''}">Ich fahre (W/A/S/D)</span></div></div>`}
+function scOptPlace(){
+  const ro=$('raceOpts');if(!ro)return;let o=$('scOpt');
+  if(!o){ro.insertAdjacentHTML('beforeend',scOptHTML());o=$('scOpt');trAll&&trAll()}
+  o.classList.toggle('hide',!!NET.role||SEL.net==='mp');
+}
+/* ---------- Mehrspieler: Host wählt den Fahrer (Pflicht) ---------- */
+{const mr0=mpMenuRender;mpMenuRender=function(){mr0();const box=$('mpBox');if(!box||!NET.role)return;
+  const drv=scMpDriver(),pl=NET.players||[];
+  const h=NET.role==='host'
+    ?`<div class="mrow scDrv"><div class="mpSt"><b>SAFETY-CAR-FAHRER</b> (Pflicht) – fährt das Safety Car, sobald es ausrückt (W/A/S/D). Sonst ist er normaler Rennleiter.</div>
+       <div class="seg scDrvSeg">${pl.map(p=>`<span data-scdrv="${esc(p.id)}" class="${p.id===drv?'on':''}">${esc(p.name)}</span>`).join('')}</div></div>`
+    :`<div class="mrow scDrv"><div class="mpSt"><b>SAFETY-CAR-FAHRER:</b> ${esc((pl.find(p=>p.id===NET.scdLobby)||{}).name||'–')}${NET.scdLobby&&NET.scdLobby===NET.myId?' – <b style="color:var(--warn)">das bist du!</b>':''}</div></div>`;
+  box.insertAdjacentHTML('beforeend',h);trAll&&trAll()}}
+document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-scdrv]');if(!q)return;e.stopPropagation();SEL.scdMp=q.dataset.scdrv;mpMenuRender();if(NET.role==='host')netLobby()},true);
+{const nl0=netLobby;netLobby=function(){if(NET.role==='host')netAll({t:'scdrv',id:scMpDriver()});return nl0()}}
+{const cm3=clientMsg;clientMsg=function(d){if(d&&d.t==='scdrv'){NET.scdLobby=d.id;mpMenuRender();return}return cm3(d)}}
+{const mf0=menuRefresh;menuRefresh=function(){const r=mf0();try{scOptPlace()}catch(e){}return r}}
+Object.assign(EN,{'SAFETY CAR':'SAFETY CAR','KI fährt':'AI drives','Ich fahre (W/A/S/D)':'I drive (W/A/S/D)','DU FÄHRST DAS SAFETY CAR':'YOU ARE DRIVING THE SAFETY CAR','fährt das Safety Car.':'is driving the safety car.',
+ 'W Gas · S Bremse · A/D lenken':'W throttle · S brake · A/D steer','Zu schnell – das Feld kann nicht sicher folgen!':'Too fast – the field cannot follow safely!','Zu langsam – Reifen und Bremsen kühlen aus, die Teams murren.':'Too slow – tyres and brakes cool down, the teams grumble.',
+ 'GAS':'GAS','BREMSE':'BRAKE','SAFETY-CAR-FAHRER':'SAFETY CAR DRIVER','SAFETY-CAR-FAHRER:':'SAFETY CAR DRIVER:'});
+Object.assign(LA,{'KI fährt':'Machina agit','Ich fahre (W/A/S/D)':'Ego agito (W/A/S/D)','DU FÄHRST DAS SAFETY CAR':'TU CURRUM TUTELAE AGIS','GAS':'CELERA','BREMSE':'SISTE'});
 
 if(JOIN_CODE){const sg=document.querySelector('.seg[data-k="net"]');if(sg)sg.querySelectorAll('span').forEach(x=>x.classList.toggle('on',x.dataset.v==='mp'))}
 initMenu();
