@@ -855,6 +855,32 @@ body.mob #menu.lst #lHome .mbody{padding:12px 14px;font-size:13.5px}body.mob #me
 body.mob #menu.lst .lhead{padding:calc(10px + var(--sat)) 14px 10px}
 body.light :is(#mAct,#mMeters,#mRep,#mIncT,#mDx){filter:invert(.94) hue-rotate(180deg)}
 @media (orientation:landscape){body.mob #quitBtn{right:86px!important}body.mob #repBtn{right:126px!important}}
+
+/* ===== Konten ===== */
+#authGate{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:16px;background:radial-gradient(ellipse at 50% 30%,rgba(0,120,200,.25),rgba(3,6,12,.97) 60%),#03060c;transition:opacity .4s}
+#authGate.agHide{opacity:0;pointer-events:none}#authGate.hide{display:none}
+body.authLocked #menu{filter:blur(6px)}
+.agCard{width:min(400px,100%);max-height:calc(100vh - 32px);overflow-y:auto;padding:26px 26px 18px;border-radius:18px;background:linear-gradient(180deg,rgba(14,22,36,.97),rgba(8,13,22,.97));border:1px solid rgba(0,180,255,.3);box-shadow:0 30px 80px rgba(0,0,0,.6);display:flex;flex-direction:column;gap:11px;animation:mwIn .4s}
+.agLogo{font:800 30px "Barlow Condensed",sans-serif;letter-spacing:.14em;text-align:center}.agLogo b{color:var(--acc)}
+.agSub{text-align:center;font:800 12px "Barlow Condensed",sans-serif;letter-spacing:.24em;color:#7fd4ff;margin-bottom:4px}
+.agF{display:flex;flex-direction:column;gap:4px}.agF span{font:700 10.5px "Barlow Condensed",sans-serif;letter-spacing:.14em;color:var(--mut);text-transform:uppercase}
+.agF input{width:100%;background:#05090f;border:1px solid rgba(0,180,255,.25);border-radius:9px;color:var(--tx);padding:11px 12px;font:inherit;font-size:15px}
+.agF input:focus{outline:none;border-color:#14c0ff;box-shadow:0 0 0 3px rgba(20,192,255,.15)}
+.agBtn{width:100%;padding:12px;font-size:14px}.agBtn.danger,.btn.danger{border-color:rgba(255,90,82,.6);color:#ff8a80}
+.agLinks{display:flex;justify-content:space-between;gap:10px;font-size:12.5px}.agLinks a,.agFoot a{color:#7fd4ff;cursor:pointer;text-decoration:none}.agLinks a:hover,.agFoot a:hover{text-decoration:underline}
+.agHint,.agP{font-size:12.5px;line-height:1.45;color:#b9c8da;margin:0}
+.agMsg{min-height:18px;font-size:13px;text-align:center}.agMsg.bad{color:#ff8a80}.agMsg.ok{color:var(--ok)}
+.agFoot{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:var(--mut);border-top:1px solid rgba(255,255,255,.06);padding-top:9px}
+.agLoad{display:flex;align-items:center;gap:10px;justify-content:center;padding:18px 0;color:#b9c8da}.agLoad i{width:18px;height:18px;border-radius:50%;border:2px solid rgba(20,192,255,.3);border-top-color:#14c0ff;animation:agSpin .8s linear infinite}
+@keyframes agSpin{to{transform:rotate(360deg)}}
+#agPriv{position:fixed;inset:0;z-index:310;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(2,5,10,.8)}#agPriv.hide{display:none}
+.agPrivC{width:min(560px,100%)}.agPrivT{font-size:13px;line-height:1.5;color:#c9d3df}.agPrivT p{margin:0 0 8px}
+.accHead{display:flex;align-items:center;gap:12px}.accHead div{display:flex;flex-direction:column}.accHead b{font-size:16px}
+.accAv{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:800 20px "Barlow Condensed",sans-serif;background:linear-gradient(135deg,#14c0ff,#0060a0);color:#fff}
+.accBtns{display:flex;flex-wrap:wrap;gap:6px}.accForm{display:flex;flex-direction:column;gap:6px;padding:10px;border-radius:9px;background:rgba(0,0,0,.25)}.accForm.danger{border:1px solid rgba(255,90,82,.4)}
+.accForm input{background:#05090f;border:1px solid rgba(0,180,255,.25);border-radius:8px;color:var(--tx);padding:8px 10px;font:inherit}
+.sCard.sAcc{border-color:rgba(20,192,255,.45)}
+body.light #authGate .agCard,body.light #agPriv .agCard{filter:invert(.94) hue-rotate(180deg)}
 </style>
 </head>
 <body>
@@ -5905,7 +5931,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='38.4';
+const GAMEVER='38.5';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -7818,6 +7844,251 @@ if(lh&&fsOK){const b=el('button',{class:'btn',id:'mFs'},'⛶ Vollbild');lh.appen
 Object.assign(EN,{'Start':'Start','Weiter':'Next','TV':'TV','Karte':'Map','Pos.':'Pos.','Tempo':'Speed','Ton':'Sound','Übers.':'Overv.','Fahrer':'Driver','Frei':'Free','Startaufst.':'Grid',
  'Sektor antippen: Gelb → Doppelgelb → frei':'Tap sector: yellow → double yellow → clear','⛶ Vollbild':'⛶ Fullscreen','MOBILE ANSICHT':'MOBILE VIEW','Automatisch':'Automatic','GER':'FAIR','SICH':'SAFE','SPAN':'EXC.','TEAM':'TEAM'});
 Object.assign(LA,{'Karte':'Tabula','Tempo':'Celeritas','Ton':'Sonus','MOBILE ANSICHT':'SPECIES MOBILIS','Automatisch':'Sponte'});
+</script>
+<script>window.RC_FIREBASE={"apiKey": "AIzaSyBD7xCktpppYvkdN8oVPf4TTQi-TbRioes", "authDomain": "race-control-76c0a.firebaseapp.com", "projectId": "race-control-76c0a", "storageBucket": "race-control-76c0a.firebasestorage.app", "messagingSenderId": "513418250579", "appId": "1:513418250579:web:74459232e8f84229d5b9a6"};</script>
+<script id="rcAuth">/* =====================================================================
+   RACE CONTROL – Konten: Anmelden / Registrieren vor dem Start,
+   Spielstand (Einstellungen, Strecken, Karriere, Name) im Konto (Firebase)
+   ===================================================================== */
+(function(){
+const FB_CFG=window.RC_FIREBASE||null;            // wird beim Bauen eingesetzt
+const FB_V='10.12.2',SYNC_KEYS=['rc_settings','rc_tracks','rc_career','rc_name','rc_fb_name','rc_warn'];
+const PSEUDO=n=>n.toLowerCase()+'@player.race-control.invalid';
+const ACC={user:null,name:null,db:null,auth:null,last:'',ready:false};window.RCACC=ACC;
+const t=s=>(typeof tl==='function'?tl(s):s);
+/* ---------- Oberfläche ---------- */
+const gate=document.createElement('div');gate.id='authGate';document.body.appendChild(gate);
+document.body.classList.add('authLocked');
+let mode='login',busy=false,msg='',msgCls='';
+function field(id,label,type,ph,extra){return `<label class="agF"><span>${t(label)}</span><input id="${id}" type="${type}" placeholder="${t(ph||'')}" autocomplete="${extra||'off'}" spellcheck="false"></label>`}
+function render(){
+  let body='';
+  if(mode==='loading')body=`<div class="agLoad"><i></i>${t('Verbinde mit dem Kontoserver …')}</div>`;
+  else if(mode==='offline')body=`<p class="agP">${t('Der Kontoserver ist nicht erreichbar. Prüfe deine Internetverbindung.')}</p><button class="btn primary agBtn" data-ag="retry">${t('Erneut versuchen')}</button>${localStorage.getItem('rc_owner')?`<button class="btn agBtn" data-ag="offline">${t('Offline mit dem letzten Stand spielen')}</button>`:''}`;
+  else if(mode==='login')body=`
+    ${field('agUser','Benutzername (oder E-Mail)','text','Benutzername','username')}
+    ${field('agPw','Passwort','password','Passwort','current-password')}
+    <button class="btn primary agBtn" data-ag="login">${t('Anmelden')}</button>
+    <div class="agLinks"><a data-ag="toReg">${t('Neues Konto erstellen')}</a><a data-ag="toForgot">${t('Passwort vergessen?')}</a></div>`;
+  else if(mode==='register')body=`
+    ${field('agUser','Benutzername','text','3–16 Zeichen: Buchstaben, Zahlen, _ und -','username')}
+    ${field('agPw','Passwort','password','mindestens 6 Zeichen','new-password')}
+    ${field('agPw2','Passwort wiederholen','password','','new-password')}
+    ${field('agMail','E-Mail (optional)','email','nur zum Zurücksetzen des Passworts','email')}
+    <p class="agHint">${t('Ohne E-Mail kann ein vergessenes Passwort nicht zurückgesetzt werden – dann bleibt nur, den Spielstand zu löschen und neu anzufangen.')}</p>
+    <button class="btn primary agBtn" data-ag="register">${t('Konto erstellen')}</button>
+    <div class="agLinks"><a data-ag="toLogin">${t('Ich habe schon ein Konto')}</a></div>`;
+  else if(mode==='forgot')body=`
+    <p class="agP"><b>${t('Mit verknüpfter E-Mail:')}</b> ${t('Gib deine E-Mail ein, du bekommst einen Link zum Zurücksetzen.')}</p>
+    ${field('agMail','E-Mail','email','deine verknüpfte E-Mail','email')}
+    <button class="btn primary agBtn" data-ag="reset">${t('Link senden')}</button>
+    <p class="agP" style="margin-top:14px"><b>${t('Ohne E-Mail:')}</b> ${t('Das Passwort lässt sich nicht wiederherstellen. Du kannst nur den Spielstand auf diesem Gerät löschen und ein neues Konto anlegen.')}</p>
+    <button class="btn agBtn danger" data-ag="wipe">${t('Spielstand auf diesem Gerät löschen')}</button>
+    <div class="agLinks"><a data-ag="toLogin">${t('Zurück zur Anmeldung')}</a></div>`;
+  gate.innerHTML=`<div class="agCard">
+    <div class="agLogo">RACE <b>CONTROL</b></div>
+    <div class="agSub">${mode==='register'?t('KONTO ERSTELLEN'):mode==='forgot'?t('PASSWORT VERGESSEN'):t('ANMELDUNG')}</div>
+    ${body}
+    <div class="agMsg ${msgCls}">${msg||''}</div>
+    <div class="agFoot"><a data-ag="privacy">${t('Datenschutz')}</a><span>${t('Dein Spielstand wird in deinem Konto gespeichert.')}</span></div>
+  </div>`;
+  const f=gate.querySelector('input');if(f)setTimeout(()=>f.focus(),30);
+}
+function say(m,c){msg=m;msgCls=c||'';const el=gate.querySelector('.agMsg');if(el){el.textContent=m;el.className='agMsg '+(c||'')}}
+function setBusy(b){busy=b;gate.querySelectorAll('[data-ag]').forEach(x=>{if(x.tagName==='BUTTON')x.disabled=b})}
+gate.addEventListener('click',e=>{const q=e.target.closest('[data-ag]');if(!q||busy&&q.tagName==='BUTTON')return;e.preventDefault();act(q.dataset.ag)});
+gate.addEventListener('keydown',e=>{e.stopPropagation();if(e.key==='Enter'){const b=gate.querySelector('.agBtn.primary');if(b&&!busy)b.click()}},true);
+['keydown','keyup'].forEach(ev=>addEventListener(ev,e=>{if(document.body.classList.contains('authLocked')&&!gate.contains(e.target)){e.stopImmediatePropagation()}},true));
+/* ---------- Verschlüsselung der verknüpften E-Mail (nur mit Passwort lesbar) ---------- */
+const b64=a=>btoa(String.fromCharCode(...new Uint8Array(a))),ub64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function pkey(pw,salt){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:150000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])}
+async function encMail(mail,pw){const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));
+  const c=await crypto.subtle.encrypt({name:'AES-GCM',iv},await pkey(pw,salt),new TextEncoder().encode(mail));return {enc:b64(c),iv:b64(iv),salt:b64(salt)}}
+async function decMail(d,pw){try{const p=await crypto.subtle.decrypt({name:'AES-GCM',iv:ub64(d.iv)},await pkey(pw,ub64(d.salt)),ub64(d.enc));return new TextDecoder().decode(p)}catch(e){return null}}
+/* ---------- Firebase laden ---------- */
+function loadJS(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
+async function boot(){
+  mode='loading';render();
+  if(!FB_CFG){mode='offline';msg='Kontoserver ist noch nicht eingerichtet.';render();return}
+  try{
+    const base=`https://www.gstatic.com/firebasejs/${FB_V}/`;
+    if(!window.firebase){await loadJS(base+'firebase-app-compat.js');await loadJS(base+'firebase-auth-compat.js');await loadJS(base+'firebase-firestore-compat.js')}
+    if(!firebase.apps.length)firebase.initializeApp(FB_CFG);
+    ACC.auth=firebase.auth();ACC.db=firebase.firestore();
+    await ACC.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+    ACC.auth.onAuthStateChanged(u=>{if(u)signedIn(u);else{ACC.user=null;mode='login';msg='';document.body.classList.add('authLocked');render()}});
+  }catch(e){mode='offline';msg='';render()}
+}
+const validName=n=>/^[A-Za-z0-9_-]{3,16}$/.test(n);
+async function act(a){
+  if(a==='toReg'){mode='register';msg='';render();return}
+  if(a==='toLogin'){mode='login';msg='';render();return}
+  if(a==='toForgot'){mode='forgot';msg='';render();return}
+  if(a==='retry'){msg='';boot();return}
+  if(a==='privacy'){privacy();return}
+  if(a==='offline'){unlock(true);return}
+  if(a==='wipe'){
+    if(!confirm(t('Wirklich den Spielstand auf diesem Gerät löschen? Strecken, Karriere und Einstellungen auf diesem Gerät gehen verloren.')))return;
+    SYNC_KEYS.concat(['rc_owner','rc_reports']).forEach(k=>localStorage.removeItem(k));say(t('Spielstand gelöscht. Du kannst jetzt ein neues Konto erstellen.'),'ok');mode='register';setTimeout(render,1200);return}
+  const v=id=>(gate.querySelector('#'+id)||{}).value||'';
+  setBusy(true);
+  try{
+    if(a==='login'){
+      const n=v('agUser').trim(),pw=v('agPw');if(!n||!pw){say(t('Bitte Benutzername und Passwort eingeben.'),'bad');return}
+      say(t('Anmelden …'));
+      if(n.includes('@')){await ACC.auth.signInWithEmailAndPassword(n,pw);return}
+      const doc=await ACC.db.collection('usernames').doc(n.toLowerCase()).get();
+      if(!doc.exists){say(t('Diesen Benutzernamen gibt es nicht.'),'bad');return}
+      const d=doc.data();let tried=false;
+      if(d.enc){const mail=await decMail(d,pw);if(mail){tried=true;try{await ACC.auth.signInWithEmailAndPassword(mail,pw);return}catch(e){}}}
+      try{await ACC.auth.signInWithEmailAndPassword(PSEUDO(n),pw)}
+      catch(e){say(d.enc&&!tried?t('Falsches Passwort. Falls du dein Passwort per E-Mail zurückgesetzt hast, melde dich einmal mit deiner E-Mail-Adresse an.'):t('Falsches Passwort.'),'bad')}
+      return;
+    }
+    if(a==='register'){
+      const n=v('agUser').trim(),pw=v('agPw'),pw2=v('agPw2'),mail=v('agMail').trim();
+      if(!validName(n)){say(t('Benutzername: 3–16 Zeichen, nur Buchstaben, Zahlen, _ und -.'),'bad');return}
+      if(typeof modCheck==='function'&&modCheck(n)){say(t('Dieser Benutzername ist nicht erlaubt.'),'bad');try{modWarn('Der Benutzername „'+n+'“')}catch(_){}return}
+      if(pw.length<6){say(t('Das Passwort braucht mindestens 6 Zeichen.'),'bad');return}
+      if(pw!==pw2){say(t('Die Passwörter stimmen nicht überein.'),'bad');return}
+      if(mail&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){say(t('Die E-Mail-Adresse sieht ungültig aus.'),'bad');return}
+      say(t('Konto wird erstellt …'));
+      const lc=n.toLowerCase(),ref=ACC.db.collection('usernames').doc(lc);
+      if((await ref.get()).exists){say(t('Dieser Benutzername ist schon vergeben.'),'bad');return}
+      ACC.pendingName=n;
+      const cred=await ACC.auth.createUserWithEmailAndPassword(mail||PSEUDO(n),pw);
+      const map={uid:cred.user.uid,name:n};if(mail)Object.assign(map,await encMail(mail,pw));
+      await ref.set(map);
+      await ACC.db.collection('users').doc(cred.user.uid).set({name:n,created:Date.now(),mail:!!mail},{merge:true});
+      if(mail)try{await cred.user.sendEmailVerification()}catch(_){}
+      return;
+    }
+    if(a==='reset'){
+      const mail=v('agMail').trim();if(!mail){say(t('Bitte deine E-Mail eingeben.'),'bad');return}
+      await ACC.auth.sendPasswordResetEmail(mail);say(t('Falls diese E-Mail mit einem Konto verknüpft ist, ist der Link unterwegs. Schau auch im Spam-Ordner.'),'ok');return;
+    }
+  }catch(e){say(errText(e),'bad')}
+  finally{setBusy(false)}
+}
+function errText(e){const c=(e&&e.code)||'';
+  return ({'auth/email-already-in-use':'Diese E-Mail ist schon mit einem Konto verknüpft.','auth/invalid-email':'Ungültige E-Mail-Adresse.','auth/weak-password':'Das Passwort ist zu schwach (mindestens 6 Zeichen).',
+    'auth/too-many-requests':'Zu viele Versuche – bitte kurz warten.','auth/network-request-failed':'Keine Verbindung zum Kontoserver.','auth/invalid-credential':'Falsches Passwort.','auth/wrong-password':'Falsches Passwort.','auth/user-not-found':'Konto nicht gefunden.'})[c]
+    ? t(({'auth/email-already-in-use':'Diese E-Mail ist schon mit einem Konto verknüpft.','auth/invalid-email':'Ungültige E-Mail-Adresse.','auth/weak-password':'Das Passwort ist zu schwach (mindestens 6 Zeichen).','auth/too-many-requests':'Zu viele Versuche – bitte kurz warten.','auth/network-request-failed':'Keine Verbindung zum Kontoserver.','auth/invalid-credential':'Falsches Passwort.','auth/wrong-password':'Falsches Passwort.','auth/user-not-found':'Konto nicht gefunden.'})[c])
+    : t('Fehler: ')+(e&&e.message||e)}
+/* ---------- Angemeldet: Spielstand laden / übernehmen ---------- */
+function snapshot(){const o={};SYNC_KEYS.forEach(k=>{const v=localStorage.getItem(k);if(v!=null)o[k]=v});return o}
+async function signedIn(u){
+  ACC.user=u;mode='loading';msg='';render();
+  try{
+    const ref=ACC.db.collection('users').doc(u.uid),doc=await ref.get(),d=doc.exists?doc.data():{};
+    ACC.name=d.name||ACC.pendingName||(u.email||'').split('@')[0];
+    const owner=localStorage.getItem('rc_owner');
+    if(d.save&&Object.keys(d.save).length){
+      const local=JSON.stringify(snapshot()),remote=d.save;
+      SYNC_KEYS.forEach(k=>{if(remote[k]!=null)localStorage.setItem(k,remote[k]);else localStorage.removeItem(k)});
+      localStorage.setItem('rc_owner',u.uid);
+      if(JSON.stringify(snapshot())!==local&&sessionStorage.getItem('rc_synced')!==u.uid){sessionStorage.setItem('rc_synced',u.uid);location.reload();return}
+    }else{
+      if(owner&&owner!==u.uid)SYNC_KEYS.forEach(k=>localStorage.removeItem(k));   // Daten eines anderen Kontos nicht übernehmen
+      localStorage.setItem('rc_owner',u.uid);
+      if(!localStorage.getItem('rc_name'))localStorage.setItem('rc_name',ACC.name);
+      await ref.set({name:ACC.name,save:snapshot(),updated:Date.now()},{merge:true});
+    }
+    // Benutzername als Anzeigename, falls keiner gesetzt
+    if(!localStorage.getItem('rc_name')){localStorage.setItem('rc_name',ACC.name)}
+    // nach Passwort-Reset: verschlüsselte E-Mail mit neuem Passwort erneuern (passiert beim nächsten Passwortwechsel)
+    ACC.last=JSON.stringify(snapshot());ACC.mail=!!d.mail||!/\.invalid$/.test(u.email||'');
+    unlock(false);
+  }catch(e){mode='offline';msg=errText(e);render()}
+}
+function unlock(offline){
+  ACC.ready=true;ACC.offline=!!offline;document.body.classList.remove('authLocked');gate.classList.add('agHide');
+  setTimeout(()=>gate.classList.add('hide'),400);
+  try{if(typeof initMenu==='function'&&!G)initMenu()}catch(_){}
+}
+/* ---------- Speichern: regelmäßig + beim Verlassen ---------- */
+async function push(force){
+  if(!ACC.user||!ACC.db||ACC.offline)return;const s=JSON.stringify(snapshot());if(!force&&s===ACC.last)return;
+  ACC.last=s;try{await ACC.db.collection('users').doc(ACC.user.uid).set({save:JSON.parse(s),updated:Date.now(),name:ACC.name},{merge:true})}catch(e){ACC.last=''}
+}
+setInterval(()=>push(false),15000);
+addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')push(false)});
+addEventListener('pagehide',()=>push(false));
+ACC.push=push;
+/* ---------- Konto-Aktionen (Einstellungen) ---------- */
+async function reauth(pw){const u=ACC.user;await u.reauthenticateWithCredential(firebase.auth.EmailAuthProvider.credential(u.email,pw))}
+ACC.logout=async()=>{await push(true);SYNC_KEYS.concat(['rc_owner']).forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('rc_synced');await ACC.auth.signOut();location.reload()};
+ACC.changePw=async(oldPw,newPw)=>{await reauth(oldPw);await ACC.user.updatePassword(newPw);
+  const ref=ACC.db.collection('usernames').doc(ACC.name.toLowerCase()),d=(await ref.get()).data()||{};
+  if(d.enc||ACC.mail){const mail=ACC.user.email;if(!/\.invalid$/.test(mail))await ref.set(Object.assign({uid:ACC.user.uid,name:ACC.name},await encMail(mail,newPw)))}};
+ACC.linkMail=async(pw,mail)=>{await reauth(pw);await ACC.user.verifyBeforeUpdateEmail(mail);
+  await ACC.db.collection('usernames').doc(ACC.name.toLowerCase()).set(Object.assign({uid:ACC.user.uid,name:ACC.name},await encMail(mail,pw)));
+  await ACC.db.collection('users').doc(ACC.user.uid).set({mail:true},{merge:true})};
+ACC.remove=async(pw)=>{await reauth(pw);const uid=ACC.user.uid;
+  await ACC.db.collection('users').doc(uid).delete();await ACC.db.collection('usernames').doc(ACC.name.toLowerCase()).delete();
+  await ACC.user.delete();SYNC_KEYS.concat(['rc_owner','rc_reports']).forEach(k=>localStorage.removeItem(k));location.reload()};
+ACC.download=async()=>{const d=(await ACC.db.collection('users').doc(ACC.user.uid).get()).data()||{};
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({benutzername:ACC.name,email:ACC.user.email.endsWith('.invalid')?null:ACC.user.email,daten:d},null,2)],{type:'application/json'}));a.download='race-control-konto.json';a.click()};
+/* ---------- Datenschutz ---------- */
+function privacy(){
+  let el=document.getElementById('agPriv');if(!el){el=document.createElement('div');el.id='agPriv';document.body.appendChild(el)}
+  el.innerHTML=`<div class="agCard agPrivC"><div class="agSub">${t('DATENSCHUTZ')}</div><div class="agPrivT">
+   <p><b>Was gespeichert wird:</b> dein Benutzername, ein verschlüsseltes Passwort (nur beim Anmeldedienst, nie im Spiel sichtbar), optional deine E-Mail-Adresse, sowie dein Spielstand (Einstellungen, eigene Strecken, Karriere, Anzeigename, Verwarnungen).</p>
+   <p><b>Wo:</b> bei Google Firebase (Authentication und Cloud Firestore). Die verknüpfte E-Mail liegt zusätzlich verschlüsselt vor und ist nur mit deinem Passwort lesbar.</p>
+   <p><b>Wofür:</b> nur, damit du dich anmelden und deinen Spielstand auf jedem Gerät nutzen kannst. Keine Werbung, keine Weitergabe.</p>
+   <p><b>Deine Rechte:</b> In den Einstellungen unter „Konto“ kannst du deine Daten herunterladen und dein Konto samt Spielstand jederzeit vollständig löschen.</p>
+   <p><b>Feedback & Meldungen</b> gehen über ein Google-Formular an den Entwickler und enthalten den angegebenen Namen.</p>
+   <p><b>Kontakt:</b> über „Feedback“ im Startmenü.</p></div>
+   <button class="btn primary agBtn" data-pv="close">${t('Schließen')}</button></div>`;
+  el.classList.remove('hide');el.querySelector('[data-pv]').onclick=()=>el.classList.add('hide');
+}
+ACC.privacy=privacy;
+boot();
+})();
+/* ---------- Einstellungen: Karte „Konto“ ---------- */
+(function(){
+let accMode=null;
+function accCard(){
+  const A=window.RCACC;if(!A||!A.user)return sCard('user','KONTO',`<div class="sRow"><span class="mut sm">${tl(A&&A.offline?'Offline gestartet – Konto nicht verbunden.':'Nicht angemeldet.')}</span></div>`);
+  const mail=A.user.email&&!/\.invalid$/.test(A.user.email)?A.user.email:null;
+  let form='';
+  if(accMode==='mail')form=`<div class="accForm"><input id="accMail" type="email" placeholder="${tl('E-Mail-Adresse')}"><input id="accPw" type="password" placeholder="${tl('Aktuelles Passwort')}"><button class="btn primary sm" data-acc="doMail">${tl('Verknüpfen')}</button></div>`;
+  if(accMode==='pw')form=`<div class="accForm"><input id="accPw" type="password" placeholder="${tl('Aktuelles Passwort')}"><input id="accNew" type="password" placeholder="${tl('Neues Passwort (min. 6 Zeichen)')}"><button class="btn primary sm" data-acc="doPw">${tl('Ändern')}</button></div>`;
+  if(accMode==='del')form=`<div class="accForm danger"><p class="sm">${tl('Das Konto und der gesamte Spielstand werden endgültig gelöscht. Das kann nicht rückgängig gemacht werden.')}</p><input id="accPw" type="password" placeholder="${tl('Passwort zur Bestätigung')}"><button class="btn sm danger" data-acc="doDel">${tl('Endgültig löschen')}</button></div>`;
+  return sCard('user','KONTO',`
+    <div class="accHead"><div class="accAv">${esc(A.name[0]||'?').toUpperCase()}</div><div><b>${esc(A.name)}</b><span class="mut sm">${mail?tl('E-Mail verknüpft')+': '+esc(mail):tl('Keine E-Mail verknüpft')}</span></div></div>
+    <div class="accBtns">
+      <button class="btn sm" data-acc="mail">${mail?tl('E-Mail ändern'):tl('E-Mail verknüpfen')}</button>
+      <button class="btn sm" data-acc="pw">${tl('Passwort ändern')}</button>
+      <button class="btn sm" data-acc="dl">${tl('Daten herunterladen')}</button>
+      <button class="btn sm" data-acc="priv">${tl('Datenschutz')}</button>
+      <button class="btn sm" data-acc="out">${tl('Abmelden')}</button>
+      <button class="btn sm danger" data-acc="del">${tl('Konto löschen')}</button>
+    </div>${form}<div id="accSt" class="mut sm"></div>`,'sAcc');
+}
+{const sh=setHTML;setHTML=function(){return sh().replace('<div class="sCards">','<div class="sCards">'+accCard())}}
+function st(m,c){const e=document.getElementById('accSt');if(e){e.textContent=m;e.style.color=c||''}}
+function rerender(){const nm=$('setName')&&$('setName').value;setOpen();if(nm!=null&&$('setName'))$('setName').value=nm}
+document.addEventListener('click',async e=>{
+  const q=e.target&&e.target.closest&&e.target.closest('[data-acc]');if(!q)return;e.stopPropagation();e.preventDefault();
+  const A=window.RCACC,a=q.dataset.acc,v=id=>($(id)||{}).value||'';
+  if(['mail','pw','del'].includes(a)){accMode=accMode===a?null:a;rerender();return}
+  if(a==='priv'){A.privacy();return}
+  if(a==='dl'){A.download();return}
+  if(a==='out'){A.logout();return}
+  try{
+    if(a==='doMail'){st(tl('Bitte warten …'));await A.linkMail(v('accPw'),v('accMail').trim());accMode=null;rerender();st(tl('Bestätigungslink gesendet – nach dem Klick ist die E-Mail verknüpft.'),'var(--ok)')}
+    if(a==='doPw'){if(v('accNew').length<6){st(tl('Das Passwort braucht mindestens 6 Zeichen.'),'var(--warn)');return}st(tl('Bitte warten …'));await A.changePw(v('accPw'),v('accNew'));accMode=null;rerender();st(tl('Passwort geändert.'),'var(--ok)')}
+    if(a==='doDel'){st(tl('Bitte warten …'));await A.remove(v('accPw'))}
+  }catch(err){const c=err&&err.code||'';st(c.includes('password')||c.includes('credential')?tl('Falsches Passwort.'):c==='auth/email-already-in-use'?tl('Diese E-Mail ist schon mit einem Konto verknüpft.'):c==='auth/invalid-email'?tl('Ungültige E-Mail-Adresse.'):tl('Fehler: ')+(err.message||err),'var(--warn)')}
+},true);
+Object.assign(EN,{'KONTO':'ACCOUNT','ANMELDUNG':'SIGN IN','KONTO ERSTELLEN':'CREATE ACCOUNT','PASSWORT VERGESSEN':'FORGOT PASSWORD','Benutzername':'Username','Benutzername (oder E-Mail)':'Username (or email)','Passwort':'Password','Anmelden':'Sign in',
+ 'Neues Konto erstellen':'Create new account','Passwort vergessen?':'Forgot password?','Passwort wiederholen':'Repeat password','E-Mail (optional)':'Email (optional)','Konto erstellen':'Create account','Ich habe schon ein Konto':'I already have an account',
+ 'Datenschutz':'Privacy','Abmelden':'Sign out','Konto löschen':'Delete account','Passwort ändern':'Change password','E-Mail verknüpfen':'Link email','E-Mail ändern':'Change email','Daten herunterladen':'Download data',
+ 'Keine E-Mail verknüpft':'No email linked','E-Mail verknüpft':'Email linked','Dein Spielstand wird in deinem Konto gespeichert.':'Your progress is saved in your account.','Verbinde mit dem Kontoserver …':'Connecting to the account server …',
+ 'Falsches Passwort.':'Wrong password.','Diesen Benutzernamen gibt es nicht.':'This username does not exist.','Dieser Benutzername ist schon vergeben.':'This username is already taken.','Spielstand auf diesem Gerät löschen':'Delete progress on this device'});
+})();
 </script>
 </body>
 </html>
