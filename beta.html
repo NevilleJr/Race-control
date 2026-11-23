@@ -7382,7 +7382,7 @@ function eveStart(){
 }
 /* Sperren im Vortag-Modus */
 {const tf0=toFree;toFree=function(...a){if(G&&G.cruise)return;return tf0(...a)}}
-for(const n of ['crashCar','directorStep','forceIncident','minorsStep','blockingIncident','limitsIncident','techFail','puncture','minorDefect','spawnHazard','spawnHazardAt','startJump','finishInc','rsOffer']){
+for(const n of ['crashCar','directorStep','forceIncident','minorsStep','blockingIncident','limitsIncident','techFail','puncture','minorDefect','spawnHazard','spawnHazardAt','startJump','finishInc','rsOffer','minorInc','limitsReport','rcNote','tlEval']){
   try{const f0=window[n]||eval(n);const w=function(...a){if(G&&(G.cruise||G.scSolo))return;return f0.apply(this,a)};eval(n+'=w')}catch(e){}
 }
 {const sf3=setFlag;setFlag=function(f,...a){if(G&&G.cruise)return;if(G&&G.scSolo&&f!=='sc')return;return sf3(f,...a)}}
@@ -7400,6 +7400,7 @@ function eveFmt(t){const m=Math.floor(t/60),s=t-m*60;return (m?m+':':'')+(m?Stri
 setInterval(()=>{
   if(!G){document.body.classList.remove('eveSolo','eveCruise');evePanel(false);return}
   if(G.cruise&&G.phase==='grid'&&G.lightN>=5&&G.lightsOut>1e8)G.lightsOut=G.gridT+.6;
+  if(G.cruise){G.autoY=0;if(G.minors)G.minors.length=0;if(G.pending)G.pending=null}
   if(!G.scSolo){evePanel(false);return}
   G.sc.on=true;G.flag='sc';
   const s=mod(G.sc.dist,T.L),now=performance.now()/1000;
