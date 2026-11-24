@@ -10,251 +10,212 @@
 :root{--bg:#05080e;--card:#0c131f;--card2:#09101a;--line:rgba(0,180,255,.2);--tx:#e6edf5;--mut:#8696a8;--acc:#14c0ff;--warn:#ffb340;--bad:#ff6b61;--ok:#3ddc84}
 *{box-sizing:border-box}
 body{margin:0;background:radial-gradient(ellipse at 50% -10%,rgba(0,120,200,.22),transparent 55%),var(--bg);color:var(--tx);font:15px/1.45 Barlow,system-ui,sans-serif;min-height:100vh}
-header{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 24px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(5,8,14,.92);backdrop-filter:blur(8px);z-index:5}
+header{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 24px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(5,8,14,.94);backdrop-filter:blur(8px);z-index:5}
 .logo{font:800 24px "Barlow Condensed",sans-serif;letter-spacing:.14em}.logo b{color:var(--acc)}
 .tag{font:800 11px "Barlow Condensed",sans-serif;letter-spacing:.2em;color:var(--warn);border:1px solid rgba(255,179,64,.5);border-radius:6px;padding:2px 8px}
-nav{display:flex;gap:6px;margin-left:auto}
-nav button,.btn{background:#0b1522;border:1px solid var(--line);color:var(--tx);border-radius:9px;padding:8px 14px;font:600 14px Barlow,sans-serif;cursor:pointer}
-nav button.on{border-color:var(--acc);color:var(--acc)}
-.btn.primary{background:linear-gradient(180deg,#19b8ff,#0a86d0);border-color:transparent;color:#021019;font-weight:700}
+nav{display:flex;gap:6px;flex-wrap:wrap;order:3;width:100%}
+nav button,.btn{background:#0b1522;border:1px solid var(--line);color:var(--tx);border-radius:9px;padding:7px 13px;font:600 14px Barlow,sans-serif;cursor:pointer;text-decoration:none}
+nav button.on{border-color:var(--acc);color:var(--acc)}nav i{font-style:normal;margin-left:6px;background:#e10600;color:#fff;border-radius:8px;padding:0 7px;font-size:12px}
+.btn.primary{background:linear-gradient(180deg,#19b8ff,#0a86d0);border-color:transparent;color:#021019;font-weight:700}.btn.danger{border-color:rgba(255,107,97,.55);color:#ff8a80}.btn.warn{border-color:rgba(255,179,64,.55);color:#ffc977}.btn.sm{padding:4px 10px;font-size:13px}
 .btn:disabled{opacity:.5;cursor:default}
-main{max-width:1280px;margin:0 auto;padding:22px 24px 60px}
-.hide{display:none!important}
+main{max-width:1280px;margin:0 auto;padding:20px 24px 60px}.hide{display:none!important}
 h2{font:800 15px "Barlow Condensed",sans-serif;letter-spacing:.18em;color:#7fd4ff;margin:0 0 10px;text-transform:uppercase}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:18px}
-textarea{width:100%;min-height:130px;background:#04080e;border:1px solid var(--line);border-radius:10px;color:var(--tx);font:12.5px/1.4 ui-monospace,Consolas,monospace;padding:10px;resize:vertical}
-input[type=search]{background:#04080e;border:1px solid var(--line);border-radius:9px;color:var(--tx);padding:8px 12px;font:inherit;min-width:220px}
-.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.mut{color:var(--mut)}.sm{font-size:12.5px}.err{color:var(--bad)}.ok{color:var(--ok)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:12px}
-.tr{background:var(--card2);border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden;cursor:pointer;transition:border-color .15s,transform .15s}
-.tr:hover{border-color:var(--acc);transform:translateY(-2px)}
-.bRow{display:flex;align-items:center;gap:12px;padding:9px 4px;border-top:1px solid rgba(255,255,255,.05)}.bRow .av{width:32px;height:32px;font-size:15px}.bRow .nm{flex:1;min-width:0}.bRow .nm b{display:block}
-.bOn{color:var(--warn);font:800 11px "Barlow Condensed",sans-serif;letter-spacing:.16em;border:1px solid rgba(255,179,64,.5);border-radius:6px;padding:1px 7px}
-.btn.danger{border-color:rgba(255,107,97,.55);color:#ff8a80}
-.tr canvas{display:block;width:100%;aspect-ratio:4/3;background:#0a1a10}
-.tr .ti{padding:8px 10px}.tr .tn{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tr.empty{display:flex;align-items:center;justify-content:center;aspect-ratio:4/3.9;color:var(--mut);cursor:default;border-style:dashed}.tr.empty:hover{transform:none;border-color:rgba(255,255,255,.06)}
-.user{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:14px}
-.uh{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:800 18px "Barlow Condensed",sans-serif;background:linear-gradient(135deg,#14c0ff,#0060a0);color:#fff;flex:none}
-.uh b{font-size:17px}.chip{font-size:12px;padding:2px 8px;border-radius:20px;background:rgba(20,192,255,.12);color:#7fd4ff}
-.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 16px;min-width:140px}.stat b{display:block;font:800 26px "Barlow Condensed",sans-serif;color:var(--acc)}
-#big{position:fixed;inset:0;background:rgba(2,5,10,.86);display:flex;align-items:center;justify-content:center;padding:20px;z-index:20}
-#big .bx{background:var(--card);border:1px solid var(--line);border-radius:16px;width:min(900px,100%);max-height:calc(100vh - 40px);overflow:auto;padding:16px}
-#big canvas{width:100%;aspect-ratio:4/3;border-radius:10px;background:#0a1a10;display:block}
-#big pre{max-height:160px;overflow:auto;background:#04080e;border-radius:8px;padding:8px;font-size:11.5px;white-space:pre-wrap;word-break:break-all}
-.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:12px 0;font-size:14px}.kv span{color:var(--mut)}
-code{background:#04080e;border-radius:6px;padding:2px 6px}
-@media (max-width:640px){header,main{padding-left:16px;padding-right:16px}nav{margin-left:0;width:100%}nav button{flex:1}}
+h3{margin:18px 0 8px;font:800 13px "Barlow Condensed",sans-serif;letter-spacing:.16em;color:#7fd4ff;text-transform:uppercase}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:16px}
+textarea,select,input[type=text],input[type=number],input[type=search]{background:#04080e;border:1px solid var(--line);border-radius:9px;color:var(--tx);padding:8px 11px;font:inherit}
+textarea{width:100%;resize:vertical}#code{min-height:130px;font:12.5px/1.4 ui-monospace,Consolas,monospace}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.mut{color:var(--mut)}.sm{font-size:12.5px}.err{color:var(--bad)}.ok{color:var(--ok)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:10px}
+.tr{background:var(--card2);border:1px solid rgba(255,255,255,.07);border-radius:12px;overflow:hidden}.tr canvas{display:block;width:100%;aspect-ratio:4/3;background:#0a1a10;cursor:pointer}
+.tr .ti{padding:8px 10px}.tr .tn{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tr .row{padding:0 10px 10px;gap:6px}
+.tr.empty{display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;color:var(--mut);border-style:dashed}
+.u{display:flex;align-items:center;gap:12px;padding:10px 6px;border-top:1px solid rgba(255,255,255,.06);cursor:pointer}.u:first-child{border-top:0}.u:hover{background:rgba(255,255,255,.03)}
+.av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:800 19px "Barlow Condensed",sans-serif;background:linear-gradient(135deg,#14c0ff,#0060a0);color:#fff;flex:none;object-fit:cover}.av.xl{width:80px;height:80px;font-size:36px}
+.nm{flex:1;min-width:0}.nm b{display:block;font-size:16px}
+.chip{font-size:12px;padding:2px 9px;border-radius:20px;background:rgba(20,192,255,.12);color:#7fd4ff;white-space:nowrap}.chip.bad{background:rgba(255,107,97,.16);color:#ff8a80}.chip.warn{background:rgba(255,179,64,.16);color:#ffc977}.chip.ok{background:rgba(61,220,132,.16);color:#6ff0a6}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 15px;min-width:130px}.stat b{display:block;font:800 26px "Barlow Condensed",sans-serif;color:var(--acc)}
+.it{display:flex;gap:14px;padding:12px 4px;border-top:1px solid rgba(255,255,255,.06);align-items:flex-start;flex-wrap:wrap}.it:first-child{border-top:0}.it canvas{width:150px;height:112px;border-radius:9px;background:#0a1a10;flex:none;cursor:pointer}.it .b{flex:1;min-width:240px}.q{padding:8px 11px;border-radius:8px;background:rgba(255,255,255,.05);margin:6px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.ov{position:fixed;inset:0;background:rgba(2,5,10,.86);display:flex;align-items:flex-start;justify-content:center;padding:24px 16px;z-index:20;overflow:auto}.ov .bx{background:var(--card);border:1px solid var(--line);border-radius:16px;width:min(1000px,100%);padding:18px 20px}
+#dlg{z-index:40}#dlg .bx{width:min(520px,100%)}#big{z-index:30}#big canvas{width:100%;aspect-ratio:4/3;border-radius:10px;background:#0a1a10;display:block}#big pre{max-height:140px;overflow:auto;background:#04080e;border-radius:8px;padding:8px;font-size:11.5px;white-space:pre-wrap;word-break:break-all}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:10px 0;font-size:14px}.kv span{color:var(--mut)}code{background:#04080e;border-radius:6px;padding:2px 6px}label.f{display:block;margin:10px 0 4px;font-size:13px;color:var(--mut)}
+@media (max-width:640px){header,main{padding-left:16px;padding-right:16px}}
 </style>
 </head>
 <body>
-<header>
-  <div class="logo">RACE <b>CONTROL</b></div><span class="tag">ADMIN</span>
-  <nav><button data-tab="users" class="on">Alle Nutzer</button><button data-tab="beta">Beta-Rechte</button><button data-tab="online">Online</button><button data-tab="decode">Code auslesen</button></nav>
-  <div class="row" style="gap:6px"><a class="btn" href="./" style="text-decoration:none">Zum Spiel</a><button class="btn danger hide" id="outBtn">Abmelden</button></div>
-</header>
+<header><div class="logo">RACE <b>CONTROL</b></div><span class="tag">ADMIN</span><div style="flex:1"></div><button class="btn hide" id="reloadBtn">Neu laden</button><a class="btn" href="./">Zum Spiel</a><button class="btn danger hide" id="outBtn">Abmelden</button>
+  <nav id="nav"></nav></header>
 <main>
-  <!-- ===== Alle Nutzer ===== -->
-  <section id="tabUsers">
-    <div class="panel" id="authBox">
-      <h2>Anmeldung</h2>
-      <div id="authState" class="mut">Verbinde …</div>
-      <div class="row" style="margin-top:10px"><button class="btn primary" id="gBtn">Mit Google anmelden</button><button class="btn hide" id="reloadBtn">Neu laden</button></div>
-    </div>
-    <div id="usersArea" class="hide">
-      <div class="stats" id="stats"></div>
-      <div class="row" style="margin-bottom:12px"><input type="search" id="q" placeholder="Nutzer oder Strecke suchen …"><label class="sm mut"><input type="checkbox" id="onlyTracks" checked> nur Nutzer mit Strecken</label></div>
-      <div id="users"></div>
-    </div>
-  </section>
-  <!-- ===== Beta-Rechte ===== -->
-  <section id="tabBeta" class="hide">
-    <div class="panel">
-      <h2>Beta-Rechte</h2>
-      <p class="mut sm" style="margin-top:0">Freigeschaltete Spieler sehen in ihren Einstellungen den Button „Zur Beta wechseln“. Ohne Freigabe wird die Beta-Seite automatisch auf die normale Version umgeleitet. Änderungen wirken beim nächsten Login bzw. spätestens nach 5 Minuten.</p>
-      <div id="betaNeed" class="mut">Bitte zuerst unter „Alle Nutzer“ mit Google anmelden.</div>
-      <div id="betaArea" class="hide">
-        <div class="row" style="margin-bottom:12px"><input type="search" id="bq" placeholder="Spieler suchen …"><span id="betaCount" class="chip"></span></div>
-        <div id="betaList"></div>
-      </div>
-    </div>
-  </section>
-  <!-- ===== Online ===== -->
-  <section id="tabOnline" class="hide">
-    <div id="onNeed" class="panel mut">Bitte zuerst unter „Alle Nutzer“ mit Google anmelden.</div>
-    <div id="onArea" class="hide">
-      <div class="panel"><h2>Offene Lobbies</h2><div id="onLob"></div></div>
-      <div class="panel"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Hochgeladene Strecken</h2><button class="btn" id="onReload">Neu laden</button></div><div class="grid" id="onTr"></div></div>
-    </div>
-  </section>
-  <!-- ===== Code auslesen ===== -->
-  <section id="tabDecode" class="hide">
-    <div class="panel">
-      <h2>Strecken-Code auslesen</h2>
-      <p class="mut sm" style="margin-top:0">Füge hier einen Strecken-Code ein (der Inhalt von <code>rc_tracks</code> – eine Liste mit bis zu 5 Plätzen oder eine einzelne Strecke). Die Strecken werden sofort als Bild angezeigt.</p>
-      <textarea id="code" spellcheck="false" placeholder='[{"name":"…","km":2.5,"w":72,"street":false,"pts":[[x,y],…],"t":…},null,…]'></textarea>
-      <div class="row" style="margin-top:10px"><button class="btn primary" id="decBtn">Auslesen</button><span id="decMsg" class="sm"></span></div>
-      <div class="grid" id="decOut"></div>
-    </div>
-  </section>
+  <section id="login" class="panel"><h2>Anmeldung</h2><div id="authState" class="mut">Verbinde …</div><div class="row" style="margin-top:10px"><button class="btn primary hide" id="gBtn">Mit Google anmelden</button></div></section>
+  <section id="t_users" class="hide"><div class="stats" id="stats"></div><div class="panel"><div class="row" style="margin-bottom:8px"><input type="search" id="q" placeholder="Spieler oder Strecke suchen …"><label class="sm mut"><input type="checkbox" id="onlyVio"> nur mit Verstößen oder Strafe</label></div><div id="users"></div></div></section>
+  <section id="t_vio" class="hide"><div class="panel"><h2>Vom Programm blockiert und Verstöße</h2><div class="row" style="margin-bottom:8px"><select id="vioF"><option value="open">Zählende</option><option value="all">Alle, auch zurückgesetzte</option></select></div><div id="vio"></div></div></section>
+  <section id="t_app" class="hide"><div class="panel"><h2>Anfechtungen</h2><p class="mut sm" style="margin-top:0">Zulassen: Der Inhalt wird für alle freigegeben, der Verstoß gestrichen, und der Spieler bekommt eine Nachricht mit Entschuldigung. Ablehnen: Es wird automatisch ein weiterer Verstoß gezählt, dazu wählst du die Strafe.</p><div id="app"></div></div></section>
+  <section id="t_rep" class="hide"><div class="panel"><h2>Meldungen und Feedback</h2><div class="row" style="margin-bottom:8px"><select id="repF"><option value="open">Offene</option><option value="all">Alle</option></select></div><div id="rep"></div></div></section>
+  <section id="t_online" class="hide"><div class="panel"><h2>Offene Lobbies</h2><div id="onLob"></div></div><div class="panel"><h2>Hochgeladene Strecken</h2><div class="grid" id="onTr"></div></div></section>
+  <section id="t_beta" class="hide"><div class="panel"><h2>Beta-Rechte</h2><p class="mut sm" style="margin-top:0">Freigeschaltete Spieler sehen in ihren Einstellungen „Zur Beta wechseln“. Änderungen wirken beim nächsten Login, spätestens nach 5 Minuten.</p><input type="search" id="bq" placeholder="Spieler suchen …"><div id="betaList" style="margin-top:8px"></div></div></section>
+  <section id="t_code" class="hide"><div class="panel"><h2>Strecken-Code auslesen</h2><p class="mut sm" style="margin-top:0">Inhalt von <code>rc_tracks</code> oder eine einzelne Strecke einfügen.</p><textarea id="code" spellcheck="false" placeholder='[{"name":"…","km":2.5,"w":72,"street":false,"pts":[[x,y],…]},null,…]'></textarea><div class="row" style="margin-top:10px"><button class="btn primary" id="decBtn">Auslesen</button><span id="decMsg" class="sm"></span></div><div class="grid" id="decOut"></div></div></section>
 </main>
-<div id="big" class="hide"><div class="bx">
-  <div class="row" style="justify-content:space-between"><h2 id="bigT" style="margin:0"></h2><div class="row"><button class="btn" id="pngBtn">Bild speichern</button><button class="btn" id="copyBtn">Code kopieren</button><button class="btn" id="closeBtn">Schließen</button></div></div>
-  <div class="kv" id="bigKv"></div><canvas id="bigC" width="1200" height="900"></canvas><pre id="bigCode"></pre>
-</div></div>
+<div id="usr" class="ov hide"><div class="bx" id="usrB"></div></div>
+<div id="big" class="ov hide"><div class="bx"><div class="row" style="justify-content:space-between"><h2 id="bigT" style="margin:0"></h2><div class="row"><button class="btn" id="pngBtn">Bild speichern</button><button class="btn" id="copyBtn">Code kopieren</button><button class="btn" data-x="big">Schließen</button></div></div><div class="kv" id="bigKv"></div><canvas id="bigC" width="1200" height="900"></canvas><pre id="bigCode"></pre></div></div>
+<div id="dlg" class="ov hide"><div class="bx" id="dlgB"></div></div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 const CFG={"apiKey":"AIzaSyBD7xCktpppYvkdN8oVPf4TTQi-TbRioes","authDomain":"race-control-76c0a.firebaseapp.com","projectId":"race-control-76c0a","storageBucket":"race-control-76c0a.firebasestorage.app","messagingSenderId":"513418250579","appId":"1:513418250579:web:74459232e8f84229d5b9a6"};
-const $=id=>document.getElementById(id);
-const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const fmtDate=t=>t?new Date(t).toLocaleString('de-DE',{dateStyle:'medium',timeStyle:'short'}):'–';
-
-/* ---------- Tabs ---------- */
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));
-  $('tabUsers').classList.toggle('hide',b.dataset.tab!=='users');$('tabDecode').classList.toggle('hide',b.dataset.tab!=='decode');$('tabBeta').classList.toggle('hide',b.dataset.tab!=='beta');$('tabOnline').classList.toggle('hide',b.dataset.tab!=='online');if(b.dataset.tab==='online')loadOnline()});
-
-/* ---------- Strecken-Code lesen ---------- */
-function parseTracks(raw){
-  let d=raw;if(typeof d==='string'){d=d.trim();if(!d)return [];d=JSON.parse(d)}
-  if(typeof d==='string')d=JSON.parse(d);                          // doppelt verpackt
-  if(d&&!Array.isArray(d)&&d.rc_tracks!=null)return parseTracks(d.rc_tracks);
-  if(d&&!Array.isArray(d))d=[d];
-  return d.map(t=>t&&Array.isArray(t.pts)&&t.pts.length>2?t:null);
-}
-/* ---------- Strecke zeichnen ---------- */
+const $=id=>document.getElementById(id),esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ms=t=>t&&t.toMillis?t.toMillis():+t||0,fmt=t=>ms(t)?new Date(ms(t)).toLocaleString('de-DE',{dateStyle:'medium',timeStyle:'short'}):'–',clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const cleanName=s=>String(s||'').replace(/[<>"`]/g,'').trim().slice(0,28);
+/* gleiche Prüfsumme wie im Spiel */
+function hashStr(s){let a=0xdeadbeef,b=0x41c6ce57;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);a=Math.imul(a^c,2654435761);b=Math.imul(b^c,1597334677)}a=Math.imul(a^(a>>>16),2246822507)^Math.imul(b^(b>>>13),3266489909);b=Math.imul(b^(b>>>16),2246822507)^Math.imul(a^(a>>>13),3266489909);return (4294967296*(2097151&b)+(a>>>0)).toString(36)}
+const hashPts=p=>hashStr(p.map(q=>(Math.round(q[0]*10)/10)+','+(Math.round(q[1]*10)/10)).join(';'));
+const DB0={users:[],prof:{},sanc:{},vio:[],app:[],rep:[],tracks:[],lob:[],beta:{}};
+let DB=null,AUTH=null,TAB='users',CUR=null;
+const TS=()=>firebase.firestore.FieldValue.serverTimestamp();
+/* ---------- Strecken ---------- */
+const okTrk=t=>t&&Array.isArray(t.pts)&&t.pts.length>2&&t.pts.every(p=>Array.isArray(p)&&isFinite(p[0])&&isFinite(p[1]));
+function parseTracks(raw){let d=raw;if(typeof d==='string'){d=d.trim();if(!d)return [];d=JSON.parse(d)}if(typeof d==='string')d=JSON.parse(d);if(d&&!Array.isArray(d)&&d.rc_tracks!=null)return parseTracks(d.rc_tracks);if(d&&!Array.isArray(d))d=[d];return d.map(t=>okTrk(t)?t:null)}
+const tryTrk=s=>{try{const t=JSON.parse(s);return okTrk(t)?t:null}catch(_){return null}};
 function drawTrack(cv,t){
-  const g=cv.getContext('2d'),W=cv.width,H=cv.height;g.clearRect(0,0,W,H);
-  const bg=g.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#10291a');bg.addColorStop(1,'#0a1d12');g.fillStyle=bg;g.fillRect(0,0,W,H);
+  const g=cv.getContext('2d'),W=cv.width,H=cv.height;g.clearRect(0,0,W,H);const bg=g.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#10291a');bg.addColorStop(1,'#0a1d12');g.fillStyle=bg;g.fillRect(0,0,W,H);
   const P=t.pts;let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;for(const [x,y] of P){x0=Math.min(x0,x);y0=Math.min(y0,y);x1=Math.max(x1,x);y1=Math.max(y1,y)}
-  const pad=W*.09,sc=Math.min((W-2*pad)/Math.max(1,x1-x0),(H-2*pad)/Math.max(1,y1-y0)),ox=(W-(x1-x0)*sc)/2,oy=(H-(y1-y0)*sc)/2;
-  const X=p=>ox+(p[0]-x0)*sc,Y=p=>oy+(p[1]-y0)*sc;
-  // Streckenbreite: w ist relativ zur Streckenlänge (km) – auf das Bild umgerechnet
+  const pad=W*.09,sc=Math.min((W-2*pad)/Math.max(1,x1-x0),(H-2*pad)/Math.max(1,y1-y0)),ox=(W-(x1-x0)*sc)/2,oy=(H-(y1-y0)*sc)/2,X=p=>ox+(p[0]-x0)*sc,Y=p=>oy+(p[1]-y0)*sc;
   let len=0;for(let i=0;i<P.length;i++){const a=P[i],b=P[(i+1)%P.length];len+=Math.hypot(b[0]-a[0],b[1]-a[1])}
-  const mPerUnit=(t.km||2)*1000/Math.max(1,len),wPx=clamp(((t.w||60)/6)/mPerUnit*sc,W*.024,W*.06);
-  const path=()=>{g.beginPath();g.moveTo(X(P[0]),Y(P[0]));for(let i=1;i<P.length;i++)g.lineTo(X(P[i]),Y(P[i]));g.closePath()};
-  g.lineJoin='round';g.lineCap='round';
-  path();g.strokeStyle=t.street?'#6d6458':'#2c7a3c';g.lineWidth=wPx*2.1;g.stroke();       // Auslauf / Mauern
-  path();g.strokeStyle='#e8e8e8';g.lineWidth=wPx*1.22;g.stroke();                          // Randlinie
-  path();g.strokeStyle='#2b2f36';g.lineWidth=wPx;g.stroke();                               // Asphalt
-  g.setLineDash([W*.012,W*.012]);path();g.strokeStyle='rgba(255,255,255,.18)';g.lineWidth=Math.max(1,W*.002);g.stroke();g.setLineDash([]);
-  // Start/Ziel + Fahrtrichtung
-  const a=P[0],b=P[1%P.length],ang=Math.atan2(Y(b)-Y(a),X(b)-X(a));
-  g.save();g.translate(X(a),Y(a));g.rotate(ang);const sq=wPx/6;
-  for(let i=-3;i<3;i++)for(let j=0;j<2;j++){g.fillStyle=(i+j)%2?'#fff':'#111';g.fillRect(j*sq-sq,i*sq,sq,sq)}
-  g.fillStyle='#14c0ff';g.beginPath();g.moveTo(wPx*1.6,0);g.lineTo(wPx*.9,-wPx*.45);g.lineTo(wPx*.9,wPx*.45);g.closePath();g.fill();g.restore();
+  const wPx=clamp(((t.w||60)/6)/((t.km||2)*1000/Math.max(1,len))*sc,W*.024,W*.06),path=()=>{g.beginPath();g.moveTo(X(P[0]),Y(P[0]));for(let i=1;i<P.length;i++)g.lineTo(X(P[i]),Y(P[i]));g.closePath()};
+  g.lineJoin='round';g.lineCap='round';path();g.strokeStyle=t.street?'#6d6458':'#2c7a3c';g.lineWidth=wPx*2.1;g.stroke();path();g.strokeStyle='#e8e8e8';g.lineWidth=wPx*1.22;g.stroke();path();g.strokeStyle='#2b2f36';g.lineWidth=wPx;g.stroke();
+  const a=P[0],b=P[1%P.length];g.save();g.translate(X(a),Y(a));g.rotate(Math.atan2(Y(b)-Y(a),X(b)-X(a)));g.fillStyle='#14c0ff';g.beginPath();g.moveTo(wPx*1.4,0);g.lineTo(0,-wPx*.6);g.lineTo(0,wPx*.6);g.closePath();g.fill();g.restore();
 }
-function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-function trackCard(t,i,owner){
-  const d=document.createElement('div');
-  if(!t){d.className='tr empty';d.textContent='Platz '+(i+1)+' leer';return d}
-  d.className='tr';const cv=document.createElement('canvas');cv.width=400;cv.height=300;d.appendChild(cv);drawTrack(cv,t);
-  d.insertAdjacentHTML('beforeend',`<div class="ti"><div class="tn">${esc(t.name||'Ohne Name')}</div><div class="sm mut">${t.km?t.km+' km':''}${t.street?' · Stadtkurs':''} · ${t.pts.length} Punkte</div><div class="sm mut">${fmtDate(t.t)}</div></div>`);
-  d.onclick=()=>openBig(t,owner);return d;
-}
+const CV=[];function cvTag(t,w){CV.push(t);return `<canvas width="400" height="300" data-cv="${CV.length-1}"></canvas>`}
+function paintCv(root){root.querySelectorAll('canvas[data-cv]').forEach(c=>{if(c._d)return;c._d=1;try{drawTrack(c,CV[+c.dataset.cv])}catch(_){}})}
+function trkCard(t,btns,sub){if(!t)return '<div class="tr empty">leer</div>';return `<div class="tr">${cvTag(t)}<div class="ti"><div class="tn">${esc(t.name||'Ohne Name')}</div><div class="sm mut">${t.km?esc(t.km)+' km · ':''}${t.pts.length} Punkte${t.t?' · '+fmt(t.t):''}</div>${sub||''}</div>${btns?`<div class="row">${btns}</div>`:''}</div>`}
 let BIG=null;
-function openBig(t,owner){BIG=t;$('bigT').textContent=t.name||'Ohne Name';
-  $('bigKv').innerHTML=`${owner?`<span>Ersteller</span><b>${esc(owner)}</b>`:''}<span>Länge</span><b>${t.km!=null?t.km+' km':'–'}</b><span>Breite (w)</span><b>${t.w!=null?t.w:'–'}</b><span>Typ</span><b>${t.street?'Stadtkurs':'Rennstrecke'}</b><span>Punkte</span><b>${t.pts.length}</b><span>Erstellt</span><b>${fmtDate(t.t)}</b>`;
-  drawTrack($('bigC'),t);$('bigCode').textContent=JSON.stringify(t);$('big').classList.remove('hide')}
-$('closeBtn').onclick=()=>$('big').classList.add('hide');$('big').onclick=e=>{if(e.target.id==='big')$('big').classList.add('hide')};
-$('copyBtn').onclick=async()=>{try{await navigator.clipboard.writeText(JSON.stringify(BIG));$('copyBtn').textContent='Kopiert ✓';setTimeout(()=>$('copyBtn').textContent='Code kopieren',1500)}catch(_){}};
-$('pngBtn').onclick=()=>{const a=document.createElement('a');a.download=(BIG.name||'strecke').replace(/[^\w\-äöüÄÖÜß ]+/g,'')+'.png';a.href=$('bigC').toDataURL('image/png');a.click()};
-document.addEventListener('keydown',e=>{if(e.key==='Escape')$('big').classList.add('hide')});
-$('decBtn').onclick=()=>{
-  const out=$('decOut');out.innerHTML='';
-  try{const L=parseTracks($('code').value);const n=L.filter(Boolean).length;
-    $('decMsg').className='sm ok';$('decMsg').textContent=n?`${n} Strecke${n===1?'':'n'} gefunden`:'Keine Strecke im Code';
-    L.forEach((t,i)=>out.appendChild(trackCard(t,i)))}
-  catch(e){$('decMsg').className='sm err';$('decMsg').textContent='Ungültiger Code: '+e.message}};
-
-/* ---------- Firebase: alle Nutzer ---------- */
-let DB=null,AUTH=null,ALL=[],BETA={};
-try{// eigene App-Instanz: die Admin-Anmeldung ist vom Spielkonto getrennt
-  const APP=firebase.initializeApp(CFG,'admin');AUTH=APP.auth();DB=APP.firestore();
-  // Altlast: frühere Admin-Anmeldungen lagen in der Spiel-Sitzung – dort abmelden (Spielkonten bleiben unberührt)
-  const GAMEAPP=firebase.initializeApp(CFG);GAMEAPP.auth().onAuthStateChanged(u=>{if(u&&!u.providerData.some(p=>p.providerId==='password'))GAMEAPP.auth().signOut()})}catch(e){$('authState').innerHTML='<span class="err">Firebase konnte nicht geladen werden.</span>'}
-if(AUTH){
-  if(location.protocol==='file:'){$('authState').innerHTML='Die Anmeldung funktioniert nur online: <a style="color:#7fd4ff" href="https://nevillejr.github.io/Race-control/admin.html">nevillejr.github.io/Race-control/admin.html</a>. „Code auslesen“ funktioniert auch offline.'}
-  AUTH.onAuthStateChanged(u=>{
-    $('gBtn').classList.toggle('hide',!!u);$('outBtn').classList.toggle('hide',!u);$('reloadBtn').classList.toggle('hide',!u);
-    if(!u){ALL=[];BETA={};$('users').innerHTML='';$('stats').innerHTML='';$('betaList').innerHTML='';$('onTr').innerHTML='';$('onLob').innerHTML='';$('betaArea').classList.add('hide');$('betaNeed').classList.remove('hide');$('onArea').classList.add('hide');$('onNeed').classList.remove('hide');if(location.protocol!=='file:')$('authState').textContent='Melde dich mit dem Admin-Google-Konto an.';$('usersArea').classList.add('hide');return}
-    $('authState').innerHTML=`Angemeldet als <b>${esc(u.displayName||'Google-Konto')}</b> · Admin-ID: <code id="uidTxt">${esc(u.uid)}</code>`;
-    loadUsers();
-  });
+function openBig(t){BIG=t;$('bigT').textContent=t.name||'Ohne Name';$('bigKv').innerHTML=`<span>Länge</span><b>${esc(t.km??'–')} km</b><span>Breite</span><b>${esc(t.w??'–')}</b><span>Typ</span><b>${t.street?'Stadtkurs':'Rennstrecke'}</b><span>Punkte</span><b>${t.pts.length}</b>`;drawTrack($('bigC'),t);$('bigCode').textContent=JSON.stringify(t);$('big').classList.remove('hide')}
+$('copyBtn').onclick=()=>navigator.clipboard.writeText(JSON.stringify(BIG)).catch(()=>{});
+$('pngBtn').onclick=()=>{const a=document.createElement('a');a.download=(BIG.name||'strecke').replace(/[^\w\- ]+/g,'')+'.png';a.href=$('bigC').toDataURL('image/png');a.click()};
+$('decBtn').onclick=()=>{try{const L=parseTracks($('code').value),n=L.filter(Boolean).length;$('decMsg').className='sm ok';$('decMsg').textContent=n+' Strecke(n) gefunden';$('decOut').innerHTML=L.map(t=>trkCard(t)).join('');paintCv($('decOut'))}catch(e){$('decMsg').className='sm err';$('decMsg').textContent='Ungültiger Code: '+e.message}};
+/* ---------- Reiter ---------- */
+const TABS=[['users','Spieler'],['vio','Verstöße'],['app','Anfechtungen'],['rep','Meldungen'],['online','Online'],['beta','Beta-Rechte'],['code','Code auslesen']];
+function nav(){const u=!!(AUTH&&AUTH.currentUser),n={app:DB0.app.filter(a=>a.st==='open').length,rep:DB0.rep.filter(r=>r.st==='open').length};
+  $('nav').innerHTML=TABS.filter(t=>u||t[0]==='code').map(t=>`<button data-tab="${t[0]}" class="${TAB===t[0]?'on':''}">${t[1]}${n[t[0]]?`<i>${n[t[0]]}</i>`:''}</button>`).join('');
+  TABS.forEach(t=>$('t_'+t[0]).classList.toggle('hide',TAB!==t[0]||(!u&&t[0]!=='code')))}
+/* ---------- Firebase ---------- */
+try{const APP=firebase.initializeApp(CFG,'admin');AUTH=APP.auth();DB=APP.firestore();   // getrennt vom Spielkonto
+  const GA=firebase.initializeApp(CFG);GA.auth().onAuthStateChanged(u=>{if(u&&!u.providerData.some(p=>p.providerId==='password'))GA.auth().signOut()})}catch(e){$('authState').innerHTML='<span class="err">Firebase konnte nicht geladen werden.</span>'}
+if(AUTH){AUTH.onAuthStateChanged(u=>{$('gBtn').classList.toggle('hide',!!u);$('outBtn').classList.toggle('hide',!u);$('reloadBtn').classList.toggle('hide',!u);$('login').classList.toggle('hide',!!u&&!$('login').dataset.err);
+    if(!u){Object.assign(DB0,{users:[],prof:{},sanc:{},vio:[],app:[],rep:[],tracks:[],lob:[],beta:{}});['usr','dlg','big'].forEach(i=>$(i).classList.add('hide'));$('authState').textContent=location.protocol==='file:'?'Anmelden geht nur online. „Code auslesen“ funktioniert auch offline.':'Melde dich mit dem Admin-Google-Konto an.';if(TAB!=='code')TAB='users';nav();return}
+    TAB=TAB||'users';nav();loadAll()});
   $('gBtn').onclick=async()=>{try{await AUTH.signInWithPopup(new firebase.auth.GoogleAuthProvider())}catch(e){$('authState').innerHTML='<span class="err">Anmeldung fehlgeschlagen: '+esc(e.code||e.message)+'</span>'}};
-  $('outBtn').onclick=async()=>{$('outBtn').disabled=true;try{await AUTH.signOut()}finally{location.replace('./')}};$('reloadBtn').onclick=()=>loadUsers();
+  $('outBtn').onclick=async()=>{$('outBtn').disabled=true;try{await AUTH.signOut()}finally{location.replace('./')}};$('reloadBtn').onclick=()=>loadAll()}
+nav();
+async function loadAll(){
+  const g=async(c,f)=>{const s=await DB.collection(c).get();return s.docs.map(d=>Object.assign({id:d.id},d.data()))};
+  try{const [us,pr,sa,vi,ap,re,tr,lo,be]=await Promise.all([g('users'),g('profiles'),g('sanctions'),DB.collection('vio').orderBy('at','desc').limit(400).get().then(s=>s.docs.map(d=>Object.assign({id:d.id},d.data()))),g('appeals'),DB.collection('reports').orderBy('at','desc').limit(200).get().then(s=>s.docs.map(d=>Object.assign({id:d.id},d.data()))),g('tracks'),g('lobbies'),g('beta')]);
+    const by=L=>Object.fromEntries(L.map(x=>[x.id,x]));
+    DB0.users=us.map(v=>{let t=[];try{t=parseTracks((v.save||{}).rc_tracks||'[]')}catch(_){}return {uid:v.id,name:v.name||'(ohne Name)',ign:(v.save||{}).rc_name||'',updated:v.updated||0,tracks:t}}).sort((a,b)=>b.updated-a.updated);
+    Object.assign(DB0,{prof:by(pr),sanc:by(sa),vio:vi,app:ap.sort((a,b)=>ms(b.at)-ms(a.at)),rep:re,tracks:tr.sort((a,b)=>(b.at||0)-(a.at||0)),lob:lo,beta:by(be)});
+    delete $('login').dataset.err;$('login').classList.add('hide');paint();
+  }catch(e){$('login').classList.remove('hide');$('login').dataset.err=1;$('authState').innerHTML=e.code==='permission-denied'?`<b class="err">Kein Admin-Zugriff.</b> Admin-ID: <code>${esc(AUTH.currentUser&&AUTH.currentUser.uid)}</code>`:`<span class="err">Fehler: ${esc(e.code||e.message)}</span>`}
 }
-async function loadUsers(){
-  $('users').innerHTML='<p class="mut">Lade alle Nutzer …</p>';$('usersArea').classList.remove('hide');
-  try{
-    const snap=await DB.collection('users').get();
-    ALL=snap.docs.map(d=>{const v=d.data()||{},sv=v.save||{};let tracks=[];try{tracks=parseTracks(sv.rc_tracks||'[]')}catch(_){}
-      let career=null;try{career=typeof sv.rc_career==='string'?JSON.parse(sv.rc_career):sv.rc_career}catch(_){}
-      return {uid:d.id,name:v.name||'(ohne Name)',updated:v.updated||0,tracks,career}}).sort((a,b)=>b.updated-a.updated);
-    render();
-    try{const bs=await DB.collection('beta').get();BETA={};bs.docs.forEach(d=>BETA[d.id]=d.data())}catch(_){BETA={}}
-    renderBeta();
-  }catch(e){
-    $('users').innerHTML=e.code==='permission-denied'?`<div class="panel"><b class="err">Kein Admin-Zugriff.</b><p class="mut" style="margin-bottom:0">Dieses Konto ist noch nicht als Admin freigeschaltet. Admin-ID: <code>${esc(AUTH.currentUser&&AUTH.currentUser.uid)}</code></p></div>`:`<p class="err">Fehler: ${esc(e.code||e.message)}</p>`;
-    $('stats').innerHTML='';
-  }
-}
-function render(){
-  const q=$('q').value.trim().toLowerCase(),only=$('onlyTracks').checked;
-  const L=ALL.filter(u=>(!only||u.tracks.some(Boolean))&&(!q||u.name.toLowerCase().includes(q)||u.tracks.some(t=>t&&String(t.name||'').toLowerCase().includes(q))));
-  const nT=ALL.reduce((s,u)=>s+u.tracks.filter(Boolean).length,0),withT=ALL.filter(u=>u.tracks.some(Boolean)).length,act=ALL.filter(u=>Date.now()-u.updated<7*864e5).length;
-  $('stats').innerHTML=`<div class="stat"><b>${ALL.length}</b><span class="mut sm">Spielstände</span></div><div class="stat"><b>${nT}</b><span class="mut sm">eigene Strecken</span></div><div class="stat"><b>${withT}</b><span class="mut sm">Nutzer mit Strecken</span></div><div class="stat"><b>${act}</b><span class="mut sm">aktiv (7 Tage)</span></div>`;
-  const box=$('users');box.innerHTML=L.length?'':'<p class="mut">Keine passenden Nutzer.</p>';
-  for(const u of L){
-    const el=document.createElement('div');el.className='user';const n=u.tracks.filter(Boolean).length;
-    el.innerHTML=`<div class="uh"><div class="av">${esc((u.name[0]||'?').toUpperCase())}</div><div><b>${esc(u.name)}</b><div class="sm mut">zuletzt aktiv ${fmtDate(u.updated)}</div></div>
-      <span class="chip">${n} Strecke${n===1?'':'n'}</span>${u.career&&u.career.tier!=null?`<span class="chip">Karriere-Stufe ${esc(u.career.tier)}</span>`:''}</div>`;
-    const g=document.createElement('div');g.className='grid';
-    const ts=u.tracks.length?u.tracks:[];ts.forEach((t,i)=>{if(t||!only)g.appendChild(trackCard(t,i,u.name))});
-    if(!ts.some(Boolean))g.insertAdjacentHTML('beforeend','<p class="mut sm">Keine eigenen Strecken.</p>');
-    el.appendChild(g);box.appendChild(el);
-  }
-}
-/* ---------- Online: Lobbies und Uploads ---------- */
-async function loadOnline(){
-  if(!AUTH||!AUTH.currentUser)return;$('onNeed').classList.add('hide');$('onArea').classList.remove('hide');
-  try{const sn=await DB.collection('lobbies').get(),now=Date.now();
-    const L=sn.docs.map(d=>({id:d.id,v:d.data()}));
-    $('onLob').innerHTML=L.map(({id,v})=>{const ms=v.at&&v.at.toMillis?v.at.toMillis():0,live=now-ms<90000;return `<div class="bRow"><div class="nm"><b>${esc(v.n)}</b><span class="sm mut">${esc(v.txt||'')} · Code ${esc(v.code)} · ${esc(v.pl)}/${esc(v.max)} Spieler · ${v.pw?'mit Passwort':'offen'} · ${v.st==='race'?'Rennen läuft':'in der Lobby'} · ${live?'aktiv':'nicht mehr aktiv, '+fmtDate(ms)}</span></div><button class="btn danger" data-ld="${esc(id)}">Aus der Liste nehmen</button></div>`}).join('')||'<p class="mut">Keine öffentlichen Lobbies.</p>'}
-  catch(e){$('onLob').innerHTML='<p class="err">'+esc(e.code||e.message)+'</p>'}
-  try{const sn=await DB.collection('tracks').get(),box=$('onTr');box.innerHTML='';
-    const L=sn.docs.map(d=>({id:d.id,v:d.data()})).sort((a,b)=>(b.v.at||0)-(a.v.at||0));
-    if(!L.length)box.innerHTML='<p class="mut">Noch keine Uploads.</p>';
-    for(const {id,v} of L){let pts=null;try{pts=JSON.parse(v.pts)}catch(_){}
-      const t=Array.isArray(pts)&&pts.length>2&&pts.every(p=>Array.isArray(p)&&isFinite(p[0])&&isFinite(p[1]))?{name:v.n,km:v.km,w:v.w,street:v.street,pts,t:v.at}:null;
-      const wrap=document.createElement('div');wrap.appendChild(trackCard(t,0,v.by));
-      wrap.insertAdjacentHTML('beforeend',`<div class="row" style="justify-content:space-between;padding:6px 2px"><span class="sm mut">von ${esc(v.by||'?')}</span><button class="btn danger" data-td="${esc(id)}">Löschen</button></div>`);box.appendChild(wrap)}}
-  catch(e){$('onTr').innerHTML='<p class="err">'+esc(e.code||e.message)+'</p>'}
-}
-$('onReload').onclick=loadOnline;
-$('onArea').onclick=async e=>{const q=e.target.closest('[data-td],[data-ld]');if(!q)return;e.stopPropagation();
-  if(!q.dataset.arm){q.dataset.arm='1';q.textContent='Wirklich?';setTimeout(()=>{if(q.isConnected){delete q.dataset.arm;q.textContent=q.dataset.td?'Löschen':'Aus der Liste nehmen'}},4000);return}
-  q.disabled=true;try{await DB.collection(q.dataset.td?'tracks':'lobbies').doc(q.dataset.td||q.dataset.ld).delete();loadOnline()}catch(err){q.disabled=false;alert('Fehler: '+(err.code||err.message))}};
-function renderBeta(){
-  $('betaNeed').classList.add('hide');$('betaArea').classList.remove('hide');
-  const q=$('bq').value.trim().toLowerCase();
-  const L=ALL.filter(u=>!q||u.name.toLowerCase().includes(q)).sort((a,b)=>(!!BETA[b.uid]-!!BETA[a.uid])||a.name.localeCompare(b.name));
-  $('betaCount').textContent=Object.keys(BETA).length+' freigeschaltet';
-  $('betaList').innerHTML=L.map(u=>{const on=!!BETA[u.uid];return `<div class="bRow"><div class="av">${esc((u.name[0]||'?').toUpperCase())}</div>
-    <div class="nm"><b>${esc(u.name)}</b><span class="sm mut">${on?'freigeschaltet am '+fmtDate(BETA[u.uid].at):'zuletzt aktiv '+fmtDate(u.updated)}</span></div>
-    ${on?'<span class="bOn">BETA</span>':''}<button class="btn ${on?'danger':'primary'}" data-bt="${esc(u.uid)}">${on?'Beta entziehen':'Beta freischalten'}</button></div>`}).join('')||'<p class="mut">Keine Spieler gefunden.</p>';
-}
-$('betaList').onclick=async e=>{const b=e.target.closest('[data-bt]');if(!b)return;const uid=b.dataset.bt,u=ALL.find(x=>x.uid===uid);b.disabled=true;
-  try{if(BETA[uid]){await DB.collection('beta').doc(uid).delete();delete BETA[uid]}
-    else{const d={name:u?u.name:'',at:Date.now()};await DB.collection('beta').doc(uid).set(d);BETA[uid]=d}
-    renderBeta()}catch(err){b.disabled=false;alert('Fehler: '+(err.code||err.message))}};
-$('bq').oninput=renderBeta;
-$('q').oninput=render;$('onlyTracks').onchange=render;
+const U=uid=>DB0.users.find(u=>u.uid===uid),nm=uid=>(U(uid)||{}).name||(DB0.prof[uid]||{}).name||'?';
+const strikes=uid=>DB0.vio.filter(v=>v.uid===uid&&!v.cl).reduce((s,v)=>s+(+v.w||1),0);
+function sanTxt(uid){const s=DB0.sanc[uid];if(!s)return '';if(s.del)return '<span class="chip bad">Konto gelöscht</span>';if(s.ban)return '<span class="chip bad">Permabann</span>';if((s.until||0)>Date.now())return `<span class="chip bad">Auszeit bis ${fmt(s.until)}</span>`;return (s.upUntil||0)>Date.now()?'<span class="chip warn">Upload-Sperre</span>':''}
+const avOk=a=>typeof a==='string'&&/^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(a);
+function av(uid,c){const p=DB0.prof[uid]||{};return avOk(p.av)?`<img class="av ${c||''}" src="${p.av}" alt="">`:`<span class="av ${c||''}">${esc((nm(uid)[0]||'?').toUpperCase())}</span>`}
+function paint(){nav();paintUsers();paintVio();paintApp();paintRep();paintOnline();paintBeta();if(CUR)openUser(CUR)}
+function paintUsers(){
+  const q=$('q').value.trim().toLowerCase(),only=$('onlyVio').checked,nT=DB0.users.reduce((s,u)=>s+u.tracks.filter(Boolean).length,0),act=DB0.users.filter(u=>Date.now()-u.updated<7*864e5).length;
+  $('stats').innerHTML=[[DB0.users.length,'Spieler'],[act,'aktiv (7 Tage)'],[nT,'eigene Strecken'],[DB0.tracks.length,'Uploads'],[DB0.vio.filter(v=>!v.cl).length,'zählende Verstöße']].map(x=>`<div class="stat"><b>${x[0]}</b><span class="mut sm">${x[1]}</span></div>`).join('');
+  $('users').innerHTML=DB0.users.filter(u=>(!only||strikes(u.uid)||sanTxt(u.uid))&&(!q||u.name.toLowerCase().includes(q)||u.ign.toLowerCase().includes(q)||u.tracks.some(t=>t&&String(t.name||'').toLowerCase().includes(q)))).map(u=>{const s=strikes(u.uid),n=u.tracks.filter(Boolean).length;
+    return `<div class="u" data-u="${esc(u.uid)}">${av(u.uid)}<div class="nm"><b>${esc(u.name)}</b><span class="sm mut">im Spiel: ${esc(u.ign||'–')} · zuletzt aktiv ${fmt(u.updated)}</span></div>${sanTxt(u.uid)}${s?`<span class="chip ${s>2?'bad':'warn'}">${s} Verstoß${s===1?'':'punkte'}</span>`:''}<span class="chip">${n} Strecke${n===1?'':'n'}</span></div>`}).join('')||'<p class="mut">Keine Spieler gefunden.</p>'}
+const KIND={'streckenname':'Streckenname','strecke':'Streckenform','gespeicherte Strecke':'Gespeicherte Strecke','upload':'Upload','name':'Ingame-Name','chat':'Chatnachricht','admin':'Strafe durch Admin','anfechtung':'Unberechtigte Anfechtung'};
+function vioRow(v,u){const t=tryTrk(v.trk||'');return `<div class="it">${t?cvTag(t):''}<div class="b"><b>${u?`<a href="#" data-u="${esc(v.uid)}" style="color:#7fd4ff">${esc(v.name||nm(v.uid))}</a> `:''}<span class="mut sm">${v.ign?'im Spiel: '+esc(v.ign)+' · ':''}${fmt(v.at)}</span></b><div class="row" style="margin-top:4px"><span class="chip ${v.cl?'':'warn'}">${esc(KIND[v.kind]||v.kind)}</span><span class="chip ${v.cl?'ok':'bad'}">${v.cl?'zurückgesetzt':'zählt '+(+v.w||1)}</span></div>${v.val?`<div class="q">${esc(v.val)}</div>`:''}</div><button class="btn sm" data-vc="${esc(v.id)}">${v.cl?'Wieder zählen':'Zurücksetzen'}</button></div>`}
+function paintVio(){const f=$('vioF').value;$('vio').innerHTML=DB0.vio.filter(v=>f==='all'||!v.cl).map(v=>vioRow(v,true)).join('')||'<p class="mut">Keine Einträge.</p>';paintCv($('vio'))}
+function paintApp(){$('app').innerHTML=DB0.app.map(a=>{const t=tryTrk(a.trk||'');return `<div class="it">${t?cvTag(t):''}<div class="b"><b><a href="#" data-u="${esc(a.uid)}" style="color:#7fd4ff">${esc(a.name)}</a> <span class="mut sm">im Spiel: ${esc(a.ign||'–')} · ${fmt(a.at)}</span></b><div class="row" style="margin-top:4px"><span class="chip warn">${esc(KIND[a.kind]||a.kind)}</span><span class="chip ${a.st==='open'?'':a.st==='ok'?'ok':'bad'}">${a.st==='open'?'offen':a.st==='ok'?'zugelassen':'abgelehnt'}</span><span class="chip">${strikes(a.uid)} Verstoßpunkte</span></div><div class="q">${esc(a.val||'–')}</div><div class="sm mut">Begründung des Spielers</div><div class="q">${esc(a.text)}</div></div>${a.st==='open'?`<div class="row"><button class="btn primary sm" data-ay="${esc(a.id)}">Zulassen</button><button class="btn danger sm" data-an="${esc(a.id)}">Ablehnen und bestrafen</button></div>`:`<button class="btn sm danger" data-ad="${esc(a.id)}">Eintrag löschen</button>`}</div>`}).join('')||'<p class="mut">Keine Anfechtungen.</p>';paintCv($('app'))}
+const RK={feedback:'Feedback',nutzer:'Nutzer',nachricht:'Chatnachricht',upload:'Upload',sonstiges:'Meldung'};
+function paintRep(){const f=$('repF').value;$('rep').innerHTML=DB0.rep.filter(r=>f==='all'||r.st==='open').map(r=>`<div class="it"><div class="b"><div class="row"><span class="chip ${r.kind==='feedback'?'':'warn'}">${esc(RK[r.kind]||r.kind)}</span><span class="mut sm">von <a href="#" data-u="${esc(r.uid)}" style="color:#7fd4ff">${esc(r.name)}</a> (im Spiel: ${esc(r.ign||'–')}) · ${fmt(r.at)}</span></div>${r.who?`<div style="margin-top:6px">Gemeldet: <b>${esc(r.who)}</b>${r.tuid?` · <a href="#" data-u="${esc(r.tuid)}" style="color:#7fd4ff">${esc(nm(r.tuid))} öffnen</a>`:''}</div>`:''}<div class="sm mut">${esc(r.why)}</div>${r.text?`<div class="q">${esc(r.text)}</div>`:''}${r.copy?`<div class="sm mut">Gemeldete Nachricht (vom Melder übermittelt)</div><div class="q">${esc(r.copy)}</div>`:''}<div id="rv_${esc(r.id)}"></div></div><div class="row">${r.kind==='nachricht'&&r.ref?`<button class="btn sm" data-rv="${esc(r.id)}">Original prüfen</button>`:''}${r.tuid?`<button class="btn sm warn" data-pn="${esc(r.tuid)}">Bestrafen</button>`:''}<button class="btn sm" data-rd="${esc(r.id)}">${r.st==='open'?'Erledigt':'Wieder öffnen'}</button></div></div>`).join('')||'<p class="mut">Keine Einträge.</p>'}
+function upT(v){let p=null;try{p=JSON.parse(v.pts)}catch(_){}const t={name:v.n,km:v.km,w:v.w,street:v.street,pts:p,t:v.at};return okTrk(t)?t:null}
+function upCard(v){const t=upT(v)||{name:v.n+' (defekt)',km:v.km,pts:[[0,0],[1,0],[1,1]]};return trkCard(t,`<button class="btn sm" data-uo="${esc(v.id)}">${v.off?'Online stellen':'Offline nehmen'}</button><button class="btn sm" data-ur="${esc(v.id)}">Umbenennen</button><button class="btn sm danger" data-ud="${esc(v.id)}">Löschen</button>`,`<div class="sm"><a href="#" data-u="${esc(v.uid)}" style="color:#7fd4ff">${esc(v.by)}</a> ${v.off?'<span class="chip warn">offline</span>':'<span class="chip ok">online</span>'}</div>`)}
+function paintOnline(){const now=Date.now();$('onLob').innerHTML=DB0.lob.map(v=>`<div class="it"><div class="b"><b>${esc(v.n)}</b> <span class="chip">${v.k==='sc'?'SC-Rennen':'Rennleitung'}</span><div class="sm mut">${esc(v.txt||'')} · ${esc(v.pl)}/${esc(v.max)} Spieler · ${v.pw?'mit Passwort':'offen'} · ${now-ms(v.at)<90000?'aktiv':'nicht mehr aktiv, '+fmt(v.at)}</div></div><button class="btn sm" data-u="${esc(v.host)}">Spieler</button><button class="btn sm danger" data-ld="${esc(v.id)}">Schließen</button></div>`).join('')||'<p class="mut">Keine Lobbies.</p>';
+  $('onTr').innerHTML=DB0.tracks.map(upCard).join('')||'<p class="mut">Noch keine Uploads.</p>';paintCv($('onTr'))}
+function paintBeta(){const q=$('bq').value.trim().toLowerCase();$('betaList').innerHTML=DB0.users.filter(u=>!q||u.name.toLowerCase().includes(q)).sort((a,b)=>!!DB0.beta[b.uid]-!!DB0.beta[a.uid]||a.name.localeCompare(b.name)).map(u=>{const on=DB0.beta[u.uid];return `<div class="u" style="cursor:default">${av(u.uid)}<div class="nm"><b>${esc(u.name)}</b><span class="sm mut">${on?'freigeschaltet am '+fmt(on.at):''}</span></div>${on?'<span class="chip warn">BETA</span>':''}<button class="btn sm ${on?'danger':'primary'}" data-bt="${esc(u.uid)}">${on?'Beta entziehen':'Beta freischalten'}</button></div>`}).join('')}
+/* ---------- Spieleransicht ---------- */
+function openUser(uid){CUR=uid;const u=U(uid)||{uid,name:nm(uid),ign:'',tracks:[]},V=DB0.vio.filter(v=>v.uid===uid),s=strikes(uid),p=DB0.prof[uid]||{},up=DB0.tracks.filter(t=>t.uid===uid),sc=DB0.sanc[uid],act=sc&&(sc.del||sc.ban||(sc.until||0)>Date.now()||(sc.upUntil||0)>Date.now()||(sc.avUntil||0)>Date.now());
+  $('usrB').innerHTML=`<div class="row" style="justify-content:space-between"><div class="row">${av(uid,'xl')}<div><div style="font-size:22px;font-weight:700">${esc(u.name)}</div><div class="mut sm">im Spiel: ${esc(u.ign||p.ign||'–')} · zuletzt aktiv ${fmt(u.updated)}</div><div class="row" style="margin-top:5px">${sanTxt(uid)}<span class="chip ${s?'bad':'ok'}">${s} Verstoßpunkte</span></div></div></div><button class="btn" data-x="usr">Schließen</button></div>
+   <div class="row" style="margin-top:14px"><button class="btn primary" data-pn="${esc(uid)}">Strafe verhängen</button>${act?`<button class="btn" data-pl="${esc(uid)}">Strafe aufheben</button>`:''}<button class="btn" data-msg="${esc(uid)}">Nachricht senden</button>${avOk(p.av)?`<button class="btn warn" data-pa="${esc(uid)}">Profilbild entfernen</button>`:''}<button class="btn warn" data-pi="${esc(uid)}">Ingame-Namen zurücksetzen</button>${s?`<button class="btn" data-vr="${esc(uid)}">Alle Verstöße zurücksetzen</button>`:''}</div>
+   <h3>Gespeicherte Strecken</h3><div class="grid">${u.tracks.map((t,i)=>t?trkCard(t,`<button class="btn sm danger" data-td="${esc(uid)}:${i}">Löschen</button><button class="btn sm" data-tr="${esc(uid)}:${i}">Umbenennen</button><button class="btn sm warn" data-tw="${esc(uid)}:${i}">Bestrafen</button>`):'').join('')||'<p class="mut">Keine.</p>'}</div>
+   <h3>Uploads</h3><div class="grid">${up.map(upCard).join('')||'<p class="mut">Keine.</p>'}</div>
+   <h3>Verstöße (${V.length})</h3>${V.map(v=>vioRow(v)).join('')||'<p class="mut">Keine.</p>'}`;
+  $('usr').classList.remove('hide');paintCv($('usrB'))}
+/* ---------- Aktionen ---------- */
+async function notice(uid,o){await DB.collection('notices').doc(uid).collection('n').add(Object.assign({k:'warn',title:'',text:'',at:TS(),read:false},o))}
+async function strike(uid,kind,val,w,trk){const d={uid,name:nm(uid),ign:(U(uid)||{}).ign||'',kind,val:String(val||'').slice(0,200),trk:trk||'',w:w||1,at:TS(),src:'admin',cl:false};await DB.collection('vio').add(d)}
+async function saveTracks(uid,f){const ref=DB.collection('users').doc(uid),d=(await ref.get()).data();if(!d||!d.save)return null;let L=[];try{L=JSON.parse(d.save.rc_tracks||'[]')}catch(_){}const r=f(L);await ref.update({'save.rc_tracks':JSON.stringify(L)});return r}
+async function delTrack(uid,h){await saveTracks(uid,L=>L.forEach((t,i)=>{if(okTrk(t)&&hashPts(t.pts)===h)L[i]=null}));for(const v of DB0.tracks.filter(v=>v.uid===uid)){const t=upT(v);if(t&&hashPts(t.pts)===h)await DB.collection('tracks').doc(v.id).delete()}}
+function ask(title,html,okTxt,fn){$('dlgB').innerHTML=`<h2>${esc(title)}</h2>${html}<div class="row" style="margin-top:14px"><button class="btn primary" id="dOk">${esc(okTxt)}</button><button class="btn" data-x="dlg">Abbrechen</button><span id="dSt" class="sm err"></span></div>`;$('dlg').classList.remove('hide');
+  $('dOk').onclick=async()=>{$('dOk').disabled=true;$('dSt').textContent='';try{const r=await fn();if(r===false){$('dOk').disabled=false;return}$('dlg').classList.add('hide');await loadAll()}catch(e){$('dOk').disabled=false;$('dSt').textContent='Fehler: '+(e.code||e.message)}};
+  $('dlgB').onkeydown=null;paintCv($('dlgB'))}
+/* Strafdialog. o={track,title,preset,after} */
+function punish(uid,o){o=o||{};const t=o.track;
+  ask('Strafe für '+nm(uid),`${o.note?`<p class="mut sm">${esc(o.note)}</p>`:''}<p class="sm">Bisher ${strikes(uid)} Verstoßpunkte.</p><label class="f">Strafe</label><select id="pT"><option value="warn">Verwarnung</option><option value="time">Auszeit</option><option value="up">Upload-Sperre</option><option value="av">Profilbild-Sperre</option><option value="ban">Permabann</option><option value="del">Konto löschen</option></select>
+   <div id="pD" class="hide"><label class="f">Dauer</label><div class="row"><select id="pM">${[[15,'15 Minuten'],[30,'30 Minuten'],[60,'1 Stunde'],[180,'3 Stunden'],[720,'12 Stunden'],[1440,'24 Stunden'],[2880,'48 Stunden'],[4320,'72 Stunden']].map(x=>`<option value="${x[0]}">${x[1]}</option>`).join('')}</select></div></div>
+   <label class="f">Text an den Spieler</label><textarea id="pX" rows="3" maxlength="400">${esc(o.text||'')}</textarea>
+   ${t?`<label class="sm" style="display:block;margin-top:8px"><input type="checkbox" id="pK" checked> Strecke „${esc(t.name)}“ löschen</label>`:''}
+   ${o.noStrike?'':'<label class="sm" style="display:block;margin-top:8px"><input type="checkbox" id="pS" checked> Als Verstoß zählen</label>'}<p id="pW" class="sm err hide"></p>`,'Strafe verhängen',async()=>{
+    const k=$('pT').value,txt=$('pX').value.trim(),min=+$('pM').value,until=Date.now()+min*60000;if(!txt){$('dSt').textContent='Bitte einen Text angeben.';return false}
+    if((k==='del'||k==='ban')&&!$('dOk').dataset.sure){$('dOk').dataset.sure=1;$('dOk').textContent=k==='del'?'Endgültig löschen':'Dauerhaft sperren';$('dSt').textContent=k==='del'?'Das lässt sich nicht rückgängig machen. Nochmal klicken zum Bestätigen.':'Nochmal klicken zum Bestätigen.';return false}
+    if(t&&$('pK').checked)await delTrack(uid,hashPts(t.pts));
+    const lb={warn:'Verwarnung',time:'Auszeit',up:'Upload-Sperre',av:'Profilbild-Sperre',ban:'Permabann',del:'Kontolöschung'}[k],dur=$('pM').selectedOptions[0].textContent;
+    if(!o.noStrike&&$('pS').checked)await strike(uid,o.kind||'admin',lb+(k==='time'||k==='up'||k==='av'?' ('+dur+')':'')+': '+txt,1,t?JSON.stringify({name:t.name,km:t.km,w:t.w,street:!!t.street,pts:t.pts}).slice(0,42000):'');
+    const ref=DB.collection('sanctions').doc(uid);
+    if(k==='time')await ref.set({until,text:txt,at:TS()},{merge:true});else if(k==='up')await ref.set({upUntil:until,at:TS()},{merge:true});else if(k==='av'){await ref.set({avUntil:until,at:TS()},{merge:true});await rmAv(uid)}else if(k==='ban')await ref.set({ban:true,text:txt,at:TS()},{merge:true});
+    else if(k==='del'){await ref.set({del:true,text:txt,at:TS()},{merge:true});await wipe(uid)}
+    if(k!=='del'){const act=t&&$('pK').checked?{t:'del',h:hashPts(t.pts)}:k==='av'?{t:'ava'}:null;const n={k:'warn',title:lb+(k==='time'||k==='up'||k==='av'?' · '+dur:'')+(t&&$('pK').checked?' · Strecke gelöscht':''),text:txt};if(act)n.act=act;await notice(uid,n)}
+    if(o.after)await o.after();
+  });
+  const d=()=>{const k=$('pT').value;$('pD').classList.toggle('hide',!['time','up','av'].includes(k));delete $('dOk').dataset.sure;$('dOk').textContent='Strafe verhängen';$('pW').classList.toggle('hide',k!=='del');$('pW').textContent=k==='del'?'Spielstand, Profil, Strecken, Uploads und Freundschaften werden gelöscht. Der Zugang selbst wird beim nächsten Anmeldeversuch des Spielers entfernt.':''};$('pT').onchange=d;if(o.preset)$('pT').value=o.preset;if(o.min)$('pM').value=o.min;d()}
+async function rmAv(uid){if(DB0.prof[uid])await DB.collection('profiles').doc(uid).update({av:''})}
+async function wipe(uid){const del=async(c,id)=>{try{await DB.collection(c).doc(id).delete()}catch(_){}};
+  for(const c of ['users','profiles','presence','maps','lobbies','uplock','beta'])await del(c,uid);for(let i=0;i<5;i++)await del('tracks',uid+'_'+i);
+  for(const c of ['friends','chats'])try{const s=await DB.collection(c).where('m','array-contains',uid).get();for(const d of s.docs)await d.ref.delete()}catch(_){}
+  try{const s=await DB.collection('scBoard').get();for(const d of s.docs)if(d.data()[uid])await d.ref.update({[uid]:firebase.firestore.FieldValue.delete()})}catch(_){}
+  for(const u of DB0.users.filter(x=>x.uid===uid))try{await DB.collection('usernames').doc(u.name.toLowerCase()).update({del:true})}catch(_){}}
+const splitT=v=>{const i=v.lastIndexOf(':'),uid=v.slice(0,i),t=(U(uid)||{tracks:[]}).tracks[+v.slice(i+1)];return {uid,t}};
+async function run(q,f){q.disabled=true;try{await f();await loadAll()}catch(e){q.disabled=false;alert('Fehler: '+(e.code||e.message))}}
+document.addEventListener('click',async e=>{
+  const c=e.target.closest('canvas[data-cv]');if(c){openBig(CV[+c.dataset.cv]);return}
+  const q=e.target.closest('[data-tab],[data-x],[data-u],[data-vc],[data-vr],[data-ay],[data-an],[data-ad],[data-rv],[data-rd],[data-pn],[data-pl],[data-msg],[data-pa],[data-pi],[data-td],[data-tr],[data-tw],[data-uo],[data-ur],[data-ud],[data-ld],[data-bt]');if(!q){if(e.target.classList.contains('ov')){e.target.classList.add('hide');if(e.target.id==='usr')CUR=null}return}
+  e.preventDefault();const d=q.dataset;
+  if(d.tab){TAB=d.tab;nav()}
+  else if(d.x){$(d.x).classList.add('hide');if(d.x==='usr')CUR=null}
+  else if(d.u)openUser(d.u);
+  else if(d.vc){const v=DB0.vio.find(x=>x.id===d.vc);run(q,()=>DB.collection('vio').doc(v.id).update({cl:!v.cl}))}
+  else if(d.vr)ask('Verstöße zurücksetzen',`<p>Alle Verstöße von <b>${esc(nm(d.vr))}</b> auf 0 setzen? Die Einträge bleiben sichtbar.</p>`,'Zurücksetzen',async()=>{for(const v of DB0.vio.filter(v=>v.uid===d.vr&&!v.cl))await DB.collection('vio').doc(v.id).update({cl:true})});
+  else if(d.ay){const a=DB0.app.find(x=>x.id===d.ay),t=tryTrk(a.trk||'');ask('Anfechtung zulassen',`<p>„${esc(a.val||'Strecke')}“ wird freigegeben und der Verstoß gestrichen.</p><label class="f">Nachricht an ${esc(a.name)}</label><textarea id="aX" rows="4" maxlength="400">Wir haben deine Anfechtung geprüft: Unser Filter lag falsch. Bitte entschuldige die Unannehmlichkeiten! Der Inhalt ist jetzt zugelassen${t?', du kannst die Strecke direkt übernehmen':''}.</textarea>`,'Zulassen',async()=>{
+      const m={};if(t){m['t_'+hashPts(t.pts)]=true;m['n_'+hashStr(String(t.name||'').trim().toLowerCase())]=true}if(a.kind!=='strecke'&&a.kind!=='chat'&&a.val)m['n_'+hashStr(a.val.trim().toLowerCase())]=true;
+      if(Object.keys(m).length)await DB.collection('config').doc('allow').set(m,{merge:true});
+      if(a.vid)try{await DB.collection('vio').doc(a.vid).update({cl:true})}catch(_){}
+      if(a.kind==='upload')try{await DB.collection('uplock').doc(a.uid).delete()}catch(_){}
+      await notice(a.uid,Object.assign({k:'apok',title:'Anfechtung angenommen',text:$('aX').value.trim(),act:{t:'allow'}},t&&a.kind!=='upload'?{trk:a.trk}:{}));await DB.collection('appeals').doc(a.id).update({st:'ok'})})}
+  else if(d.an){const a=DB0.app.find(x=>x.id===d.an);punish(a.uid,{kind:'anfechtung',preset:'time',min:60,noStrike:true,note:'Die Anfechtung wird abgelehnt. Unabhängig von der gewählten Strafe wird ein weiterer Verstoß gezählt.',text:'Deine Anfechtung war unberechtigt: „'+(a.val||'Strecke')+'“ bleibt gesperrt.',after:async()=>{await strike(a.uid,'anfechtung',a.val,1,a.trk||'');await DB.collection('appeals').doc(a.id).update({st:'no'})}})}
+  else if(d.ad)run(q,()=>DB.collection('appeals').doc(d.ad).delete());
+  else if(d.rd){const r=DB0.rep.find(x=>x.id===d.rd);run(q,()=>DB.collection('reports').doc(r.id).update({st:r.st==='open'?'done':'open'}))}
+  else if(d.rv){const r=DB0.rep.find(x=>x.id===d.rv),b=$('rv_'+r.id),m=/^chats\/([A-Za-z0-9]+_[A-Za-z0-9]+)\/m\/([A-Za-z0-9]+)$/.exec(r.ref);try{const s=m&&await DB.collection('chats').doc(m[1]).collection('m').doc(m[2]).get();b.innerHTML=s&&s.exists?`<div class="sm ok">Original von ${esc(nm(s.data().by))}, ${fmt(s.data().at)}:</div><div class="q">${esc(s.data().t)}</div>`:'<div class="sm err">Das Original gibt es nicht (mehr). Die übermittelte Nachricht ist nicht belegt.</div>'}catch(err){b.innerHTML='<div class="sm err">'+esc(err.code)+'</div>'}}
+  else if(d.pn)punish(d.pn);
+  else if(d.pl)ask('Strafe aufheben',`<p>Alle laufenden Strafen von <b>${esc(nm(d.pl))}</b> aufheben?</p><label class="sm"><input type="checkbox" id="lN" checked> Spieler benachrichtigen</label>`,'Aufheben',async()=>{await DB.collection('sanctions').doc(d.pl).delete();try{await DB.collection('uplock').doc(d.pl).delete()}catch(_){}if($('lN').checked)await notice(d.pl,{k:'info',title:'Strafe aufgehoben',text:'Deine Strafe wurde von der Rennleitung aufgehoben.'})});
+  else if(d.msg)ask('Nachricht an '+nm(d.msg),'<label class="f">Titel</label><input type="text" id="mT" maxlength="60" style="width:100%" value="Nachricht der Rennleitung"><label class="f">Text</label><textarea id="mX" rows="4" maxlength="400"></textarea>','Senden',async()=>{if(!$('mX').value.trim())return false;await notice(d.msg,{k:'info',title:$('mT').value.trim(),text:$('mX').value.trim()})});
+  else if(d.pa)ask('Profilbild entfernen',`<p>${av(d.pa,'xl')}</p><label class="f">Text an den Spieler</label><textarea id="aT" rows="3" maxlength="400">Dein Profilbild verstößt gegen die Regeln und wurde entfernt.</textarea><label class="sm" style="display:block;margin-top:8px"><input type="checkbox" id="aS" checked> Als Verstoß zählen</label><label class="sm" style="display:block"><input type="checkbox" id="aL"> Neue Profilbilder 72 Stunden sperren</label>`,'Entfernen',async()=>{if($('aL').checked)await DB.collection('sanctions').doc(d.pa).set({avUntil:Date.now()+2592e5,at:TS()},{merge:true});await rmAv(d.pa);if($('aS').checked)await strike(d.pa,'admin','Profilbild entfernt',1);await notice(d.pa,{k:'warn',title:'Profilbild entfernt',text:$('aT').value.trim(),act:{t:'ava'}})});
+  else if(d.pi)ask('Ingame-Namen zurücksetzen',`<p>Aktuell: <b>${esc((U(d.pi)||{}).ign||'–')}</b>. Er wird auf den Benutzernamen gesetzt.</p><label class="f">Text</label><textarea id="iT" rows="3" maxlength="400">Dein Ingame-Name verstößt gegen die Regeln und wurde zurückgesetzt.</textarea><label class="sm" style="display:block;margin-top:8px"><input type="checkbox" id="iS" checked> Als Verstoß zählen</label>`,'Zurücksetzen',async()=>{try{await DB.collection('users').doc(d.pi).update({'save.rc_name':nm(d.pi)})}catch(_){}if($('iS').checked)await strike(d.pi,'admin','Ingame-Name: '+((U(d.pi)||{}).ign||''),1);await notice(d.pi,{k:'warn',title:'Ingame-Name zurückgesetzt',text:$('iT').value.trim(),act:{t:'ign'}})});
+  else if(d.td){const {uid,t}=splitT(d.td);ask('Strecke löschen',`${trkCard(t)}<label class="f">Text an ${esc(nm(uid))}</label><textarea id="tT" rows="3" maxlength="400">Deine Strecke „${esc(t.name)}“ wurde von der Rennleitung gelöscht.</textarea><label class="sm" style="display:block;margin-top:8px"><input type="checkbox" id="tS"> Als Verstoß zählen</label>`,'Löschen',async()=>{await delTrack(uid,hashPts(t.pts));if($('tS').checked)await strike(uid,'admin','Strecke gelöscht: '+t.name,1,JSON.stringify(t).slice(0,42000));await notice(uid,{k:'warn',title:'Strecke gelöscht',text:$('tT').value.trim(),act:{t:'del',h:hashPts(t.pts)}})})}
+  else if(d.tr){const {uid,t}=splitT(d.tr);ask('Strecke umbenennen',`${trkCard(t)}<label class="f">Neuer Name</label><input type="text" id="rN" maxlength="28" style="width:100%" value="Strecke"><label class="f">Text an ${esc(nm(uid))}</label><textarea id="rT" rows="3" maxlength="400">Deine Strecke „${esc(t.name)}“ wurde von der Rennleitung umbenannt.</textarea><label class="sm" style="display:block;margin-top:8px"><input type="checkbox" id="rS"> Als Verstoß zählen</label>`,'Umbenennen',async()=>{const n=cleanName($('rN').value);if(!n)return false;const h=hashPts(t.pts);await saveTracks(uid,L=>L.forEach(x=>{if(okTrk(x)&&hashPts(x.pts)===h)x.name=n}));for(const v of DB0.tracks.filter(v=>v.uid===uid)){const x=upT(v);if(x&&hashPts(x.pts)===h)await DB.collection('tracks').doc(v.id).update({n})}if($('rS').checked)await strike(uid,'admin','Streckenname: '+t.name,1);await notice(uid,{k:'warn',title:'Strecke umbenannt in „'+n+'“',text:$('rT').value.trim(),act:{t:'ren',h,n}})})}
+  else if(d.tw){const {uid,t}=splitT(d.tw);punish(uid,{track:t,text:'Deine Strecke „'+t.name+'“ verstößt gegen die Regeln.'})}
+  else if(d.uo){const v=DB0.tracks.find(x=>x.id===d.uo);run(q,async()=>{await DB.collection('tracks').doc(v.id).update({off:!v.off});await notice(v.uid,{k:v.off?'info':'warn',title:v.off?'Upload wieder online':'Upload offline genommen',text:`Deine hochgeladene Strecke „${v.n}“ ist ${v.off?'wieder für alle sichtbar':'von der Rennleitung offline genommen worden'}.`})})}
+  else if(d.ur){const v=DB0.tracks.find(x=>x.id===d.ur);ask('Upload umbenennen',`<label class="f">Neuer Name</label><input type="text" id="uN" maxlength="28" style="width:100%" value="${esc(v.n)}">`,'Umbenennen',async()=>{const n=cleanName($('uN').value);if(!n)return false;await DB.collection('tracks').doc(v.id).update({n});await notice(v.uid,{k:'warn',title:'Upload umbenannt',text:`Deine hochgeladene Strecke „${v.n}“ heißt jetzt „${n}“.`})})}
+  else if(d.ud){const v=DB0.tracks.find(x=>x.id===d.ud);ask('Upload löschen',`<label class="f">Text an ${esc(v.by)}</label><textarea id="uT" rows="3" maxlength="400">Deine hochgeladene Strecke „${esc(v.n)}“ wurde von der Rennleitung gelöscht.</textarea><label class="sm" style="display:block;margin-top:8px"><input type="checkbox" id="uS" checked> Als Verstoß zählen (Upload: doppelt)</label><label class="sm" style="display:block"><input type="checkbox" id="uL"> Uploads 72 Stunden sperren</label>`,'Löschen',async()=>{await DB.collection('tracks').doc(v.id).delete();if($('uS').checked)await strike(v.uid,'upload',v.n,2,JSON.stringify({name:v.n,km:v.km,w:v.w,street:!!v.street,pts:JSON.parse(v.pts)}).slice(0,42000));if($('uL').checked)await DB.collection('sanctions').doc(v.uid).set({upUntil:Date.now()+2592e5,at:TS()},{merge:true});await notice(v.uid,{k:'warn',title:'Upload gelöscht',text:$('uT').value.trim()})})}
+  else if(d.ld)run(q,()=>DB.collection('lobbies').doc(d.ld).delete());
+  else if(d.bt)run(q,()=>DB0.beta[d.bt]?DB.collection('beta').doc(d.bt).delete():DB.collection('beta').doc(d.bt).set({name:nm(d.bt),at:Date.now()}));
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){for(const i of ['dlg','big','usr'])if(!$(i).classList.contains('hide')){$(i).classList.add('hide');if(i==='usr')CUR=null;break}}});
+$('q').oninput=paintUsers;$('onlyVio').onchange=paintUsers;$('vioF').onchange=paintVio;$('repF').onchange=paintRep;$('bq').oninput=paintBeta;
 </script>
 </body>
 </html>

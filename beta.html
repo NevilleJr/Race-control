@@ -675,6 +675,45 @@ body.mob .evLb .lbR{font-size:10.5px}
 .onlC{display:flex;flex-direction:column;gap:4px;padding:10px;border-radius:12px;background:#0e1623;border:1px solid rgba(255,255,255,.07)}.onlC canvas{position:static;inset:auto;height:auto;aspect-ratio:240/150;width:100%;border-radius:8px;background:#070c14}
 .onlC b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.onlC span{font-size:12px;color:var(--mut)}.onlC .btn.sm{padding:5px 9px;font-size:12px}
 @media (max-width:640px){.lobR{flex-wrap:wrap}.lobI{flex-basis:100%}.onlGrid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}}
+/* ===== RACE CONTROL 43/44 – Profile, Freunde, Chat, Moderation, SC-Lobby ===== */
+#menu.lst #lHome .mon.big{grid-area:auto!important}
+.mon.soM{border-color:rgba(179,136,255,.5)}.mon.soM .mt2{color:#cbb2ff;background:linear-gradient(90deg,rgba(179,136,255,.18),transparent);border-bottom-color:rgba(179,136,255,.3)}.mon.soM .mfoot b{color:#cbb2ff}.mon.soM .mfoot span{color:#ffb340;font-size:12px}
+#soBtn{position:relative;width:38px;height:38px;border-radius:10px;border:1px solid rgba(0,180,255,.3);background:#0b1522;color:#7fd4ff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}#soBtn:hover{border-color:#7fd4ff}
+#soBtn i{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:#e10600;color:#fff;font:800 11px/18px Barlow,sans-serif;text-align:center}#soBtn i.hide{display:none}
+.soAv{width:38px;height:38px;border-radius:50%;object-fit:cover;display:inline-flex;align-items:center;justify-content:center;font:800 18px "Barlow Condensed",sans-serif;color:#fff;flex:none}.soAv.xl{width:84px;height:84px;font-size:38px}
+.soAvW{position:relative;flex:none}.soAvW em{position:absolute;right:-1px;bottom:-1px;width:12px;height:12px;border-radius:50%;background:#5b6776;border:2px solid #0b121d}.soAvW em.on{background:#3ddc84}
+#soc{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(2,5,10,.7);backdrop-filter:blur(5px)}#soc.hide{display:none}
+.socC{width:min(1040px,100%);height:min(720px,calc(100vh - 36px));display:grid;grid-template-columns:340px 1fr;border-radius:18px;overflow:hidden;border:1px solid rgba(0,180,255,.28);background:#0b121d;box-shadow:0 30px 90px rgba(0,0,0,.6);color:var(--tx)}
+.socL{display:flex;flex-direction:column;min-height:0;border-right:1px solid rgba(255,255,255,.07);background:#09101a}
+.socHd{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;font:800 16px "Barlow Condensed",sans-serif;letter-spacing:.14em}
+.soTabs{display:flex;gap:4px;padding:0 12px 10px}.soTabs span{flex:1;text-align:center;padding:7px 4px;border-radius:8px;font-size:13px;font-weight:600;color:var(--mut);cursor:pointer;background:rgba(255,255,255,.03)}.soTabs span.on{background:rgba(20,192,255,.16);color:#7fd4ff}.soTabs i{font-style:normal;margin-left:5px;background:#e10600;color:#fff;border-radius:8px;padding:0 6px;font-size:11px}
+.soS{display:flex;gap:6px;padding:0 12px 6px}.soS input{flex:1;min-width:0;width:auto!important;background:#05090f;border:1px solid rgba(0,180,255,.25);border-radius:8px;color:var(--tx);padding:7px 9px;font:inherit;font-size:13px}
+.soMsg{min-height:17px;padding:0 14px;font-size:12px;color:#ffb340}.soList{flex:1;overflow-y:auto;padding:4px 8px 10px}
+.soRow{display:flex;align-items:center;gap:10px;padding:8px;border-radius:10px;cursor:pointer}.soRow:hover{background:rgba(255,255,255,.04)}.soRow.on{background:rgba(20,192,255,.12)}
+.soI{flex:1;min-width:0;display:flex;flex-direction:column}.soI b{font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.soI span{font-size:12px;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.soT{display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-size:11px;color:var(--mut)}.soT i{width:10px;height:10px;border-radius:50%;background:#14c0ff}
+.soB{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.soE{padding:22px 14px;text-align:center;color:var(--mut);font-size:13.5px;line-height:1.5}.soH{padding:10px 8px 4px;font:800 11px "Barlow Condensed",sans-serif;letter-spacing:.16em;color:#7fd4ff}.soHint{padding:0 16px 8px;font-size:13px;color:var(--mut)}
+.socR{position:relative;display:flex;flex-direction:column;min-height:0;min-width:0}.soTop{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.07)}.soBack{display:none}
+.soMenu{position:absolute;right:14px;top:56px;z-index:3;display:flex;flex-direction:column;border-radius:10px;overflow:hidden;background:#111b29;border:1px solid rgba(255,255,255,.12)}.soMenu.hide{display:none}.soMenu button{padding:9px 16px;background:none;border:0;color:var(--tx);font:inherit;font-size:13.5px;text-align:left;cursor:pointer}.soMenu button:hover{background:rgba(255,255,255,.06)}
+.soWel{margin:auto;text-align:center;padding:20px}.soWel h3{margin:12px 0 4px}
+.soMsgs{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:6px}.soDay{align-self:center;font-size:11px;color:var(--mut);padding:2px 10px;border-radius:10px;background:rgba(255,255,255,.05);margin:6px 0}
+.soM1{display:flex;flex-direction:column;align-items:flex-start;max-width:76%}.soM1.me{align-self:flex-end;align-items:flex-end}.soM1 span{font-size:10.5px;color:var(--mut);padding:2px 6px}.soM1 span a{cursor:pointer;opacity:.7}.soM1 span a:hover{opacity:1;color:#ff8a80}
+.soBub{padding:8px 12px;border-radius:14px 14px 14px 4px;background:#182334;font-size:14px;line-height:1.4;white-space:pre-wrap;overflow-wrap:anywhere}.soM1.me .soBub{border-radius:14px 14px 4px 14px;background:linear-gradient(180deg,#1290d6,#0a6fb0);color:#fff}
+.soM1.inv .soBub{background:#23180a;border:1px solid rgba(255,159,10,.5);color:#ffe2b8;display:flex;flex-direction:column;gap:7px;align-items:flex-start}.soM1.inv small{font:800 10.5px "Barlow Condensed",sans-serif;letter-spacing:.16em;color:#ffb340}
+.soErr{min-height:17px;padding:0 16px;font-size:12.5px;color:#ff8a80}.soIn{display:flex;gap:8px;padding:10px 14px 14px;border-top:1px solid rgba(255,255,255,.07)}.soIn textarea{flex:1;resize:none;height:42px;background:#05090f;border:1px solid rgba(0,180,255,.25);border-radius:12px;color:var(--tx);padding:10px 12px;font:inherit;font-size:14px}
+.soMaps{flex:1;overflow-y:auto;padding:14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;align-content:start}
+#soToast{position:fixed;left:50%;top:14px;transform:translate(-50%,-90px);z-index:130;max-width:min(420px,92vw);padding:10px 16px;border-radius:12px;background:#101b2b;border:1px solid rgba(20,192,255,.5);color:#e6edf5;font-size:14px;box-shadow:0 14px 40px rgba(0,0,0,.5);transition:transform .3s;cursor:pointer}#soToast.show{transform:translate(-50%,0)}
+#sancBox,#noteBox{position:fixed;inset:0;z-index:280;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(2,5,10,.9)}#noteBox{z-index:200;background:rgba(2,5,10,.75)}.sancC{border-color:rgba(255,90,82,.6)}.sancC h2{font-size:36px;color:#ff8a80}.sancT{padding:10px 12px;border-radius:9px;background:rgba(255,255,255,.05);white-space:pre-wrap;overflow-wrap:anywhere}.noteC.good{border-color:rgba(61,220,132,.6)}.noteC h3{margin:6px 0;font-size:20px}.noteC canvas{position:static;width:100%;height:auto;border-radius:10px;background:#070c14;margin-bottom:10px}
+.mwAp{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1)}.mwAp textarea{width:100%;background:#05090f;border:1px solid rgba(0,180,255,.25);border-radius:8px;color:var(--tx);padding:8px;font:inherit;font-size:13px}
+.lobK{font:800 10.5px "Barlow Condensed",sans-serif;letter-spacing:.12em;padding:3px 8px;border-radius:6px;background:rgba(20,192,255,.14);color:#7fd4ff;white-space:nowrap}.lobK.sc{background:rgba(255,159,10,.18);color:#ffb340}
+.mpHd{font:800 20px "Barlow Condensed",sans-serif;letter-spacing:.1em}.sclInfo{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:12px}.sclInfo div{padding:10px 12px;border-radius:10px;background:#0b111b;border:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column}.sclInfo span{font-size:12px;color:var(--mut)}
+body:has(#menu:not(.hide)) #pingTag{top:auto;bottom:8px;right:120px}
+.scl .mrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px}.scl #lobPwH,#mpBox #lobPwH{width:200px!important}
+.scl select{width:100%;background:#0b111b;border:1px solid rgba(0,180,255,.25);border-radius:8px;color:var(--tx);padding:9px 11px;font:inherit}.scl .setGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:12px 0}
+.setTabs{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}.setTabs span{padding:9px 16px;border-radius:10px;font:700 13.5px Barlow,sans-serif;color:var(--mut);background:rgba(255,255,255,.04);border:1px solid transparent;cursor:pointer}.setTabs span.on{color:#7fd4ff;border-color:rgba(20,192,255,.5);background:rgba(20,192,255,.12)}.sCard.hide{display:none}
+.avRow{display:flex;align-items:center;gap:14px}.avRow>div{display:flex;flex-direction:column;gap:6px;align-items:flex-start}.avL{cursor:pointer}.keyG{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px}.keyG div{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13.5px}.keyG button{min-width:64px}
+@media (max-width:760px){#soc{padding:0}.socC{grid-template-columns:1fr;height:100%;border-radius:0}.socR{display:none}.socC.chat .socL{display:none}.socC.chat .socR{display:flex}.soBack{display:inline-block}.soM1{max-width:88%}}
+body.light :is(#soc .socC,#soToast,#noteBox .scrC,#sancBox .scrC){filter:invert(.94) hue-rotate(180deg)}body.light #soc .socC img,body.light #soc canvas{filter:invert(1) hue-rotate(180deg)}
 body.light #scrRes .scrC,body.light #scrLamps{filter:invert(.94) hue-rotate(180deg)}
 
 /* =====================================================================
@@ -961,7 +1000,7 @@ body.light #authGate .agCard,body.light #agPriv .agCard{filter:invert(.94) hue-r
     <div class="mon big" data-home="career"><div class="mt2"><i></i>KARRIERE</div><div class="mbody" id="monCareer"></div><div class="mfoot"><span id="monBest"></span><b>WEITER ▸</b></div></div>
     <div class="mon" data-home="single"><div class="mt2"><i></i>SCHNELLES RENNEN</div><div class="mbody"><div class="big">1 RENNEN</div>Strecke, Wetter und Chaos selbst wählen.</div><div class="mfoot"><b>START ▸</b></div></div>
     <div class="mon" data-home="season"><div class="mt2"><i></i>SAISON</div><div class="mbody"><div class="big">3–7 RENNEN</div>Eigener Kalender mit Fahrer- und Teamwertung.</div><div class="mfoot"><b>PLANEN ▸</b></div></div>
-    <div class="mon" data-home="mp"><div class="mt2"><i></i>MEHRSPIELER</div><div class="mbody"><div class="big">BIS 5 SPIELER</div>Gemeinsam leiten – per Code oder Einladungslink.</div><div class="mfoot"><b>LOBBY ▸</b></div></div>
+    <div class="mon" data-home="mp"><div class="mt2"><i></i>MEHRSPIELER</div><div class="mbody"><div class="big">BIS 5 SPIELER</div>Gemeinsam leiten – offene Lobbies mit einem Klick betreten.</div><div class="mfoot"><b>LOBBY ▸</b></div></div>
     <div class="mon" data-home="tutorial"><div class="mt2"><i></i>TUTORIAL</div><div class="mbody"><div class="big">LERNE DIE RENNLEITUNG</div>Geführte Tour durch Menü, Fenster und Spielprinzip – mit einem festgelegten Übungsrennen: Frühstart, Kollision, Flaggen und Stewards.</div><div class="mfoot"><span>ca. 5 Minuten</span><b>STARTEN ▸</b></div></div>
     <div class="mon fbm" data-home="feedback"><div class="mt2"><i></i>FEEDBACK</div><div class="mbody"><div class="big">BUG ODER IDEE?</div>Melde Fehler oder schlag Verbesserungen vor – direkt an den Entwickler.</div><div class="mfoot"><b>SCHREIBEN ▸</b></div></div>
     <div class="mon tem" data-home="tracks"><div class="mt2"><i></i>EIGENE STRECKEN</div><div class="mbody"><div class="big">EIGENE STRECKE</div>Aus einem Bild erstellen oder selbst zeichnen – 5 Speicherplätze.</div><div class="mfoot"><b>BAUEN ▸</b></div></div>
@@ -4653,7 +4692,7 @@ function pingShow(){
   else{const ps=NET.players.filter(p=>p.id!=='host');h=ps.length?'Ping '+ps.map(p=>`${esc(p.name.slice(0,7))} <b style="color:${col(p.ping)}">${p.ping!=null?p.ping:'…'}</b>`).join(' · ')+' ms':'Host · keine Mitspieler'}
   el.innerHTML=h;el.classList.remove('hide');
 }
-function genCode(){const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<5;i++)s+=A[Math.floor(Math.random()*A.length)];return s}
+function genCode(){const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<10;i++)s+=A[Math.floor(Math.random()*A.length)];return s}
 function readName(){const el=$('mpName');let n=(el&&el.value||'').trim().slice(0,16);if(!n)n='Rennleiter';lsSet('rc_name',n);return n}
 function netReset(){
   try{if(NET.peer)NET.peer.destroy()}catch(e){}
@@ -4699,7 +4738,7 @@ function copyInvite(){
   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(l).then(ok,fb);else fb();
 }
 let JOIN_CODE='';
-try{const q=new URLSearchParams(location.search).get('join');if(q&&/^[A-Z0-9]{4,6}$/i.test(q)){JOIN_CODE=q.toUpperCase();SEL.net='mp'}}catch(e){}
+try{const q=new URLSearchParams(location.search).get('join');if(q&&history.replaceState)history.replaceState(null,'',location.pathname)}catch(e){}
 function lobbyText(){
   const ch={calm:'Ruhig',normal:'Normal',wild:'Wild'}[SEL.chaos],wx={dry:'Trocken',mixed:'Wechselhaft',rain:'Regen'}[SEL.wx];
   return (SEL.mode==='season'?`Saison (${SEL.slen} Rennen)`:TRACKS[SEL.track].name)+` · ${SEL.laps} Runden · Chaos ${ch} · ${wx}`;
@@ -5025,9 +5064,9 @@ function renderPip(rdt){
 /* ---------- Mitspieler ---------- */
 async function netJoin(){
   if(NET.role||NET.joining)return;
-  const code=(($('mpCodeIn')||{}).value||'').trim().toUpperCase();
-  if(code.length<4){NET.st='Bitte den Spielcode des Hosts eingeben.';mpMenuRender();return}
-  NET.name=readName();NET.joining=true;NET.jid=Math.random().toString(36).slice(2,12);NET.st='Verbinde mit '+code+' …';mpMenuRender();await lobPrepJoin(code);
+  const code=String(NET.joinCode||'').toUpperCase();
+  if(code.length<4)return;
+  NET.name=readName();NET.joining=true;NET.jid=Math.random().toString(36).slice(2,12);NET.st='Verbinde …';mpMenuRender();await lobPrepJoin(code);
   const t0=performance.now();
   let done=false,p=null,p2pDead=FORCE_RELAY,relayDead=false,held=null,peerMissing=false;
   const tries=[];   // Relay-Versuche (je Server einer)
@@ -5053,10 +5092,10 @@ async function netJoin(){
   const check=()=>{
     if(done)return;
     if(p2pDead&&held)return win(held.conn,'relay',held.d);
-    if(p2pDead&&relayDead)fail(peerMissing?'Kein Spiel mit diesem Code gefunden – Code prüfen (der Host muss die Lobby offen haben).':'Keine Verbindung zum Host möglich. Tipp: „Verbindung testen“ und das Ergebnis an den Host schicken.');
+    if(p2pDead&&relayDead)fail(peerMissing?'Diese Lobby ist nicht mehr offen.':'Keine Verbindung zum Host möglich. Tipp: „Verbindung testen“ und das Ergebnis an den Host schicken.');
   };
   const hold=setTimeout(()=>{if(!done&&held)win(held.conn,'relay',held.d)},3000);
-  const to=setTimeout(()=>fail('Keine Antwort vom Host – Code prüfen und erneut versuchen.'),30000);
+  const to=setTimeout(()=>fail('Keine Antwort vom Host – bitte erneut versuchen.'),30000);
   // 1) alle Relays gleichzeitig
   relayJoin(code,tries,(conn,d)=>handle(conn,'relay',d),()=>done).then(()=>{if(!done){relayDead=true;check()}});
   // 2) Direktverbindung
@@ -5977,7 +6016,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='39.0';
+const GAMEVER='40.0';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -6004,9 +6043,9 @@ async function fbSend(){
   lsSet('rc_fb_name',name);
   const rep={name,kind,area,text,ver:GAMEVER,ua:navigator.userAgent.slice(0,120),t:new Date().toISOString(),imgs:FBIMG.length};
   if(BUGFORM.url){
-    const fd=new FormData();fd.append(BUGFORM.name,name);fd.append(BUGFORM.kind,kind);fd.append(BUGFORM.area,area);fd.append(BUGFORM.text,text);if(BUGFORM.ver)fd.append(BUGFORM.ver,GAMEVER+' · '+rep.ua);FBIMG.forEach((d,i)=>{if(BUGFORM.imgs&&BUGFORM.imgs[i])fd.append(BUGFORM.imgs[i],d)});
+    const fd=new FormData();fd.append(BUGFORM.name,idName(name));fd.append(BUGFORM.kind,kind);fd.append(BUGFORM.area,area);fd.append(BUGFORM.text,text);if(BUGFORM.ver)fd.append(BUGFORM.ver,GAMEVER+' · '+rep.ua);FBIMG.forEach((d,i)=>{if(BUGFORM.imgs&&BUGFORM.imgs[i])fd.append(BUGFORM.imgs[i],d)});
     st.textContent='Wird gesendet …';st.style.color='';
-    try{await fetch(BUGFORM.url,{method:'POST',mode:'no-cors',body:fd});st.textContent=tl('✓ Danke! Deine Meldung ist beim Entwickler angekommen.');st.style.color='var(--ok)';$('fbText').value='';FBIMG=[];fbImgRender()}
+    try{await fetch(BUGFORM.url,{method:'POST',mode:'no-cors',body:fd});st.textContent=tl('✓ Danke! Deine Meldung ist beim Entwickler angekommen.');st.style.color='var(--ok)';$('fbText').value='';FBIMG=[];fbImgRender();repStore({kind:'feedback',who:'',why:kind+' · '+area,text:text})}
     catch(e){st.textContent='Senden fehlgeschlagen – bist du online? Bitte später nochmal versuchen.';st.style.color='var(--acc2)'}
   }else{
     let L=[];try{L=JSON.parse(lsGet('rc_reports')||'[]')}catch(e){}L.push(rep);lsSet('rc_reports',JSON.stringify(L));
@@ -6463,7 +6502,7 @@ const EN={
 'RENNLEITUNGSZENTRALE':'RACE CONTROL CENTRE','SYSTEM BEREIT':'SYSTEM READY','KARRIERE':'CAREER','Noch keine Saison':'No season yet','WEITER ▸':'CONTINUE ▸',
 'SCHNELLES RENNEN':'QUICK RACE','1 RENNEN':'1 RACE','Strecke, Wetter und Chaos selbst wählen.':'Choose track, weather and chaos yourself.','START ▸':'START ▸',
 'SAISON':'SEASON','3–7 RENNEN':'3–7 RACES','Eigener Kalender mit Fahrer- und Teamwertung.':'Your own calendar with driver and team standings.','PLANEN ▸':'PLAN ▸',
-'MEHRSPIELER':'MULTIPLAYER','BIS 5 SPIELER':'UP TO 5 PLAYERS','Gemeinsam leiten – per Code oder Einladungslink.':'Direct races together – via code or invite link.','LOBBY ▸':'LOBBY ▸',
+'MEHRSPIELER':'MULTIPLAYER','BIS 5 SPIELER':'UP TO 5 PLAYERS','Gemeinsam leiten – offene Lobbies mit einem Klick betreten.':'Direct races together – join open lobbies with one click.','LOBBY ▸':'LOBBY ▸',
 'TUTORIAL':'TUTORIAL','LERNE DIE RENNLEITUNG':'LEARN RACE CONTROL','Geführte Tour durch Menü, Fenster und Spielprinzip – mit einem festgelegten Übungsrennen: Frühstart, Kollision, Flaggen und Stewards.':'Guided tour of the menu, windows and gameplay – with a fixed practice race: jump start, collision, flags and stewards.',
 'ca. 5 Minuten':'approx. 5 minutes','STARTEN ▸':'START ▸','FEEDBACK':'FEEDBACK','BUG ODER IDEE?':'BUG OR IDEA?','Melde Fehler oder schlag Verbesserungen vor – direkt an den Entwickler.':'Report bugs or suggest improvements – straight to the developer.','SCHREIBEN ▸':'WRITE ▸',
 'EIGENE STRECKEN':'CUSTOM TRACKS','Aus einem Bild erstellen oder selbst zeichnen.':'Create from an image or draw it yourself.','BAUEN ▸':'BUILD ▸','VERWALTEN ▸':'MANAGE ▸','alle Plätze belegt':'all slots used',
@@ -6531,7 +6570,7 @@ const LA={
 'RENNLEITUNGSZENTRALE':'CENTRUM MODERATORUM CURSUS','SYSTEM BEREIT':'SYSTEMA PARATUM','KARRIERE':'CURSUS HONORUM','Noch keine Saison':'Nondum ulla tempestas','WEITER ▸':'PERGE ▸',
 'SCHNELLES RENNEN':'CERTAMEN CELERE','1 RENNEN':'I CERTAMEN','Strecke, Wetter und Chaos selbst wählen.':'Stadium, caelum et chaos ipse elige.','START ▸':'INCIPE ▸',
 'SAISON':'TEMPESTAS','3–7 RENNEN':'III–VII CERTAMINA','Eigener Kalender mit Fahrer- und Teamwertung.':'Fasti tui cum ordine aurigarum et factionum.','PLANEN ▸':'PARA ▸',
-'MEHRSPIELER':'MULTI LUSORES','BIS 5 SPIELER':'USQUE AD V LUSORES','Gemeinsam leiten – per Code oder Einladungslink.':'Una regite – per signum aut nexum invitationis.','LOBBY ▸':'ATRIUM ▸',
+'MEHRSPIELER':'MULTI LUSORES','BIS 5 SPIELER':'USQUE AD V LUSORES','Gemeinsam leiten – offene Lobbies mit einem Klick betreten.':'Una regite – per signum aut nexum invitationis.','LOBBY ▸':'ATRIUM ▸',
 'TUTORIAL':'DISCIPLINA','LERNE DIE RENNLEITUNG':'DISCE CURSUM REGERE','Geführte Tour durch Menü, Fenster und Spielprinzip – mit einem festgelegten Übungsrennen: Frühstart, Kollision, Flaggen und Stewards.':'Iter ductum per tabulam, fenestras et artem ludi – cum certamine exercitationis: initium praematurum, collisio, vexilla et iudices.',
 'ca. 5 Minuten':'circa V minuta','STARTEN ▸':'INCIPE ▸','FEEDBACK':'NUNTIUS','BUG ODER IDEE?':'VITIUM AUT CONSILIUM?','Melde Fehler oder schlag Verbesserungen vor – direkt an den Entwickler.':'Nuntia vitia aut propone meliora – recta ad fabricatorem.','SCHREIBEN ▸':'SCRIBE ▸',
 'EIGENE STRECKEN':'STADIA PROPRIA','Aus einem Bild erstellen oder selbst zeichnen.':'Ex imagine crea aut ipse delinea.','BAUEN ▸':'AEDIFICA ▸','VERWALTEN ▸':'ADMINISTRA ▸','alle Plätze belegt':'omnia loca plena',
@@ -7008,8 +7047,17 @@ const MOD_SUB=[ // überall im Text (nach Entfernen aller Trennzeichen)
 const MOD_WORD=['88','18','1488','hh','ss','sa','kkk','kz','heil','hure','fick','fuck','shit','cunt','spast','juden','zigeuner']; // nur als eigenes Wort
 const MOD_OK=['nazion','nazar','scunthorpe','mongol'];  // harmlose Wörter, die verbotene Teile enthalten
 const MOD_NUM=/(^|\D)(1488|14\s*88|88\s*14)(\D|$)/;
+/* vom Admin nachträglich zugelassene Namen/Formen (config/allow, lokal zwischengespeichert) */
+let MOD_ALLOW=new Set();
+function modAllowRead(){try{MOD_ALLOW=new Set(JSON.parse(localStorage.getItem('rc_allow')||'[]'))}catch(_){MOD_ALLOW=new Set()}}
+modAllowRead();
+function modHashStr(s){let a=0xdeadbeef,b=0x41c6ce57;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);a=Math.imul(a^c,2654435761);b=Math.imul(b^c,1597334677)}a=Math.imul(a^(a>>>16),2246822507)^Math.imul(b^(b>>>13),3266489909);b=Math.imul(b^(b>>>16),2246822507)^Math.imul(a^(a>>>13),3266489909);return (4294967296*(2097151&b)+(a>>>0)).toString(36)}
+function modHash(pts){return modHashStr(pts.map(p=>(Math.round(p[0]*10)/10)+','+(Math.round(p[1]*10)/10)).join(';'))}
+function modAllowName(n){return MOD_ALLOW.size&&MOD_ALLOW.has('n_'+modHashStr(String(n).trim().toLowerCase()))}
+/* Chat: nur ganze Wörter prüfen, Zahlen und kurze Kürzel sind im Gespräch normal */
+function chatCheck(t){if(MOD_NUM.test(String(t)))return '1488';for(const w0 of String(t).split(/\s+/)){const w=modNorm(w0).replace(/[^a-z0-9]+/g,'');if(!w)continue;let j=w;MOD_OK.forEach(o=>{j=j.split(o).join('_')});for(const m of MOD_SUB)if(j.includes(m))return m;if(w.length>2&&MOD_WORD.includes(w)&&!/^\d+$/.test(w0))return w}return null}
 function modCheck(raw){
-  if(!raw)return null;const n=modNorm(raw);
+  if(!raw||modAllowName(raw))return null;const n=modNorm(raw);
   if(MOD_NUM.test(String(raw)))return '1488';
   let joined=n.replace(/[^a-z0-9]+/g,'');MOD_OK.forEach(o=>{joined=joined.split(o).join('_')});
   const single=joined.replace(/(.)\1+/g,'$1');
@@ -7026,6 +7074,7 @@ function modName(n,fb){return modCheck(n)?(fb||'Spieler'):n}
    sowie dreiarmige gedrehte Formen (Triskele) – jeweils nur bei vielen scharfen Ecken. */
 function modShape(pts){
   if(!pts||pts.length<20)return null;
+  if(MOD_ALLOW.size&&MOD_ALLOW.has('t_'+modHash(pts)))return null;
   const P=resamplePts(pts,240);let cx=0,cy=0;P.forEach(p=>{cx+=p[0];cy+=p[1]});cx/=P.length;cy/=P.length;
   let Q=P.map(p=>[p[0]-cx,p[1]-cy]);
   // Streckung/Stauchung ausgleichen (Weißung über die Kovarianz)
@@ -7066,7 +7115,7 @@ document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.targ
 /* ---------- Prüfpunkte ---------- */
 // eigene Strecken: beim Laden prüfen (auch alte Speicherstände)
 function modCheckSaved(){
-  let bad=0;CUST.forEach((c,i)=>{if(c&&(modCheck(c.name)||modShape(c.pts))){CUST[i]=null;bad++}});
+  let bad=0;CUST.forEach((c,i)=>{if(c&&(modCheck(c.name)||modShape(c.pts))){(window.RC_VIOQ=window.RC_VIOQ||[]).push({kind:'gespeicherte Strecke',val:c.name,track:c});CUST[i]=null;bad++}});
   if(bad){custSave();custApply();setTimeout(()=>modWarn(bad>1?bad+' gespeicherte Strecken':'Eine gespeicherte Strecke'),600)}
 }
 modCheckSaved();
@@ -7103,7 +7152,7 @@ function repOpen(pre){
   const pl=(typeof NET!=='undefined'&&NET.players||[]).filter(p=>p.id!==me).map(p=>p.name);
   const trName=G&&G.opts&&TRACKS[G.opts.track]?TRACKS[G.opts.track].name:(TRACKS[SEL.track]||{}).name||'';
   el.innerHTML=`<div class="mwBox rep"><div class="mwT">SPIELER ODER INHALT MELDEN</div>
-   <p class="mut sm">Die Meldung geht direkt an den Entwickler – mit Spielername, Strecke (als Bild), Lobby-Code, Uhrzeit und Spielversion.</p>
+   <p class="mut sm">Die Meldung geht direkt an den Entwickler – mit deinem Benutzernamen, Strecke (als Bild), Uhrzeit und Spielversion.</p>
    <h4>WER / WAS?</h4><input id="repWho" maxlength="40" list="repList" placeholder="Spielername oder Strecke" value="${esc(pre&&pre.who||'')}"><datalist id="repList">${pl.map(n=>`<option value="${esc(n)}">`).join('')}${trName?`<option value="Strecke: ${esc(trName)}">`:''}</datalist>
    <h4>GRUND</h4><select id="repWhy">${REP_WHY.map(r=>`<option value="${r}">${r}</option>`).join('')}</select>
    <h4>BESCHREIBUNG</h4><textarea id="repText" rows="4" maxlength="2000" placeholder="Was ist passiert?"></textarea>
@@ -7118,10 +7167,10 @@ async function repSend(){
   const full=`[MELDUNG] Gemeldet: ${who}\nGrund: ${why}\nLobby: ${lobby} · Strecke: ${G&&G.opts&&TRACKS[G.opts.track]?TRACKS[G.opts.track].name:'–'} · Zeit: ${new Date().toLocaleString('de-DE')}\nSpieler in der Lobby: ${(typeof NET!=='undefined'&&NET.players||[]).map(p=>p.name).join(', ')||'–'}\n\n${text||'(keine Beschreibung)'}`;
   const img=$('repImg').checked?repTrackImg():'';
   st.textContent=tl('Wird gesendet …');st.style.color='';
-  try{const fd=new FormData();fd.append(BUGFORM.name,modName(me,'Unbekannt'));fd.append(BUGFORM.kind,'Meldung');fd.append(BUGFORM.area,why);fd.append(BUGFORM.text,full);
+  try{const fd=new FormData();fd.append(BUGFORM.name,idName(modName(me,'Unbekannt')));fd.append(BUGFORM.kind,'Meldung');fd.append(BUGFORM.area,why);fd.append(BUGFORM.text,full);
     if(BUGFORM.ver)fd.append(BUGFORM.ver,GAMEVER+' · '+navigator.userAgent.slice(0,120));if(img&&BUGFORM.imgs)fd.append(BUGFORM.imgs[0],img);
     if(BUGFORM.who)fd.append(BUGFORM.who,who);if(BUGFORM.why)fd.append(BUGFORM.why,why);if(BUGFORM.lobby)fd.append(BUGFORM.lobby,lobby);
-    await fetch(BUGFORM.url,{method:'POST',mode:'no-cors',body:fd});
+    await fetch(BUGFORM.url,{method:'POST',mode:'no-cors',body:fd});repStore(Object.assign({kind:'sonstiges'},REP||{},{who:who,why:why,text:text}));REP=null;
     st.textContent=tl('✓ Danke! Die Meldung wurde an den Entwickler geschickt.');st.style.color='var(--ok)';setTimeout(()=>$('repBox').classList.add('hide'),1600)}
   catch(e){st.textContent=tl('Senden fehlgeschlagen – bist du online?');st.style.color='var(--acc2)'}
 }
@@ -7136,7 +7185,7 @@ Object.assign(EN,{'VERWARNUNG':'WARNING','Verstanden':'Understood','Melden':'Rep
  'Bild der aktuellen Strecke anhängen':'Attach image of the current track','Meldung erstellen':'Create report','Einen Spieler, Namen oder eine Strecke melden?':'Report a player, name or track?',
  '✗ Diese Form ist nicht erlaubt.':'✗ This shape is not allowed.','✓ Danke! Die Meldung wurde an den Entwickler geschickt.':'✓ Thanks! The report was sent to the developer.','Bitte angeben, wen oder was du meldest.':'Please state who or what you are reporting.',
  'Verfassungsfeindliches Symbol / NS-Anspielung':'Anti-constitutional symbol / Nazi reference','Rassismus':'Racism','Beleidigung':'Insult','Unpassender Name':'Inappropriate name','Unpassende Strecke':'Inappropriate track',
- 'Die Meldung geht direkt an den Entwickler – mit Spielername, Strecke (als Bild), Lobby-Code, Uhrzeit und Spielversion.':'The report goes straight to the developer – with player name, track (as image), lobby code, time and game version.'});
+ 'Die Meldung geht direkt an den Entwickler – mit deinem Benutzernamen, Strecke (als Bild), Uhrzeit und Spielversion.':'The report goes straight to the developer – with player name, track (as image), lobby code, time and game version.'});
 Object.assign(LA,{'VERWARNUNG':'ADMONITIO','Verstanden':'Intellexi','Melden':'Defer','Abbrechen':'Desine','Meldung senden':'Delationem mitte','GRUND':'CAUSA'});
 
 /* =====================================================================
@@ -7194,7 +7243,7 @@ function scDriveStep(dt,tg){
 }}
 /* Tasten: nur abfangen, solange man selbst das Safety Car fährt (sonst bleibt S = Safety-Car-Flagge) */
 function scKey(e,down){
-  const k=(e.key||'').toLowerCase();if(!'wasd'.includes(k)||k.length!==1)return;
+  const kk=(e.key||'').toLowerCase(),k='wasd'.split('').find(x=>(SETS['key_'+x]||x)===kk)||{arrowup:'w',arrowleft:'a',arrowdown:'s',arrowright:'d'}[kk];if(!k)return;
   if(!G||!scAmDriver()||!scActive())return;
   if(e.target&&/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
   e.stopImmediatePropagation();e.preventDefault();if(SCK[k]===down)return;SCK[k]=down;scSendIn();
@@ -7433,7 +7482,7 @@ drawRoadCar=function(x,y,a){
   ctx.restore();
 };
 /* ---------- Modus „Vortag“ ---------- */
-let EVE={kind:'solo',track:0,laps:8,opp:5,lvl:'mid',rl:3};
+let EVE={kind:'solo',track:0,laps:8};
 function eveHTML(){
   const opts=TRACKS.map((t,i)=>`<option value="${i}" ${i===EVE.track?'selected':''}>${esc(t.name)}</option>`).join('');
   return `<div class="fb eve">
@@ -7441,18 +7490,14 @@ function eveHTML(){
    <div class="eveCards">
     <div class="eveCard ${EVE.kind==='solo'?'on':''}" data-eve="solo"><b>SAFETY CAR TESTEN</b><span>Allein auf der Strecke – keine anderen Autos. Runden fahren, Zeiten messen, sauber auf der Strecke bleiben. W/A/S/D.</span></div>
     <div class="eveCard ${EVE.kind==='cruise'?'on':''}" data-eve="cruise"><b>ZUSCHAUEN & ENTSPANNEN</b><span>Die Formel-1-Autos fahren ihre Runden – ohne Unfälle, ohne Strafen. Du kannst nicht eingreifen, nur zuschauen.</span></div>
-    <div class="eveCard ${EVE.kind==='race'?'on':''}" data-eve="race"><b>SAFETY-CAR-RENNEN</b><span>Rennen gegen andere Safety Cars. Start vom letzten Platz, drei rote Lampen, dann zählt nur noch die Ziellinie.</span></div>
+    <div class="eveCard ${EVE.kind==='race'?'on':''}" data-eve="race"><b>SAFETY-CAR-RENNEN</b><span>Rennen gegen andere Spieler und KI-Gegner. Eröffne eine Lobby oder tritt einer bei.</span></div>
    </div>
    <div class="setGrid">
     <div><h4>STRECKE</h4><select id="eveTrack">${opts}</select></div>
     <div class="${EVE.kind==='cruise'?'':'hide'}" id="eveLapsBox"><h4>RUNDEN</h4><div class="seg" id="eveLaps">${[5,10,20].map(n=>`<span data-evl="${n}" class="${EVE.laps===n?'on':''}">${n}</span>`).join('')}</div></div>
    </div>
-   ${EVE.kind==='race'?`<div class="setGrid scrOpts">
-    <div><h4>GEGNER</h4><div class="seg">${[1,3,5,7].map(n=>`<span data-evo="opp:${n}" class="${EVE.opp===n?'on':''}">${n}</span>`).join('')}</div></div>
-    <div><h4>STÄRKE</h4><div class="seg">${[['easy','Leicht'],['mid','Mittel'],['hard','Schwer']].map(n=>`<span data-evo="lvl:${n[0]}" class="${EVE.lvl===n[0]?'on':''}">${n[1]}</span>`).join('')}</div></div>
-    <div><h4>RENNRUNDEN</h4><div class="seg">${[2,3,5].map(n=>`<span data-evo="rl:${n}" class="${EVE.rl===n?'on':''}">${n}</span>`).join('')}</div></div>
-   </div>`:''}
-   <div class="fbrow"><button class="btn primary" data-eve="go">${EVE.kind==='solo'?'Losfahren':EVE.kind==='race'?'Rennen starten':'Zuschauen'}</button></div>
+   ${EVE.kind==='race'?`<div class="lobBox"><div class="lbTitle">OFFENE SC-LOBBIES</div><div class="lobList" data-k="sc">${lobRows('sc')}</div></div>`:''}
+   <div class="fbrow"><button class="btn primary" data-eve="go">${EVE.kind==='solo'?'Losfahren':EVE.kind==='race'?'Lobby eröffnen':'Zuschauen'}</button></div>
   </div>`;
 }
 function eveOpen(){
@@ -7461,11 +7506,10 @@ function eveOpen(){
   p.classList.remove('hide');p.innerHTML=eveHTML();lShow('setup','VORTAG DES RENNENS');trAll&&trAll();
 }
 document.addEventListener('click',e=>{
-  const q=e.target&&e.target.closest&&e.target.closest('[data-eve],[data-evl],[data-evo]');if(!q)return;e.stopPropagation();
+  const q=e.target&&e.target.closest&&e.target.closest('[data-eve],[data-evl]');if(!q)return;e.stopPropagation();
   if($('eveTrack'))EVE.track=+$('eveTrack').value;
-  if(q.dataset.evo){const [k,v]=q.dataset.evo.split(':');EVE[k]=k==='lvl'?v:+v;eveOpen();return}
   if(q.dataset.evl){EVE.laps=+q.dataset.evl;eveOpen();return}
-  const v=q.dataset.eve;if(v==='go'){EVE.track=+$('eveTrack').value;eveStart();return}
+  const v=q.dataset.eve;if(v==='go'){EVE.track=+$('eveTrack').value;if(EVE.kind==='race')sclHost();else eveStart();return}
   EVE.track=+($('eveTrack')||{value:EVE.track}).value;EVE.kind=v;eveOpen();
 },true);
 {const ha4=homeAct;homeAct=function(a){if(a==='eve'){eveOpen();return}if($('lEve'))$('lEve').classList.add('hide');return ha4(a)}}
@@ -7864,28 +7908,209 @@ Object.assign(EN,{'ONLINE-RANGLISTE':'ONLINE LEADERBOARD','beste Runde je Fahrhi
  'NEUE BESTZEIT':'NEW BEST TIME','PLATZ':'RANK','Platz':'rank','Neue persönliche Bestzeit':'New personal best','RANGLISTE':'LEADERBOARD','Zeit konnte nicht gespeichert werden.':'Time could not be saved.'});
 
 /* =====================================================================
-   RACE CONTROL 42 – Online (öffentliche Lobbies, Strecken-Uploads) und Safety-Car-Rennen
+   RACE CONTROL 44 – Lobbies ohne Code und Safety-Car-Rennen im Mehrspieler
    ===================================================================== */
-for(const [k,v] of Object.entries({lobVis:'priv',scrOpp:'5',scrLvl:'mid',scrLaps:'3'}))if(SETS[k]==null)SETS[k]=v;
-function scrDefaults(){EVE.opp=+SETS.scrOpp||5;EVE.lvl=SETS.scrLvl||'mid';EVE.rl=+SETS.scrLaps||3}
-scrDefaults();
+for(const [k,v] of Object.entries({scrOpp:'3',scrLvl:'mid',scrLaps:'3',key_w:'w',key_a:'a',key_s:'s',key_d:'d'}))if(SETS[k]==null)SETS[k]=v;
+const acc42=()=>{const A=window.RCACC;return A&&A.user&&A.db&&!A.offline?A:null};
 /* =====================================================================
-   1) Safety-Car-Rennen (Vortag)
+   1) Lobbies – Firestore lobbies/{uid des Hosts}. Jede Lobby ist sichtbar; ein Passwort ist optional.
+   Das Passwort steht nie in der Datenbank: der Host prüft einen daraus berechneten Nachweis.
+   ===================================================================== */
+const LOB={pw:'',list:[],unsub:null,err:false,joinPw:'',joinTok:'',proof:null,tkp:null,ask:null,askOpen:null,lastPub:'',pubT:0,fails:0,up:false,toks:[]};
+NET.kind='race';NET.joinCode='';
+async function lobProof(pw,code,jid){
+  const enc=new TextEncoder(),k=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveBits']);
+  const b=await crypto.subtle.deriveBits({name:'PBKDF2',salt:enc.encode('rc-lobby|'+code+'|'+jid),iterations:60000,hash:'SHA-256'},k,256);
+  return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+function helloMsg(){const m={t:'hello',name:NET.name,jid:NET.jid};if(LOB.proof)m.pw=LOB.proof;if(LOB.tkp)m.tk=LOB.tkp;return m}
+async function lobPrepJoin(code){LOB.proof=LOB.tkp=null;LOB.ask=null;try{if(LOB.joinPw)LOB.proof=await lobProof(LOB.joinPw,code,NET.jid);if(LOB.joinTok)LOB.tkp=await lobProof('tok:'+LOB.joinTok,code,NET.jid)}catch(_){}}
+function lobBadPw(code){LOB.ask=code;const had=!!LOB.joinPw;LOB.joinPw=LOB.joinTok='';LOB.proof=LOB.tkp=null;return had?tl('Falsches Passwort.'):tl('Diese Lobby ist mit einem Passwort geschützt.')}
+{const hm=hostMsg;hostMsg=function(conn,d){
+  if(d&&d.t==='hello'&&LOB.pw&&NET.role==='host'){
+    const code=NET.code,pw=LOB.pw,jid=String(d.jid||'');
+    (async()=>{let ok=false;try{
+        if(jid&&typeof d.pw==='string')ok=await lobProof(pw,code,jid)===d.pw;
+        if(!ok&&jid&&typeof d.tk==='string')for(const t of LOB.toks.slice(-12))if(await lobProof('tok:'+t,code,jid)===d.tk){ok=true;break}   // Einladung eines Freundes
+      }catch(_){}
+      if(!ok&&(d.pw||d.tk)){LOB.fails++;await new Promise(r=>setTimeout(r,Math.min(4000,LOB.fails*250)))}   // bremst Passwort-Raten
+      if(NET.role!=='host'||NET.code!==code)return;
+      if(ok){try{hm(conn,d)}catch(e){console.error(e)}}else{try{conn.send({t:'badpw'})}catch(_){}setTimeout(()=>{try{conn.close()}catch(_){}},800)}})();
+    return}
+  return hm(conn,d)}}
+function lobTxt(){return NET.kind==='sc'?`${(TRACKS[SCM.track]||{}).name||''} · ${SCM.laps} Runden · ${SCM.opp} KI-Gegner`:lobbyText()}
+function lobDoc(){
+  const tr=NET.kind==='sc'?TRACKS[SCM.track]:SEL.mode==='season'?null:TRACKS[SEL.track];let tx=lobTxt().slice(0,120);if(modCheck(tx))tx='';
+  return {host:acc42().user.uid,n:modName(String(NET.name||'Rennleiter').slice(0,16),'Spieler'),code:NET.code,txt:tx,pl:NET.players.length,max:MAXP,pw:!!LOB.pw,st:G&&!G.ended?'race':'lobby',v:String(GAMEVER),
+    trk:tr&&!modCheck(tr.name)?String(tr.name).slice(0,28):'',k:NET.kind==='sc'?'sc':'race'};
+}
+async function lobPub(force){
+  const A=acc42();if(!A)return;
+  if(NET.role!=='host'||!NET.code){if(LOB.up){LOB.up=false;LOB.lastPub='';try{await A.db.collection('lobbies').doc(A.user.uid).delete()}catch(_){}}return}
+  const d=lobDoc(),s=JSON.stringify(d);
+  if(!force&&s===LOB.lastPub&&Date.now()-LOB.pubT<25000)return;
+  LOB.lastPub=s;LOB.pubT=Date.now();LOB.up=true;
+  try{await A.db.collection('lobbies').doc(A.user.uid).set(Object.assign(d,{at:firebase.firestore.FieldValue.serverTimestamp()}));LOB.err=false}
+  catch(e){LOB.err=true;LOB.lastPub='';if(!G)mpMenuRender()}
+}
+setInterval(()=>lobPub(false),3000);
+addEventListener('pagehide',()=>{const A=acc42();if(A&&LOB.up){LOB.up=false;try{A.db.collection('lobbies').doc(A.user.uid).delete()}catch(_){}}});
+{const nr=netReset;netReset=function(){const r=nr.apply(this,arguments);LOB.pw='';LOB.fails=0;LOB.toks=[];NET.kind='race';SCM.view=null;lobPub(true);return r}}
+{const rn=readName;readName=function(){if($('mpName'))return rn();const A=acc42();return (lsGet('rc_name')||(A&&A.name)||'Rennleiter').slice(0,16)}}
+/* --- Liste --- */
+function lobVisible(){const m=$('menu');if(!m||m.classList.contains('hide')||G||NET.role)return false;return [...document.querySelectorAll('.lobList')].some(b=>b.offsetParent!==null)}
+function lobWatch(){
+  const A=acc42(),on=A&&lobVisible();
+  if(on&&!LOB.unsub){
+    LOB.unsub=A.db.collection('lobbies').orderBy('at','desc').limit(30).onSnapshot(sn=>{LOB.err=false;LOB.list=sn.docs.map(d=>{const v=d.data();return Object.assign({id:d.id},v,{ms:v.at&&v.at.toMillis?v.at.toMillis():Date.now()})});lobPaint()},()=>{LOB.err=true;LOB.unsub=null;LOB.list=[];lobPaint()});
+  }else if(!on&&LOB.unsub){try{LOB.unsub()}catch(_){}LOB.unsub=null}
+}
+setInterval(lobWatch,1000);setInterval(()=>{if(LOB.unsub)lobPaint()},10000);
+function lobRows(kind){
+  const A=acc42();if(!A)return `<div class="lbE">${tl('Lobbies gibt es nur mit Konto.')}</div>`;
+  if(LOB.err)return `<div class="lbE">${tl('Lobbies sind gerade nicht erreichbar.')}</div>`;
+  const L=LOB.list.filter(l=>Date.now()-l.ms<90000&&l.id!==A.user.uid&&typeof l.code==='string'&&/^[A-Z0-9]{4,12}$/.test(l.code)&&(!kind||(l.k||'race')===kind));
+  if(!L.length)return `<div class="lbE">${tl('Gerade ist keine Lobby offen – eröffne doch selbst eine.')}</div>`;
+  return L.map(l=>{const full=l.pl>=l.max,old=l.v!==String(GAMEVER),nm=modName(String(l.n||'?').slice(0,16),'Spieler'),tx=modCheck(l.txt)?'':String(l.txt||'').slice(0,120);
+    return `<div class="lobR"><span class="lobK ${l.k==='sc'?'sc':''}">${l.k==='sc'?tl('SC-RENNEN'):tl('RENNLEITUNG')}</span><div class="lobI"><b>${esc(nm)}</b><span>${esc(tx)}</span></div>${l.pw?`<span class="lobT">${tl('Passwort')}</span>`:''}<span class="lobT ${l.st==='race'?'run':''}">${l.st==='race'?tl('Rennen läuft'):tl('In der Lobby')}</span><span class="lobN">${+l.pl||1}/${+l.max||5}</span>
+      ${LOB.askOpen===l.id?`<input class="lobPw" type="password" maxlength="24" placeholder="${tl('Passwort')}" autocomplete="off"><button class="btn primary sm" data-lob="pw:${esc(l.id)}">${tl('Beitreten')}</button>`:
+      `<button class="btn primary sm" data-lob="join:${esc(l.id)}" ${full||old||NET.joining?'disabled':''}>${old?tl('Andere Version'):full?tl('Voll'):tl('Beitreten')}</button>`}</div>`}).join('');
+}
+function lobPaint(){document.querySelectorAll('.lobList').forEach(b=>{if(b.offsetParent===null)return;if(b.querySelector('.lobPw'))return;b.innerHTML=lobRows(b.dataset.k)})}
+function lobGo(l,pw,tok){
+  if(NET.joining)return;if(NET.role)netLeave();
+  LOB.askOpen=null;LOB.joinPw=pw||'';LOB.joinTok=tok||'';NET.joinCode=l.code;NET.kind=l.k==='sc'?'sc':'race';const kind=NET.kind;
+  homeAct('mp');NET.kind=kind;NET.joinCode=l.code;mpMenuRender();netJoin();
+}
+/* --- Einladung: Zugangsschlüssel, gilt auch bei gesetztem Passwort --- */
+function lobToken(){const t=Array.from(crypto.getRandomValues(new Uint8Array(9))).map(x=>x.toString(36).padStart(2,'0')).join('');LOB.toks.push(t);return t}
+/* --- Mehrspieler-Menü (ohne Code) --- */
+function lobPwBox(){return `<div class="lobHostB"><div class="mpSt">${tl('PASSWORT (OPTIONAL)')}</div><input id="lobPwH" maxlength="24" autocomplete="off" placeholder="${tl('kein Passwort')}" value="${esc(LOB.pw)}"></div>
+  <div class="mpSt" style="flex:1;min-width:200px">${acc42()?(LOB.err?tl('Lobby konnte nicht veröffentlicht werden.'):tl('Deine Lobby steht in der Liste – jeder kann mit einem Klick beitreten.')):tl('Lobbies gibt es nur mit Konto.')} ${LOB.pw?tl('Das Passwort wird beim Beitreten abgefragt. Eingeladene Freunde brauchen keins.'):''}</div>`}
+function lobPlayers(){return `<div class="mpPl">${NET.players.map(p=>`<span><i style="background:${esc(p.col)}"></i>${esc(p.name)}${p.id==='host'?' <small class="mut">Host</small>':p.via==='relay'?' <small class="mut">Relay</small>':p.via==='p2p'?' <small class="mut">Direkt</small>':''}</span>`).join('')}</div>`}
+function lobAskHTML(){return LOB.ask?`<div class="mrow lobAsk"><span class="mpSt">${tl('Passwort der Lobby')}</span><input id="lobPwC" type="password" maxlength="24" autocomplete="off"><button class="btn primary" data-lob="code:${esc(LOB.ask)}">${tl('Beitreten')}</button></div>`:''}
+mpMenuRender=function(){
+  const box=$('mpBox');if(!box)return;
+  const sc=NET.kind==='sc'&&(NET.role||NET.joining),on=(SEL.net==='mp'||!!NET.role)&&!sc;
+  $('menu').classList.toggle('mpClient',NET.role==='client');
+  box.classList.toggle('hide',!on);
+  if(sc&&!G)sclOpen();
+  if(!on)return;
+  const ae=document.activeElement,act=ae&&ae.id,pos=act==='lobPwH'||act==='mpName'?ae.selectionStart:null,nmOld=$('mpName')?$('mpName').value:null,pwc=$('lobPwC')?$('lobPwC').value:'';
+  const drv=scMpDriver(),pl=NET.players||[];let h;
+  if(NET.role==='host')h=`<div class="mrow"><div class="mpHd">${tl('DEINE LOBBY')}</div><div style="flex:1"></div><button class="btn" data-so="invite">${tl('Freunde einladen')}</button><button class="btn" data-mp="leave">${tl('Lobby schließen')}</button></div>
+    <div class="mrow lobHost">${lobPwBox()}</div>${lobPlayers()}
+    <div class="mrow scDrv"><div class="mpSt"><b>SAFETY-CAR-FAHRER</b> (Pflicht) – fährt das Safety Car, sobald es ausrückt. Sonst ist er normaler Rennleiter.</div><div class="seg scDrvSeg">${pl.map(p=>`<span data-scdrv="${esc(p.id)}" class="${p.id===drv?'on':''}">${esc(p.name)}</span>`).join('')}</div></div>
+    <div class="mpSt">Dein PC berechnet das Rennen – lass dieses Fenster bitte im Vordergrund. Höchstens ${MAXP} Spieler.</div>`;
+  else if(NET.role==='client')h=`<div class="mrow"><div class="mpHd">${tl('LOBBY BEIGETRETEN')}</div><div class="mpSt" style="flex:1;min-width:220px">${NET.lobbyTxt?`Host wählt: <b style="color:var(--tx)">${esc(NET.lobbyTxt)}</b><br>`:''}Warte auf den Start durch den Host …</div><button class="btn" data-mp="leave">${tl('Verlassen')}</button></div>${lobPlayers()}
+    <div class="mrow scDrv"><div class="mpSt"><b>SAFETY-CAR-FAHRER:</b> ${esc((pl.find(p=>p.id===NET.scdLobby)||{}).name||'–')}${NET.scdLobby&&NET.scdLobby===NET.myId?' – <b style="color:var(--warn)">das bist du!</b>':''}</div></div>`;
+  else h=`<div class="mrow"><input id="mpName" maxlength="16" placeholder="Dein Name" value="${esc(nmOld!=null?nmOld:(NET.name||lsGet('rc_name')||''))}"><button class="btn primary" data-mp="host">${tl('Lobby eröffnen')}</button></div>${lobAskHTML()}
+    <div class="lobBox"><div class="lbTitle">${tl('OFFENE LOBBIES')}</div><div class="lobList">${lobRows()}</div></div>
+    <div class="mpSt" style="margin-top:8px">Regeln im Mehrspieler: <b>keine Pause</b> und <b>keine Vorfall-Meldungen</b>. Beobachtet das Rennen, klickt ein verdächtiges Auto an und drückt <b>E</b> (Untersuchen). Während der Überprüfung läuft das Rennen im kleinen Fenster weiter.</div>`;
+  if(NET.st)h+=`<div class="mpSt" style="color:var(--warn);margin-top:6px">${esc(NET.st)}</div>`;
+  if(NET.role==='host')h+=`<div class="mpSt" style="margin-top:6px">Erreichbar: ${NET.peer?'Direkt ✓':'Direkt ✗'} · Relay-Server ${NET.rel.length}/${RELAYS.length}</div>`;
+  if(NET.diag)h+=`<div class="mpSt" style="margin-top:6px;line-height:1.5">${NET.diag}</div>`;
+  h+=`<div class="mrow" style="margin-top:6px"><button class="btn" data-mp="diag">Verbindung testen</button><span class="mpSt">Verbindungs-Version ${NETV}</span></div>`;
+  box.innerHTML=h;if($('lobPwC'))$('lobPwC').value=pwc;
+  if(act&&['lobPwH','mpName','lobPwC'].includes(act)&&$(act)){$(act).focus();if(pos!=null)try{$(act).setSelectionRange(pos,pos)}catch(_){}}
+  trAll&&trAll();lobWatch();
+};
+document.addEventListener('input',e=>{if(e.target&&e.target.id==='lobPwH')LOB.pw=e.target.value.trim().slice(0,24)});
+document.addEventListener('change',e=>{if(e.target&&e.target.id==='lobPwH'){lobPub(true);mpMenuRender()}});
+document.addEventListener('keydown',e=>{if(e.key!=='Enter'||!e.target||!e.target.classList)return;if(e.target.classList.contains('lobPw')||e.target.id==='lobPwC'){const b=e.target.parentNode.querySelector('[data-lob]');if(b)b.click()}});
+document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-lob]');if(!q||q.disabled)return;e.preventDefault();e.stopPropagation();
+  const i=q.dataset.lob.indexOf(':'),a=q.dataset.lob.slice(0,i),v=q.dataset.lob.slice(i+1),l=LOB.list.find(x=>x.id===v);
+  if(a==='join'&&l){if(l.pw){LOB.askOpen=l.id;const b=q.closest('.lobList');b.innerHTML=lobRows(b.dataset.k);LOB.askOpen=null;const p=b.querySelector('.lobPw');if(p)p.focus()}else lobGo(l,'')}
+  else if(a==='pw'&&l){const p=q.parentNode.querySelector('.lobPw').value.trim();if(p)lobGo(l,p)}
+  else if(a==='code'){const p=$('lobPwC').value.trim();if(!p)return;const k=NET.kind;LOB.joinPw=p;LOB.joinTok='';NET.joinCode=v;NET.kind=k;netJoin()}
+},true);
+{const nh=netHost;netHost=function(kind){LOB.pw='';LOB.toks=[];NET.kind=kind==='sc'?'sc':'race';return nh.apply(this,[])}}
+/* =====================================================================
+   2) Safety-Car-Rennen: Lobby
    ===================================================================== */
 const SCR_LVL={easy:{n:'Leicht',c:.78,v:.86},mid:{n:'Mittel',c:.88,v:.93},hard:{n:'Schwer',c:.97,v:.985}};
 const SCR_CARS=[['Bernd','#e10600'],['Lotta','#14c0ff'],['Mick','#3ddc84'],['Greta','#ff5fa2'],['Kalle','#b388ff'],['Jonte','#ffd34d'],['Frieda','#ff8a00']];
-function scrStart(){
-  const n=EVE.opp,L=SCR_LVL[EVE.lvl]||SCR_LVL.mid,S=G.sc;
-  const slot=i=>T.L-50-i*40,lane=i=>(i%2?1:-1)*HALF*.38;
-  const opp=[];for(let i=0;i<n;i++){const j=(Math.random()-.5)*.05;
-    opp.push({name:SCR_CARS[i][0],col:SCR_CARS[i][1],dist:slot(i),d:lane(i),v:0,yaw:0,c:L.c+j,vm:SC_VTOP*(L.v+j*.5),lane:(Math.random()-.5)*HALF*.5,react:.1+Math.random()*.35,fin:null})}
-  S.dist=slot(n);S.d=lane(n);S.v=0;S.yaw=0;
-  G.scRace={laps:EVE.rl,opp,t:0,cd:4,on:false,fin:null,hold:0,lamp:-1,res:false};
+const SCM={track:0,laps:3,opp:3,lvl:'mid',view:null};
+function scrDefaults(){SCM.opp=clamp(+SETS.scrOpp||0,0,7);SCM.lvl=SCR_LVL[SETS.scrLvl]?SETS.scrLvl:'mid';SCM.laps=+SETS.scrLaps||3}
+scrDefaults();
+function sclView(){return {name:(TRACKS[SCM.track]||{}).name||'',laps:SCM.laps,opp:SCM.opp,lvl:SCM.lvl}}
+function sclSend(){if(NET.role==='host'&&NET.kind==='sc')netAll({t:'scl',cfg:sclView()});lobPub(true)}
+function sclHide(){const p=$('lScl');if(p)p.classList.add('hide')}
+function sclOpen(){
+  ['lHelp','lOpts','lFb','lTe','lSet','lEve','lOnl'].forEach(id=>$(id)&&$(id).classList.add('hide'));
+  let p=$('lScl');if(!p){p=document.createElement('div');p.id='lScl';$('lSet').parentNode.appendChild(p)}
+  p.classList.remove('hide');sclRender();lShow('setup','SAFETY-CAR-RENNEN');
+}
+function sclRender(){
+  const p=$('lScl');if(!p||p.classList.contains('hide'))return;
+  const ae=document.activeElement,act=ae&&ae.id,pos=act==='lobPwH'?ae.selectionStart:null,pwc=$('lobPwC')?$('lobPwC').value:'';
+  const seg=(k,o)=>`<div class="seg">${o.map(x=>`<span data-scl="${k}:${x[0]}" class="${String(SCM[k])===String(x[0])?'on':''}">${tl(x[1])}</span>`).join('')}</div>`;
+  let h;
+  if(NET.role==='host'){
+    h=`<div class="mrow"><div class="mpHd">${tl('DEINE LOBBY')}</div><div style="flex:1"></div><button class="btn" data-so="invite">${tl('Freunde einladen')}</button><button class="btn" data-scl="leave:">${tl('Lobby schließen')}</button></div>${lobPlayers()}
+     <div class="setGrid scrOpts"><div><h4>STRECKE</h4><select id="sclTrack">${TRACKS.map((t,i)=>`<option value="${i}" ${i===SCM.track?'selected':''}>${esc(t.name)}</option>`).join('')}</select></div>
+      <div><h4>RENNRUNDEN</h4>${seg('laps',[[2,'2'],[3,'3'],[5,'5'],[8,'8']])}</div><div><h4>KI-GEGNER</h4>${seg('opp',[[0,'Keine'],[1,'1'],[3,'3'],[5,'5'],[7,'7']])}</div><div><h4>STÄRKE DER KI</h4>${seg('lvl',[['easy','Leicht'],['mid','Mittel'],['hard','Schwer']])}</div></div>
+     <div class="mrow lobHost">${lobPwBox()}</div>
+     <div class="fbrow"><button class="btn primary" data-scl="start:" ${NET.players.length+SCM.opp<2?'disabled':''}>${NET.players.length+SCM.opp<2?tl('Warte auf Mitspieler oder füge KI-Gegner hinzu'):tl('Rennen starten')} · ${NET.players.length} ${tl('Spieler')}</button></div>
+     <p class="mut sm">${tl('Alle fahren auf ihrem eigenen Gerät. Lass dieses Fenster im Vordergrund, solange KI-Gegner mitfahren.')}</p>`;
+  }else if(NET.role==='client'){const c=SCM.view;
+    h=`<div class="mrow"><div class="mpHd">${tl('LOBBY BEIGETRETEN')}</div><div class="mpSt" style="flex:1">${tl('Warte auf den Start durch den Host …')}</div><button class="btn" data-scl="leave:">${tl('Verlassen')}</button></div>${lobPlayers()}
+     ${c?`<div class="sclInfo"><div><span>${tl('Strecke')}</span><b>${esc(c.name)}</b></div><div><span>${tl('Runden')}</span><b>${esc(c.laps)}</b></div><div><span>${tl('KI-Gegner')}</span><b>${esc(c.opp)}</b></div><div><span>${tl('Stärke')}</span><b>${tl((SCR_LVL[c.lvl]||SCR_LVL.mid).n)}</b></div></div>`:''}`;
+  }else h=`${lobAskHTML()}<div class="lbE">${NET.joining?tl('Verbinde …'):''}</div><div class="fbrow"><button class="btn" data-scl="back:">${tl('Zurück')}</button></div>`;
+  if(NET.st)h+=`<div class="mpSt" style="color:var(--warn);margin-top:6px">${esc(NET.st)}</div>`;
+  p.innerHTML=`<div class="fb scl">${h}</div>`;if($('lobPwC'))$('lobPwC').value=pwc;
+  if(act&&['lobPwH','lobPwC'].includes(act)&&$(act)){$(act).focus();if(pos!=null)try{$(act).setSelectionRange(pos,pos)}catch(_){}}
+  trAll&&trAll();
+}
+function sclHost(){if(NET.role)netLeave();if(!acc42()){NET.st=tl('Lobbies gibt es nur mit Konto.')}scrDefaults();SCM.track=clamp(EVE.track,0,TRACKS.length-1);SETM_mp();netHost('sc');sclOpen();try{window.rcEv&&rcEv('sc_lobby')}catch(_){}}
+function SETM_mp(){try{setSeg('net','mp')}catch(_){SEL.net='mp'}}
+document.addEventListener('change',e=>{if(e.target&&e.target.id==='sclTrack'){SCM.track=+e.target.value;EVE.track=SCM.track;sclSend();sclRender()}});
+document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-scl]');if(!q||q.disabled)return;e.preventDefault();e.stopPropagation();
+  const i=q.dataset.scl.indexOf(':'),a=q.dataset.scl.slice(0,i),v=q.dataset.scl.slice(i+1);
+  if(a==='host')sclHost();
+  else if(a==='leave'){netLeave();SEL.net='solo';sclHide();homeAct('online')}
+  else if(a==='back'){NET.kind='race';LOB.ask=null;NET.st='';sclHide();homeAct('online')}
+  else if(a==='start')scmHostGo();
+  else if(NET.role==='host'){SCM[a]=a==='lvl'?v:+v;sclSend();sclRender()}
+},true);
+{const hp=hostPicked;hostPicked=function(conn,pl){const r=hp(conn,pl);if(NET.kind==='sc'){try{conn.send({t:'scl',cfg:sclView()})}catch(_){}if(!G)sclRender()}return r}}
+/* im SC-Modus führt das Menü immer zur SC-Lobby */
+{const im=initMenu;initMenu=function(){sclHide();im();if(NET.role&&NET.kind==='sc'&&!G)sclOpen()}}
+{const ha=homeAct;homeAct=function(a){
+  if(NET.role&&NET.kind==='sc'&&(a==='online'||a==='mp')){sclOpen();return}
+  sclHide();const r=ha(a);return r}}
+/* =====================================================================
+   3) Safety-Car-Rennen: Ablauf. Jeder rechnet sein eigenes Auto, der Host zusätzlich die KI und verteilt alle Positionen.
+   ===================================================================== */
+function scmHostGo(){
+  if(NET.role!=='host'||G)return;
+  const L=SCR_LVL[SCM.lvl],ai=[];
+  for(let i=0;i<SCM.opp;i++){const j=(Math.random()-.5)*.05;ai.push({name:SCR_CARS[i][0],col:SCR_CARS[i][1],c:L.c+j,vm:SC_VTOP*(L.v+j*.5),lane:(Math.random()-.5)*HALF*.5,react:.1+Math.random()*.35})}
+  const grid=[...NET.players.map(p=>p.id),...ai.map((_,i)=>'ai'+i)];for(let i=grid.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[grid[i],grid[j]]=[grid[j],grid[i]]}
+  const t=TRACKS[SCM.track],d={t:'scgo',trk:SCM.track<TRK_BASE?SCM.track:-1,def:SCM.track>=TRK_BASE?{name:t.name,km:t.km,w:t.w,street:t.street,sm:1,sc:1.8,pts:t.pts}:null,laps:SCM.laps,ai,grid,pl:NET.players.map(p=>({id:p.id,name:p.name,col:p.col}))};
+  netAll(d);scmGo(d);lobPub(true);
+}
+function scmGo(d){
+  if(!d||!Array.isArray(d.grid)||!Array.isArray(d.pl))return;
+  let ti=+d.trk;
+  if(d.def){const P=d.def.pts,ok=Array.isArray(P)&&P.length>20&&P.length<2500&&P.every(p=>Array.isArray(p)&&isFinite(p[0])&&isFinite(p[1]))&&!modCheck(d.def.name)&&!modShape(P);
+    if(ok){if(NET.role==='host')ti=SCM.track;else{custApply();ti=TRACKS.length;TRACKS.push({name:String(d.def.name).slice(0,28),sub:'Online',km:clamp(+d.def.km||2.5,.5,12),w:clamp(+d.def.w||72,30,140),street:!!d.def.street,sm:1,sc:1.8,pts:P,custom:true,online:'lobby'})}}else ti=0}
+  if(!TRACKS[ti])ti=0;
+  if(G){G.ended=true;G=null}
+  const role=NET.role;NET.role=null;EVE.kind='race';EVE.track=ti;
+  try{eveStart()}finally{NET.role=role}
+  if(!G)return;
+  const S=G.sc,me=role==='host'?'host':NET.myId,slot=i=>T.L-50-i*40,lane=i=>(i%2?1:-1)*HALF*.38,opp=[];
+  d.grid.forEach((id,i)=>{
+    if(id===me){S.dist=slot(i);S.d=lane(i);S.v=0;S.yaw=0;return}
+    const m=/^ai(\d)$/.exec(id),a=m?d.ai[+m[1]]:d.pl.find(p=>p.id===id);if(!a)return;
+    opp.push({id,ai:!!m,name:String(a.name||'?').slice(0,16),col:/^#[0-9a-f]{3,8}$/i.test(a.col||'')?a.col:'#aaaaaa',dist:slot(i),d:lane(i),v:0,yaw:0,tdist:slot(i),td:lane(i),c:+a.c||.85,vm:+a.vm||150,lane:+a.lane||0,react:+a.react||0,fin:null})});
+  G.scRace={mp:true,host:role==='host',laps:clamp(+d.laps||3,1,20),opp,t:0,cd:5,on:false,fin:null,hold:0,lamp:-1,res:false};
   LT.n=Math.floor(S.dist/T.L);LT.t0=null;G.eveLapT0=null;
   addLog('VORTAG',tl('Safety-Car-Rennen: Gas geben, sobald die Lampen ausgehen.'),'good');
 }
 function scrFin(){return T.L*(1+G.scRace.laps)}
-function scrOrder(){const R=G.scRace,me={me:true,name:(lsGet('rc_name')||tl('Du')),col:'#ffb340',dist:G.sc.dist,fin:R.fin};
+function scrOrder(){const R=G.scRace,p=(NET.players||[]).find(x=>x.id===NET.myId),me={me:true,name:(p&&p.name)||lsGet('rc_name')||tl('Du'),col:'#ffb340',dist:G.sc.dist,fin:R.fin};
   return [me,...R.opp].sort((a,b)=>a.fin!=null||b.fin!=null?(a.fin==null?1e9:a.fin)-(b.fin==null?1e9:b.fin):b.dist-a.dist)}
 function scRaceCrash(){const R=G.scRace;G.eveCrash=(G.eveCrash||0)+1;G.scCrash=false;const S=G.sc;S.v=0;S.d=0;S.yaw=0;R.hold=2.5;banner(tl('MAUERKONTAKT – 2,5 s ZURÜCK AUF DIE STRECKE'),'red')}
 function scrAI(o,dt,all){
@@ -7901,11 +8126,13 @@ function scrAI(o,dt,all){
   const dd=clamp((tg-o.d)*1.6,-30,30)*Math.min(1,o.v/40);o.d+=dd*dt;o.yaw=Math.atan2(dd,Math.max(o.v,20));
   o.dist+=o.v*dt;
 }
-function scrContact(all){   // Berührungen: hinteres Auto verliert Tempo, beide werden seitlich getrennt
-  for(let i=0;i<all.length;i++)for(let j=i+1;j<all.length;j++){const a=all[i],b=all[j],gx=b.dist-a.dist,gy=(b.d||0)-(a.d||0);
-    if(Math.abs(gx)<29&&Math.abs(gy)<13){const rear=gx>0?a:b,fr=gx>0?b:a,px=13-Math.abs(gy),sg=gy>=0?1:-1;
-      if(Math.abs(gx)>18&&rear.v>fr.v){const rv=rear.v;rear.v=Math.max(0,fr.v-3);fr.v=Math.min(SC_VTOP,fr.v+(rv-fr.v)*.25)}
-      a.d=(a.d||0)-sg*px*.25;b.d=(b.d||0)+sg*px*.25}}
+function scrRemote(o,dt){o.tdist+=o.v*dt;o.dist+=o.v*dt;const e=o.tdist-o.dist;if(Math.abs(e)>400)o.dist=o.tdist;else o.dist+=e*Math.min(1,dt*5);o.d+=(o.td-o.d)*Math.min(1,dt*8)}
+/* Berührungen: nur selbst gerechnete Autos werden verändert */
+function scrContact(mine,all){
+  for(const a of mine)for(const b of all){if(a===b||(mine.includes(b)&&mine.indexOf(b)<mine.indexOf(a)))continue;const gx=b.dist-a.dist,gy=(b.d||0)-(a.d||0),both=mine.includes(b);
+    if(Math.abs(gx)<29&&Math.abs(gy)<13){const px=13-Math.abs(gy),sg=gy>=0?1:-1,rear=gx>0?a:b,fr=gx>0?b:a;
+      if(Math.abs(gx)>18&&rear.v>fr.v){const rv=rear.v;if(rear===a||both)rear.v=Math.max(0,fr.v-3);if(fr===a||both)fr.v=Math.min(SC_VTOP,fr.v+Math.max(0,rv-fr.v)*.25)}
+      a.d=(a.d||0)-sg*px*(both?.25:.4);if(both)b.d=(b.d||0)+sg*px*.25}}
 }
 {const sd0=scDriveStep;scDriveStep=function(dt,tg){
   const R=G&&G.scRace;if(!R)return sd0(dt,tg);
@@ -7919,16 +8146,39 @@ function scrContact(all){   // Berührungen: hinteres Auto verliert Tempo, beide
   else if(R.fin!=null){S.v=Math.max(0,S.v-60*dt);S.yaw=(S.yaw||0)*Math.exp(-3*dt);S.d=(S.d||0)*Math.exp(-dt);S.dist+=S.v*dt}
   else{sd0(dt,tg);if(Math.abs(S.d||0)>HALF+6)S.v-=S.v*.9*dt}                 // Gras bremst
   const all=[S,...R.opp];
-  for(const o of R.opp)scrAI(o,dt,all);
-  scrContact(all);
+  for(const o of R.opp)if(o.ai&&R.host)scrAI(o,dt,all);else scrRemote(o,dt);
+  scrContact(R.host?[S,...R.opp.filter(o=>o.ai)]:[S],all);
   const F=scrFin();
   if(R.fin==null&&S.dist>=F)R.fin=R.t-(S.dist-F)/Math.max(S.v,1);
-  for(const o of R.opp)if(o.fin==null&&o.dist>=F)o.fin=R.t-(o.dist-F)/Math.max(o.v,1);
+  if(R.host)for(const o of R.opp)if(o.ai&&o.fin==null&&o.dist>=F)o.fin=R.t-(o.dist-F)/Math.max(o.v,1);
   if(R.fin!=null&&!R.res){R.res=true;LT.on=false;const p=scrOrder().findIndex(x=>x.me)+1;
-    banner(`${tl('ZIEL')} · P${p}`,p<=3?'good':'warn');try{window.rcEv&&rcEv('sc_rennen_ziel',{strecke:TRACKS[EVE.track].name,platz:p,gegner:R.opp.length,staerke:EVE.lvl,runden:R.laps})}catch(_){}
+    banner(`${tl('ZIEL')} · P${p}`,p<=3?'good':'warn');try{window.rcEv&&rcEv('sc_rennen_ziel',{strecke:(TRACKS[EVE.track]||{}).name,platz:p,gegner:R.opp.length,spieler:NET.players.length,runden:R.laps})}catch(_){}
     const g0=G;setTimeout(()=>{if(G===g0)scrResult()},1800)}
 }}
-{const es=eveStart;eveStart=function(){const el=$('scrRes');if(el)el.remove();const r=es.apply(this,arguments);if(G&&EVE.kind==='race')scrStart();return r}}
+/* Netz: Positionen austauschen (15×/s) */
+const r2=x=>Math.round(x*100)/100,scPack=o=>[r2(o.dist),r2(o.d||0),r2(o.v),r2(o.yaw||0),o.fin==null?null:r2(o.fin)];
+function scApply(o,p){if(!Array.isArray(p)||!p.slice(0,4).every(x=>typeof x==='number'&&isFinite(x)))return;o.tdist=p[0];o.td=clamp(p[1],-400,400);o.v=clamp(p[2],0,260);o.yaw=clamp(p[3],-1.6,1.6);if(typeof p[4]==='number'&&isFinite(p[4])&&p[4]>0)o.fin=p[4]}
+setInterval(()=>{
+  if(!G||!G.scRace||!NET.role)return;const R=G.scRace;
+  if(G.paused)G.paused=false;                                   // im Mehrspieler keine Pause
+  const me=Object.assign({},G.sc,{fin:R.fin});
+  if(R.host){R.opp=R.opp.filter(o=>o.ai||NET.players.some(p=>p.id===o.id)&&!o.left);
+    const a={host:scPack(me)};for(const o of R.opp)if(!o.ai)a[o.id]=scPack(Object.assign({},o,{dist:o.tdist,d:o.td}));
+    const ai={};for(const o of R.opp)if(o.ai)ai[o.id]=scPack(o);
+    netAll({t:'scs',a,ai})}
+  else netSend({t:'scp',p:scPack(me)});
+},66);
+{const hm=hostMsg;hostMsg=function(conn,d){
+  if(d&&(d.t==='scp'||d.t==='scq')){if(G&&G.scRace&&conn.pid&&NET.conns[conn.pid]===conn){const o=G.scRace.opp.find(x=>x.id===conn.pid);if(o){if(d.t==='scq')o.left=true;else scApply(o,d.p)}}return}
+  return hm(conn,d)}}
+{const cm=clientMsg;clientMsg=function(d){
+  if(d&&d.t==='scl'){SCM.view=d.cfg||null;NET.kind='sc';if(!G)sclOpen();return}
+  if(d&&d.t==='scgo'){NET.kind='sc';scmGo(d);return}
+  if(d&&d.t==='scs'){if(G&&G.scRace&&!G.scRace.host){const R=G.scRace;
+      R.opp=R.opp.filter(o=>o.ai?d.ai&&d.ai[o.id]:d.a&&d.a[o.id]);
+      for(const o of R.opp)scApply(o,o.ai?d.ai[o.id]:d.a[o.id])}return}
+  if(d&&d.t==='lobby'&&NET.kind==='sc'&&d.txt===undefined){const el=$('scrRes');if(el)el.remove()}
+  const r=cm(d);if(d&&d.t==='players'&&NET.kind==='sc'&&!G)sclRender();return r}}
 /* Gegner zeichnen */
 {const dr=drawRoadCar;let busy=false;drawRoadCar=function(x,y,a){
   if(!busy&&G&&G.scRace){busy=true;try{
@@ -7946,118 +8196,34 @@ function scrLamps(){let el=$('scrLamps');const R=G&&G.scRace,on=R&&!R.on;
     const best=G.eveLaps.length?Math.min(...G.eveLaps.map(l=>l.t)):null,lead=O[0];
     el.innerHTML=`<div class="evT">${tl('SAFETY-CAR-RENNEN')}</div><div class="evRow"><span>${tl('Platz')}</span><b>${p}/${O.length}</b></div><div class="evRow"><span>${tl('Runde')}</span><b>${Math.max(1,Math.min(lap,R.laps))}/${R.laps}</b></div>
      <div class="evRow"><span>${tl('Rennzeit')}</span><b>${eveFmt(R.fin!=null?R.fin:R.t)}</b></div><div class="evRow"><span>${tl('Beste Runde')}</span><b>${best!=null?eveFmt(best):'–'}</b></div>
-     <div class="evLb">${O.map((o,i)=>`<div class="lbR ${o.me?'me':''}"><i>${i+1}</i><span>${esc(o.name)}</span><b>${o.fin!=null?eveFmt(o.fin):i===0?'':'+'+Math.max(0,(lead.dist-o.dist)/140).toFixed(1)}</b></div>`).join('')}</div>`;
+     <div class="evLb">${O.map((o,i)=>`<div class="lbR ${o.me?'me':''}"><i>${i+1}</i><span>${esc(o.name)}${o.ai?' <small class="mut">KI</small>':''}</span><b>${o.fin!=null?eveFmt(o.fin):i===0?'':'+'+Math.max(0,(lead.dist-o.dist)/140).toFixed(1)}</b></div>`).join('')}</div>`;
     return}
   return ep.apply(this,arguments)}}
-setInterval(scrLamps,100);
-{const sh=scHud;scHud=function(on){sh(on);if(!on||!G||!G.scRace)return;const g=$('shGoal');if(g){const O=scrOrder();g.textContent=`P${O.findIndex(x=>x.me)+1} · ${tl('Runde')} ${clamp(Math.floor(G.sc.dist/T.L),1,G.scRace.laps)}/${G.scRace.laps}`}}}
-function scrResult(){
-  if(!G||!G.scRace)return;const O=scrOrder(),p=O.findIndex(x=>x.me)+1;let el=$('scrRes');if(el)el.remove();
-  el=document.createElement('div');el.id='scrRes';const best=G.eveLaps.length?Math.min(...G.eveLaps.map(l=>l.t)):null;
-  el.innerHTML=`<div class="scrC"><div class="evT">${tl('SAFETY-CAR-RENNEN')} · ${esc(TRACKS[EVE.track].name)}</div><h2>${p===1?tl('SIEG!'):`P${p}`}</h2>
-   ${O.map((o,i)=>`<div class="lbR ${o.me?'me':''}"><i>${i+1}</i><span>${esc(o.name)}</span><b>${o.fin!=null?(i===0?eveFmt(o.fin):'+'+(o.fin-O[0].fin).toFixed(2)):tl('noch unterwegs')}</b></div>`).join('')}
+setInterval(()=>{scrLamps();if($('scrRes')&&G&&G.scRace)scrResult(true)},500);
+{const sh=scHud;scHud=function(on){sh(on);if(!on||!G)return;const kk=$('shKeys');if(kk){const u=k=>(SETS['key_'+k]||k).toUpperCase();kk.textContent=`${u('w')} ${tl('Gas')} · ${u('s')} ${tl('Bremse')} · ${u('a')}/${u('d')} ${tl('lenken')}`}
+  if(!G.scRace)return;const g=$('shGoal');if(g){const O=scrOrder();g.textContent=`P${O.findIndex(x=>x.me)+1} · ${tl('Runde')} ${clamp(Math.floor(G.sc.dist/T.L),1,G.scRace.laps)}/${G.scRace.laps}`}}}
+function scrResult(upd){
+  if(!G||!G.scRace)return;const O=scrOrder(),p=O.findIndex(x=>x.me)+1;let el=$('scrRes');const best=G.eveLaps.length?Math.min(...G.eveLaps.map(l=>l.t)):null;
+  const rows=O.map((o,i)=>`<div class="lbR ${o.me?'me':''}"><i>${i+1}</i><span>${esc(o.name)}${o.ai?' <small class="mut">KI</small>':''}</span><b>${o.fin!=null?(i===0?eveFmt(o.fin):'+'+(o.fin-O[0].fin).toFixed(2)):tl('noch unterwegs')}</b></div>`).join('');
+  if(upd&&el){el.querySelector('.scrRows').innerHTML=rows;el.querySelector('h2').textContent=p===1?tl('SIEG!'):`P${p}`;return}
+  if(el)el.remove();el=document.createElement('div');el.id='scrRes';
+  el.innerHTML=`<div class="scrC"><div class="evT">${tl('SAFETY-CAR-RENNEN')} · ${esc((TRACKS[EVE.track]||{}).name||'')}</div><h2>${p===1?tl('SIEG!'):`P${p}`}</h2><div class="scrRows">${rows}</div>
    <p class="mut sm">${tl('Beste Runde')}: ${best!=null?eveFmt(best):'–'} · ${tl('Ausritte')}: ${G.scOffs||0} · ${tl('Unfälle')}: ${G.eveCrash||0}</p>
-   <div class="fbrow"><button class="btn primary" data-scr="again">${tl('Nochmal')}</button><button class="btn" data-scr="menu">${tl('Zum Menü')}</button></div></div>`;
+   <div class="fbrow">${G.scRace.host?`<button class="btn primary" data-scr="menu">${tl('Alle zurück zur Lobby')}</button>`:`<button class="btn primary" data-scr="menu">${tl('Zurück zur Lobby')}</button>`}<button class="btn" data-scr="leave">${G.scRace.host?tl('Lobby schließen'):tl('Lobby verlassen')}</button></div></div>`;
   document.body.appendChild(el);
 }
 document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-scr]');if(!q)return;e.stopPropagation();const el=$('scrRes');if(el)el.remove();
-  if(q.dataset.scr==='again')eveStart();else{toMenu();setTimeout(()=>{EVE.kind='race';eveOpen()},0)}},true);
-{const tm=toMenu;toMenu=function(){const el=$('scrRes');if(el)el.remove();return tm.apply(this,arguments)}}
-/* =====================================================================
-   2) Öffentliche Lobbies – Firestore lobbies/{uid des Hosts}
-   Das Passwort steht nie in der Datenbank: der Host prüft einen daraus berechneten Nachweis.
-   ===================================================================== */
-const LOB={vis:SETS.lobVis,pw:'',list:[],unsub:null,err:false,joinPw:'',proof:null,ask:null,askOpen:null,lastPub:'',pubT:0,fails:0,up:false};
-const acc42=()=>{const A=window.RCACC;return A&&A.user&&A.db&&!A.offline?A:null};
-async function lobProof(pw,code,jid){
-  const enc=new TextEncoder(),k=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveBits']);
-  const b=await crypto.subtle.deriveBits({name:'PBKDF2',salt:enc.encode('rc-lobby|'+code+'|'+jid),iterations:60000,hash:'SHA-256'},k,256);
-  return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');
-}
-function helloMsg(){const m={t:'hello',name:NET.name,jid:NET.jid};if(LOB.proof)m.pw=LOB.proof;return m}
-async function lobPrepJoin(code){LOB.proof=null;LOB.ask=null;if(LOB.joinPw)try{LOB.proof=await lobProof(LOB.joinPw,code,NET.jid)}catch(_){}}
-function lobBadPw(code){LOB.ask=code;const had=!!LOB.joinPw;LOB.joinPw='';LOB.proof=null;return had?tl('Falsches Passwort.'):tl('Diese Lobby ist mit einem Passwort geschützt.')}
-{const hm=hostMsg;hostMsg=function(conn,d){
-  if(d&&d.t==='hello'&&LOB.pw&&NET.role==='host'){
-    const code=NET.code,pw=LOB.pw;
-    (async()=>{let ok=false;try{ok=typeof d.pw==='string'&&!!d.jid&&await lobProof(pw,code,String(d.jid))===d.pw}catch(_){}
-      if(!ok&&d.pw){LOB.fails++;await new Promise(r=>setTimeout(r,Math.min(4000,LOB.fails*250)))}   // bremst Passwort-Raten
-      if(NET.role!=='host'||NET.code!==code)return;
-      if(ok){try{hm(conn,d)}catch(e){console.error(e)}}else{try{conn.send({t:'badpw'})}catch(_){}setTimeout(()=>{try{conn.close()}catch(_){}},800)}})();
-    return}
-  return hm(conn,d)}}
-/* --- Host: veröffentlichen --- */
-function lobDoc(){
-  const tr=SEL.mode==='season'?null:TRACKS[SEL.track];
-  return {host:acc42().user.uid,n:modName(String(NET.name||'Rennleiter').slice(0,16),'Spieler'),code:NET.code,txt:lobbyText().slice(0,120),pl:NET.players.length,max:MAXP,pw:!!LOB.pw,st:G&&!G.ended?'race':'lobby',v:String(GAMEVER),
-    trk:tr&&modCheck(tr.name)?'':(tr?String(tr.name).slice(0,28):'')};
-}
-async function lobPub(force){
-  const A=acc42();if(!A)return;
-  const want=NET.role==='host'&&LOB.vis==='pub'&&!!NET.code;
-  if(!want){if(LOB.up){LOB.up=false;LOB.lastPub='';try{await A.db.collection('lobbies').doc(A.user.uid).delete()}catch(_){}}return}
-  const d=lobDoc(),s=JSON.stringify(d);if(modCheck(d.txt))d.txt='';
-  if(!force&&s===LOB.lastPub&&Date.now()-LOB.pubT<25000)return;
-  LOB.lastPub=s;LOB.pubT=Date.now();LOB.up=true;
-  try{await A.db.collection('lobbies').doc(A.user.uid).set(Object.assign(d,{at:firebase.firestore.FieldValue.serverTimestamp()}));LOB.err=false}
-  catch(e){LOB.err=true;LOB.lastPub='';if(!G)mpMenuRender()}
-}
-setInterval(()=>lobPub(false),3000);
-addEventListener('pagehide',()=>{const A=acc42();if(A&&LOB.up){LOB.up=false;try{A.db.collection('lobbies').doc(A.user.uid).delete()}catch(_){}}});
-{const nr=netReset;netReset=function(){const r=nr.apply(this,arguments);LOB.pw='';LOB.fails=0;LOB.vis=SETS.lobVis;lobPub(true);return r}}
-/* --- Liste --- */
-function lobVisible(){const m=$('menu');if(!m||m.classList.contains('hide')||G||NET.role)return false;
-  const o=$('lOnl'),b=$('mpBox');return !!((o&&!o.classList.contains('hide')&&!$('lSetup').classList.contains('hide'))||(b&&!b.classList.contains('hide')&&!$('lSetup').classList.contains('hide')&&!$('lOpts').classList.contains('hide')))}
-function lobWatch(){
-  const A=acc42(),on=A&&lobVisible();
-  if(on&&!LOB.unsub){
-    LOB.unsub=A.db.collection('lobbies').orderBy('at','desc').limit(30).onSnapshot(sn=>{LOB.err=false;LOB.list=sn.docs.map(d=>{const v=d.data();return Object.assign({id:d.id},v,{ms:v.at&&v.at.toMillis?v.at.toMillis():Date.now()})});lobPaint()},()=>{LOB.err=true;LOB.unsub=null;LOB.list=[];lobPaint()});
-  }else if(!on&&LOB.unsub){try{LOB.unsub()}catch(_){}LOB.unsub=null}
-}
-setInterval(lobWatch,1000);setInterval(()=>{if(LOB.unsub)lobPaint()},10000);
-function lobRows(){
-  const A=acc42();if(!A)return `<div class="lbE">${tl('Öffentliche Lobbies gibt es nur mit Konto.')}</div>`;
-  if(LOB.err)return `<div class="lbE">${tl('Lobbies sind gerade nicht erreichbar.')}</div>`;
-  const L=LOB.list.filter(l=>Date.now()-l.ms<90000&&l.id!==A.user.uid&&typeof l.code==='string'&&/^[A-Z0-9]{4,6}$/.test(l.code));
-  if(!L.length)return `<div class="lbE">${tl('Gerade ist keine öffentliche Lobby offen – eröffne doch selbst eine.')}</div>`;
-  return L.map(l=>{const full=l.pl>=l.max,old=l.v!==String(GAMEVER),nm=modName(String(l.n||'?').slice(0,16),'Spieler'),tx=modCheck(l.txt)?'':String(l.txt||'').slice(0,120);
-    return `<div class="lobR"><div class="lobI"><b>${esc(nm)}</b><span>${esc(tx)}</span></div><span class="lobT">${l.pw?tl('Passwort'):tl('Offen')}</span><span class="lobT ${l.st==='race'?'run':''}">${l.st==='race'?tl('Rennen läuft'):tl('In der Lobby')}</span><span class="lobN">${+l.pl||1}/${+l.max||5}</span>
-      ${LOB.askOpen===l.id?`<input class="lobPw" type="password" maxlength="24" placeholder="${tl('Passwort')}" autocomplete="off"><button class="btn primary sm" data-lob="pw:${esc(l.id)}">${tl('Beitreten')}</button>`:
-      `<button class="btn primary sm" data-lob="join:${esc(l.id)}" ${full||old||NET.joining?'disabled':''}>${old?tl('Andere Version'):full?tl('Voll'):tl('Beitreten')}</button>`}</div>`}).join('');
-}
-function lobPaint(){document.querySelectorAll('.lobList').forEach(b=>{if(b.offsetParent===null)return;const i=b.querySelector('.lobPw');if(i)return;b.innerHTML=lobRows()})}
-function lobGo(l,pw){
-  LOB.askOpen=null;LOB.joinPw=pw||'';
-  if(SEL.net!=='mp'||!$('mpBox')||$('mpBox').classList.contains('hide'))homeAct('mp');
-  mpMenuRender();const c=$('mpCodeIn');if(c)c.value=l.code;netJoin();
-}
-/* --- Lobby-Bereich im Mehrspieler-Menü --- */
-{const mr=mpMenuRender;mpMenuRender=function(){
-  const act=document.activeElement&&document.activeElement.id,sel=act==='lobPwH'&&document.activeElement.selectionStart;
-  mr();const box=$('mpBox');if(!box||box.classList.contains('hide'))return;
-  if(NET.role==='host'){
-    box.insertAdjacentHTML('beforeend',`<div class="mrow lobHost"><div><div class="mpSt">${tl('SICHTBARKEIT')}</div><div class="seg">${[['pub','Öffentlich'],['priv','Privat']].map(v=>`<span data-lob="vis:${v[0]}" class="${LOB.vis===v[0]?'on':''}">${tl(v[1])}</span>`).join('')}</div></div>
-      <div><div class="mpSt">${tl('PASSWORT (OPTIONAL)')}</div><input id="lobPwH" maxlength="24" autocomplete="off" placeholder="${tl('kein Passwort')}" value="${esc(LOB.pw)}"></div>
-      <div class="mpSt" style="flex:1;min-width:200px">${LOB.vis==='pub'?(acc42()?(LOB.err?tl('Lobby konnte nicht veröffentlicht werden.'):tl('Deine Lobby steht in der öffentlichen Liste – jeder kann mit einem Klick beitreten.')):tl('Öffentliche Lobbies gibt es nur mit Konto.')):tl('Nur wer den Code oder Link hat, kann beitreten.')} ${LOB.pw?tl('Das Passwort wird beim Beitreten abgefragt, auch per Code und Link.'):''}</div></div>`);
-    if(act==='lobPwH'){const i=$('lobPwH');i.focus();try{i.setSelectionRange(sel,sel)}catch(_){}}
-  }else if(!NET.role){
-    if(LOB.ask)box.insertAdjacentHTML('beforeend',`<div class="mrow lobAsk"><span class="mpSt">${tl('Passwort für Lobby')} <b>${esc(LOB.ask)}</b></span><input id="lobPwC" type="password" maxlength="24" autocomplete="off"><button class="btn primary" data-lob="code:${esc(LOB.ask)}">${tl('Beitreten')}</button></div>`);
-    box.insertAdjacentHTML('beforeend',`<div class="lobBox"><div class="lbTitle">${tl('ÖFFENTLICHE LOBBIES')}</div><div class="lobList">${lobRows()}</div></div>`);
-    lobWatch();
-  }
-}}
-document.addEventListener('input',e=>{if(e.target&&e.target.id==='lobPwH')LOB.pw=e.target.value.trim().slice(0,24)});
-document.addEventListener('change',e=>{if(e.target&&e.target.id==='lobPwH'){lobPub(true);mpMenuRender()}});
-document.addEventListener('keydown',e=>{if(e.key!=='Enter'||!e.target)return;if(e.target.classList.contains('lobPw')||e.target.id==='lobPwC'){const b=e.target.parentNode.querySelector('[data-lob]');if(b)b.click()}});
-document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-lob]');if(!q||q.disabled)return;e.preventDefault();e.stopPropagation();
-  const i=q.dataset.lob.indexOf(':'),a=q.dataset.lob.slice(0,i),v=q.dataset.lob.slice(i+1),l=LOB.list.find(x=>x.id===v);
-  if(a==='vis'){LOB.vis=v;lobPub(true);mpMenuRender();if(v==='pub')try{window.rcEv&&rcEv('lobby_oeffentlich',{passwort:!!LOB.pw})}catch(_){}}
-  else if(a==='join'&&l){if(l.pw){LOB.askOpen=l.id;const b=q.closest('.lobList');b.innerHTML=lobRows();LOB.askOpen=null;const p=b.querySelector('.lobPw');if(p)p.focus()}else lobGo(l,'')}
-  else if(a==='pw'&&l){const p=q.parentNode.querySelector('.lobPw').value.trim();if(p)lobGo(l,p)}
-  else if(a==='code'){const p=$('lobPwC').value.trim();if(!p)return;LOB.joinPw=p;const c=$('mpCodeIn');if(c)c.value=v;netJoin()}
-},true);
-{const ma=mpMenuAct;mpMenuAct=function(a){if(a==='join')LOB.joinPw='';return ma(a)}}
-{const nh=netHost;netHost=function(){LOB.vis=SETS.lobVis;LOB.pw='';return nh.apply(this,arguments)}}
+  if(q.dataset.scr==='leave'){netLeave();if(G)toMenu();SEL.net='solo';initMenu();homeAct('online')}else toMenu()},true);
+{const tm=toMenu;toMenu=function(){const el=$('scrRes');if(el)el.remove();const sc=G&&G.scRace&&NET.role==='client';if(sc)netSend({t:'scq'});const r=tm.apply(this,arguments);document.body.classList.remove('eveSolo');if(NET.role&&NET.kind==='sc')sclOpen();return r}}
+{const cl=clientLost;clientLost=function(){const el=$('scrRes');if(el)el.remove();const r=cl.apply(this,arguments);document.body.classList.remove('eveSolo');return r}}
+/* Vortag-Seite: SC-Rennen führt zu den Lobbies */
+{const eo=eveOpen;eveOpen=function(){sclHide();const r=eo.apply(this,arguments);lobWatch();return r}}
+Object.assign(EN,{'SAFETY-CAR-RENNEN':'SAFETY CAR RACE','Rennen gegen andere Spieler und KI-Gegner. Eröffne eine Lobby oder tritt einer bei.':'Race against other players and AI opponents. Open a lobby or join one.','KI-GEGNER':'AI OPPONENTS','KI-Gegner':'AI opponents','STÄRKE DER KI':'AI STRENGTH','Stärke':'Strength','RENNRUNDEN':'RACE LAPS','Leicht':'Easy','Mittel':'Medium','Schwer':'Hard','Rennen starten':'Start race','Spieler':'players','Strecke':'Track',
+ 'Warte auf Mitspieler oder füge KI-Gegner hinzu':'Wait for players or add AI opponents','Warte auf den Start durch den Host …':'Waiting for the host to start …','Alle fahren auf ihrem eigenen Gerät. Lass dieses Fenster im Vordergrund, solange KI-Gegner mitfahren.':'Everyone drives on their own device. Keep this window in front while AI opponents are racing.',
+ 'Safety-Car-Rennen: Gas geben, sobald die Lampen ausgehen.':'Safety car race: accelerate as soon as the lamps go out.','MAUERKONTAKT – 2,5 s ZURÜCK AUF DIE STRECKE':'WALL CONTACT – 2.5 s BACK TO THE TRACK','LOS GEHT’S':'GO GO GO','ZIEL':'FINISH','Runde':'Lap','Rennzeit':'Race time','Beste Runde':'Best lap','SIEG!':'VICTORY!','noch unterwegs':'still racing','Alle zurück zur Lobby':'Everyone back to the lobby','Zurück zur Lobby':'Back to the lobby','Lobby verlassen':'Leave lobby','Lobby schließen':'Close lobby','Lobby eröffnen':'Open lobby','DEINE LOBBY':'YOUR LOBBY','LOBBY BEIGETRETEN':'JOINED LOBBY','Freunde einladen':'Invite friends','Verlassen':'Leave','OFFENE LOBBIES':'OPEN LOBBIES','SC-RENNEN':'SC RACE','RENNLEITUNG':'RACE CONTROL','Du':'You','Gas':'throttle','Bremse':'brake','lenken':'steer','Verbinde …':'Connecting …','Zurück':'Back',
+ 'PASSWORT (OPTIONAL)':'PASSWORD (OPTIONAL)','kein Passwort':'no password','Passwort':'Password','Passwort der Lobby':'Lobby password','Rennen läuft':'Race running','In der Lobby':'In the lobby','Beitreten':'Join','Voll':'Full','Andere Version':'Other version','Falsches Passwort.':'Wrong password.','Diese Lobby ist mit einem Passwort geschützt.':'This lobby is password protected.','Lobbies gibt es nur mit Konto.':'Lobbies require an account.','Lobbies sind gerade nicht erreichbar.':'Lobbies are unavailable right now.','Gerade ist keine Lobby offen – eröffne doch selbst eine.':'No lobby is open right now – why not open one yourself?',
+ 'Lobby konnte nicht veröffentlicht werden.':'The lobby could not be published.','Deine Lobby steht in der Liste – jeder kann mit einem Klick beitreten.':'Your lobby is listed – anyone can join with one click.','Das Passwort wird beim Beitreten abgefragt. Eingeladene Freunde brauchen keins.':'The password is required to join. Invited friends do not need it.'});
+/* ===== RACE CONTROL 42 – Strecken-Uploads ===== */
 /* =====================================================================
    3) Strecken-Uploads – Firestore tracks/{uid}_{platz}
    ===================================================================== */
@@ -8077,7 +8243,7 @@ function onlDef(o){return {name:o.name,sub:'Online · von '+esc(o.by),km:o.km,w:
 async function onlLoad(force){
   const A=acc42();if(!A||ONL.busy||(!force&&Date.now()-ONL.at<60000)){onlPaint();return}
   ONL.busy=true;onlPaint();
-  try{const sn=await A.db.collection('tracks').orderBy('at','desc').limit(40).get();ONL.list=sn.docs.map(d=>onlParse(d.id,d.data())).filter(Boolean);ONL.err=false;ONL.at=Date.now()}
+  try{const sn=await A.db.collection('tracks').orderBy('at','desc').limit(40).get();ONL.list=sn.docs.map(d=>d.data().off?null:onlParse(d.id,d.data())).filter(Boolean);ONL.err=false;ONL.at=Date.now()}
   catch(_){ONL.err=true}
   ONL.busy=false;onlPaint();
 }
@@ -8085,7 +8251,12 @@ async function onlMine(){const A=acc42();if(!A)return;try{const sn=await A.db.co
 function teSlotsPaint(){const b=$('teSlotBox');if(!b||!$('lTe')||$('lTe').classList.contains('hide'))return;b.innerHTML=teSlotsHTML();SLOTS.forEach(k=>{const cv=$('tsCv'+k);if(cv&&CUST[k])previewDraw(cv.getContext('2d'),buildTrack(custDef(CUST[k],k)))});trAll&&trAll()}
 async function onlUpload(i){
   const A=acc42(),c=CUST[i];if(!A){teStatus(tl('Hochladen geht nur mit Konto und Internet.'),'bad');return}if(!c)return;
-  if(modCheck(c.name)||modShape(c.pts)){teStatus(tl('Diese Strecke darf nicht hochgeladen werden.'),'bad');return}
+  if(modCheck(c.name)||modShape(c.pts)){teStatus(tl('Diese Strecke darf nicht hochgeladen werden.'),'bad');
+    // Beim Hochladen zählt ein Verstoß doppelt, dazu 24 Stunden Upload-Sperre
+    VIO.ctx={kind:'upload',val:c.name,track:c,w:2};modWarn(tl('Der Upload der Strecke')+' „'+esc(c.name)+'“',tl('Beim Hochladen zählt ein Verstoß doppelt. Uploads sind für 24 Stunden gesperrt.'));
+    try{await A.db.collection('uplock').doc(A.user.uid).set({at:fsTs()})}catch(_){}return}
+  try{const l=await A.db.collection('uplock').doc(A.user.uid).get();if(l.exists&&Date.now()-msOf(l.data().at)<864e5){teStatus(tl('Uploads sind für dein Konto nach einem Verstoß 24 Stunden gesperrt.'),'bad');return}}catch(_){}
+  if(ONL.mine[i]&&ONL.mine[i].off){teStatus(tl('Diese Strecke wurde von der Rennleitung offline genommen.'),'bad');return}
   const pts=JSON.stringify(c.pts.map(p=>[Math.round(p[0]*10)/10,Math.round(p[1]*10)/10]));
   if(pts.length>40000){teStatus(tl('Diese Strecke hat zu viele Punkte zum Hochladen.'),'bad');return}
   teStatus(tl('Wird hochgeladen …'),'');
@@ -8095,7 +8266,7 @@ async function onlUpload(i){
 }
 async function onlRemove(i){const A=acc42();if(!A)return;try{await A.db.collection('tracks').doc(A.user.uid+'_'+i).delete();delete ONL.mine[i];ONL.at=0;teSlotsPaint();teStatus(tl('Die Strecke ist nicht mehr online.'),'')}catch(_){teStatus(tl('Entfernen fehlgeschlagen.'),'bad')}}
 {const ts=teSlotsHTML;teSlotsHTML=function(){let h=ts();SLOTS.forEach(i=>{if(!CUST[i])return;const m=ONL.mine[i],same=m&&m.n===CUST[i].name;
-  const x=`<div class="fbrow"><button class="btn" data-onl="up:${i}">${m?(same?tl('Online aktualisieren'):tl('Online ersetzen')):tl('Hochladen')}</button>${m?`<button class="btn" data-onl="rm:${i}">${tl('Offline nehmen')}</button>`:''}</div>`;
+  const x=m&&m.off?`<div class="mut sm">${tl('Von der Rennleitung offline genommen')}</div>`:`<div class="fbrow"><button class="btn" data-onl="up:${i}">${m?(same?tl('Online aktualisieren'):tl('Online ersetzen')):tl('Hochladen')}</button>${m?`<button class="btn" data-onl="rm:${i}">${tl('Offline nehmen')}</button>`:''}</div>`;
   const k=h.indexOf(`data-rc="teDel${i}"`),e=h.indexOf('</div>',k);if(k>=0)h=h.slice(0,e+6)+x+h.slice(e+6)});
   return h+`<div class="fbrow"><button class="btn primary" data-onl="browse:">${tl('Strecken anderer Spieler ansehen')}</button></div>`}}
 {const to=teOpen;teOpen=function(){const r=to.apply(this,arguments);onlHide();onlMine();return r}}
@@ -8105,7 +8276,7 @@ function onlOpen(){
   ['lHelp','lOpts','lFb','lTe','lSet','lEve'].forEach(id=>$(id)&&$(id).classList.add('hide'));
   let p=$('lOnl');if(!p){p=document.createElement('div');p.id='lOnl';$('lSet').parentNode.appendChild(p)}
   p.classList.remove('hide');
-  p.innerHTML=`<div class="fb onl"><div class="lobBox"><div class="lbTitle">${tl('ÖFFENTLICHE LOBBIES')}</div><div class="lobList">${lobRows()}</div><div class="fbrow"><button class="btn primary" data-onl="host:">${tl('Eigene Lobby eröffnen')}</button><button class="btn" data-onl="mp:">${tl('Mit Code beitreten')}</button></div></div>
+  p.innerHTML=`<div class="fb onl"><div class="lobBox"><div class="lbTitle">${tl('OFFENE LOBBIES')}</div><div class="lobList">${lobRows()}</div><div class="fbrow"><button class="btn primary" data-onl="host:">${tl('Rennleitungs-Lobby eröffnen')}</button><button class="btn primary" data-scl="host:">${tl('Safety-Car-Rennen eröffnen')}</button></div></div>
     <div class="lobBox"><div class="lbTitle">${tl('STRECKEN VON SPIELERN')}</div><div class="fbrow"><input id="onlQ" placeholder="${tl('Strecke oder Spieler suchen …')}" value="${esc(ONL.q)}"><button class="btn" data-onl="reload:">${tl('Neu laden')}</button><button class="btn" data-onl="own:">${tl('Eigene Strecke hochladen')}</button></div><div id="onlMsg" class="mut sm"></div><div class="onlGrid" id="onlGrid"></div></div></div>`;
   lShow('setup','ONLINE');trAll&&trAll();onlLoad(false);lobWatch();
 }
@@ -8124,37 +8295,308 @@ function onlSay(t,c){const m=$('onlMsg');if(m){m.textContent=t;m.style.color=c||
 document.addEventListener('input',e=>{if(e.target&&e.target.id==='onlQ'){ONL.q=e.target.value.trim();onlPaint()}});
 document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-onl]');if(!q)return;e.preventDefault();e.stopPropagation();
   const i=q.dataset.onl.indexOf(':'),a=q.dataset.onl.slice(0,i),v=q.dataset.onl.slice(i+1),o=ONL.list.find(x=>x.id===v);
-  if(a==='up')onlUpload(+v);else if(a==='rm')onlRemove(+v);else if(a==='browse')onlOpen();else if(a==='reload')onlLoad(true);
-  else if(a==='own')homeAct('tracks');else if(a==='mp')homeAct('mp');else if(a==='host'){homeAct('mp');netHost()}
+  sclHide();if(a==='up')onlUpload(+v);else if(a==='rm')onlRemove(+v);else if(a==='browse')onlOpen();else if(a==='reload')onlLoad(true);
+  else if(a==='own')homeAct('tracks');else if(a==='host'){homeAct('mp');netHost()}
   else if(a==='play'&&o){let d=onlDef(o);try{buildTrack(d)}catch(_){onlSay(tl('Diese Strecke lässt sich nicht fahren.'),'var(--warn)');return}
     GUEST=d;custApply();SEL.track=TRACKS.indexOf(GUEST);initMenuKeep();homeAct('single');try{window.rcEv&&rcEv('online_strecke_gefahren')}catch(_){}}
   else if(a==='save'&&o){const s=CUST.findIndex(c=>!c);if(s<0){onlSay(tl('Alle 5 Plätze sind belegt. Lösche oder bearbeite zuerst eine gespeicherte Strecke.'),'var(--warn)');return}
     CUST[s]={name:o.name,km:o.km,w:o.w,street:o.street,pts:o.pts,t:Date.now()};custSave();custApply();initMenuKeep();onlSay(`✓ „${o.name}“ → ${tl('Platz')} ${s+1}`,'var(--ok)')}
-  else if(a==='rep'&&o)repOpen(`Online-Strecke „${o.name}“ von ${o.by}`);
+  else if(a==='rep'&&o)repOpen({who:`Online-Strecke „${o.name}“ von ${o.by}`,tuid:o.uid,kind:'upload',ref:'tracks/'+o.id});
 },true);
-{const ha=homeAct;homeAct=function(a){if(a==='online'){if(NET.role)netLeave();onlOpen();return}onlHide();return ha(a)}}
+{const ha=homeAct;homeAct=function(a){if(a==='online'){if(NET.role&&NET.kind==='sc'){sclOpen();return}if(NET.role)netLeave();NET.kind='race';sclHide();onlOpen();return}onlHide();return ha(a)}}
 {const im=initMenu;initMenu=function(){im();onlHide()}}
 {const eo=eveOpen;eveOpen=function(){onlHide();return eo.apply(this,arguments)}}
 {const so=setOpen;setOpen=function(){onlHide();return so.apply(this,arguments)}}
 (()=>{const lh=$('lHome');if(!lh||document.querySelector('.mon.onlM'))return;
   (lh.querySelector('[data-home="mp"]')||lh.lastElementChild).insertAdjacentHTML('afterend','<div class="mon onlM" data-home="online"><div class="mt2"><i></i>ONLINE</div><div class="mbody"><div class="big">LOBBIES & STRECKEN</div>Offenen Lobbies beitreten und Strecken anderer Spieler fahren.</div><div class="mfoot"><b>ÖFFNEN ▸</b></div></div>');trAll&&trAll()})();
-/* =====================================================================
-   4) Einstellungen: Online und Safety-Car-Rennen
-   ===================================================================== */
-SICON.globe='<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" fill="none" stroke="currentColor" stroke-width="1.6"/>';
-{const sh=setHTML;setHTML=function(){const h=sh.apply(this,arguments);
-  const c=sCard('globe','ONLINE',sRow('NEUE LOBBIES',setSegH('lobVis',[['priv','Privat'],['pub','Öffentlich']]),'Gilt, wenn du eine Lobby eröffnest. In der Lobby kannst du es jederzeit ändern und ein Passwort setzen.'))+
-   sCard('car','SAFETY-CAR-RENNEN',sRow('GEGNER',setSegH('scrOpp',[['1','1'],['3','3'],['5','5'],['7','7']]))+sRow('STÄRKE',setSegH('scrLvl',[['easy','Leicht'],['mid','Mittel'],['hard','Schwer']]))+sRow('RENNRUNDEN',setSegH('scrLaps',[['2','2'],['3','3'],['5','5']])));
-  const i=h.lastIndexOf('<div class="setFoot">');const j=h.lastIndexOf('</div>',i);return i<0?h:h.slice(0,j)+c+h.slice(j)}}
-{const sc=setCommit;setCommit=function(){const r=sc.apply(this,arguments);if(!NET.role)LOB.vis=SETS.lobVis;scrDefaults();return r}}
 Object.assign(EN,{'SAFETY-CAR-RENNEN':'SAFETY CAR RACE','Rennen gegen andere Safety Cars. Start vom letzten Platz, drei rote Lampen, dann zählt nur noch die Ziellinie.':'Race against other safety cars. Start from last place, three red lamps, then only the finish line counts.','GEGNER':'OPPONENTS','STÄRKE':'STRENGTH','RENNRUNDEN':'RACE LAPS','Leicht':'Easy','Mittel':'Medium','Schwer':'Hard','Rennen starten':'Start race',
  'Safety-Car-Rennen: Gas geben, sobald die Lampen ausgehen.':'Safety car race: accelerate as soon as the lamps go out.','MAUERKONTAKT – 2,5 s ZURÜCK AUF DIE STRECKE':'WALL CONTACT – 2.5 s BACK TO THE TRACK','LOS GEHT’S':'GO GO GO','ZIEL':'FINISH','Runde':'Lap','Rennzeit':'Race time','Beste Runde':'Best lap','SIEG!':'VICTORY!','noch unterwegs':'still racing','Nochmal':'Again','Zum Menü':'To menu','Du':'You',
- 'ONLINE':'ONLINE','LOBBIES & STRECKEN':'LOBBIES & TRACKS','Offenen Lobbies beitreten und Strecken anderer Spieler fahren.':'Join open lobbies and drive tracks by other players.','ÖFFNEN ▸':'OPEN ▸','ÖFFENTLICHE LOBBIES':'PUBLIC LOBBIES','SICHTBARKEIT':'VISIBILITY','Öffentlich':'Public','Privat':'Private','PASSWORT (OPTIONAL)':'PASSWORD (OPTIONAL)','kein Passwort':'no password','Passwort':'Password','Offen':'Open','Rennen läuft':'Race running','In der Lobby':'In the lobby','Beitreten':'Join','Voll':'Full','Andere Version':'Other version',
+ 'ONLINE':'ONLINE','LOBBIES & STRECKEN':'LOBBIES & TRACKS','Offenen Lobbies beitreten und Strecken anderer Spieler fahren.':'Join open lobbies and drive tracks by other players.','ÖFFNEN ▸':'OPEN ▸','Rennleitungs-Lobby eröffnen':'Open race control lobby','Safety-Car-Rennen eröffnen':'Open safety car race','Der Upload der Strecke':'The upload of the track','Beim Hochladen zählt ein Verstoß doppelt. Uploads sind für 24 Stunden gesperrt.':'Violations count double for uploads. Uploads are locked for 24 hours.','Uploads sind für dein Konto nach einem Verstoß 24 Stunden gesperrt.':'Uploads are locked for 24 hours after a violation.','Von der Rennleitung offline genommen':'Taken offline by race control','ÖFFENTLICHE LOBBIES':'PUBLIC LOBBIES','SICHTBARKEIT':'VISIBILITY','Öffentlich':'Public','Privat':'Private','PASSWORT (OPTIONAL)':'PASSWORD (OPTIONAL)','kein Passwort':'no password','Passwort':'Password','Offen':'Open','Rennen läuft':'Race running','In der Lobby':'In the lobby','Beitreten':'Join','Voll':'Full','Andere Version':'Other version',
  'Falsches Passwort.':'Wrong password.','Diese Lobby ist mit einem Passwort geschützt.':'This lobby is password protected.','Passwort für Lobby':'Password for lobby','Öffentliche Lobbies gibt es nur mit Konto.':'Public lobbies require an account.','Lobbies sind gerade nicht erreichbar.':'Lobbies are unavailable right now.','Gerade ist keine öffentliche Lobby offen – eröffne doch selbst eine.':'No public lobby is open right now – why not open one yourself?',
  'Lobby konnte nicht veröffentlicht werden.':'The lobby could not be published.','Deine Lobby steht in der öffentlichen Liste – jeder kann mit einem Klick beitreten.':'Your lobby is in the public list – anyone can join with one click.','Nur wer den Code oder Link hat, kann beitreten.':'Only people with the code or link can join.','Das Passwort wird beim Beitreten abgefragt, auch per Code und Link.':'The password is required to join, also via code and link.',
  'Eigene Lobby eröffnen':'Open your own lobby','Mit Code beitreten':'Join with a code','STRECKEN VON SPIELERN':'TRACKS BY PLAYERS','Strecke oder Spieler suchen …':'Search track or player …','Neu laden':'Reload','Eigene Strecke hochladen':'Upload your own track','Online-Strecken gibt es nur mit Konto.':'Online tracks require an account.','Strecken sind gerade nicht erreichbar.':'Tracks are unavailable right now.','Keine passende Strecke.':'No matching track.','Noch hat niemand eine Strecke hochgeladen – sei der Erste!':'Nobody has uploaded a track yet – be the first!','von':'by','Fahren':'Drive','Speichern':'Save','Melden':'Report',
  'Hochladen':'Upload','Online aktualisieren':'Update online','Online ersetzen':'Replace online','Offline nehmen':'Take offline','Strecken anderer Spieler ansehen':'Browse tracks by other players','Hochladen geht nur mit Konto und Internet.':'Uploading requires an account and internet.','Diese Strecke darf nicht hochgeladen werden.':'This track may not be uploaded.','Wird hochgeladen …':'Uploading …','ist jetzt online für alle sichtbar.':'is now visible to everyone.','Hochladen fehlgeschlagen. Bitte später erneut versuchen.':'Upload failed. Please try again later.','Die Strecke ist nicht mehr online.':'The track is no longer online.','Entfernen fehlgeschlagen.':'Removal failed.','Diese Strecke lässt sich nicht fahren.':'This track cannot be driven.',
  'NEUE LOBBIES':'NEW LOBBIES','Gilt, wenn du eine Lobby eröffnest. In der Lobby kannst du es jederzeit ändern und ein Passwort setzen.':'Applies when you open a lobby. You can change it and set a password in the lobby at any time.'});
+/* =====================================================================
+   RACE CONTROL 43 – Profile, Freunde, Chat, Verstöße, Anfechtungen, Strafen
+   ===================================================================== */
+for(const [k,v] of Object.entries({soReq:'all',soChat:'all',soOn:'on',soMaps:'on',soSound:'on',soPop:'on'}))if(SETS[k]==null)SETS[k]=v;
+const SO={uid:null,fr:{},chats:{},prof:{},pres:{},open:false,tab:'chats',cur:null,msgs:[],subs:[],msgUn:null,sanc:null,notes:[],first:true,q:'',msg:'',frMaps:null,inv:false,sending:false,lastSend:0};
+const fsTs=()=>firebase.firestore.FieldValue.serverTimestamp(),msOf=t=>t&&t.toMillis?t.toMillis():(typeof t==='number'?t:Date.now());
+const pairId=(a,b)=>a<b?a+'_'+b:b+'_'+a;
+const clean=(s,n)=>String(s==null?'':s).replace(/[<>"`]/g,'').slice(0,n);
+const avOk=a=>typeof a==='string'&&a.length<40000&&/^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(a);
+function avHTML(p,cls){const nm=(p&&p.name)||'?';if(p&&avOk(p.av))return `<img class="soAv ${cls||''}" src="${p.av}" alt="">`;let h=0;for(const c of nm)h=(h*31+c.charCodeAt(0))%360;return `<span class="soAv ${cls||''}" style="background:hsl(${h},55%,38%)">${esc(nm[0]||'?').toUpperCase()}</span>`}
+const myProf=()=>SO.prof[SO.uid]||{};
+/* =====================================================================
+   1) Verstöße protokollieren, Anfechten
+   ===================================================================== */
+const VIO={ctx:null,last:null};
+const trkStr=t=>{if(!t||!Array.isArray(t.pts))return '';const s=JSON.stringify({name:clean(t.name,28),km:+t.km||2.5,w:+t.w||72,street:!!t.street,pts:t.pts.map(p=>[Math.round(p[0]*10)/10,Math.round(p[1]*10)/10])});return s.length<42000?s:''};
+function vioQ(){try{return JSON.parse(localStorage.getItem('rc_vioq')||'[]')}catch(_){return []}}
+function vioLog(v){   // v={kind,val,track,w}
+  const o={kind:v.kind,val:clean(v.val,200),trk:trkStr(v.track),w:v.w||1,t:Date.now(),id:Math.random().toString(36).slice(2,12)};
+  const L=vioQ();const dup=SO.recent&&SO.recent.k===o.kind+o.val+o.trk.length&&Date.now()-SO.recent.t<60000;SO.recent={k:o.kind+o.val+o.trk.length,t:Date.now()};
+  if(dup)return SO.recentId||null;SO.recentId=o.id;L.push(o);try{localStorage.setItem('rc_vioq',JSON.stringify(L.slice(-10)))}catch(_){}vioFlush();return o.id;
+}
+let vioBusy=false;
+async function vioFlush(){const A=acc42();if(!A||vioBusy)return;vioBusy=true;
+  try{let L=vioQ();while(L.length){const o=L[0];
+    await A.db.collection('vio').doc(A.user.uid+'_'+o.id).set({uid:A.user.uid,name:clean(A.name,16),ign:clean(lsGet('rc_name'),16),kind:o.kind,val:o.val,trk:o.trk,w:o.w,at:fsTs(),src:'auto',cl:false});
+    L=vioQ().slice(1);localStorage.setItem('rc_vioq',JSON.stringify(L))}}catch(_){}vioBusy=false}
+/* Verwarnungsfenster um „Anfechten“ erweitern */
+{const mw=modWarn;modWarn=function(what,detail){
+  const c=VIO.ctx||(window.RC_VIOQ&&window.RC_VIOQ.shift())||null;VIO.ctx=null;mw(what,detail);
+  if(!c)return;const id=vioLog(c);VIO.last=Object.assign({vid:id},c);
+  const b=document.querySelector('#modWarn .mwBox');if(!b)return;
+  b.insertAdjacentHTML('beforeend',`<div class="mwAp"><button class="btn" data-ap="open">${tl('Zu Unrecht blockiert? Anfechten')}</button></div>`)}}
+function apForm(){const b=document.querySelector('#modWarn .mwAp');if(!b)return;
+  b.innerHTML=`<p class="sm">${tl('Die Rennleitung prüft deine Anfechtung von Hand. Ist sie unberechtigt, folgt eine Strafe.')}</p><textarea id="apTxt" rows="3" maxlength="400" placeholder="${tl('Warum ist das kein Verstoß?')}"></textarea><div class="fbrow"><button class="btn primary" data-ap="send">${tl('Anfechtung senden')}</button><span id="apSt" class="mut sm"></span></div>`;$('apTxt').focus()}
+async function apSend(){const A=acc42(),c=VIO.last,st=$('apSt'),txt=clean($('apTxt').value.trim(),400);if(!c)return;
+  if(!A){st.textContent=tl('Anfechten geht nur mit Konto und Internet.');return}
+  if(txt.length<10){st.textContent=tl('Bitte begründe kurz (mind. 10 Zeichen).');return}
+  st.textContent=tl('Wird gesendet …');
+  try{let ok=false;
+    for(let i=0;i<3&&!ok;i++){const ref=A.db.collection('appeals').doc(A.user.uid+'_'+i),d=await ref.get();if(d.exists&&d.data().st==='open')continue;
+      await ref.set({uid:A.user.uid,name:clean(A.name,16),ign:clean(lsGet('rc_name'),16),kind:c.kind,val:clean(c.val,200),trk:trkStr(c.track),text:txt,vid:c.vid?A.user.uid+'_'+c.vid:'',at:fsTs(),st:'open'});ok=true}
+    if(!ok){st.textContent=tl('Du hast schon 3 offene Anfechtungen.');return}
+    VIO.last=null;$('modWarn').querySelector('.mwAp').innerHTML=`<p class="sm" style="color:var(--ok)">${tl('✓ Anfechtung gesendet. Du bekommst eine Nachricht, sobald sie geprüft ist.')}</p>`;
+    formSend({kind:'Anfechtung',area:c.kind,text:`[ANFECHTUNG] ${idName(lsGet('rc_name')||A.name)}\nArt: ${c.kind}\nInhalt: ${c.val||'–'}\nBegründung: ${txt}`,img:c.track?trkImg(c.track):''})}
+  catch(e){st.textContent=tl('Senden fehlgeschlagen. Bitte später erneut versuchen.')}}
+document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-ap]');if(!q)return;e.stopPropagation();q.dataset.ap==='open'?apForm():apSend()},true);
+function trkImg(t){try{const cv=document.createElement('canvas');cv.width=420;cv.height=280;const c=cv.getContext('2d');c.fillStyle='#0b111b';c.fillRect(0,0,420,280);previewDraw(c,buildTrack({name:'x',sub:'',km:t.km||2.5,w:t.w||72,street:!!t.street,sm:1,sc:1.8,pts:t.pts,custom:true}));const d=cv.toDataURL('image/jpeg',.7);return d.length<45000?d:''}catch(_){return ''}}
+/* Benutzername + Ingame-Name an Meldungen und Feedback */
+function idName(n){const A=window.RCACC;return A&&A.name?`${clean(n,30)} [Benutzer: ${A.name}]`:clean(n,30)}
+async function formSend(o){try{const fd=new FormData();fd.append(BUGFORM.name,idName(lsGet('rc_name')||'Unbekannt'));fd.append(BUGFORM.kind,o.kind);fd.append(BUGFORM.area,o.area);fd.append(BUGFORM.text,o.text.slice(0,4000));if(BUGFORM.ver)fd.append(BUGFORM.ver,GAMEVER+' · '+navigator.userAgent.slice(0,120));if(o.img&&BUGFORM.imgs)fd.append(BUGFORM.imgs[0],o.img);await fetch(BUGFORM.url,{method:'POST',mode:'no-cors',body:fd})}catch(_){}}
+async function repStore(o){const A=acc42();if(!A)return;try{await A.db.collection('reports').add({uid:A.user.uid,name:clean(A.name,16),ign:clean(lsGet('rc_name'),16),kind:o.kind,who:clean(o.who,60),tuid:o.tuid||'',why:clean(o.why,60),text:clean(o.text,2000),ref:o.ref||'',copy:clean(o.copy,600),at:fsTs(),st:'open'})}catch(_){}}
+let REP=null;
+{const ro=repOpen;repOpen=function(pre){if(typeof pre==='string')pre={who:pre};REP=pre||null;return ro(pre)}}
+/* Auslöser: Streckeneditor, Namen, gespeicherte Strecken */
+{const ts=teSave;teSave=function(){const nm=($('teName')&&$('teName').value||'').trim(),t=TE&&TE.def?{name:nm,km:TE.km,w:TE.def.w,street:TE.street,pts:TE.def.pts}:null;
+  VIO.ctx=modCheck(nm)?{kind:'streckenname',val:nm,track:t}:teBanned()?{kind:'strecke',val:nm||'(ohne Name)',track:t}:null;try{return ts.apply(this,arguments)}finally{VIO.ctx=null}}}
+{const sc=setCommit;setCommit=function(){const i=$('setName');VIO.ctx=i&&modCheck(i.value)?{kind:'name',val:i.value}:null;try{return sc.apply(this,arguments)}finally{VIO.ctx=null}}}
+{const rn=readName;readName=function(){const el=$('mpName');VIO.ctx=el&&modCheck(el.value)?{kind:'name',val:el.value}:null;try{return rn.apply(this,arguments)}finally{VIO.ctx=null}}}
+{const fs=fbSend;fbSend=function(){const i=$('fbName');VIO.ctx=i&&modCheck(i.value)?{kind:'name',val:i.value}:null;const r=fs.apply(this,arguments);VIO.ctx=null;return r}}
+/* =====================================================================
+   2) Strafen und Benachrichtigungen vom Admin
+   ===================================================================== */
+function sancActive(s){s=s||SO.sanc;if(!s)return null;if(s.del)return 'del';if(s.ban)return 'ban';if((+s.until||0)>Date.now())return 'time';return null}
+function sancPaint(){
+  const a=sancActive();let el=$('sancBox');
+  if(!a){if(el)el.remove();return}
+  if(NET.role)netLeave();if(G){G.ended=true;try{toMenu()}catch(_){G=null}}soClose();
+  if(!el){el=document.createElement('div');el.id='sancBox';document.body.appendChild(el)}
+  const s=SO.sanc,left=Math.max(0,(+s.until||0)-Date.now()),m=Math.ceil(left/60000),tx=m>=120?Math.ceil(m/60)+' '+tl('Stunden'):m+' '+tl('Minuten');
+  const k=a+tx+(s.text||'');if(el.dataset.k===k)return;el.dataset.k=k;
+  el.innerHTML=`<div class="scrC sancC"><div class="evT">${tl('RENNLEITUNG')}</div><h2>${a==='del'?tl('KONTO GELÖSCHT'):a==='ban'?tl('DAUERHAFT GESPERRT'):tl('AUSZEIT')}</h2>
+   <p>${a==='time'?`${tl('Dein Konto ist noch gesperrt für')} <b>${tx}</b>.`:a==='ban'?tl('Dein Konto ist dauerhaft gesperrt.'):tl('Dein Konto wurde von der Rennleitung gelöscht.')}</p>${s.text?`<p class="sancT">${esc(s.text)}</p>`:''}
+   <p class="mut sm">${tl('Fragen dazu kannst du über das Feedback-Formular stellen, sobald du wieder Zugang hast.')}</p><div class="fbrow"><button class="btn primary" data-sn="out">${a==='del'?tl('Schließen'):tl('Abmelden')}</button></div></div>`;
+}
+setInterval(sancPaint,1000);
+document.addEventListener('click',async e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-sn]');if(!q)return;e.stopPropagation();const A=acc42();
+  if(q.dataset.sn==='out'){q.disabled=true;const d=sancActive()==='del';try{if(d&&A){SYNC_WIPE();try{await A.user.delete()}catch(_){await A.auth.signOut()}location.reload()}else if(A)await A.logout();else location.reload()}catch(_){location.reload()}}
+  else if(q.dataset.sn==='ok')noteOk()},true);
+function SYNC_WIPE(){['rc_settings','rc_tracks','rc_career','rc_name','rc_fb_name','rc_warn','rc_lb','rc_owner','rc_reports','rc_vioq','rc_allow'].forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('rc_synced')}
+/* Benachrichtigungen: werden angezeigt, Aktionen (löschen/umbenennen) lokal angewendet */
+function noteApply(n){const a=n.act;if(!a)return;try{
+  if(a.t==='del'||a.t==='ren'){let hit=false;CUST.forEach((c,i)=>{if(c&&modHash(c.pts)===a.h){hit=true;if(a.t==='del')CUST[i]=null;else c.name=clean(a.n,28)||'Strecke'}});if(hit){custSave();custApply();if(!G)initMenuKeep()}}
+  else if(a.t==='ign'){const A=acc42();lsSet('rc_name',A?A.name:'Spieler');lsSet('rc_fb_name','')}
+  else if(a.t==='ava'){if(SO.prof[SO.uid])SO.prof[SO.uid].av=''}
+  else if(a.t==='allow')allowLoad();
+  const A=acc42();if(A)A.push(true)}catch(_){}}
+function notePaint(){const n=SO.notes[0];let el=$('noteBox');if(!n||G||sancActive()){if(el&&!n)el.remove();return}
+  if(el&&el.dataset.id===n.id)return;if(!el){el=document.createElement('div');el.id='noteBox';document.body.appendChild(el)}el.dataset.id=n.id;
+  const good=n.k==='apok',t=n.trk?safeTrk(n.trk):null;
+  el.innerHTML=`<div class="scrC noteC ${good?'good':''}"><div class="evT">${good?tl('NACHRICHT DER RENNLEITUNG'):tl('MITTEILUNG DER RENNLEITUNG')}</div><h3>${esc(n.title)}</h3><p class="sancT">${esc(n.text)}</p>${t?'<canvas width="300" height="180"></canvas>':''}
+   <div class="fbrow">${t&&good?`<button class="btn primary" data-sn="ok">${tl('Strecke übernehmen')}</button>`:`<button class="btn primary" data-sn="ok">${tl('Verstanden')}</button>`}${SO.notes.length>1?`<span class="mut sm">${SO.notes.length-1} ${tl('weitere')}</span>`:''}</div></div>`;
+  if(t)try{previewDraw(el.querySelector('canvas').getContext('2d'),buildTrack({name:'x',sub:'',km:t.km,w:t.w,street:t.street,sm:1,sc:1.8,pts:t.pts,custom:true}))}catch(_){}}
+function safeTrk(s){try{const t=JSON.parse(s),P=t.pts;if(!Array.isArray(P)||P.length<21||P.length>2500||!P.every(p=>Array.isArray(p)&&isFinite(p[0])&&isFinite(p[1])))return null;return {name:clean(t.name,28)||'Strecke',km:clamp(+t.km||2.5,.5,12),w:clamp(+t.w||72,30,140),street:!!t.street,pts:P}}catch(_){return null}}
+async function noteOk(){const n=SO.notes.shift(),A=acc42(),el=$('noteBox');if(el)el.remove();if(!n||!A)return;
+  if(n.k==='apok'&&n.trk){const t=safeTrk(n.trk);await allowLoad();const dup=t&&CUST.some(c=>c&&modHash(c.pts)===modHash(t.pts)),s=CUST.findIndex(c=>!c);
+    if(t&&!dup){if(s>=0){CUST[s]=Object.assign({t:Date.now()},t);custSave();custApply();initMenuKeep()}else{SO.notes.unshift(n);soToast(tl('Alle 5 Plätze sind belegt. Mach zuerst einen Platz frei.'),'');return}}}
+  try{await A.db.collection('notices').doc(SO.uid).collection('n').doc(n.id).update({read:true})}catch(_){}notePaint()}
+setInterval(notePaint,900);
+async function allowLoad(){const A=acc42();if(!A)return;try{const d=await A.db.collection('config').doc('allow').get();localStorage.setItem('rc_allow',JSON.stringify(d.exists?Object.keys(d.data()):[]));modAllowRead()}catch(_){}}
+/* =====================================================================
+   3) Start: Profil, Freunde, Chats, Online-Status
+   ===================================================================== */
+async function profPush(){const A=acc42();if(!A||sancActive())return;const p=myProf();
+  const d={name:clean(A.name,16),lc:String(A.name).toLowerCase(),ign:clean(modName(lsGet('rc_name')||A.name,A.name),16),av:avOk(p.av)?p.av:'',req:SETS.soReq,chat:SETS.soChat,maps:SETS.soMaps!=='off',at:Date.now()};
+  SO.prof[SO.uid]=Object.assign({},p,d);try{await A.db.collection('profiles').doc(SO.uid).set(d);return true}catch(e){return false}}
+async function profGet(uid,force){const c=SO.prof[uid];if(c&&!force&&Date.now()-(c._t||0)<300000)return c;const A=acc42();if(!A)return c;
+  try{const d=await A.db.collection('profiles').doc(uid).get();const v=d.exists?d.data():{name:(c&&c.name)||'?'};v._t=Date.now();v.name=clean(v.name,16);v.ign=clean(v.ign,16);if(modCheck(v.ign))v.ign=v.name;SO.prof[uid]=v;soPaint();return v}catch(_){return c}}
+let presT=0,mapsLast=null;
+async function presBeat(off){const A=acc42();if(!A||!SO.uid||sancActive())return;const ref=A.db.collection('presence').doc(SO.uid);
+  try{if(SETS.soOn==='off'){if(SO.presOn!==false){SO.presOn=false;await ref.delete()}return}
+    SO.presOn=true;await ref.set({at:fsTs(),st:off?'off':G?(G.scRace?'sc':'race'):NET.role?'lobby':'menu'})}catch(_){}}
+setInterval(()=>{if(document.visibilityState==='visible'&&Date.now()-presT>90000){presT=Date.now();presBeat()}},5000);
+addEventListener('pagehide',()=>presBeat(true));
+async function mapsPush(){const A=acc42();if(!A||!SO.uid||sancActive())return;const s=SETS.soMaps==='off'?'off':JSON.stringify(CUST.filter(Boolean).map(c=>({name:c.name,km:c.km,w:c.w,street:!!c.street,pts:c.pts.map(p=>[Math.round(p[0]*10)/10,Math.round(p[1]*10)/10])})));
+  if(s===mapsLast)return;mapsLast=s;const ref=A.db.collection('maps').doc(SO.uid);try{if(s==='off'||s.length>120000)await ref.delete();else await ref.set({d:s,at:Date.now()})}catch(_){mapsLast=null}}
+setInterval(mapsPush,20000);
+async function soStart(A){
+  SO.subs.forEach(f=>{try{f()}catch(_){}});SO.uid=A.user.uid;SO.fr={};SO.chats={};SO.subs=[];SO.first=true;
+  const sub=(q,f)=>SO.subs.push(q.onSnapshot(f,()=>{}));
+  sub(A.db.collection('sanctions').doc(SO.uid),d=>{SO.sanc=d.exists?d.data():null;sancPaint()});
+  sub(A.db.collection('notices').doc(SO.uid).collection('n').where('read','==',false).limit(20),sn=>{const old=new Set(SO.notes.map(n=>n.id));SO.notes=sn.docs.map(d=>Object.assign({id:d.id},d.data())).sort((a,b)=>msOf(a.at)-msOf(b.at));SO.notes.forEach(n=>{if(!old.has(n.id))noteApply(n)});notePaint()});
+  await allowLoad();vioFlush();
+  const p=await profGet(SO.uid,true);SO.prof[SO.uid]=p||{};await profPush();presT=Date.now();presBeat();mapsPush();
+  sub(A.db.collection('friends').where('m','array-contains',SO.uid),sn=>{const old=SO.fr;SO.fr={};sn.docs.forEach(d=>{const v=d.data(),o=v.m.find(x=>x!==SO.uid);SO.fr[o]=Object.assign({id:d.id},v);if(!SO.prof[o])SO.prof[o]={name:clean(v.n&&v.n[o],16)||'?'};
+      if(!SO.first){const w=old[o];if(v.st==='req'&&v.by!==SO.uid&&!w)soToast(`${esc(soName(o))} ${tl('möchte mit dir befreundet sein.')}`,'fr');if(v.st==='ok'&&w&&w.st==='req'&&w.by===SO.uid)soToast(`${esc(soName(o))} ${tl('hat deine Anfrage angenommen.')}`,'fr')}});
+    Object.keys(SO.fr).forEach(u=>profGet(u));soPaint()});
+  sub(A.db.collection('chats').where('m','array-contains',SO.uid),sn=>{const old=SO.chats;SO.chats={};sn.docs.forEach(d=>{const v=d.data(),o=v.m.find(x=>x!==SO.uid);SO.chats[o]=Object.assign({id:d.id,ms:msOf(v.at)},v);if(!SO.prof[o])SO.prof[o]={name:clean(v.n&&v.n[o],16)||'?'};profGet(o);
+      const w=old[o];if(!SO.first&&v.last&&v.last.by!==SO.uid&&(!w||w.ms<SO.chats[o].ms)&&!blocked(o)&&!(SO.open&&SO.cur===o))soToast(`<b>${esc(soName(o))}</b> ${v.last.k==='inv'?tl('lädt dich in eine Lobby ein.'):esc(clean(v.last.t,80))}`,o)});soPaint()});
+  setTimeout(()=>{SO.first=false},4000);
+}
+setInterval(()=>{const A=acc42();if(A&&A.ready&&SO.uid!==A.user.uid)soStart(A);soBtn()},700);
+const soName=u=>(SO.prof[u]&&SO.prof[u].name)||'?';
+const isFr=u=>SO.fr[u]&&SO.fr[u].st==='ok',blocked=u=>SO.fr[u]&&SO.fr[u].st==='blk';
+const unread=u=>{const c=SO.chats[u];return c&&c.last&&c.last.by!==SO.uid&&!blocked(u)&&c.ms>msOf((c.rd&&c.rd[SO.uid])||0)};
+const reqIn=()=>Object.keys(SO.fr).filter(u=>SO.fr[u].st==='req'&&SO.fr[u].by!==SO.uid);
+function soBadge(){return Object.keys(SO.chats).filter(unread).length+reqIn().length}
+async function presLoad(){const A=acc42();if(!A)return;for(const u of Object.keys(SO.fr).filter(isFr))try{const d=await A.db.collection('presence').doc(u).get();SO.pres[u]=d.exists?{ms:msOf(d.data().at),st:d.data().st}:null}catch(_){}soPaint()}
+setInterval(()=>{if(SO.open&&document.visibilityState==='visible')presLoad()},60000);
+function presTxt(u){const p=SO.pres[u];if(!p)return {on:false,t:''};const on=p.st!=='off'&&Date.now()-p.ms<200000;if(on)return {on,t:{race:tl('in einem Rennen'),sc:tl('im Safety-Car-Rennen'),lobby:tl('in einer Lobby')}[p.st]||tl('online')};
+  const m=Math.round((Date.now()-p.ms)/60000);return {on,t:tl('zuletzt online')+' '+(m<60?tl('vor')+' '+Math.max(1,m)+' min':m<1440?tl('vor')+' '+Math.round(m/60)+' h':new Date(p.ms).toLocaleDateString())}}
+/* ---------- Freunde ---------- */
+function soSay(t){SO.msg=t;soPaint();clearTimeout(SO.msgT);SO.msgT=setTimeout(()=>{SO.msg='';soPaint()},5000)}
+async function soFind(name){const A=acc42(),n=String(name||'').trim();if(!A)return null;if(!/^[A-Za-z0-9_-]{3,16}$/.test(n)){soSay(tl('Bitte einen gültigen Benutzernamen eingeben.'));return null}
+  try{const d=await A.db.collection('usernames').doc(n.toLowerCase()).get();if(!d.exists||d.data().del){soSay(tl('Diesen Benutzernamen gibt es nicht.'));return null}const u=d.data().uid;if(u===SO.uid){soSay(tl('Das bist du selbst.'));return null}
+    const p=await profGet(u,true);if(!p||!p.lc){soSay(tl('Dieser Spieler hat die Freunde-Funktion noch nicht geöffnet.'));return null}return u}catch(_){soSay(tl('Keine Verbindung.'));return null}}
+async function frSet(u,d){const A=acc42(),id=pairId(SO.uid,u);await A.db.collection('friends').doc(id).set(Object.assign({m:id.split('_'),n:{[SO.uid]:clean(A.name,16),[u]:soName(u)},at:Date.now()},d))}
+async function frAdd(u){if(!u)return;const f=SO.fr[u];if(f){if(f.st==='ok')return soSay(tl('Ihr seid schon befreundet.'));if(f.st==='req')return f.by===SO.uid?soSay(tl('Anfrage läuft bereits.')):frAct(u,'yes');if(f.st==='blk')return soSay(tl('Nicht möglich.'))}
+  try{await frSet(u,{by:SO.uid,st:'req'});soSay(tl('Freundschaftsanfrage gesendet.'))}catch(_){soSay(tl('Dieser Spieler nimmt keine Anfragen an.'))}}
+async function frAct(u,a){const A=acc42(),f=SO.fr[u],ref=A.db.collection('friends').doc(pairId(SO.uid,u));
+  try{if(a==='yes')await ref.update({st:'ok'});else if(a==='no'||a==='del'||a==='unblk')await ref.delete();else if(a==='blk'){if(f)await ref.update({st:'blk',by:SO.uid});else await frSet(u,{by:SO.uid,st:'blk'});if(SO.cur===u)soOpenChat(null)}}catch(_){soSay(tl('Das hat nicht geklappt.'))}}
+async function frMaps(u){const A=acc42();SO.frMaps={u,list:null};soPaint();try{const d=await A.db.collection('maps').doc(u).get();const L=d.exists?JSON.parse(d.data().d):[];
+    SO.frMaps={u,list:(Array.isArray(L)?L:[]).slice(0,5).map(t=>safeTrk(JSON.stringify(t))).filter(t=>t&&!modCheck(t.name)&&!modShape(t.pts))}}catch(_){SO.frMaps={u,list:[],err:true}}soPaint()}
+/* ---------- Chat ---------- */
+function soOpenChat(u){const A=acc42();if(SO.msgUn){try{SO.msgUn()}catch(_){}SO.msgUn=null}SO.cur=u;SO.msgs=[];SO.frMaps=null;SO.err='';soPaint();if(!u||!A)return;profGet(u);
+  SO.msgUn=A.db.collection('chats').doc(pairId(SO.uid,u)).collection('m').orderBy('at','desc').limit(80).onSnapshot(sn=>{SO.msgs=sn.docs.map(d=>Object.assign({id:d.id},d.data(),{ms:msOf(d.data().at)})).reverse();soMsgs();soRead(u)},()=>{});
+  soRead(u)}
+async function soRead(u){const A=acc42();if(!A||!SO.open||SO.cur!==u||!unread(u)||document.visibilityState!=='visible')return;try{await A.db.collection('chats').doc(pairId(SO.uid,u)).update({['rd.'+SO.uid]:fsTs()})}catch(_){}}
+async function chatSend(u,text,extra){const A=acc42();if(!A||!u)return false;text=String(text||'').trim().slice(0,500);if(!text)return false;
+  if(chatCheck(text)){VIO.ctx={kind:'chat',val:text};modWarn(tl('Deine Nachricht'));return false}
+  if(Date.now()-SO.lastSend<700)return false;SO.lastSend=Date.now();
+  const id=pairId(SO.uid,u),cr=A.db.collection('chats').doc(id),mr=cr.collection('m').doc(),k=extra?'inv':'txt',b=A.db.batch();
+  b.set(cr,{m:id.split('_'),n:{[SO.uid]:clean(A.name,16),[u]:soName(u)},last:{by:SO.uid,t:text.slice(0,100),k},at:fsTs(),rd:{[SO.uid]:fsTs()}},{merge:true});
+  b.set(mr,{by:SO.uid,t:text,k,x:extra?JSON.stringify(extra):'',at:fsTs()});
+  try{await b.commit();SO.err='';return true}catch(e){SO.err=sancActive()?tl('Du bist gerade gesperrt.'):tl('Nicht zugestellt – der Spieler nimmt keine Nachrichten von dir an.');soErr();return false}}
+async function soInvite(u){const A=acc42();if(!A||NET.role!=='host')return;const ok=await chatSend(u,`${tl('Komm in meine Lobby')}: ${lobTxt()}`,{h:SO.uid,c:NET.code,k:NET.kind,t:lobToken()});if(ok){SO.invDone=SO.invDone||{};SO.invDone[u]=NET.code;soPaint()}}
+async function soJoin(x){const A=acc42();let o;try{o=JSON.parse(x)}catch(_){return}if(!A||!o||typeof o.c!=='string'||!/^[A-Z0-9]{4,12}$/.test(o.c))return;
+  try{const d=await A.db.collection('lobbies').doc(String(o.h)).get();if(!d.exists||d.data().code!==o.c||Date.now()-msOf(d.data().at)>90000){SO.err=tl('Diese Lobby gibt es nicht mehr.');soErr();return}
+    if(d.data().v!==String(GAMEVER)){SO.err=tl('Der Host spielt eine andere Version.');soErr();return}}catch(_){SO.err=tl('Keine Verbindung.');soErr();return}
+  soClose();lobGo({code:o.c,k:o.k},'',String(o.t||''))}
+/* ---------- Oberfläche ---------- */
+const CHAT_IC='<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 9h8M8 12.5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+function soBtn(){
+  let b=$('soBtn');const hd=document.querySelector('#menu .lhead');if(!b&&hd){b=document.createElement('button');b.id='soBtn';b.type='button';b.dataset.so='open';b.title=tl('Freunde & Chat');hd.insertBefore(b,$('lClock')?$('lClock').nextSibling:null);b.innerHTML=CHAT_IC+'<i class="hide"></i>'}
+  const n=acc42()?soBadge():0;if(b){const i=b.querySelector('i');i.classList.toggle('hide',!n);i.textContent=n>9?'9+':n}
+  const tb=$('soTile');if(tb){const on=Object.keys(SO.fr).filter(u=>isFr(u)&&presTxt(u).on).length;const t=n?`${n} ${tl('Neuigkeiten')}`:on?`${on} ${tl('online')}`:'';if(tb.textContent!==t)tb.textContent=t}
+}
+(()=>{const lh=$('lHome');if(!lh||document.querySelector('.mon.soM'))return;lh.insertAdjacentHTML('beforeend','<div class="mon soM" data-so="open"><div class="mt2"><i></i>FREUNDE & CHAT</div><div class="mbody"><div class="big">SCHREIB ANDEREN</div>Freunde finden, chatten, Strecken ansehen und in Lobbies einladen.</div><div class="mfoot"><span id="soTile"></span><b>ÖFFNEN ▸</b></div></div>');trAll&&trAll()})();
+function soOpen(tab,u){if(G)return;let el=$('soc');if(!el){el=document.createElement('div');el.id='soc';document.body.appendChild(el)}el.classList.remove('hide');SO.open=true;if(tab)SO.tab=tab;if(u)soOpenChat(u);soPaint(true);presLoad()}
+function soClose(){SO.open=false;SO.inv=false;if(SO.msgUn){try{SO.msgUn()}catch(_){}SO.msgUn=null}SO.cur=null;const el=$('soc');if(el)el.classList.add('hide')}
+function soRow(u,sub,right){const p=presTxt(u);return `<div class="soRow ${SO.cur===u?'on':''}" data-so="chat:${esc(u)}"><div class="soAvW">${avHTML(SO.prof[u])}${isFr(u)?`<em class="${p.on?'on':''}"></em>`:''}</div><div class="soI"><b>${esc(soName(u))}</b><span>${sub}</span></div>${right||''}</div>`}
+function soLeft(){
+  if(SO.inv){const L=Object.keys(SO.fr).filter(isFr);return `<div class="soHint">${tl('Wen möchtest du in deine Lobby einladen?')}</div>${L.map(u=>soRow(u,presTxt(u).t,`<button class="btn sm ${SO.invDone&&SO.invDone[u]===NET.code?'':'primary'}" data-so="inv:${esc(u)}">${SO.invDone&&SO.invDone[u]===NET.code?tl('Eingeladen ✓'):tl('Einladen')}</button>`)).join('')||`<div class="soE">${tl('Du hast noch keine Freunde hinzugefügt.')}</div>`}`}
+  if(SO.tab==='chats'){const L=Object.keys(SO.chats).filter(u=>!blocked(u)).sort((a,b)=>SO.chats[b].ms-SO.chats[a].ms);
+    return L.map(u=>{const c=SO.chats[u],un=unread(u);return soRow(u,`${c.last&&c.last.by===SO.uid?tl('Du')+': ':''}${esc(clean(c.last&&c.last.t,60))}`,`<span class="soT">${soTime(c.ms)}${un?'<i></i>':''}</span>`)}).join('')||`<div class="soE">${tl('Noch keine Chats. Such oben einen Benutzernamen und schreib los.')}</div>`}
+  if(SO.tab==='friends'){const L=Object.keys(SO.fr).filter(isFr).sort((a,b)=>presTxt(b).on-presTxt(a).on||soName(a).localeCompare(soName(b)));
+    return L.map(u=>soRow(u,presTxt(u).t||`<span class="mut">${esc((SO.prof[u]||{}).ign||'')}</span>`,`<button class="btn sm" data-so="maps:${esc(u)}">${tl('Strecken')}</button>`)).join('')||`<div class="soE">${tl('Du hast noch keine Freunde hinzugefügt.')}</div>`}
+  const I=reqIn(),O=Object.keys(SO.fr).filter(u=>SO.fr[u].st==='req'&&SO.fr[u].by===SO.uid),B=Object.keys(SO.fr).filter(u=>blocked(u)&&SO.fr[u].by===SO.uid);
+  return (I.length?`<div class="soH">${tl('ERHALTEN')}</div>`+I.map(u=>soRow(u,tl('möchte mit dir befreundet sein.'),`<span class="soB"><button class="btn sm primary" data-so="yes:${esc(u)}">${tl('Annehmen')}</button><button class="btn sm" data-so="no:${esc(u)}">${tl('Ablehnen')}</button></span>`)).join(''):'')
+   +(O.length?`<div class="soH">${tl('GESENDET')}</div>`+O.map(u=>soRow(u,tl('wartet auf Antwort'),`<button class="btn sm" data-so="no:${esc(u)}">${tl('Zurückziehen')}</button>`)).join(''):'')
+   +(B.length?`<div class="soH">${tl('BLOCKIERT')}</div>`+B.map(u=>soRow(u,'',`<button class="btn sm" data-so="unblk:${esc(u)}">${tl('Freigeben')}</button>`)).join(''):'')||`<div class="soE">${tl('Keine offenen Anfragen.')}</div>`}
+const soTime=ms=>{const d=new Date(ms),n=new Date();return d.toDateString()===n.toDateString()?fmtClock(d).replace(/:\d\d(?=( |$))/,''):d.toLocaleDateString(undefined,{day:'2-digit',month:'2-digit'})};
+function soRight(){
+  const u=SO.cur;
+  if(SO.frMaps){const M=SO.frMaps;return `<div class="soTop"><button class="btn sm soBack" data-so="back">◂</button>${avHTML(SO.prof[M.u])}<div class="soI"><b>${tl('Strecken von')} ${esc(soName(M.u))}</b></div></div><div class="soMaps">${M.list==null?`<div class="soE">${tl('Lade …')}</div>`:M.err?`<div class="soE">${tl('Dieser Spieler teilt seine Strecken nicht.')}</div>`:M.list.map((t,i)=>`<div class="onlC"><canvas width="240" height="150" data-mi="${i}"></canvas><b>${esc(t.name)}</b><span>${t.km.toFixed(1)} km</span><div class="fbrow"><button class="btn primary sm" data-so="mplay:${i}">${tl('Fahren')}</button></div></div>`).join('')||`<div class="soE">${tl('Keine Strecken vorhanden.')}</div>`}</div>`}
+  if(!u){const p=myProf();return `<div class="soWel">${avHTML(Object.assign({name:(acc42()||{}).name||'?'},p),'xl')}<h3>${esc((acc42()||{}).name||'')}</h3><p class="mut">${tl('Wähle links einen Chat oder such einen Benutzernamen.')}</p></div>`}
+  const p=SO.prof[u]||{},pr=presTxt(u),f=SO.fr[u];
+  return `<div class="soTop"><button class="btn sm soBack" data-so="back">◂</button>${avHTML(p)}<div class="soI"><b>${esc(soName(u))}</b><span>${isFr(u)?pr.t:esc(p.ign&&p.ign!==p.name?tl('im Spiel')+': '+p.ign:'')}</span></div>
+    <span class="soB">${!f?`<button class="btn sm primary" data-so="add:${esc(u)}">${tl('Als Freund anfragen')}</button>`:f.st==='req'&&f.by!==SO.uid?`<button class="btn sm primary" data-so="yes:${esc(u)}">${tl('Anfrage annehmen')}</button>`:''}${NET.role==='host'?`<button class="btn sm primary" data-so="inv:${esc(u)}">${tl('In Lobby einladen')}</button>`:''}${isFr(u)?`<button class="btn sm" data-so="maps:${esc(u)}">${tl('Strecken')}</button>`:''}<button class="btn sm" data-so="menu">⋯</button></span></div>
+    <div class="soMenu ${SO.menu?'':'hide'}">${isFr(u)?`<button data-so="del:${esc(u)}">${tl('Freund entfernen')}</button>`:''}<button data-so="blk:${esc(u)}">${tl('Blockieren')}</button><button data-so="rep:${esc(u)}">${tl('Nutzer melden')}</button></div>
+    <div class="soMsgs" id="soMsgs"></div><div class="soErr" id="soErr">${esc(SO.err||'')}</div>
+    <div class="soIn"><textarea id="soTxt" rows="1" maxlength="500" placeholder="${tl('Nachricht schreiben …')}"></textarea><button class="btn primary" data-so="send">${tl('Senden')}</button></div>`}
+function soErr(){const e=$('soErr');if(e)e.textContent=SO.err||''}
+function soMsgs(){const b=$('soMsgs');if(!b)return;const near=b.scrollHeight-b.scrollTop-b.clientHeight<90||!b.childElementCount;let day='';
+  b.innerHTML=SO.msgs.map(m=>{const me=m.by===SO.uid,d=new Date(m.ms).toLocaleDateString(),h=d!==day?`<div class="soDay">${d===new Date().toLocaleDateString()?tl('Heute'):d}</div>`:'';day=d;const tx=!me&&chatCheck(m.t)?tl('(Nachricht vom Filter ausgeblendet)'):m.t;
+    return h+`<div class="soM1 ${me?'me':''} ${m.k==='inv'?'inv':''}"><div class="soBub">${m.k==='inv'?`<small>${tl('LOBBY-EINLADUNG')}</small>`:''}${esc(tx)}${m.k==='inv'&&!me?`<button class="btn primary sm" data-so="join:${esc(m.id)}">${tl('Beitreten')}</button>`:''}</div><span>${fmtClock(new Date(m.ms)).replace(/:\d\d(?=( |$))/,'')}${me?'':` · <a data-so="repm:${esc(m.id)}">${tl('melden')}</a>`}</span></div>`}).join('')||`<div class="soE">${tl('Schreib die erste Nachricht.')}</div>`;
+  if(near)b.scrollTop=b.scrollHeight}
+function soPaint(full){
+  soBtn();if(!SO.open)return;const el=$('soc');if(!el)return;
+  if(!acc42()){el.innerHTML=`<div class="socC"><div class="socHd"><b>${tl('FREUNDE & CHAT')}</b><button class="btn sm" data-so="close">✕</button></div><div class="soE">${tl('Freunde und Chat gibt es nur mit Konto und Internet.')}</div></div>`;return}
+  const t0=$('soTxt'),draft=t0&&SO.curDrawn===SO.cur?t0.value:'',ae=document.activeElement&&document.activeElement.id,q0=$('soQ')?$('soQ').value:'',n=reqIn().length;
+  el.innerHTML=`<div class="socC ${SO.cur||SO.frMaps?'chat':''}"><div class="socL"><div class="socHd"><b>${SO.inv?tl('FREUNDE EINLADEN'):tl('FREUNDE & CHAT')}</b><button class="btn sm" data-so="close">✕</button></div>
+    ${SO.inv?'':`<div class="soTabs">${[['chats','Chats'],['friends','Freunde'],['req','Anfragen']].map(x=>`<span data-so="tab:${x[0]}" class="${SO.tab===x[0]?'on':''}">${tl(x[1])}${x[0]==='req'&&n?`<i>${n}</i>`:''}</span>`).join('')}</div>
+    <div class="soS"><input id="soQ" maxlength="16" placeholder="${tl('Benutzername')}" autocomplete="off" value="${esc(q0)}"><button class="btn sm" data-so="find">${tl('Schreiben')}</button><button class="btn sm primary" data-so="addq">${tl('+ Freund')}</button></div><div class="soMsg">${esc(SO.msg)}</div>`}
+    <div class="soList">${soLeft()}</div></div><div class="socR">${soRight()}</div></div>`;
+  SO.curDrawn=SO.cur;soMsgs();
+  if($('soTxt')){$('soTxt').value=draft;if(ae==='soTxt'||full&&SO.cur)$('soTxt').focus()}if(ae==='soQ'&&$('soQ')){$('soQ').focus();$('soQ').setSelectionRange(q0.length,q0.length)}
+  if(SO.frMaps&&SO.frMaps.list)el.querySelectorAll('[data-mi]').forEach(cv=>{const t=SO.frMaps.list[+cv.dataset.mi];try{previewDraw(cv.getContext('2d'),buildTrack({name:t.name,sub:'',km:t.km,w:t.w,street:t.street,sm:1,sc:1.8,pts:t.pts,custom:true}))}catch(_){}});
+}
+function soToast(h,u){if(SETS.soPop==='off'||G)return;let el=$('soToast');if(!el){el=document.createElement('div');el.id='soToast';document.body.appendChild(el)}el.innerHTML=h;el.dataset.so=u&&u!=='fr'?'topen:'+u:u==='fr'?'treq':'';el.className='show';clearTimeout(soToast.t);soToast.t=setTimeout(()=>el.className='',5000);if(SETS.soSound!=='off'&&SETS.sound!==false)try{beep(740,.09,'sine',.04);setTimeout(()=>beep(990,.12,'sine',.04),90)}catch(_){}}
+async function soSubmit(){const t=$('soTxt');if(!t||SO.sending)return;const v=t.value;if(!v.trim())return;SO.sending=true;const ok=await chatSend(SO.cur,v);SO.sending=false;const t2=$('soTxt');if(t2){if(ok)t2.value='';t2.focus()}}
+document.addEventListener('keydown',e=>{const id=e.target&&e.target.id;if(id==='soTxt'&&e.key==='Enter'&&!e.shiftKey){e.preventDefault();soSubmit()}else if(id==='soQ'&&e.key==='Enter'){soFind(e.target.value).then(u=>{if(u)soOpenChat(u)})}else if(e.key==='Escape'&&SO.open)soClose()});
+document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-so]');if(!q||!q.dataset.so)return;e.preventDefault();e.stopPropagation();
+  const i=q.dataset.so.indexOf(':'),a=i<0?q.dataset.so:q.dataset.so.slice(0,i),v=i<0?'':q.dataset.so.slice(i+1);if(a!=='menu')SO.menu=false;
+  if(a==='open')soOpen();else if(a==='close')soClose();else if(a==='tab'){SO.tab=v;soPaint();if(v==='friends')presLoad()}
+  else if(a==='invite'){SO.inv=true;SO.cur=null;SO.frMaps=null;soOpen()}
+  else if(a==='chat'){if(SO.inv)return;soOpenChat(v)}else if(a==='back'){soOpenChat(null)}
+  else if(a==='find')soFind($('soQ').value).then(u=>{if(u)soOpenChat(u)});else if(a==='addq')soFind($('soQ').value).then(u=>{if(u){frAdd(u);const x=$('soQ');if(x)x.value=''}});
+  else if(a==='add')frAdd(v);else if(['yes','no','del','blk','unblk'].includes(a))frAct(v,a);
+  else if(a==='send')soSubmit();else if(a==='inv')soInvite(v);else if(a==='maps')frMaps(v);else if(a==='menu'){SO.menu=!SO.menu;soPaint()}
+  else if(a==='join'){const m=SO.msgs.find(x=>x.id===v);if(m)soJoin(m.x)}
+  else if(a==='rep'){repOpen({who:'Benutzer '+soName(v),tuid:v,kind:'nutzer'})}
+  else if(a==='repm'){const m=SO.msgs.find(x=>x.id===v);if(m)repOpen({who:'Nachricht von '+soName(SO.cur),tuid:SO.cur,kind:'nachricht',ref:'chats/'+pairId(SO.uid,SO.cur)+'/m/'+v,copy:m.t})}
+  else if(a==='mplay'){const t=SO.frMaps.list[+v];try{const d={name:t.name,sub:'Von '+esc(soName(SO.frMaps.u)),km:t.km,w:t.w,street:t.street,sm:1,sc:1.8,pts:t.pts,custom:true,online:'friend'};buildTrack(d);GUEST=d;custApply();SEL.track=TRACKS.indexOf(GUEST);initMenuKeep();soClose();homeAct('single')}catch(_){}}
+  else if(a==='topen')soOpen('chats',v);else if(a==='treq')soOpen('req');
+},true);
+/* ---------- Profilbild ---------- */
+function avPick(f){if(!f||!/^image\//.test(f.type))return;const A=acc42(),st=$('avSt');if(!A){if(st)st.textContent=tl('Nur mit Konto und Internet.');return}
+  if((SO.sanc&&+SO.sanc.avUntil||0)>Date.now()){if(st)st.textContent=tl('Profilbilder sind für dein Konto gerade gesperrt.');return}
+  const url=URL.createObjectURL(f),im=new Image();im.onload=async()=>{const cv=document.createElement('canvas');cv.width=cv.height=128;const c=cv.getContext('2d'),s=Math.min(im.width,im.height);c.fillStyle='#0b111b';c.fillRect(0,0,128,128);c.drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,128,128);URL.revokeObjectURL(url);
+    let q=.85,d=cv.toDataURL('image/jpeg',q);while(d.length>24000&&q>.3){q-=.1;d=cv.toDataURL('image/jpeg',q)}
+    SO.prof[SO.uid]=Object.assign(myProf(),{av:d});const ok=await profPush();avPaint();const s2=$('avSt');if(s2)s2.textContent=ok?tl('✓ Profilbild gespeichert.'):tl('Speichern fehlgeschlagen.')};
+  im.onerror=()=>{const s=$('avSt');if(s)s.textContent=tl('Das Bild konnte nicht gelesen werden.')};im.src=url}
+function avPaint(){const b=$('avPrev');if(b)b.innerHTML=avHTML(Object.assign({name:(acc42()||{}).name||'?'},myProf()),'xl')}
+document.addEventListener('change',e=>{if(e.target&&e.target.id==='avFile'&&e.target.files[0])avPick(e.target.files[0])});
+document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-av]');if(!q)return;e.preventDefault();e.stopPropagation();SO.prof[SO.uid]=Object.assign(myProf(),{av:''});profPush().then(()=>{avPaint();const s=$('avSt');if(s)s.textContent=tl('Profilbild entfernt.')})},true);
+/* =====================================================================
+   4) Einstellungen
+   ===================================================================== */
+SICON.chat='<path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>';
+SICON.key='<rect x="3" y="6" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 10h1M11 10h1M15 10h1M7 14h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+const keyName=k=>k===' '?tl('Leertaste'):k.startsWith('arrow')?{arrowup:'↑',arrowdown:'↓',arrowleft:'←',arrowright:'→'}[k]:k.toUpperCase();
+let SET_TAB='konto',KEYCAP=null;
+const SET_TABS=[['konto','Konto'],['sozial','Freunde & Chat'],['ansicht','Darstellung & Ton'],['rennen','Rennen'],['sc','Safety Car']];
+const SET_CAT={'KONTO':'konto','PROFIL':'konto','STATISTIK':'konto','FREUNDE & CHAT':'sozial','DARSTELLUNG':'ansicht','EINHEITEN & ZEIT':'ansicht','TON':'ansicht','STANDARD FÜR NEUE RENNEN':'rennen','SAFETY CAR':'sc','SAFETY-CAR-RENNEN':'sc','TASTEN':'sc'};
+function setExtra(){
+  const on=[['on','An'],['off','Aus']];
+  return sCard('chat','FREUNDE & CHAT',sRow('FREUNDSCHAFTSANFRAGEN',setSegH('soReq',[['all','Zulassen'],['off','Niemand']]))+sRow('WER DARF MIR SCHREIBEN',setSegH('soChat',[['all','Alle'],['friends','Nur Freunde'],['off','Niemand']]))+sRow('ONLINE-STATUS FÜR FREUNDE',setSegH('soOn',[['on','Sichtbar'],['off','Verborgen']]))+sRow('MEINE STRECKEN FÜR FREUNDE',setSegH('soMaps',[['on','Sichtbar'],['off','Verborgen']])))
+   +sCard('sound','BENACHRICHTIGUNGEN',sRow('HINWEISE IM MENÜ',setSegH('soPop',on))+sRow('TON BEI NACHRICHTEN',setSegH('soSound',on)))
+   +sCard('car','SAFETY-CAR-RENNEN',sRow('KI-GEGNER',setSegH('scrOpp',[['0','Keine'],['1','1'],['3','3'],['5','5'],['7','7']]))+sRow('STÄRKE DER KI',setSegH('scrLvl',[['easy','Leicht'],['mid','Mittel'],['hard','Schwer']]))+sRow('RENNRUNDEN',setSegH('scrLaps',[['2','2'],['3','3'],['5','5'],['8','8']])))
+   +sCard('key','TASTEN',`<div class="keyG">${[['w','Gas'],['s','Bremse'],['a','Links lenken'],['d','Rechts lenken']].map(x=>`<div><span>${x[1]}</span><button class="btn sm ${KEYCAP===x[0]?'primary':''}" type="button" data-key="${x[0]}">${KEYCAP===x[0]?tl('Taste drücken …'):esc(keyName(SETS['key_'+x[0]]||x[0]))}</button></div>`).join('')}</div><div class="mut sm">Die Pfeiltasten funktionieren immer zusätzlich.</div><button class="btn sm" type="button" data-key="reset">Auf W/A/S/D zurücksetzen</button>`)}
+SET_CAT['BENACHRICHTIGUNGEN']='sozial';
+function setProfil(){const A=acc42();return `<div class="sRow"><label>PROFILBILD</label><div class="avRow"><span id="avPrev">${avHTML(Object.assign({name:(A&&A.name)||'?'},myProf()),'xl')}</span><div><label class="btn sm avL">Bild wählen …<input type="file" id="avFile" accept="image/*" hidden></label><button class="btn sm" type="button" data-av="del">Entfernen</button><div class="mut sm" id="avSt">Für andere Spieler sichtbar.</div></div></div></div>`}
+function setTabbed(h){const d=document.createElement('div');d.innerHTML=h;const g=d.querySelector('.sCards');if(!g)return h;
+  g.insertAdjacentHTML('beforeend',setExtra());
+  g.querySelectorAll('.sCard').forEach(c=>{const t=(c.querySelector('h3')||{}).textContent||'',k=SET_CAT[t]||'konto';c.dataset.cat=k;if(k!==SET_TAB)c.classList.add('hide');if(t==='PROFIL')c.insertAdjacentHTML('beforeend',setProfil())});
+  g.insertAdjacentHTML('beforebegin',`<div class="setTabs">${SET_TABS.map(x=>`<span data-stab="${x[0]}" class="${SET_TAB===x[0]?'on':''}">${x[1]}</span>`).join('')}</div>`);return d.innerHTML}
+document.addEventListener('click',e=>{const t=e.target&&e.target.closest&&e.target.closest('[data-stab]');if(t){e.stopPropagation();SET_TAB=t.dataset.stab;document.querySelectorAll('.setTabs span').forEach(s=>s.classList.toggle('on',s===t));document.querySelectorAll('#lSet .sCard').forEach(c=>c.classList.toggle('hide',c.dataset.cat!==SET_TAB));return}
+  const q=e.target&&e.target.closest&&e.target.closest('[data-key]');if(!q)return;e.stopPropagation();
+  if(q.dataset.key==='reset'){for(const k of 'wasd')SETS['key_'+k]=k;KEYCAP=null}else KEYCAP=KEYCAP===q.dataset.key?null:q.dataset.key;keyPaint();if(q.dataset.key==='reset')setMsg('Noch nicht gespeichert – „Speichern“ drücken.','var(--warn)')},true);
+function keyPaint(){document.querySelectorAll('#lSet [data-key]').forEach(b=>{const k=b.dataset.key;if(k==='reset')return;b.classList.toggle('primary',KEYCAP===k);b.textContent=KEYCAP===k?tl('Taste drücken …'):keyName(SETS['key_'+k]||k)})}
+addEventListener('keydown',e=>{if(!KEYCAP)return;e.preventDefault();e.stopImmediatePropagation();const k=(e.key||'').toLowerCase();
+  if(k==='escape'){KEYCAP=null;keyPaint();return}if(['shift','control','alt','meta','tab','enter','dead','capslock'].includes(k)||k.length>1&&!k.startsWith('arrow'))return;
+  const used='wasd'.split('').find(x=>x!==KEYCAP&&(SETS['key_'+x]||x)===k);if(used)SETS['key_'+used]=SETS['key_'+KEYCAP]||KEYCAP;   // belegte Taste tauschen
+  SETS['key_'+KEYCAP]=k;KEYCAP=null;keyPaint();setMsg('Noch nicht gespeichert – „Speichern“ drücken.','var(--warn)')},true);
+{const sc=setCommit;setCommit=function(){KEYCAP=null;const r=sc.apply(this,arguments);scrDefaults();if(SO.uid){profPush();presT=0;mapsPush();if(SETS.soOn==='off')presBeat()}return r}}
+Object.assign(EN,{'FREUNDE & CHAT':'FRIENDS & CHAT','Freunde & Chat':'Friends & chat','SCHREIB ANDEREN':'MESSAGE OTHERS','Freunde finden, chatten, Strecken ansehen und in Lobbies einladen.':'Find friends, chat, view tracks and invite to lobbies.','Chats':'Chats','Freunde':'Friends','Anfragen':'Requests','+ Freund':'+ Friend','Schreiben':'Message','Benutzername':'Username','Senden':'Send','Nachricht schreiben …':'Write a message …','Heute':'Today','melden':'report','LOBBY-EINLADUNG':'LOBBY INVITE','Schreib die erste Nachricht.':'Write the first message.','online':'online','in einem Rennen':'in a race','im Safety-Car-Rennen':'in a safety car race','in einer Lobby':'in a lobby','zuletzt online':'last online','vor':'','Annehmen':'Accept','Ablehnen':'Decline','Zurückziehen':'Withdraw','Freigeben':'Unblock','Blockieren':'Block','Nutzer melden':'Report user','Freund entfernen':'Remove friend','Als Freund anfragen':'Add friend','Anfrage annehmen':'Accept request','In Lobby einladen':'Invite to lobby','Strecken':'Tracks','Strecken von':'Tracks by','Einladen':'Invite','Eingeladen ✓':'Invited ✓','FREUNDE EINLADEN':'INVITE FRIENDS','Wen möchtest du in deine Lobby einladen?':'Who do you want to invite?','Du hast noch keine Freunde hinzugefügt.':'You have not added any friends yet.','Noch keine Chats. Such oben einen Benutzernamen und schreib los.':'No chats yet. Search a username above and start writing.','Keine offenen Anfragen.':'No open requests.','ERHALTEN':'RECEIVED','GESENDET':'SENT','BLOCKIERT':'BLOCKED','wartet auf Antwort':'waiting for a reply','möchte mit dir befreundet sein.':'wants to be your friend.','hat deine Anfrage angenommen.':'accepted your request.','lädt dich in eine Lobby ein.':'invites you to a lobby.','Wähle links einen Chat oder such einen Benutzernamen.':'Choose a chat or search a username.','Freunde und Chat gibt es nur mit Konto und Internet.':'Friends and chat require an account and internet.','Neuigkeiten':'new',
+ 'Diesen Benutzernamen gibt es nicht.':'This username does not exist.','Das bist du selbst.':'That is you.','Freundschaftsanfrage gesendet.':'Friend request sent.','Dieser Spieler nimmt keine Anfragen an.':'This player does not accept requests.','Ihr seid schon befreundet.':'You are already friends.','Anfrage läuft bereits.':'Request already pending.','Nicht zugestellt – der Spieler nimmt keine Nachrichten von dir an.':'Not delivered – this player does not accept messages from you.','Diese Lobby gibt es nicht mehr.':'This lobby no longer exists.','Komm in meine Lobby':'Join my lobby',
+ 'Zu Unrecht blockiert? Anfechten':'Blocked by mistake? Appeal','Die Rennleitung prüft deine Anfechtung von Hand. Ist sie unberechtigt, folgt eine Strafe.':'Your appeal is reviewed by hand. Unjustified appeals are penalised.','Warum ist das kein Verstoß?':'Why is this not a violation?','Anfechtung senden':'Send appeal','AUSZEIT':'TIMEOUT','DAUERHAFT GESPERRT':'PERMANENTLY BANNED','KONTO GELÖSCHT':'ACCOUNT DELETED','Abmelden':'Sign out','Verstanden':'Understood','Strecke übernehmen':'Take over track','Stunden':'hours','Minuten':'minutes','Dein Konto ist noch gesperrt für':'Your account is still locked for',
+ 'FREUNDSCHAFTSANFRAGEN':'FRIEND REQUESTS','WER DARF MIR SCHREIBEN':'WHO MAY MESSAGE ME','ONLINE-STATUS FÜR FREUNDE':'ONLINE STATUS FOR FRIENDS','MEINE STRECKEN FÜR FREUNDE':'MY TRACKS FOR FRIENDS','Zulassen':'Allow','Niemand':'Nobody','Alle':'Everyone','Nur Freunde':'Friends only','Sichtbar':'Visible','Verborgen':'Hidden','BENACHRICHTIGUNGEN':'NOTIFICATIONS','HINWEISE IM MENÜ':'NOTICES IN MENU','TON BEI NACHRICHTEN':'MESSAGE SOUND','TASTEN':'KEYS','Links lenken':'Steer left','Rechts lenken':'Steer right','Taste drücken …':'Press a key …','Die Pfeiltasten funktionieren immer zusätzlich.':'Arrow keys always work as well.','Auf W/A/S/D zurücksetzen':'Reset to W/A/S/D','PROFILBILD':'PROFILE PICTURE','Bild wählen …':'Choose image …','Entfernen':'Remove','Für andere Spieler sichtbar.':'Visible to other players.','Darstellung & Ton':'Display & sound','Rennen':'Racing','Konto':'Account'});
 /* =====================================================================
    5) Alles, was von anderen Spielern kommt, wird entschärft (kein fremdes HTML/JS, keine Attribut-Tricks)
    ===================================================================== */
@@ -8520,6 +8962,9 @@ function snapshot(){const o={};SYNC_KEYS.forEach(k=>{const v=localStorage.getIte
 async function signedIn(u){
   ACC.user=u;mode='loading';msg='';render();
   try{
+    // vom Admin gelöschtes Konto: Anmeldung beenden und Zugang entfernen
+    {let sd=null;try{sd=await ACC.db.collection('sanctions').doc(u.uid).get()}catch(_){}
+      if(sd&&sd.exists&&sd.data().del){SYNC_KEYS.concat(['rc_owner','rc_vioq']).forEach(k=>localStorage.removeItem(k));alert(t('Dein Konto wurde von der Rennleitung gelöscht.')+(sd.data().text?' '+sd.data().text:''));try{await u.delete()}catch(_){await ACC.auth.signOut()}return}}
     const ref=ACC.db.collection('users').doc(u.uid),doc=await ref.get(),d=doc.exists?doc.data():{};
     ACC.name=d.name||ACC.pendingName||(/\.invalid$/.test(u.email||'')?u.email.split('@')[0]:'Spieler');
     const owner=localStorage.getItem('rc_owner');
@@ -8566,6 +9011,9 @@ ACC.linkMail=async(pw,mail)=>{await reauth(pw);await ACC.user.verifyBeforeUpdate
   await ACC.db.collection('users').doc(ACC.user.uid).set({mail:true},{merge:true})};
 ACC.remove=async(pw)=>{await reauth(pw);const uid=ACC.user.uid;
   try{const lb=JSON.parse(localStorage.getItem('rc_lb')||'[]');for(const k of lb){try{await ACC.db.collection('scBoard').doc(k).update({[uid]:firebase.firestore.FieldValue.delete()})}catch(_){}}}catch(_){}
+  for(const c of ['profiles','presence','maps'])try{await ACC.db.collection(c).doc(uid).delete()}catch(_){}
+  try{const fr=await ACC.db.collection('friends').where('m','array-contains',uid).get();for(const d of fr.docs)try{await d.ref.delete()}catch(_){}}catch(_){}
+  try{const ch=await ACC.db.collection('chats').where('m','array-contains',uid).get();for(const d of ch.docs){const ms=await d.ref.collection('m').where('by','==',uid).get();for(const m of ms.docs)try{await m.ref.delete()}catch(_){}}}catch(_){}
   for(let i=0;i<5;i++)try{await ACC.db.collection('tracks').doc(uid+'_'+i).delete()}catch(_){}
   try{await ACC.db.collection('lobbies').doc(uid).delete()}catch(_){}
   await ACC.db.collection('users').doc(uid).delete();await ACC.db.collection('usernames').doc(ACC.name.toLowerCase()).delete();
@@ -8580,11 +9028,13 @@ function privacy(){
    <p><b>Wo:</b> bei Google Firebase (Authentication und Cloud Firestore). Die verknüpfte E-Mail liegt zusätzlich verschlüsselt vor und ist nur mit deinem Passwort lesbar.</p>
    <p><b>Wofür:</b> nur, damit du dich anmelden und deinen Spielstand auf jedem Gerät nutzen kannst. Keine Werbung, kein Verkauf von Daten.</p>
    <p><b>Wer es sieht:</b> andere Spieler sehen nur, was unten unter „Online“ steht. Der Entwickler kann im Admin-Panel die Spielstände einsehen (Benutzername, Strecken, Karriere, letzte Aktivität), z. B. um Meldungen zu prüfen.</p>
-   <p><b>Online:</b> Hochgeladene Strecken (Name, Form, dein Benutzername) und öffentliche Lobbies (Anzeigename, Rennen, Spielerzahl, Spielcode) sind für alle angemeldeten Spieler sichtbar. Das Lobby-Passwort wird nicht gespeichert und nicht im Klartext übertragen. Beim Löschen des Kontos werden deine Uploads entfernt. Im Mehrspieler verbinden sich die Spieler direkt miteinander (dabei wird die IP-Adresse ausgetauscht) oder über öffentliche Relay-Server.</p>
+   <p><b>Profil, Freunde, Chat:</b> Benutzername, Ingame-Name und Profilbild sind für alle angemeldeten Spieler sichtbar. Freunde sehen zusätzlich, wann du online bist, und deine Strecken (beides in den Einstellungen abschaltbar). Chatnachrichten sehen nur du und dein Gegenüber; der Entwickler kann eine Nachricht nur einsehen, wenn sie gemeldet wurde. Der Chat ist nicht Ende-zu-Ende-verschlüsselt.</p>
+   <p><b>Moderation:</b> Vom Filter blockierte Namen, Strecken und Nachrichten werden mit deinem Benutzernamen protokolliert, ebenso Anfechtungen, Meldungen und verhängte Strafen. Der Entwickler kann Inhalte entfernen und Konten verwarnen, zeitweise oder dauerhaft sperren und löschen.</p>
+   <p><b>Online:</b> Hochgeladene Strecken (Name, Form, dein Benutzername) und Lobbies (Anzeigename, Rennen, Spielerzahl) sind für alle angemeldeten Spieler sichtbar. Das Lobby-Passwort wird nicht gespeichert und nicht im Klartext übertragen. Beim Löschen des Kontos werden deine Uploads entfernt. Im Mehrspieler verbinden sich die Spieler direkt miteinander (dabei wird die IP-Adresse ausgetauscht) oder über öffentliche Relay-Server.</p>
    <p><b>Nutzungsstatistik (nur mit deiner Zustimmung):</b> Wenn du sie erlaubst, erfasst Google Analytics pseudonymisiert, wie das Spiel genutzt wird – z. B. gestartete Rennen, Spielmodi, Strecken, Flaggen-Entscheidungen, Gerätetyp und Sprache. Dafür werden Cookies von Google gesetzt und dein Konto wird über seine interne Konto-ID wiedererkannt (nicht über Name oder E-Mail). Du kannst die Zustimmung jederzeit in den Einstellungen unter „Statistik“ widerrufen.</p>
    <p><b>Deine Rechte:</b> In den Einstellungen unter „Konto“ kannst du deine Daten herunterladen und dein Konto samt Spielstand jederzeit vollständig löschen.</p>
    <p><b>Online-Rangliste (Safety-Car-Test):</b> Wenn du eine gültige Runde fährst, werden dein Benutzername und deine beste Rundenzeit je Strecke und Fahrhilfe gespeichert und sind für alle angemeldeten Spieler sichtbar. Beim Löschen des Kontos werden diese Einträge entfernt.</p>
-   <p><b>Feedback & Meldungen</b> gehen über ein Google-Formular an den Entwickler und enthalten den angegebenen Namen.</p>
+   <p><b>Feedback & Meldungen</b> gehen über ein Google-Formular an den Entwickler und enthalten den angegebenen Namen und deinen Benutzernamen.</p>
    <p><b>Kontakt:</b> über „Feedback“ im Startmenü.</p></div>
    <button class="btn primary agBtn" data-pv="close">${t('Schließen')}</button></div>`;
   el.classList.remove('hide');el.querySelector('[data-pv]').onclick=()=>el.classList.add('hide');
@@ -8758,6 +9208,8 @@ setInterval(()=>{const a=A();if(a&&a.ready&&a.user)check()},300000);
 setInterval(()=>{const a=A();if(IS_BETA&&a&&a.ready&&a.offline){try{localStorage.removeItem('rc_beta')}catch(_){}location.replace('./')}},2000);
 Object.assign(EN,{'Zur normalen Version wechseln':'Switch to the regular version','Du bist für die Beta freigeschaltet.':'You have access to the beta.','Zur Beta wechseln':'Switch to beta'});
 })();
+/* Einstellungen: Reiter (muss zuletzt kommen) */
+{const sh=setHTML;setHTML=function(){return setTabbed(sh.apply(this,arguments))}}
 </script>
 </body>
 </html>
