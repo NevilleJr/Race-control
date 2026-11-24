@@ -5948,7 +5948,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='38.6';
+const GAMEVER='38.7';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -8018,7 +8018,7 @@ Object.assign(EN,{'Start':'Start','Weiter':'Next','TV':'TV','Karte':'Map','Pos.'
  'Sektor antippen: Gelb → Doppelgelb → frei':'Tap sector: yellow → double yellow → clear','⛶ Vollbild':'⛶ Fullscreen','MOBILE ANSICHT':'MOBILE VIEW','Automatisch':'Automatic','GER':'FAIR','SICH':'SAFE','SPAN':'EXC.','TEAM':'TEAM'});
 Object.assign(LA,{'Karte':'Tabula','Tempo':'Celeritas','Ton':'Sonus','MOBILE ANSICHT':'SPECIES MOBILIS','Automatisch':'Sponte'});
 </script>
-<script>window.RC_FIREBASE={"apiKey": "AIzaSyBD7xCktpppYvkdN8oVPf4TTQi-TbRioes", "authDomain": "race-control-76c0a.firebaseapp.com", "projectId": "race-control-76c0a", "storageBucket": "race-control-76c0a.firebasestorage.app", "messagingSenderId": "513418250579", "appId": "1:513418250579:web:74459232e8f84229d5b9a6"};</script>
+<script>window.RC_FIREBASE={"apiKey": "AIzaSyBD7xCktpppYvkdN8oVPf4TTQi-TbRioes", "authDomain": "race-control-76c0a.firebaseapp.com", "projectId": "race-control-76c0a", "storageBucket": "race-control-76c0a.firebasestorage.app", "messagingSenderId": "513418250579", "appId": "1:513418250579:web:74459232e8f84229d5b9a6", "measurementId": "G-4KD9L6XTZ3"};</script>
 <script id="rcAuth">/* =====================================================================
    RACE CONTROL – Konten: Anmelden / Registrieren vor dem Start,
    Spielstand (Einstellungen, Strecken, Karriere, Name) im Konto (Firebase)
@@ -8295,7 +8295,7 @@ function props(){
   if(!GA)return;const A=window.RCACC;
   try{if(A&&A.user&&uidSet!==A.user.uid){GA.setUserId(A.user.uid);uidSet=A.user.uid}
     GA.setUserProperties({sprache:SETS.lang||'de',geraet:document.body.classList.contains('mob')?'mobil':'desktop',modus_hell:SETS.theme==='light'?'hell':'dunkel',sc_fahrhilfe:SETS.scAssist||'strong',
-      eigene_strecken:String((JSON.parse(lsGet('rc_tracks')||'[]')||[]).length),email_verknuepft:A&&A.user&&A.user.email&&!/\.invalid$/.test(A.user.email)?'ja':'nein'})}catch(_){}
+      eigene_strecken:String((JSON.parse(lsGet('rc_tracks')||'[]')||[]).filter(Boolean).length),email_verknuepft:A&&A.user&&A.user.email&&!/\.invalid$/.test(A.user.email)?'ja':'nein'})}catch(_){}
 }
 function off(){if(GA){try{GA.setAnalyticsCollectionEnabled(false)}catch(_){}}queue=[];
   // Google-Analytics-Cookies entfernen
