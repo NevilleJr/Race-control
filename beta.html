@@ -7695,7 +7695,9 @@ scDriveStep=function(dt,tg){
     if(dv<-3){acc=clamp(dv*1.1,-38,-5);S.crUp=false}
     else{if(dv>11)S.crUp=true;else if(dv<2)S.crUp=false;acc=S.crUp?Math.min(16,4+dv*.9):-5}}
   else acc=-14-(S.v>cap?Math.min(26,(S.v-cap)*.8):0);         // Wenig: vor Kurven etwas mehr Motorbremse
+  if(A.corner&&S.v>vC&&!k.s)acc=Math.min(acc,-clamp((S.v-vC)*(A.cruise?2.4:1.3),4,A.cruise?75:45));   // Hilfe bremst vor/in Kurven – auch mit Gas
   S.v+=acc*dt;
+  {const vK=Math.sqrt(190/Math.max(Math.abs(kc),1e-4));if(S.v>vK)S.v-=(S.v-vK)*1.1*A.scrub*dt}   // zu schnell in der Kurve → Reifen rutschen, Tempo geht verloren
   // Reifen radieren in Kurven und beim Lenken – natürlich langsamer
   S.v-=(Math.abs(kc)*S.v*S.v*.024+Math.abs(steer)*S.v*.05)*A.scrub*dt;
   S.v=clamp(S.v,0,SC_VTOP+5);
