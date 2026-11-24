@@ -714,6 +714,43 @@ body:has(#menu:not(.hide)) #pingTag{top:auto;bottom:8px;right:120px}
 .avRow{display:flex;align-items:center;gap:14px}.avRow>div{display:flex;flex-direction:column;gap:6px;align-items:flex-start}.avL{cursor:pointer}.keyG{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px}.keyG div{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13.5px}.keyG button{min-width:64px}
 @media (max-width:760px){#soc{padding:0}.socC{grid-template-columns:1fr;height:100%;border-radius:0}.socR{display:none}.socC.chat .socL{display:none}.socC.chat .socR{display:flex}.soBack{display:inline-block}.soM1{max-width:88%}}
 body.light :is(#soc .socC,#soToast,#noteBox .scrC,#sancBox .scrC){filter:invert(.94) hue-rotate(180deg)}body.light #soc .socC img,body.light #soc canvas{filter:invert(1) hue-rotate(180deg)}
+/* ===== RACE CONTROL 45 – Startmenü, Online, Vortag ===== */
+#menu.lst #lHome.hgrid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:1.15fr 1fr .52fr;grid-template-areas:"c c c c c r r r r o o o" "c c c c c e e e e o o o" "t t t t t h h h u u f f";gap:14px;height:calc(100vh / var(--uz,1) - 92px);min-height:470px;width:min(1360px,calc(96vw / var(--uz,1)));margin:14px auto}
+#menu.lst #lHome.hgrid.hide{display:none}
+.hm{--c:#14c0ff;position:relative;overflow:hidden;border-radius:20px;border:1px solid color-mix(in srgb,var(--c) 42%,transparent);background:radial-gradient(130% 150% at 100% 0%,color-mix(in srgb,var(--c) 34%,transparent),transparent 62%),linear-gradient(160deg,#101b2b,#060b13);cursor:pointer;transition:transform .22s,box-shadow .22s,border-color .22s;min-height:0;color:#f2f6fb}
+.hm:before{content:"";position:absolute;inset:-40% -10%;background:repeating-linear-gradient(115deg,transparent 0 46px,rgba(255,255,255,.035) 46px 50px);pointer-events:none;transition:transform .6s}
+.hm:hover,.hm:focus-visible{transform:translateY(-4px);border-color:var(--c);box-shadow:0 18px 46px color-mix(in srgb,var(--c) 26%,transparent);outline:none}.hm:hover:before{transform:translateX(34px)}
+.hCareer{grid-area:c;--c:#ff3b4e}.hRace{grid-area:r;--c:#14a8ff}.hOnl{grid-area:o;--c:#2fd27a}.hEve{grid-area:e;--c:#ff9f0a}.hTrk{grid-area:t;--c:#27d3c3}.hChat{grid-area:h;--c:#b388ff}.hTut{grid-area:u;--c:#5aa9ff}.hFb{grid-area:f;--c:#ffd34d}
+.hT{position:relative;font:800 clamp(24px,2.5vw,38px)/1 "Barlow Condensed",sans-serif;letter-spacing:.07em;text-shadow:0 2px 14px rgba(0,0,0,.6)}.hS{position:relative;font-size:clamp(12px,1vw,14.5px);color:#c3d0de;margin-top:5px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+.hTx{position:absolute;left:22px;bottom:18px;right:18px;pointer-events:none}.hArt{position:absolute;pointer-events:none;transition:transform .35s}
+.hCareer .hArt{width:min(74%,430px);right:-3%;top:2%;filter:drop-shadow(0 16px 30px rgba(0,0,0,.5))}.hCareer .hTx{bottom:62px}.hCareer .hT{font-size:clamp(44px,5.4vw,86px);letter-spacing:.04em}.hCareer:hover .hArt{transform:scale(1.04) rotate(-2deg)}
+.hCareer:after{content:"";position:absolute;inset:auto 0 0 0;height:62%;background:linear-gradient(0deg,rgba(5,8,14,.94),transparent);pointer-events:none}.hCareer .hTx,.hGo{z-index:1}
+.hSub{margin-top:8px;font-size:14.5px;color:#d7dfe9}.hSub .big{font:800 clamp(20px,2vw,30px)/1.1 "Barlow Condensed",sans-serif;letter-spacing:.08em;color:#ffb3ba}.hSub .mut{max-height:2.8em;overflow:hidden}
+.hGo{position:absolute;left:22px;right:22px;bottom:18px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#aeb9c6}.hGo b{font:800 16px "Barlow Condensed",sans-serif;letter-spacing:.12em;color:#fff;background:#e10600;padding:9px 18px;border-radius:10px}
+.hRays{transform-origin:160px 120px;animation:hSpin 60s linear infinite}@keyframes hSpin{to{transform:rotate(360deg)}}
+.hRace{display:grid;grid-template-columns:1fr 1fr;cursor:default}.hRace:hover{transform:none}.hHalf{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 18px 16px;cursor:pointer;transition:background .2s;min-height:0}.hHalf+.hHalf{border-left:1px solid rgba(20,168,255,.3)}.hHalf:hover,.hHalf:focus-visible{background:rgba(20,168,255,.16);outline:none}
+.hHalf .hArt{width:72%;max-height:66%;left:14%;top:7%}.hHalf:hover .hArt{transform:translateY(-5px) scale(1.05)}.hHalf:after{content:"";position:absolute;inset:auto 0 0 0;height:55%;background:linear-gradient(0deg,rgba(5,8,14,.85),transparent);pointer-events:none}.hHalf .hT,.hHalf .hS{z-index:1}
+.hOnl .hArt{width:88%;left:6%;top:7%}.hOrb{transform-origin:120px 120px;animation:hSpin 26s linear infinite}.hOnl:hover .hArt{transform:scale(1.05)}.hOnl .hT{font-size:clamp(30px,3.2vw,50px)}
+.hEve .hArt{width:72%;right:2%;bottom:6%;transition:transform .5s}.hEve:hover .hArt{transform:translateX(-18px)}.hEve .hTx{bottom:auto;top:18px}.hL1{animation:hBlink .9s infinite}.hL2{animation:hBlink .9s .45s infinite}@keyframes hBlink{0%,49%{opacity:1;filter:drop-shadow(0 0 7px #ffb300)}50%,100%{opacity:.22}}
+.hTrk .hArt{width:34%;right:1%;top:-12%;height:124%}.hTrk .hTx{bottom:auto;top:50%;transform:translateY(-50%)}.hDash{animation:hDash 3s linear infinite}@keyframes hDash{to{stroke-dashoffset:-80}}.hMini{position:absolute;right:33%;top:50%;transform:translateY(-50%);display:flex;gap:8px;pointer-events:none}.hMini canvas{position:static;width:clamp(50px,5.2vw,78px);height:auto;border-radius:9px;background:rgba(0,0,0,.35);border:1px solid rgba(39,211,195,.3)}
+.hDock{display:flex;align-items:center;gap:14px;padding:0 18px}.hDock .hT{font-size:clamp(18px,1.6vw,24px)}.hDock .hS{margin-top:2px;min-height:0}.hI{position:relative;width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c) 24%,transparent);color:var(--c);flex:none}.hI svg{width:27px;height:27px}.hChat #soTile{color:#ffc977}
+@media (max-width:900px),(max-height:520px){#menu.lst #lHome.hgrid{height:auto;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:none;grid-template-areas:"c c c c c c" "r r r r r r" "o o o e e e" "t t t t t t" "h h u u f f";grid-auto-rows:auto}.hCareer{min-height:250px}.hRace{min-height:170px}.hOnl,.hEve{min-height:170px}.hOnl .hArt{width:62%;left:34%;top:-4%}.hEve .hArt{width:88%}.hTrk{min-height:96px}.hDock{flex-direction:column;justify-content:center;gap:6px;padding:12px 6px;text-align:center}.hDock .hS{display:none}.hMini canvas:nth-child(n+3){display:none}}
+body.mob #menu.lst #lHome.hgrid{width:calc(100% - 24px);margin:12px auto calc(24px + var(--sab))}body.mob .hCareer .hArt{width:60%}body.mob .hm:hover{transform:none}
+@media (prefers-reduced-motion:reduce){.hRays,.hOrb,.hL1,.hL2,.hDash,.ev2Road i,.ev2Car{animation:none!important}}
+.onNew{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:12px}.onN{--c:#14a8ff;display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:16px;border:1px solid color-mix(in srgb,var(--c) 45%,transparent);background:linear-gradient(120deg,color-mix(in srgb,var(--c) 22%,#0b121d),#0b121d 70%);cursor:pointer;transition:transform .2s,border-color .2s}.onN.sc{--c:#ff9f0a}.onN:hover{transform:translateY(-3px);border-color:var(--c)}.onN>span{color:var(--c)}.onN svg{width:44px;height:38px;display:block}.onN div{flex:1;min-width:0}.onN b{display:block;font:800 19px "Barlow Condensed",sans-serif;letter-spacing:.08em}.onN i{font-style:normal;font-size:13px;color:var(--mut)}.onN em{font:700 13px Barlow,sans-serif;font-style:normal;padding:8px 13px;border-radius:9px;background:var(--c);color:#05101a;white-space:nowrap}
+.ev2{display:flex;flex-direction:column;gap:14px;margin-top:14px}
+.ev2H{position:relative;height:170px;border-radius:20px;overflow:hidden;border:1px solid rgba(255,159,10,.4);background:radial-gradient(90% 130% at 78% 10%,rgba(255,159,10,.34),transparent 60%),linear-gradient(180deg,#131d2c,#0a1019 62%,#1c222b 62%,#12161d)}
+.ev2Road{position:absolute;left:0;right:0;bottom:24px;height:5px;overflow:hidden}.ev2Road i{position:absolute;inset:0 -120px;background:repeating-linear-gradient(90deg,#f2f5f9 0 56px,transparent 56px 112px);opacity:.55;animation:evRoad .9s linear infinite}@keyframes evRoad{to{transform:translateX(-112px)}}
+.ev2Car{position:absolute;right:5%;bottom:17px;width:min(300px,46%);aspect-ratio:320/150;animation:evBob 1.6s ease-in-out infinite}.ev2Car .hArt{position:static;width:100%;height:100%}@keyframes evBob{50%{transform:translateY(-2px)}}
+.ev2Ti{position:absolute;left:24px;top:22px}.ev2Ti small{font:800 13px "Barlow Condensed",sans-serif;letter-spacing:.24em;color:#ffb340}.ev2Ti h2{margin:2px 0;font:800 clamp(26px,3.600vw,46px)/1 "Barlow Condensed",sans-serif;letter-spacing:.04em;color:#fff}.ev2Ti span{color:#c3d0de;font-size:14px}
+.ev2M{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.ev2C{--c:#14a8ff;display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:#0c131e;cursor:pointer;transition:transform .2s,border-color .2s,background .2s}.ev2C.race{--c:#ff9f0a}.ev2C.cruise{--c:#b388ff}.ev2C:hover{transform:translateY(-3px);border-color:var(--c)}.ev2C.on{border-color:var(--c);background:linear-gradient(120deg,color-mix(in srgb,var(--c) 30%,#0c131e),#0c131e);box-shadow:0 0 0 1px var(--c) inset}
+.ev2C span{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c) 20%,transparent);color:var(--c);flex:none}.ev2C svg{width:32px;height:32px}.ev2C b{display:block;font:800 20px "Barlow Condensed",sans-serif;letter-spacing:.08em}.ev2C i{font-style:normal;font-size:13px;color:var(--mut)}
+.ev2T::-webkit-scrollbar{height:8px}.ev2T::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:4px}.ev2T::-webkit-scrollbar-thumb{background:rgba(255,179,64,.5);border-radius:4px}
+.ev2T{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 10px;scroll-snap-type:x proximity}.ev2K{flex:none;width:128px;padding:8px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:#0c131e;cursor:pointer;text-align:center;scroll-snap-align:start;transition:border-color .2s}.ev2K canvas{position:static;width:100%;height:auto;display:block}.ev2K b{display:block;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ev2K:hover{border-color:rgba(255,159,10,.6)}.ev2K.on{border-color:#ffb340;background:#1c1508;box-shadow:0 0 0 1px #ffb340 inset}
+.ev2B{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:stretch}.ev2P{padding:12px 16px 14px;border-radius:16px;background:#0c131e;border:1px solid rgba(255,255,255,.08)}.ev2P h4{margin:0 0 9px;font:800 12px "Barlow Condensed",sans-serif;letter-spacing:.2em;color:#ffb340}
+.ev2A,.ev2L{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.ev2A>div,.ev2L>div{--c:#2fd27a;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:border-color .2s}.ev2A .none{--c:#ff5a52}.ev2A .light{--c:#ffd34d}.ev2A>div:hover,.ev2L>div:hover{border-color:var(--c)}.ev2A>.on,.ev2L>.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 15%,transparent);box-shadow:0 0 0 1px var(--c) inset}.ev2A em{display:flex;gap:4px;margin-bottom:7px}.ev2A u{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.12)}.ev2A u.f{background:var(--c)}.ev2A b{display:block;font-size:16px}.ev2A i{font-style:normal;font-size:12px;color:var(--mut)}.ev2L>div{text-align:center}.ev2L b{font:800 24px "Barlow Condensed",sans-serif}
+.ev2Go{min-width:210px;border-radius:16px!important;font:800 23px "Barlow Condensed",sans-serif!important;letter-spacing:.1em}
+@media (max-width:760px){.ev2M{grid-template-columns:1fr}.ev2C{padding:10px 14px}.ev2B{grid-template-columns:1fr}.ev2Go{min-height:56px}.ev2H{height:128px}.ev2A>div{padding:9px}}
 body.light #scrRes .scrC,body.light #scrLamps{filter:invert(.94) hue-rotate(180deg)}
 
 /* =====================================================================
@@ -5886,7 +5923,7 @@ function ttSteps(){return [
   {menu:1,sel:'[data-home="career"]',t:'Karriere',x:'Dein Weg vom Kart-Cup bis zur Königsklasse. Jede Serie ist eine Saison mit Kalender und Tabelle – am Ende entscheidet der Verband über Aufstieg, Verbleib oder Abstieg.'},
   {menu:1,sel:'[data-home="single"]',t:'Schnelles Rennen',x:'Ein einzelnes Rennen: Strecke, Runden, Wetter und Chaos wählst du selbst.'},
   {menu:1,sel:'[data-home="season"]',t:'Saison',x:'Dein eigener Kalender mit 3–7 Rennen inklusive Fahrer- und Teamwertung.'},
-  {menu:1,sel:'[data-home="mp"]',t:'Mehrspieler',x:'Mit Freunden zusammen leiten (2–5 Spieler). Im Mehrspieler gibt es keine Pause und Vorfälle werden nicht angezeigt – ihr müsst sie selbst entdecken.'},
+  {menu:1,sel:'[data-home="online"]',t:'Online',x:'Offenen Lobbies beitreten, Safety-Car-Rennen fahren und Strecken anderer Spieler ausprobieren. Im Mehrspieler gibt es keine Pause und Vorfälle werden nicht angezeigt – ihr müsst sie selbst entdecken.'},
   {menu:1,sel:null,t:'Jetzt das Übungsrennen',x:'Gleich startet ein festgelegtes Rennen auf dem Red Bull Ring – es passiert immer dasselbe, damit du alles in Ruhe lernen kannst.',go:'Rennen starten'},
   // Fenster im Rennen
   {sel:'#top',t:'Statusleiste',x:'Serie und Phase, die aktuelle Flagge, Rennuhr, deine Punkte, Runde, Abstand an der Spitze und Wetter.'},
@@ -6016,7 +6053,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='40.0';
+const GAMEVER='41.0';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -6043,9 +6080,9 @@ async function fbSend(){
   lsSet('rc_fb_name',name);
   const rep={name,kind,area,text,ver:GAMEVER,ua:navigator.userAgent.slice(0,120),t:new Date().toISOString(),imgs:FBIMG.length};
   if(BUGFORM.url){
-    const fd=new FormData();fd.append(BUGFORM.name,idName(name));fd.append(BUGFORM.kind,kind);fd.append(BUGFORM.area,area);fd.append(BUGFORM.text,text);if(BUGFORM.ver)fd.append(BUGFORM.ver,GAMEVER+' · '+rep.ua);FBIMG.forEach((d,i)=>{if(BUGFORM.imgs&&BUGFORM.imgs[i])fd.append(BUGFORM.imgs[i],d)});
+    const fimg=FBIMG.slice(),fd=new FormData();fd.append(BUGFORM.name,idName(name));fd.append(BUGFORM.kind,kind);fd.append(BUGFORM.area,area);fd.append(BUGFORM.text,text);if(BUGFORM.ver)fd.append(BUGFORM.ver,GAMEVER+' · '+rep.ua);FBIMG.forEach((d,i)=>{if(BUGFORM.imgs&&BUGFORM.imgs[i])fd.append(BUGFORM.imgs[i],d)});
     st.textContent='Wird gesendet …';st.style.color='';
-    try{await fetch(BUGFORM.url,{method:'POST',mode:'no-cors',body:fd});st.textContent=tl('✓ Danke! Deine Meldung ist beim Entwickler angekommen.');st.style.color='var(--ok)';$('fbText').value='';FBIMG=[];fbImgRender();repStore({kind:'feedback',who:'',why:kind+' · '+area,text:text})}
+    try{await fetch(BUGFORM.url,{method:'POST',mode:'no-cors',body:fd});st.textContent=tl('✓ Danke! Deine Meldung ist beim Entwickler angekommen.');st.style.color='var(--ok)';$('fbText').value='';FBIMG=[];fbImgRender();repStore({kind:'feedback',who:'',why:kind+' · '+area,text:text,imgs:fimg})}
     catch(e){st.textContent='Senden fehlgeschlagen – bist du online? Bitte später nochmal versuchen.';st.style.color='var(--acc2)'}
   }else{
     let L=[];try{L=JSON.parse(lsGet('rc_reports')||'[]')}catch(e){}L.push(rep);lsSet('rc_reports',JSON.stringify(L));
@@ -7170,7 +7207,7 @@ async function repSend(){
   try{const fd=new FormData();fd.append(BUGFORM.name,idName(modName(me,'Unbekannt')));fd.append(BUGFORM.kind,'Meldung');fd.append(BUGFORM.area,why);fd.append(BUGFORM.text,full);
     if(BUGFORM.ver)fd.append(BUGFORM.ver,GAMEVER+' · '+navigator.userAgent.slice(0,120));if(img&&BUGFORM.imgs)fd.append(BUGFORM.imgs[0],img);
     if(BUGFORM.who)fd.append(BUGFORM.who,who);if(BUGFORM.why)fd.append(BUGFORM.why,why);if(BUGFORM.lobby)fd.append(BUGFORM.lobby,lobby);
-    await fetch(BUGFORM.url,{method:'POST',mode:'no-cors',body:fd});repStore(Object.assign({kind:'sonstiges'},REP||{},{who:who,why:why,text:text}));REP=null;
+    await fetch(BUGFORM.url,{method:'POST',mode:'no-cors',body:fd});repStore(Object.assign({kind:'sonstiges'},REP||{},{who:who,why:why,text:text,imgs:img?[img]:[]}));REP=null;
     st.textContent=tl('✓ Danke! Die Meldung wurde an den Entwickler geschickt.');st.style.color='var(--ok)';setTimeout(()=>$('repBox').classList.add('hide'),1600)}
   catch(e){st.textContent=tl('Senden fehlgeschlagen – bist du online?');st.style.color='var(--acc2)'}
 }
@@ -7236,10 +7273,7 @@ function scDriveStep(dt,tg){
 /* Entlassung nach Crash mit dem Safety Car */
 {const fi2=fired;fired=function(w){
   if(w!=='sc')return fi2(w);
-  if(!G||G.ended)return;if(G.mp&&NET.role==='host')netAll({t:'fired',why:'sc'});
-  fi2('s');const el=$('results');const b=el.querySelector('.big'),d=el.querySelector('.desc');
-  if(b)b.textContent=tl('ENTLASSEN: SAFETY CAR IN DER MAUER');
-  if(d)d.textContent=tl('Das Safety Car ist mit hohem Tempo in die Mauer gekracht. Ein solcher Unfall der Rennleitung ist unverzeihlich – der Verband entlässt dich mit sofortiger Wirkung.');
+  scRealCrash();
 }}
 /* Tasten: nur abfangen, solange man selbst das Safety Car fährt (sonst bleibt S = Safety-Car-Flagge) */
 function scKey(e,down){
@@ -7507,10 +7541,9 @@ function eveOpen(){
 }
 document.addEventListener('click',e=>{
   const q=e.target&&e.target.closest&&e.target.closest('[data-eve],[data-evl]');if(!q)return;e.stopPropagation();
-  if($('eveTrack'))EVE.track=+$('eveTrack').value;
   if(q.dataset.evl){EVE.laps=+q.dataset.evl;eveOpen();return}
-  const v=q.dataset.eve;if(v==='go'){EVE.track=+$('eveTrack').value;if(EVE.kind==='race')sclHost();else eveStart();return}
-  EVE.track=+($('eveTrack')||{value:EVE.track}).value;EVE.kind=v;eveOpen();
+  const v=q.dataset.eve;if(v==='go'){if(EVE.kind==='race')sclHost();else eveStart();return}
+  EVE.kind=v;eveOpen();
 },true);
 {const ha4=homeAct;homeAct=function(a){if(a==='eve'){eveOpen();return}if($('lEve'))$('lEve').classList.add('hide');return ha4(a)}}
 {const im4=initMenu;initMenu=function(){im4();if($('lEve'))$('lEve').classList.add('hide')}}
@@ -7793,7 +7826,7 @@ function scDriveCore(dt){
   if(Math.abs(S.d)>=wall){
     S.d=Math.sign(S.d)*(wall-.5);S.yaw=0;
     if(S.v*.82>15&&!G.scCrash){G.scCrash=true;S.v=0;addLog('SAFETY CAR',tl('Das Safety Car ist in die Mauer gekracht!'),'bad');banner(tl('SAFETY CAR IN DER MAUER'),'red');try{thud()}catch(_){}
-      setTimeout(()=>{if(G&&!G.ended)fired('sc')},1600);return}
+      {const g0=G;setTimeout(()=>{if(G===g0&&!G.ended)fired('sc')},1200)}return}
     S.v=Math.min(S.v,6);
   }
   const R=G.scRate||(G.scRate={t:0,good:0,fast:0,slow:0,msgT:0,offMsg:false});
@@ -7850,9 +7883,6 @@ function lbPaint(){
 }
 function lbRefresh(ti,force){LB_LV.forEach(lv=>lbLoad(lbKey(ti,lv),force));lbPaint()}
 /* Setup-Seite „Vortag“: Rangliste unter der Streckenwahl */
-{const eh=eveHTML;eveHTML=function(){let h=eh.apply(this,arguments);
-  if(EVE.kind==='solo'){const i=h.lastIndexOf('<div class="fbrow">');if(i>=0)h=h.slice(0,i)+`<div id="eveLb">${lbBoardsHTML(EVE.track)}</div>`+h.slice(i)}
-  return h}}
 {const eo=eveOpen;eveOpen=function(){const r=eo.apply(this,arguments);if(EVE.kind==='solo')lbRefresh(EVE.track);return r}}
 document.addEventListener('change',e=>{if(e.target&&e.target.id==='eveTrack'){EVE.track=+e.target.value;if(EVE.kind==='solo')lbRefresh(EVE.track)}});
 /* Rundenzeit in Simulationszeit – läuft in jedem Simulationsschritt mit (unabhängig von Bildrate/Tab-Drosselung) */
@@ -8368,7 +8398,8 @@ function trkImg(t){try{const cv=document.createElement('canvas');cv.width=420;cv
 /* Benutzername + Ingame-Name an Meldungen und Feedback */
 function idName(n){const A=window.RCACC;return A&&A.name?`${clean(n,30)} [Benutzer: ${A.name}]`:clean(n,30)}
 async function formSend(o){try{const fd=new FormData();fd.append(BUGFORM.name,idName(lsGet('rc_name')||'Unbekannt'));fd.append(BUGFORM.kind,o.kind);fd.append(BUGFORM.area,o.area);fd.append(BUGFORM.text,o.text.slice(0,4000));if(BUGFORM.ver)fd.append(BUGFORM.ver,GAMEVER+' · '+navigator.userAgent.slice(0,120));if(o.img&&BUGFORM.imgs)fd.append(BUGFORM.imgs[0],o.img);await fetch(BUGFORM.url,{method:'POST',mode:'no-cors',body:fd})}catch(_){}}
-async function repStore(o){const A=acc42();if(!A)return;try{await A.db.collection('reports').add({uid:A.user.uid,name:clean(A.name,16),ign:clean(lsGet('rc_name'),16),kind:o.kind,who:clean(o.who,60),tuid:o.tuid||'',why:clean(o.why,60),text:clean(o.text,2000),ref:o.ref||'',copy:clean(o.copy,600),at:fsTs(),st:'open'})}catch(_){}}
+async function repStore(o){const A=acc42();if(!A)return;const im=(o.imgs||[]).filter(d=>typeof d==='string'&&/^data:image\/(jpeg|png|webp);base64,/.test(d)&&d.length<60000).slice(0,3);try{const ref=A.db.collection('reports').doc();if(im.length)try{await A.db.collection('repimg').doc(ref.id).set({uid:A.user.uid,imgs:im,at:fsTs()})}catch(_){im.length=0}
+  await ref.set({img:im.length,uid:A.user.uid,name:clean(A.name,16),ign:clean(lsGet('rc_name'),16),kind:o.kind,who:clean(o.who,60),tuid:o.tuid||'',why:clean(o.why,60),text:clean(o.text,2000),ref:o.ref||'',copy:clean(o.copy,600),at:fsTs(),st:'open'})}catch(_){}}
 let REP=null;
 {const ro=repOpen;repOpen=function(pre){if(typeof pre==='string')pre={who:pre};REP=pre||null;return ro(pre)}}
 /* Auslöser: Streckeneditor, Namen, gespeicherte Strecken */
@@ -8492,7 +8523,7 @@ const CHAT_IC='<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true
 function soBtn(){
   let b=$('soBtn');const hd=document.querySelector('#menu .lhead');if(!b&&hd){b=document.createElement('button');b.id='soBtn';b.type='button';b.dataset.so='open';b.title=tl('Freunde & Chat');hd.insertBefore(b,$('lClock')?$('lClock').nextSibling:null);b.innerHTML=CHAT_IC+'<i class="hide"></i>'}
   const n=acc42()?soBadge():0;if(b){const i=b.querySelector('i');i.classList.toggle('hide',!n);i.textContent=n>9?'9+':n}
-  const tb=$('soTile');if(tb){const on=Object.keys(SO.fr).filter(u=>isFr(u)&&presTxt(u).on).length;const t=n?`${n} ${tl('Neuigkeiten')}`:on?`${on} ${tl('online')}`:'';if(tb.textContent!==t)tb.textContent=t}
+  const tb=$('soTile');if(tb){const on=Object.keys(SO.fr).filter(u=>isFr(u)&&presTxt(u).on).length;const t=n?`${n} ${tl('Neuigkeiten')}`:on?`${on} ${tl('online')}`:tl('Freunde & Nachrichten');if(tb.textContent!==t)tb.textContent=t}
 }
 (()=>{const lh=$('lHome');if(!lh||document.querySelector('.mon.soM'))return;lh.insertAdjacentHTML('beforeend','<div class="mon soM" data-so="open"><div class="mt2"><i></i>FREUNDE & CHAT</div><div class="mbody"><div class="big">SCHREIB ANDEREN</div>Freunde finden, chatten, Strecken ansehen und in Lobbies einladen.</div><div class="mfoot"><span id="soTile"></span><b>ÖFFNEN ▸</b></div></div>');trAll&&trAll()})();
 function soOpen(tab,u){if(G)return;let el=$('soc');if(!el){el=document.createElement('div');el.id='soc';document.body.appendChild(el)}el.classList.remove('hide');SO.open=true;if(tab)SO.tab=tab;if(u)soOpenChat(u);soPaint(true);presLoad()}
@@ -8593,10 +8624,112 @@ addEventListener('keydown',e=>{if(!KEYCAP)return;e.preventDefault();e.stopImmedi
   const used='wasd'.split('').find(x=>x!==KEYCAP&&(SETS['key_'+x]||x)===k);if(used)SETS['key_'+used]=SETS['key_'+KEYCAP]||KEYCAP;   // belegte Taste tauschen
   SETS['key_'+KEYCAP]=k;KEYCAP=null;keyPaint();setMsg('Noch nicht gespeichert – „Speichern“ drücken.','var(--warn)')},true);
 {const sc=setCommit;setCommit=function(){KEYCAP=null;const r=sc.apply(this,arguments);scrDefaults();if(SO.uid){profPush();presT=0;mapsPush();if(SETS.soOn==='off')presBeat()}return r}}
-Object.assign(EN,{'FREUNDE & CHAT':'FRIENDS & CHAT','Freunde & Chat':'Friends & chat','SCHREIB ANDEREN':'MESSAGE OTHERS','Freunde finden, chatten, Strecken ansehen und in Lobbies einladen.':'Find friends, chat, view tracks and invite to lobbies.','Chats':'Chats','Freunde':'Friends','Anfragen':'Requests','+ Freund':'+ Friend','Schreiben':'Message','Benutzername':'Username','Senden':'Send','Nachricht schreiben …':'Write a message …','Heute':'Today','melden':'report','LOBBY-EINLADUNG':'LOBBY INVITE','Schreib die erste Nachricht.':'Write the first message.','online':'online','in einem Rennen':'in a race','im Safety-Car-Rennen':'in a safety car race','in einer Lobby':'in a lobby','zuletzt online':'last online','vor':'','Annehmen':'Accept','Ablehnen':'Decline','Zurückziehen':'Withdraw','Freigeben':'Unblock','Blockieren':'Block','Nutzer melden':'Report user','Freund entfernen':'Remove friend','Als Freund anfragen':'Add friend','Anfrage annehmen':'Accept request','In Lobby einladen':'Invite to lobby','Strecken':'Tracks','Strecken von':'Tracks by','Einladen':'Invite','Eingeladen ✓':'Invited ✓','FREUNDE EINLADEN':'INVITE FRIENDS','Wen möchtest du in deine Lobby einladen?':'Who do you want to invite?','Du hast noch keine Freunde hinzugefügt.':'You have not added any friends yet.','Noch keine Chats. Such oben einen Benutzernamen und schreib los.':'No chats yet. Search a username above and start writing.','Keine offenen Anfragen.':'No open requests.','ERHALTEN':'RECEIVED','GESENDET':'SENT','BLOCKIERT':'BLOCKED','wartet auf Antwort':'waiting for a reply','möchte mit dir befreundet sein.':'wants to be your friend.','hat deine Anfrage angenommen.':'accepted your request.','lädt dich in eine Lobby ein.':'invites you to a lobby.','Wähle links einen Chat oder such einen Benutzernamen.':'Choose a chat or search a username.','Freunde und Chat gibt es nur mit Konto und Internet.':'Friends and chat require an account and internet.','Neuigkeiten':'new',
+Object.assign(EN,{'FREUNDE & CHAT':'FRIENDS & CHAT','Freunde & Chat':'Friends & chat','SCHREIB ANDEREN':'MESSAGE OTHERS','Freunde finden, chatten, Strecken ansehen und in Lobbies einladen.':'Find friends, chat, view tracks and invite to lobbies.','Chats':'Chats','Freunde':'Friends','Anfragen':'Requests','+ Freund':'+ Friend','Schreiben':'Message','Benutzername':'Username','Senden':'Send','Nachricht schreiben …':'Write a message …','Heute':'Today','melden':'report','LOBBY-EINLADUNG':'LOBBY INVITE','Schreib die erste Nachricht.':'Write the first message.','online':'online','in einem Rennen':'in a race','im Safety-Car-Rennen':'in a safety car race','in einer Lobby':'in a lobby','zuletzt online':'last online','vor':'','Annehmen':'Accept','Ablehnen':'Decline','Zurückziehen':'Withdraw','Freigeben':'Unblock','Blockieren':'Block','Nutzer melden':'Report user','Freund entfernen':'Remove friend','Als Freund anfragen':'Add friend','Anfrage annehmen':'Accept request','In Lobby einladen':'Invite to lobby','Strecken':'Tracks','Strecken von':'Tracks by','Einladen':'Invite','Eingeladen ✓':'Invited ✓','FREUNDE EINLADEN':'INVITE FRIENDS','Wen möchtest du in deine Lobby einladen?':'Who do you want to invite?','Du hast noch keine Freunde hinzugefügt.':'You have not added any friends yet.','Noch keine Chats. Such oben einen Benutzernamen und schreib los.':'No chats yet. Search a username above and start writing.','Keine offenen Anfragen.':'No open requests.','ERHALTEN':'RECEIVED','GESENDET':'SENT','BLOCKIERT':'BLOCKED','wartet auf Antwort':'waiting for a reply','möchte mit dir befreundet sein.':'wants to be your friend.','hat deine Anfrage angenommen.':'accepted your request.','lädt dich in eine Lobby ein.':'invites you to a lobby.','Wähle links einen Chat oder such einen Benutzernamen.':'Choose a chat or search a username.','Freunde und Chat gibt es nur mit Konto und Internet.':'Friends and chat require an account and internet.','Neuigkeiten':'new','Freunde & Nachrichten':'Friends & messages',
  'Diesen Benutzernamen gibt es nicht.':'This username does not exist.','Das bist du selbst.':'That is you.','Freundschaftsanfrage gesendet.':'Friend request sent.','Dieser Spieler nimmt keine Anfragen an.':'This player does not accept requests.','Ihr seid schon befreundet.':'You are already friends.','Anfrage läuft bereits.':'Request already pending.','Nicht zugestellt – der Spieler nimmt keine Nachrichten von dir an.':'Not delivered – this player does not accept messages from you.','Diese Lobby gibt es nicht mehr.':'This lobby no longer exists.','Komm in meine Lobby':'Join my lobby',
  'Zu Unrecht blockiert? Anfechten':'Blocked by mistake? Appeal','Die Rennleitung prüft deine Anfechtung von Hand. Ist sie unberechtigt, folgt eine Strafe.':'Your appeal is reviewed by hand. Unjustified appeals are penalised.','Warum ist das kein Verstoß?':'Why is this not a violation?','Anfechtung senden':'Send appeal','AUSZEIT':'TIMEOUT','DAUERHAFT GESPERRT':'PERMANENTLY BANNED','KONTO GELÖSCHT':'ACCOUNT DELETED','Abmelden':'Sign out','Verstanden':'Understood','Strecke übernehmen':'Take over track','Stunden':'hours','Minuten':'minutes','Dein Konto ist noch gesperrt für':'Your account is still locked for',
  'FREUNDSCHAFTSANFRAGEN':'FRIEND REQUESTS','WER DARF MIR SCHREIBEN':'WHO MAY MESSAGE ME','ONLINE-STATUS FÜR FREUNDE':'ONLINE STATUS FOR FRIENDS','MEINE STRECKEN FÜR FREUNDE':'MY TRACKS FOR FRIENDS','Zulassen':'Allow','Niemand':'Nobody','Alle':'Everyone','Nur Freunde':'Friends only','Sichtbar':'Visible','Verborgen':'Hidden','BENACHRICHTIGUNGEN':'NOTIFICATIONS','HINWEISE IM MENÜ':'NOTICES IN MENU','TON BEI NACHRICHTEN':'MESSAGE SOUND','TASTEN':'KEYS','Links lenken':'Steer left','Rechts lenken':'Steer right','Taste drücken …':'Press a key …','Die Pfeiltasten funktionieren immer zusätzlich.':'Arrow keys always work as well.','Auf W/A/S/D zurücksetzen':'Reset to W/A/S/D','PROFILBILD':'PROFILE PICTURE','Bild wählen …':'Choose image …','Entfernen':'Remove','Für andere Spieler sichtbar.':'Visible to other players.','Darstellung & Ton':'Display & sound','Rennen':'Racing','Konto':'Account'});
+/* =====================================================================
+   RACE CONTROL 45 – neues Startmenü, Online-Seite mit Reitern, Vortag-Seite
+   ===================================================================== */
+const HART={
+ career:`<svg viewBox="0 0 320 300" class="hArt"><defs><linearGradient id="hgC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd9a0"/><stop offset=".5" stop-color="#ffb340"/><stop offset="1" stop-color="#b8620c"/></linearGradient></defs>
+  <g class="hRays">${[...Array(12)].map((_,i)=>`<path d="M160 120 L${160+Math.cos(i*Math.PI/6)*260} ${120+Math.sin(i*Math.PI/6)*260} L${160+Math.cos(i*Math.PI/6+.14)*260} ${120+Math.sin(i*Math.PI/6+.14)*260}Z" fill="#ffb340" opacity=".07"/>`).join('')}</g>
+  <path d="M104 40h112v42c0 46-22 78-56 78s-56-32-56-78z" fill="url(#hgC)"/><path d="M104 54H66c-4 42 16 70 46 76M216 54h38c4 42-16 70-46 76" fill="none" stroke="#ffb340" stroke-width="11" stroke-linecap="round"/><path d="M148 158h24l7 46h-38z" fill="#d98a1e"/><rect x="112" y="202" width="96" height="17" rx="5" fill="#ffb340"/><rect x="98" y="219" width="124" height="22" rx="6" fill="#7c4410"/><path d="M124 56c-2 34 6 62 20 80" stroke="#fff3dc" stroke-width="9" fill="none" stroke-linecap="round" opacity=".65"/>
+  <path d="M160 72l8.6 17.6 19.4 2.8-14 13.7 3.3 19.3-17.3-9.1-17.3 9.1 3.3-19.3-14-13.7 19.4-2.8z" fill="#7c4410"/></svg>`,
+ single:`<svg viewBox="0 0 220 160" class="hArt"><g class="hFlag"><path d="M40 18v130" stroke="#cfd8e3" stroke-width="7" stroke-linecap="round"/>${[...Array(4)].map((_,r)=>[...Array(6)].map((_,c)=>`<path d="M${46+c*24} ${22+r*20+Math.sin(c*.9)*6}l24 ${Math.sin((c+1)*.9)*6-Math.sin(c*.9)*6}v20l-24 ${Math.sin(c*.9)*6-Math.sin((c+1)*.9)*6}z" fill="${(r+c)%2?'#f2f5f9':'#11181f'}"/>`).join('')).join('')}</g></svg>`,
+ season:`<svg viewBox="0 0 220 160" class="hArt"><rect x="44" y="28" width="132" height="112" rx="14" fill="#0f2236" stroke="#58c6ff" stroke-width="5"/><path d="M44 60h132" stroke="#58c6ff" stroke-width="5"/><path d="M76 16v26M144 16v26" stroke="#cfe9ff" stroke-width="8" stroke-linecap="round"/>${[0,1,2,3,4,5,6,7].map(i=>`<rect x="${60+(i%4)*27}" y="${74+Math.floor(i/4)*30}" width="18" height="18" rx="5" fill="${i<3?'#3ddc84':i===3?'#ffb340':'#21405e'}"/>`).join('')}</svg>`,
+ online:`<svg viewBox="0 0 240 240" class="hArt"><g fill="none" stroke="#3ddc84" stroke-width="3.5" opacity=".9"><circle cx="120" cy="120" r="78"/><ellipse cx="120" cy="120" rx="34" ry="78"/><path d="M42 120h156M54 82h132M54 158h132"/></g><g class="hOrb"><circle cx="120" cy="30" r="13" fill="#14c0ff"/><circle cx="206" cy="150" r="13" fill="#ffb340"/><circle cx="40" cy="162" r="13" fill="#ff5fa2"/><path d="M120 30L206 150L40 162Z" fill="none" stroke="#bff5d6" stroke-width="2.5" stroke-dasharray="6 7"/></g></svg>`,
+ eve:`<svg viewBox="0 0 320 150" class="hArt"><ellipse cx="160" cy="124" rx="134" ry="9" fill="#000" opacity=".45"/><path d="M22 104c2-22 16-30 48-34l34-27c9-7 20-10 34-10h42c20 0 34 6 48 17l26 20c28 4 44 12 46 34v8H22z" fill="#dfe5ec"/><path d="M110 64l24-18c5-4 11-6 18-6h8v24zM170 40h12c14 0 24 4 34 12l16 12h-62z" fill="#17212d"/><path d="M22 92h278v8H22z" fill="#ff8a00"/><path d="M22 100h278v5H22z" fill="#ffd34d"/><g fill="#0b0f14"><circle cx="84" cy="112" r="25"/><circle cx="240" cy="112" r="25"/></g><g fill="#8e9aa8"><circle cx="84" cy="112" r="12"/><circle cx="240" cy="112" r="12"/></g><rect x="146" y="20" width="50" height="13" rx="5" fill="#222a34"/><rect class="hL1" x="149" y="22" width="20" height="9" rx="3" fill="#ffb300"/><rect class="hL2" x="173" y="22" width="20" height="9" rx="3" fill="#ffb300"/><path d="M286 84l16 4v8h-18z" fill="#fff6d8"/></svg>`,
+ pen:`<svg viewBox="0 0 220 150" class="hArt"><path d="M34 98c-10-30 12-60 46-56 22 3 26 22 46 20 24-3 36-34 62-20 22 12 18 54-8 66-34 16-60-8-90 2-24 8-46 10-56-12z" fill="none" stroke="#2b3644" stroke-width="20" stroke-linejoin="round"/><path class="hDash" d="M34 98c-10-30 12-60 46-56 22 3 26 22 46 20 24-3 36-34 62-20 22 12 18 54-8 66-34 16-60-8-90 2-24 8-46 10-56-12z" fill="none" stroke="#5ff0e0" stroke-width="3.5" stroke-dasharray="11 9"/></svg>`
+};
+const HIC={chat:'<svg viewBox="0 0 32 32"><path d="M5 6h22v15H13l-8 6z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M10 12h12M10 16h7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>',
+ tut:'<svg viewBox="0 0 32 32"><path d="M2 12l14-6 14 6-14 6z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M8 15v7c4 4 12 4 16 0v-7M29 13v8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>',
+ fb:'<svg viewBox="0 0 32 32"><path d="M16 4a9 9 0 0 1 5 16c-1.500 1-2 2-2 4h-6c0-2-.5-3-2-4a9 9 0 0 1 5-16zM13 28h6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'};
+function homeHTML(){
+  return `<div class="hm hCareer" data-home="career" tabindex="0">${HART.career}<div class="hTx"><div class="hT">KARRIERE</div><div class="hSub" id="monCareer"></div></div><div class="hGo"><span id="monBest"></span><b>WEITER ▸</b></div></div>
+   <div class="hm hRace"><div class="hHalf" data-home="single" tabindex="0">${HART.single}<div class="hT">RENNEN</div><div class="hS">Einzelrennen</div></div><div class="hHalf hSeas" data-home="season" tabindex="0">${HART.season}<div class="hT">SAISON</div><div class="hS">3–7 Rennen</div></div></div>
+   <div class="hm hOnl" data-home="online" tabindex="0">${HART.online}<div class="hTx"><div class="hT">ONLINE</div><div class="hS">Lobbies & Strecken</div></div></div>
+   <div class="hm hEve" data-home="eve" tabindex="0">${HART.eve}<div class="hTx"><div class="hT">SAFETY CAR</div><div class="hS">Testen & Rennen fahren</div></div></div>
+   <div class="hm hTrk" data-home="tracks" tabindex="0">${HART.pen}<div class="hTx"><div class="hT">STRECKEN</div><div class="hS" id="hTrkN"></div></div><div class="hMini" id="hMini"></div></div>
+   <div class="hm hDock hChat" data-so="open" tabindex="0"><span class="hI">${HIC.chat}</span><div><div class="hT">CHAT</div><div class="hS" id="soTile"></div></div></div>
+   <div class="hm hDock hTut" data-home="tutorial" tabindex="0"><span class="hI">${HIC.tut}</span><div><div class="hT">TUTORIAL</div><div class="hS">5 Minuten</div></div></div>
+   <div class="hm hDock hFb" data-home="feedback" tabindex="0"><span class="hI">${HIC.fb}</span><div><div class="hT">FEEDBACK</div><div class="hS">Fehler & Ideen</div></div></div>`;
+}
+(()=>{const h=$('lHome');if(!h)return;h.classList.remove('lgrid');h.classList.add('hgrid');h.innerHTML=homeHTML()})();
+function homePaint(){
+  const n=CUST.filter(Boolean).length,t=$('hTrkN');if(t)t.textContent=`${n}/${TRK_SLOTS} ${tl('eigene')}`;
+  const m=$('hMini');if(!m)return;const L=CUST.filter(Boolean).slice(0,4);m.innerHTML=L.map(()=>'<canvas width="120" height="78"></canvas>').join('');
+  m.querySelectorAll('canvas').forEach((c,i)=>{try{previewDraw(c.getContext('2d'),buildTrack(custDef(L[i],i)))}catch(_){}});
+}
+{const lm=lMonitors;lMonitors=function(){const r=lm.apply(this,arguments);homePaint();return r}}
+{const ik=initMenuKeep;initMenuKeep=function(){const r=ik.apply(this,arguments);homePaint();return r}}
+document.addEventListener('keydown',e=>{if(e.key!=='Enter'||G)return;const q=document.activeElement&&document.activeElement.closest&&document.activeElement.closest('#lHome [tabindex]');if(q){e.preventDefault();q.click()}});
+/* ---------- Online: Reiter Lobbies / Strecken, Mehrspieler gehört jetzt hierher ---------- */
+ONL.tab='lob';
+onlOpen=function(tab){
+  if(tab)ONL.tab=tab;
+  ['lHelp','lOpts','lFb','lTe','lSet','lEve','lScl'].forEach(id=>$(id)&&$(id).classList.add('hide'));
+  let p=$('lOnl');if(!p){p=document.createElement('div');p.id='lOnl';$('lSet').parentNode.appendChild(p)}
+  p.classList.remove('hide');
+  p.innerHTML=`<div class="fb onl"><div class="setTabs"><span data-ot="lob" class="${ONL.tab==='lob'?'on':''}">Lobbies</span><span data-ot="trk" class="${ONL.tab==='trk'?'on':''}">Strecken</span><span data-so="open">Freunde & Chat</span></div>
+   ${ONL.tab==='lob'?`<div class="onNew"><div class="onN race" data-onl="host:"><span>${HIC2.flag}</span><div><b>RENNLEITUNG</b><i>Gemeinsam ein Rennen leiten</i></div><em>Lobby eröffnen</em></div><div class="onN sc" data-scl="host:"><span>${HIC2.car}</span><div><b>SAFETY-CAR-RENNEN</b><i>Gegeneinander fahren</i></div><em>Lobby eröffnen</em></div></div>
+     <div class="lobBox"><div class="lbTitle">${tl('OFFENE LOBBIES')}</div><div class="lobList">${lobRows()}</div></div>`
+   :`<div class="lobBox"><div class="fbrow" style="margin-top:0"><input id="onlQ" placeholder="${tl('Strecke oder Spieler suchen …')}" value="${esc(ONL.q)}"><button class="btn" data-onl="reload:">${tl('Neu laden')}</button><button class="btn primary" data-onl="own:">${tl('Eigene Strecke hochladen')}</button></div><div id="onlMsg" class="mut sm"></div><div class="onlGrid" id="onlGrid"></div></div>`}</div>`;
+  lShow('setup','ONLINE');trAll&&trAll();if(ONL.tab==='trk')onlLoad(false);lobWatch();
+};
+const HIC2={flag:'<svg viewBox="0 0 40 40"><path d="M9 6v29" stroke="currentColor" stroke-width="3.400" stroke-linecap="round"/><path d="M9 7h22l-5 7 5 7H9" fill="none" stroke="currentColor" stroke-width="3.400" stroke-linejoin="round"/></svg>',
+ car:'<svg viewBox="0 0 48 40"><path d="M4 27c0-6 4-8 10-9l6-6c2-2 4-2 7-2h4c4 0 6 1 9 4l3 4c4 1 5 4 5 9H4z" fill="none" stroke="currentColor" stroke-width="3.200" stroke-linejoin="round"/><circle cx="14" cy="29" r="4.500" fill="currentColor"/><circle cx="36" cy="29" r="4.500" fill="currentColor"/><path d="M23 6h9" stroke="#ffb300" stroke-width="4.500" stroke-linecap="round"/></svg>',
+ clock:'<svg viewBox="0 0 48 48"><circle cx="24" cy="27" r="15" fill="none" stroke="currentColor" stroke-width="3.400"/><path d="M24 27V18M24 27l6 4M19 5h10M24 5v7M37 13l3 3" stroke="currentColor" stroke-width="3.400" stroke-linecap="round"/></svg>',
+ cup:'<svg viewBox="0 0 48 48"><path d="M14 8h20v10c0 8-4 13-10 13s-10-5-10-13zM14 11H7c0 8 3 12 8 13M34 11h7c0 8-3 12-8 13M24 31v7M16 40h16" fill="none" stroke="currentColor" stroke-width="3.400" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ eye:'<svg viewBox="0 0 48 48"><path d="M4 24s7-13 20-13 20 13 20 13-7 13-20 13S4 24 4 24z" fill="none" stroke="currentColor" stroke-width="3.400"/><circle cx="24" cy="24" r="6" fill="currentColor"/></svg>'};
+document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-ot]');if(!q)return;e.stopPropagation();onlOpen(q.dataset.ot)},true);
+/* „Strecken anderer Spieler ansehen“ führt direkt zum Strecken-Reiter */
+document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-onl="browse:"]');if(!q)return;e.preventDefault();e.stopImmediatePropagation();onlOpen('trk')},true);
+/* =====================================================================
+   Vortag-Seite
+   ===================================================================== */
+const EVE_M=[['solo','ZEITFAHREN','Allein gegen die Uhr',HIC2.clock],['race','RENNEN','Gegen Spieler und KI',HIC2.cup],['cruise','ZUSCHAUEN','Entspannt, ohne Unfälle',HIC2.eye]];
+const EVE_A=[['none','Keine','Alles selbst'],['light','Wenig','Etwas Lenkhilfe'],['strong','Stark','Hilft bei Tempo & Linie']];
+eveHTML=function(){
+  const k=EVE.kind,as=SETS.scAssist||'strong',ti=Math.min(EVE.track,TRACKS.length-1);
+  return `<div class="ev2">
+   <div class="ev2H"><div class="ev2Road"><i></i></div><div class="ev2Car">${HART.eve}</div><div class="ev2Ti"><small>AM VORTAG</small><h2>${esc(TRACKS[ti].name)}</h2><span>${TRACKS[ti].km.toFixed(1)} km${TRACKS[ti].street?' · '+tl('Stadtkurs'):''}</span></div></div>
+   <div class="ev2M">${EVE_M.map(m=>`<div class="ev2C ${k===m[0]?'on':''} ${m[0]}" data-eve="${m[0]}" tabindex="0"><span>${m[3]}</span><div><b>${m[1]}</b><i>${m[2]}</i></div></div>`).join('')}</div>
+   <div class="ev2T" id="evTs">${TRACKS.map((t,i)=>`<div class="ev2K ${i===ti?'on':''}" data-evt="${i}" title="${esc(t.name)}"><canvas width="150" height="92" data-tc="${i}"></canvas><b>${esc(t.name.replace(/^GP von /,''))}</b></div>`).join('')}</div>
+   <div class="ev2B">
+    ${k==='cruise'?`<div class="ev2P"><h4>RUNDEN</h4><div class="ev2L">${[5,10,20].map(n=>`<div class="${EVE.laps===n?'on':''}" data-evl="${n}"><b>${n}</b></div>`).join('')}</div></div>`
+    :`<div class="ev2P"><h4>FAHRHILFE</h4><div class="ev2A">${EVE_A.map((a,i)=>`<div class="${as===a[0]?'on':''} ${a[0]}" data-eva="${a[0]}" tabindex="0"><em>${[0,1,2].map(j=>`<u class="${j<=i-(i===0?1:0)&&i>0?'f':''}"></u>`).join('')}</em><b>${a[1]}</b><i>${a[2]}</i></div>`).join('')}</div></div>`}
+    <button class="btn primary ev2Go" data-eve="go">${k==='solo'?'LOSFAHREN':k==='race'?'LOBBY ERÖFFNEN':'ZUSCHAUEN'} <span>▸</span></button>
+   </div>
+   ${k==='solo'?`<div id="eveLb">${lbBoardsHTML(ti)}</div>`:k==='race'?`<div class="lobBox"><div class="lbTitle">OFFENE SC-LOBBIES</div><div class="lobList" data-k="sc">${lobRows('sc')}</div></div>`:''}
+  </div>`;
+};
+let evScroll=0;
+{const eo=eveOpen;eveOpen=function(){const s=$('evTs');if(s)evScroll=s.scrollLeft;const r=eo.apply(this,arguments);$('lTitle').textContent=tl('SAFETY CAR');
+  const t=$('evTs');if(t){t.scrollLeft=evScroll;t.querySelectorAll('canvas').forEach(c=>{const i=+c.dataset.tc;try{previewDraw(c.getContext('2d'),(typeof TP!=='undefined'&&TP[i]&&TP.length===TRACKS.length?TP[i]:buildTrack(TRACKS[i])))}catch(_){}});
+    const on=t.querySelector('.on');if(on&&(on.offsetLeft<t.scrollLeft||on.offsetLeft+on.offsetWidth>t.scrollLeft+t.clientWidth))t.scrollLeft=on.offsetLeft-40}
+  return r}}
+document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-evt],[data-eva]');if(!q)return;e.stopPropagation();
+  if(q.dataset.evt!=null)EVE.track=+q.dataset.evt;
+  else{SETS.scAssist=q.dataset.eva;setSave();if(SET_OLD)try{const o=JSON.parse(SET_OLD);o.scAssist=SETS.scAssist;SET_OLD=JSON.stringify(o)}catch(_){}}
+  eveOpen()},true);
+/* =====================================================================
+   Safety-Car-Unfall im Rennen: zurück auf die Strecke statt Rennende
+   ===================================================================== */
+const SC_CRASH_S=25;
+function scRealCrash(){
+  if(!G||G.ended)return;const S=G.sc;G.scCrash=false;G.scHold=2.5;G.scWalls=(G.scWalls||0)+1;S.v=0;S.d=0;S.yaw=0;S.free=false;
+  G.meters.s=clamp(G.meters.s-SC_CRASH_S,0,100);
+  banner(tl('SAFETY CAR ZURÜCKGESETZT')+' · '+tl('SICHERHEIT')+' −'+SC_CRASH_S,'red');
+  addLog('SAFETY CAR',`${tl('Unfall des Safety Cars: Das Auto wird zurückgesetzt, die Sicherheit sinkt deutlich')} (−${SC_CRASH_S}).`,'bad');
+}
+{const sd=scDriveStep;scDriveStep=function(dt,tg){
+  if(G&&!G.scSolo&&(G.scCrash||G.scHold>0)){if(G.scHold>0)G.scHold-=dt;G.sc.v=0;return}      // steht nach dem Unfall kurz
+  return sd(dt,tg)}}
+setInterval(()=>{const b=document.querySelector('#results .scRes');if(b&&G&&G.scWalls&&!b.querySelector('.scW'))b.insertAdjacentHTML('beforeend',`<div class="scW"><span class="mut">${tl('Unfälle')}</span> <b>${G.scWalls}</b></div>`)},600);
+Object.assign(EN,{'RENNEN':'RACE','Einzelrennen':'Single race','3–7 Rennen':'3–7 races','Lobbies & Strecken':'Lobbies & tracks','Testen & Rennen fahren':'Test & race','STRECKEN':'TRACKS','eigene':'custom','CHAT':'CHAT','5 Minuten':'5 minutes','Fehler & Ideen':'Bugs & ideas','Lobbies':'Lobbies','Lobby eröffnen':'Open lobby','Gemeinsam ein Rennen leiten':'Direct a race together','Gegeneinander fahren':'Race each other',
+ 'ZEITFAHREN':'TIME TRIAL','Allein gegen die Uhr':'Alone against the clock','Gegen Spieler und KI':'Against players and AI','ZUSCHAUEN':'WATCH','Entspannt, ohne Unfälle':'Relaxed, no crashes','Alles selbst':'All by yourself','Etwas Lenkhilfe':'A little steering aid','Hilft bei Tempo & Linie':'Helps with speed & line','LOSFAHREN':'DRIVE','LOBBY ERÖFFNEN':'OPEN LOBBY','OFFENE SC-LOBBIES':'OPEN SC LOBBIES','Stadtkurs':'Street circuit',
+ 'SAFETY CAR ZURÜCKGESETZT':'SAFETY CAR RESET','SICHERHEIT':'SAFETY','Unfall des Safety Cars: Das Auto wird zurückgesetzt, die Sicherheit sinkt deutlich':'Safety car crash: the car is reset and safety drops considerably'});
 /* =====================================================================
    5) Alles, was von anderen Spielern kommt, wird entschärft (kein fremdes HTML/JS, keine Attribut-Tricks)
    ===================================================================== */
@@ -9034,7 +9167,7 @@ function privacy(){
    <p><b>Nutzungsstatistik (nur mit deiner Zustimmung):</b> Wenn du sie erlaubst, erfasst Google Analytics pseudonymisiert, wie das Spiel genutzt wird – z. B. gestartete Rennen, Spielmodi, Strecken, Flaggen-Entscheidungen, Gerätetyp und Sprache. Dafür werden Cookies von Google gesetzt und dein Konto wird über seine interne Konto-ID wiedererkannt (nicht über Name oder E-Mail). Du kannst die Zustimmung jederzeit in den Einstellungen unter „Statistik“ widerrufen.</p>
    <p><b>Deine Rechte:</b> In den Einstellungen unter „Konto“ kannst du deine Daten herunterladen und dein Konto samt Spielstand jederzeit vollständig löschen.</p>
    <p><b>Online-Rangliste (Safety-Car-Test):</b> Wenn du eine gültige Runde fährst, werden dein Benutzername und deine beste Rundenzeit je Strecke und Fahrhilfe gespeichert und sind für alle angemeldeten Spieler sichtbar. Beim Löschen des Kontos werden diese Einträge entfernt.</p>
-   <p><b>Feedback & Meldungen</b> gehen über ein Google-Formular an den Entwickler und enthalten den angegebenen Namen und deinen Benutzernamen.</p>
+   <p><b>Feedback & Meldungen</b> gehen über ein Google-Formular an den Entwickler und enthalten den angegebenen Namen und deinen Benutzernamen. Text und angehängte Bilder werden zusätzlich in der Datenbank gespeichert, dort kann sie nur der Entwickler einsehen.</p>
    <p><b>Kontakt:</b> über „Feedback“ im Startmenü.</p></div>
    <button class="btn primary agBtn" data-pv="close">${t('Schließen')}</button></div>`;
   el.classList.remove('hide');el.querySelector('[data-pv]').onclick=()=>el.classList.add('hide');
