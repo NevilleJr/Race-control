@@ -53,7 +53,8 @@ code{background:#04080e;border-radius:6px;padding:2px 6px}
 <body>
 <header>
   <div class="logo">RACE <b>CONTROL</b></div><span class="tag">ADMIN</span>
-  <nav><button data-tab="users" class="on">Alle Nutzer</button><button data-tab="beta">Beta-Rechte</button><button data-tab="decode">Code auslesen</button></nav>
+  <nav><button data-tab="users" class="on">Alle Nutzer</button><button data-tab="beta">Beta-Rechte</button><button data-tab="online">Online</button><button data-tab="decode">Code auslesen</button></nav>
+  <div class="row" style="gap:6px"><a class="btn" href="./" style="text-decoration:none">Zum Spiel</a><button class="btn danger hide" id="outBtn">Abmelden</button></div>
 </header>
 <main>
   <!-- ===== Alle Nutzer ===== -->
@@ -61,7 +62,7 @@ code{background:#04080e;border-radius:6px;padding:2px 6px}
     <div class="panel" id="authBox">
       <h2>Anmeldung</h2>
       <div id="authState" class="mut">Verbinde …</div>
-      <div class="row" style="margin-top:10px"><button class="btn primary" id="gBtn">Mit Google anmelden</button><button class="btn hide" id="outBtn">Abmelden</button><button class="btn hide" id="reloadBtn">Neu laden</button></div>
+      <div class="row" style="margin-top:10px"><button class="btn primary" id="gBtn">Mit Google anmelden</button><button class="btn hide" id="reloadBtn">Neu laden</button></div>
     </div>
     <div id="usersArea" class="hide">
       <div class="stats" id="stats"></div>
@@ -79,6 +80,14 @@ code{background:#04080e;border-radius:6px;padding:2px 6px}
         <div class="row" style="margin-bottom:12px"><input type="search" id="bq" placeholder="Spieler suchen …"><span id="betaCount" class="chip"></span></div>
         <div id="betaList"></div>
       </div>
+    </div>
+  </section>
+  <!-- ===== Online ===== -->
+  <section id="tabOnline" class="hide">
+    <div id="onNeed" class="panel mut">Bitte zuerst unter „Alle Nutzer“ mit Google anmelden.</div>
+    <div id="onArea" class="hide">
+      <div class="panel"><h2>Offene Lobbies</h2><div id="onLob"></div></div>
+      <div class="panel"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Hochgeladene Strecken</h2><button class="btn" id="onReload">Neu laden</button></div><div class="grid" id="onTr"></div></div>
     </div>
   </section>
   <!-- ===== Code auslesen ===== -->
@@ -108,7 +117,7 @@ const fmtDate=t=>t?new Date(t).toLocaleString('de-DE',{dateStyle:'medium',timeSt
 
 /* ---------- Tabs ---------- */
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));
-  $('tabUsers').classList.toggle('hide',b.dataset.tab!=='users');$('tabDecode').classList.toggle('hide',b.dataset.tab!=='decode');$('tabBeta').classList.toggle('hide',b.dataset.tab!=='beta')});
+  $('tabUsers').classList.toggle('hide',b.dataset.tab!=='users');$('tabDecode').classList.toggle('hide',b.dataset.tab!=='decode');$('tabBeta').classList.toggle('hide',b.dataset.tab!=='beta');$('tabOnline').classList.toggle('hide',b.dataset.tab!=='online');if(b.dataset.tab==='online')loadOnline()});
 
 /* ---------- Strecken-Code lesen ---------- */
 function parseTracks(raw){
@@ -164,18 +173,21 @@ $('decBtn').onclick=()=>{
   catch(e){$('decMsg').className='sm err';$('decMsg').textContent='Ungültiger Code: '+e.message}};
 
 /* ---------- Firebase: alle Nutzer ---------- */
-let DB=null,AUTH=null,ALL=[];
-try{firebase.initializeApp(CFG);AUTH=firebase.auth();DB=firebase.firestore()}catch(e){$('authState').innerHTML='<span class="err">Firebase konnte nicht geladen werden.</span>'}
+let DB=null,AUTH=null,ALL=[],BETA={};
+try{// eigene App-Instanz: die Admin-Anmeldung ist vom Spielkonto getrennt
+  const APP=firebase.initializeApp(CFG,'admin');AUTH=APP.auth();DB=APP.firestore();
+  // Altlast: frühere Admin-Anmeldungen lagen in der Spiel-Sitzung – dort abmelden (Spielkonten bleiben unberührt)
+  const GAMEAPP=firebase.initializeApp(CFG);GAMEAPP.auth().onAuthStateChanged(u=>{if(u&&!u.providerData.some(p=>p.providerId==='password'))GAMEAPP.auth().signOut()})}catch(e){$('authState').innerHTML='<span class="err">Firebase konnte nicht geladen werden.</span>'}
 if(AUTH){
   if(location.protocol==='file:'){$('authState').innerHTML='Die Anmeldung funktioniert nur online: <a style="color:#7fd4ff" href="https://nevillejr.github.io/Race-control/admin.html">nevillejr.github.io/Race-control/admin.html</a>. „Code auslesen“ funktioniert auch offline.'}
   AUTH.onAuthStateChanged(u=>{
     $('gBtn').classList.toggle('hide',!!u);$('outBtn').classList.toggle('hide',!u);$('reloadBtn').classList.toggle('hide',!u);
-    if(!u){if(location.protocol!=='file:')$('authState').textContent='Melde dich mit dem Admin-Google-Konto an.';$('usersArea').classList.add('hide');return}
+    if(!u){ALL=[];BETA={};$('users').innerHTML='';$('stats').innerHTML='';$('betaList').innerHTML='';$('onTr').innerHTML='';$('onLob').innerHTML='';$('betaArea').classList.add('hide');$('betaNeed').classList.remove('hide');$('onArea').classList.add('hide');$('onNeed').classList.remove('hide');if(location.protocol!=='file:')$('authState').textContent='Melde dich mit dem Admin-Google-Konto an.';$('usersArea').classList.add('hide');return}
     $('authState').innerHTML=`Angemeldet als <b>${esc(u.displayName||'Google-Konto')}</b> · Admin-ID: <code id="uidTxt">${esc(u.uid)}</code>`;
     loadUsers();
   });
   $('gBtn').onclick=async()=>{try{await AUTH.signInWithPopup(new firebase.auth.GoogleAuthProvider())}catch(e){$('authState').innerHTML='<span class="err">Anmeldung fehlgeschlagen: '+esc(e.code||e.message)+'</span>'}};
-  $('outBtn').onclick=()=>AUTH.signOut();$('reloadBtn').onclick=()=>loadUsers();
+  $('outBtn').onclick=async()=>{$('outBtn').disabled=true;try{await AUTH.signOut()}finally{location.replace('./')}};$('reloadBtn').onclick=()=>loadUsers();
 }
 async function loadUsers(){
   $('users').innerHTML='<p class="mut">Lade alle Nutzer …</p>';$('usersArea').classList.remove('hide');
@@ -208,7 +220,26 @@ function render(){
     el.appendChild(g);box.appendChild(el);
   }
 }
-let BETA={};
+/* ---------- Online: Lobbies und Uploads ---------- */
+async function loadOnline(){
+  if(!AUTH||!AUTH.currentUser)return;$('onNeed').classList.add('hide');$('onArea').classList.remove('hide');
+  try{const sn=await DB.collection('lobbies').get(),now=Date.now();
+    const L=sn.docs.map(d=>({id:d.id,v:d.data()}));
+    $('onLob').innerHTML=L.map(({id,v})=>{const ms=v.at&&v.at.toMillis?v.at.toMillis():0,live=now-ms<90000;return `<div class="bRow"><div class="nm"><b>${esc(v.n)}</b><span class="sm mut">${esc(v.txt||'')} · Code ${esc(v.code)} · ${esc(v.pl)}/${esc(v.max)} Spieler · ${v.pw?'mit Passwort':'offen'} · ${v.st==='race'?'Rennen läuft':'in der Lobby'} · ${live?'aktiv':'nicht mehr aktiv, '+fmtDate(ms)}</span></div><button class="btn danger" data-ld="${esc(id)}">Aus der Liste nehmen</button></div>`}).join('')||'<p class="mut">Keine öffentlichen Lobbies.</p>'}
+  catch(e){$('onLob').innerHTML='<p class="err">'+esc(e.code||e.message)+'</p>'}
+  try{const sn=await DB.collection('tracks').get(),box=$('onTr');box.innerHTML='';
+    const L=sn.docs.map(d=>({id:d.id,v:d.data()})).sort((a,b)=>(b.v.at||0)-(a.v.at||0));
+    if(!L.length)box.innerHTML='<p class="mut">Noch keine Uploads.</p>';
+    for(const {id,v} of L){let pts=null;try{pts=JSON.parse(v.pts)}catch(_){}
+      const t=Array.isArray(pts)&&pts.length>2&&pts.every(p=>Array.isArray(p)&&isFinite(p[0])&&isFinite(p[1]))?{name:v.n,km:v.km,w:v.w,street:v.street,pts,t:v.at}:null;
+      const wrap=document.createElement('div');wrap.appendChild(trackCard(t,0,v.by));
+      wrap.insertAdjacentHTML('beforeend',`<div class="row" style="justify-content:space-between;padding:6px 2px"><span class="sm mut">von ${esc(v.by||'?')}</span><button class="btn danger" data-td="${esc(id)}">Löschen</button></div>`);box.appendChild(wrap)}}
+  catch(e){$('onTr').innerHTML='<p class="err">'+esc(e.code||e.message)+'</p>'}
+}
+$('onReload').onclick=loadOnline;
+$('onArea').onclick=async e=>{const q=e.target.closest('[data-td],[data-ld]');if(!q)return;e.stopPropagation();
+  if(!q.dataset.arm){q.dataset.arm='1';q.textContent='Wirklich?';setTimeout(()=>{if(q.isConnected){delete q.dataset.arm;q.textContent=q.dataset.td?'Löschen':'Aus der Liste nehmen'}},4000);return}
+  q.disabled=true;try{await DB.collection(q.dataset.td?'tracks':'lobbies').doc(q.dataset.td||q.dataset.ld).delete();loadOnline()}catch(err){q.disabled=false;alert('Fehler: '+(err.code||err.message))}};
 function renderBeta(){
   $('betaNeed').classList.add('hide');$('betaArea').classList.remove('hide');
   const q=$('bq').value.trim().toLowerCase();
