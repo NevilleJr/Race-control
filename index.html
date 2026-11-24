@@ -753,6 +753,55 @@ body.mob #menu.lst #lHome.hgrid{width:calc(100% - 24px);margin:12px auto calc(24
 @media (max-width:760px){.ev2M{grid-template-columns:1fr}.ev2C{padding:10px 14px}.ev2B{grid-template-columns:1fr}.ev2Go{min-height:56px}.ev2H{height:128px}.ev2A>div{padding:9px}}
 body.light #scrRes .scrC,body.light #scrLamps{filter:invert(.94) hue-rotate(180deg)}
 
+/* ===== RACE CONTROL 46 – Karriere ===== */
+#kar{position:fixed;inset:0;z-index:95;display:flex;flex-direction:column;background:radial-gradient(120% 90% at 85% -10%,rgba(225,6,0,.22),transparent 55%),radial-gradient(90% 80% at 0% 100%,rgba(20,168,255,.18),transparent 60%),#070c14;color:#eef3f9;font-family:Barlow,sans-serif}#kar.hide{display:none}
+#kar *,#kMg *{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.25) transparent}#kar h2,#kar h3,#kPop h3,#kMg h3{color:inherit;text-transform:none}
+#kar canvas,#kMg canvas{position:static;inset:auto;width:100%;height:auto;display:block}
+.kTop{display:flex;align-items:center;gap:18px;padding:10px 20px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(5,9,16,.8);flex-wrap:wrap}.kWho{display:flex;align-items:center;gap:11px}.kFc{width:44px;height:44px;border-radius:12px;flex:none;display:block}.kWho b{display:block;font:800 19px "Barlow Condensed",sans-serif;letter-spacing:.05em}.kWho span{font-size:12.5px;color:#93a3b5}
+.kSt{margin-left:auto;display:flex;gap:22px;align-items:center;flex-wrap:wrap}.kSt>div{min-width:104px}.kSt em{display:block;font:800 10.5px "Barlow Condensed",sans-serif;letter-spacing:.16em;color:#93a3b5;margin-bottom:4px}.kMo b{font:800 19px "Barlow Condensed",sans-serif;color:#ffd34d}.kMo b.n{color:#ff6b61}.kBr{height:8px;border-radius:5px;background:rgba(255,255,255,.1);overflow:hidden}.kBr i{display:block;height:100%;border-radius:5px;transition:width .4s}
+.kEn{display:flex;gap:2px}.kEn i{width:19px;height:19px;color:rgba(255,255,255,.14)}.kEn i.on{color:#ffd34d}.kEn svg,.kAct em svg{width:19px;height:19px;display:block}
+.kBody{flex:1;display:grid;grid-template-columns:92px 1fr;min-height:0}.kBody.full{grid-template-columns:1fr}.kNav{display:flex;flex-direction:column;gap:2px;padding:10px 8px;border-right:1px solid rgba(255,255,255,.07);overflow-y:auto;background:rgba(5,9,16,.5)}.kNav button{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px;border:0;border-radius:12px;background:none;color:#8fa0b3;cursor:pointer;font:600 11px Barlow,sans-serif}.kNav svg{width:24px;height:24px}.kNav button:hover{background:rgba(255,255,255,.05);color:#fff}.kNav .on{background:rgba(225,6,0,.22);color:#fff}.kNav i{position:absolute;top:4px;right:14px;min-width:18px;height:18px;border-radius:9px;background:#e10600;color:#fff;font:800 11px/18px Barlow,sans-serif;text-align:center}
+.kMain{overflow-y:auto;padding:18px 22px 40px;min-height:0}.kMain>*{max-width:1240px;margin-left:auto;margin-right:auto}.kH{margin:20px auto 10px;font:800 15px "Barlow Condensed",sans-serif;letter-spacing:.18em;color:#ff8f88}.kH span{margin-left:10px;font:500 13px Barlow,sans-serif;letter-spacing:0;color:#93a3b5}
+.kOff{display:grid;grid-template-columns:1.55fr 1fr;gap:16px}.kScene{border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);min-height:300px}.kScene svg{width:100%;height:100%;display:block}.kScr{stroke-dasharray:140;animation:kScr 3s linear infinite}@keyframes kScr{from{stroke-dashoffset:140}to{stroke-dashoffset:-140}}.kPing{animation:kPing 1.2s infinite}@keyframes kPing{50%{opacity:.4}}
+.kNextC{display:flex;flex-direction:column;gap:7px;padding:18px;border-radius:20px;border:1px solid rgba(225,6,0,.5);background:linear-gradient(160deg,rgba(225,6,0,.22),#0a111c 60%)}.kNextC.ev{border-color:rgba(179,136,255,.55);background:linear-gradient(160deg,rgba(179,136,255,.24),#0a111c 60%)}.kNextC canvas{max-height:150px;object-fit:contain}.kNextC small,.kBh small,.kSpc small,.kGh small,.kNewH small{font:800 12px "Barlow Condensed",sans-serif;letter-spacing:.2em;color:#ffb340}.kNextC h3{margin:0;font:800 30px/1 "Barlow Condensed",sans-serif;letter-spacing:.03em}.kNextC p{margin:0;font-size:14px;color:#c3cfdc}.kBig{padding:14px 22px!important;font:800 19px "Barlow Condensed",sans-serif!important;letter-spacing:.1em;border-radius:14px!important}.kNextC .kBig{margin-top:auto}
+.kTag{align-self:flex-start;display:inline-block;padding:3px 11px;border-radius:20px;font-size:12.5px;font-weight:700;background:rgba(20,168,255,.18);color:#8fd2ff}.kTag.rain,.kTag.change{background:rgba(58,123,255,.24);color:#a9c6ff}.kTag.wild,.kTag.heat,.kTag.derby{background:rgba(255,90,60,.24);color:#ffb09f}.kTag.final{background:rgba(255,179,64,.26);color:#ffd795}.kTag.spec{background:rgba(179,136,255,.24);color:#d8c4ff}
+.kIcB{width:72px;height:72px;border-radius:20px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.07);color:#ffb340}.kIcB svg{width:42px;height:42px}.kIcB.xl{width:120px;height:120px;border-radius:32px}.kIcB.xl svg{width:70px;height:70px}
+.kActs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.kAct{display:flex;align-items:center;gap:13px;padding:13px 15px;border-radius:16px;background:#0d1522;border:1px solid rgba(255,255,255,.08);cursor:pointer;transition:transform .18s,border-color .18s}.kAct:hover{transform:translateY(-3px);border-color:#ffb340}.kAct.gm{background:linear-gradient(120deg,rgba(255,179,64,.14),#0d1522 60%)}.kAct.done,.kAct.off{opacity:.42;pointer-events:none}.kAct>span{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.07);color:#7fd4ff;flex:none}.kAct.gm>span{color:#ffb340}.kAct>span svg{width:27px;height:27px}.kAct div{flex:1;min-width:0}.kAct b{display:block;font-size:15.5px}.kAct i{font-style:normal;font-size:12.5px;color:#93a3b5}.kAct em{color:#ffd34d;font-style:normal;font-size:12.5px;display:flex}
+.kTwo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}.kCard{padding:15px 17px;border-radius:16px;background:#0d1522;border:1px solid rgba(255,255,255,.08)}.kCard h4{margin:0 0 9px;font:800 13px "Barlow Condensed",sans-serif;letter-spacing:.18em;color:#93a3b5}
+.kObj,.kTk>div{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:14.5px}.kObj i,.kTk i{width:22px;height:22px;border-radius:7px;border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:13px;font-weight:800;flex:none}.kObj span{flex:1}.kObj b{color:#93a3b5}.kObj.ok i,.kTk .ok i{background:#2fd27a;border-color:#2fd27a;color:#05140b}.kTk .no i{border-color:#ff5a52;color:#ff5a52}.kTk{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:4px 18px;padding:10px 16px;border-radius:16px;background:#0d1522;border:1px solid rgba(255,255,255,.08)}
+.kNl{padding:8px 0;border-top:1px solid rgba(255,255,255,.06)}.kNl:first-of-type{border:0}.kNl b{display:block;font:800 16px "Barlow Condensed",sans-serif;letter-spacing:.03em}.kNl span{font-size:12.5px;color:#93a3b5}
+.kIn{display:flex;flex-direction:column;gap:12px;max-width:860px!important}.kMl{display:flex;gap:15px;padding:16px;border-radius:18px;background:#0d1522;border:1px solid rgba(255,255,255,.08)}.kMl.new{border-color:rgba(225,6,0,.6);background:linear-gradient(120deg,rgba(225,6,0,.16),#0d1522 55%)}.kMl.done{opacity:.72}.kMl .kFc{width:58px;height:58px}.kMl>div{flex:1;min-width:0}.kMl small{color:#93a3b5}.kMl b{display:block;font:800 21px "Barlow Condensed",sans-serif;letter-spacing:.03em}.kMl p{margin:5px 0 10px;font-size:15px;line-height:1.5;color:#d3dce6}.kOp{display:flex;flex-wrap:wrap;gap:9px}.kAns{font-size:14px;color:#b9c7d6}.kAns em{display:inline-block;margin-right:9px;font-style:normal;font-weight:700;color:#ffb340}
+.kCal{display:grid;grid-template-columns:repeat(auto-fill,minmax(134px,1fr));gap:11px}.kCw{position:relative;padding:11px;border-radius:15px;background:#0d1522;border:1px solid rgba(255,255,255,.08);text-align:center}.kCw.done{opacity:.55}.kCw.cur{border-color:#e10600;box-shadow:0 0 0 1px #e10600 inset;opacity:1}.kCw.ev{background:linear-gradient(160deg,rgba(179,136,255,.2),#0d1522)}.kCw small{position:absolute;left:10px;top:7px;color:#93a3b5}.kCw .kIcB{margin:8px auto;width:60px;height:60px}.kCw b{display:block;font-size:13.5px}.kCw span{font-size:11.5px;color:#93a3b5}.kCw em{position:absolute;right:9px;top:5px;font:800 21px "Barlow Condensed",sans-serif;font-style:normal}
+.kRw{display:flex;align-items:center;gap:11px;padding:6px 0;border-top:1px solid rgba(255,255,255,.05);font-size:14.5px}.kRw:first-of-type{border:0}.kRw i{width:26px;font-style:normal;font-weight:800;color:#93a3b5}.kRw span{flex:1;min-width:0}.kRw small{display:block;font-size:12px;color:#93a3b5}.kRw u{text-decoration:none;font-size:12.5px;color:#93a3b5}.kRw.me{color:#ffb340;font-weight:700}.kRw.big{padding:9px 0}.kRw.sm{font-size:13px;color:#93a3b5}
+.kSk{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.kSkC h4{margin:0 0 10px;font:800 17px "Barlow Condensed",sans-serif;letter-spacing:.12em;color:var(--c)}.kPk{position:relative;padding:12px 14px;border-radius:14px;margin-bottom:16px;background:#0d1522;border:1px solid rgba(255,255,255,.09)}.kPk:not(:last-child):after{content:"";position:absolute;left:50%;bottom:-17px;width:3px;height:16px;background:rgba(255,255,255,.12)}.kPk b{display:block}.kPk span{font-size:12.5px;color:#93a3b5}.kPk.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 22%,#0d1522)}.kPk.can{border-color:var(--c);cursor:pointer;box-shadow:0 0 18px color-mix(in srgb,var(--c) 30%,transparent)}.kPk.can:hover{transform:scale(1.03)}.kPk.lock{opacity:.45}
+.kStf,.kRel{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:13px}.kS1{display:flex;gap:14px;align-items:center}.kS1 .kFc,.kS1 .kIcB{width:64px;height:64px}.kS1>div:nth-child(2){flex:1}.kS1 b,.kS1 span,.kS1 i{display:block}.kS1 span{font-size:13px;color:#c3cfdc}.kS1 i{font-style:normal;font-size:12.5px;color:#93a3b5}.kStars{display:flex;gap:5px;margin-top:6px}.kStars u{width:26px;height:6px;border-radius:3px;background:rgba(255,255,255,.13)}.kStars u.on{background:#ffb340}.kSb{display:flex;flex-direction:column;gap:7px;align-items:flex-end}
+.kShp{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:13px}.kIt{display:flex;flex-direction:column;align-items:center;gap:5px;padding:15px;border-radius:16px;background:#0d1522;border:1px solid rgba(255,255,255,.08);text-align:center}.kIt.on{border-color:#2fd27a}.kItS svg{width:78px;height:78px}.kIt span{font-size:12.5px;color:#93a3b5;flex:1}.kIt em{font-style:normal;color:#2fd27a;font-weight:700}
+.kRn{display:flex;justify-content:space-between;align-items:baseline}.kRn b{font:800 19px "Barlow Condensed",sans-serif}.kRn em{font:800 26px "Barlow Condensed",sans-serif;font-style:normal;color:var(--c)}.kRel span{display:block;margin-top:8px;font-size:12.5px;color:#93a3b5}.kRvC{display:flex;gap:16px;align-items:center}.kRvC .kFc{width:74px;height:74px}.kRvC b{font:800 23px "Barlow Condensed",sans-serif}.kRvC span{display:block;color:#ffb340}.kRvC p{margin:4px 0 0;color:#c3cfdc}
+.kAch{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}.kAch>div{display:flex;gap:12px;align-items:center;padding:11px 13px;border-radius:14px;background:#0d1522;border:1px solid rgba(255,255,255,.07);opacity:.5}.kAch>.on{opacity:1;border-color:rgba(255,179,64,.6)}.kAch span{color:#93a3b5}.kAch .on span{color:#ffb340}.kAch svg{width:32px;height:32px;display:block}.kAch i{font-style:normal;font-size:12.5px;color:#93a3b5;display:block}.kTro{display:flex;flex-wrap:wrap;gap:14px}.kTro>div{width:130px;text-align:center;padding:12px;border-radius:14px;background:#0d1522}.kTro .hArt{position:static;width:100%;height:86px}.kTro span{display:block;font-size:12px;color:#93a3b5}.kRst{margin-top:26px!important}
+.kBrf{display:flex;flex-direction:column;gap:6px}.kBh{display:grid;grid-template-columns:320px 1fr;gap:22px;align-items:center;padding:18px;border-radius:20px;background:linear-gradient(120deg,rgba(225,6,0,.24),#0a111c 60%);border:1px solid rgba(225,6,0,.4)}.kBh h2,.kSpc h2,.kGh h2,.kNewH h2{margin:3px 0 8px;font:800 clamp(30px,4.200vw,52px)/1 "Barlow Condensed",sans-serif;letter-spacing:.03em}.kBh p{margin:8px 0 0}.kNx{color:#3ddc84;font-weight:600}.kBc{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.kBc>div{padding:16px;border-radius:16px;background:#0d1522;border:1px solid rgba(255,255,255,.09);cursor:pointer;transition:transform .18s}.kBc>div:hover{transform:translateY(-4px);border-color:#ffb340}.kBc .on{border-color:#ffb340;background:linear-gradient(160deg,rgba(255,179,64,.26),#0d1522);box-shadow:0 0 0 1px #ffb340 inset}.kBc b{display:block;font:800 21px "Barlow Condensed",sans-serif}.kBc i{display:block;margin:5px 0 9px;font-size:13.5px;color:#c3cfdc}.kBc span{font-size:12.5px;color:#ffb340}.kBa{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:20px}
+.kSpc{align-items:center;text-align:center;padding-top:20px;gap:12px}.kSpc p{margin:0;color:#c3cfdc;font-size:16px}.kSeq{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center}.kSeq span{padding:6px 13px;border-radius:20px;background:rgba(179,136,255,.2);font-size:13px;font-weight:600}.kSeq i{font-style:normal;color:#93a3b5}
+.kChips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;justify-content:inherit}.kChips span{padding:4px 11px;border-radius:20px;font-size:13px;font-weight:700;background:rgba(255,255,255,.09)}.kChips .p{background:rgba(47,210,122,.2);color:#7ff0ae}.kChips .n{background:rgba(255,90,82,.2);color:#ff9d96}
+.kPst{display:grid;grid-template-columns:1.25fr 1fr;gap:22px}.kPaper{align-self:start;padding:24px 26px;border-radius:6px;background:#efe9dc;color:#1d1b17;box-shadow:0 22px 60px rgba(0,0,0,.5);transform:rotate(-.6deg);animation:kPap .5s}@keyframes kPap{from{transform:rotate(-14deg) scale(.4);opacity:0}}.kPh{display:flex;justify-content:space-between;align-items:baseline;border-bottom:3px double #1d1b17;padding-bottom:7px}.kPh b{font:800 27px "Barlow Condensed",sans-serif;letter-spacing:.06em}.kPh span{font-size:12.5px}.kPaper h1{margin:14px 0;font:800 clamp(30px,3.600vw,48px)/1.02 "Barlow Condensed",sans-serif}.kPi svg{width:100%;height:150px;display:block;filter:sepia(.35)}.kPaper p{font-size:15.500px;line-height:1.5;columns:2;column-gap:20px;margin:14px 0 0}
+.kPr{display:flex;flex-direction:column;gap:12px}.kRate{position:relative;width:150px;height:150px;align-self:center}.kRate svg{width:100%;height:100%;transform:rotate(-90deg)}.kRate circle{fill:none;stroke:rgba(255,255,255,.1);stroke-width:11}.kRate circle+circle{stroke:var(--c);stroke-linecap:round}.kRate b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:800 56px "Barlow Condensed",sans-serif}
+.kGh{position:relative;text-align:center;padding:26px 20px;border-radius:22px;overflow:hidden;background:radial-gradient(80% 120% at 50% 0,rgba(255,179,64,.36),#0a111c 70%);border:1px solid rgba(255,179,64,.5)}.kGh .hArt{position:static;display:block;margin:0 auto;width:130px;height:120px}.kGh .kChips{justify-content:center}.kOffs{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px}.kOf{display:flex;flex-direction:column;gap:5px;padding:18px;border-radius:18px;background:#0d1522;border:1px solid rgba(255,255,255,.1);cursor:pointer;transition:transform .2s}.kOf:hover{transform:translateY(-5px);border-color:#ffb340}.kOf.Aufstieg{border-color:#2fd27a;background:linear-gradient(160deg,rgba(47,210,122,.24),#0d1522)}.kOf em{font-style:normal;font-weight:700;font-size:12.5px;color:#ffb340}.kOf b{font:800 25px "Barlow Condensed",sans-serif}.kOf span,.kOf i{font-size:13px;color:#93a3b5;font-style:normal}.kOf u{text-decoration:none;font-weight:700;color:#ffd34d;margin:5px 0}
+.kNew{max-width:960px!important}.kNewH{display:flex;gap:22px;align-items:center}.kNewH .hArt{position:static;width:190px;flex:none}.kNewH p{color:#c3cfdc;font-size:16px;margin:0}.kNew h4{margin:20px 0 8px;font:800 13px "Barlow Condensed",sans-serif;letter-spacing:.18em;color:#93a3b5}.kNew input{width:min(340px,100%);background:#05090f;border:1px solid rgba(255,255,255,.2);border-radius:12px;color:#fff;padding:12px 14px;font:600 18px Barlow,sans-serif}.kBgs{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.kBgs.two{grid-template-columns:1fr 1fr}.kBg{display:flex;flex-direction:column;align-items:center;gap:4px;padding:15px 12px;border-radius:16px;background:#0d1522;border:1px solid rgba(255,255,255,.09);cursor:pointer;text-align:center}.kBg .kFc{width:70px;height:70px}.kBg.on{border-color:#e10600;background:linear-gradient(160deg,rgba(225,6,0,.28),#0d1522)}.kBg span{font-size:12.5px;color:#93a3b5}.kBg em{font-style:normal;font-size:12.5px;color:#ffb340;font-weight:700}.kNew .kBig{margin-top:24px}
+#kPop,#kMg{position:fixed;inset:0;z-index:110;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(2,5,10,.82);color:#eef3f9;font-family:Barlow,sans-serif}.kPb{width:min(470px,100%);padding:26px;border-radius:22px;text-align:center;background:linear-gradient(180deg,#16202f,#0a111c);border:1px solid rgba(255,179,64,.5);animation:mwIn .3s}.kPb h3{margin:0 0 10px;font:800 29px "Barlow Condensed",sans-serif}.kPb p{font-size:16px;line-height:1.5}.kPb .kIcB{margin:0 auto}.kPb .kChips{justify-content:center}.kPa{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.kMd{width:104px;height:104px;margin:8px auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font:800 42px "Barlow Condensed",sans-serif;color:#10151d;background:#8793a1}.kMd.g{background:radial-gradient(circle at 35% 30%,#fff2c4,#ffb340)}.kMd.s{background:radial-gradient(circle at 35% 30%,#fff,#b9c5d1)}.kMd.b{background:radial-gradient(circle at 35% 30%,#ffd9b8,#c9783a)}.kMd.xl{width:140px;height:140px;font-size:60px}
+.kmB{width:min(760px,100%);max-height:calc(100vh - 32px);overflow-y:auto;padding:20px 22px;border-radius:22px;background:linear-gradient(180deg,#16202f,#0a111c);border:1px solid rgba(255,179,64,.5)}.kmH{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.kmH b{display:block;font:800 25px "Barlow Condensed",sans-serif;letter-spacing:.06em}.kmH span{font-size:14px;color:#93a3b5}.kmT{height:8px;margin:12px 0;border-radius:5px;background:rgba(255,255,255,.1);overflow:hidden}.kmT i{display:block;height:100%;width:100%;background:#ffb340}.kmT .lo{background:#ff4d4d}.kmC{text-align:center}.kmC canvas{border-radius:14px;margin:8px auto}.kmN{font:800 13px "Barlow Condensed",sans-serif;letter-spacing:.16em;color:#93a3b5}
+.kmA,.kmF,.kmO{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}.kmA.hide{display:none}.kmA button,.kmF button,.kmO button,.kmRm button{padding:13px 18px;border-radius:13px;border:2px solid var(--c,rgba(255,255,255,.2));background:color-mix(in srgb,var(--c,#fff) 14%,#0d1522);color:#fff;font:700 15.500px Barlow,sans-serif;cursor:pointer}.kmA button:hover,.kmF button:hover,.kmO button:hover{filter:brightness(1.3)}.kmR{min-height:26px;margin-top:12px;font-size:15.500px}.kmR .ok,.kmE.g h3{color:#2fd27a}.kmR .mid{color:#ffb340}.kmR .no{color:#ff6b61}
+.kmBig{min-height:100px;display:flex;align-items:center;justify-content:center;font:800 27px/1.15 "Barlow Condensed",sans-serif;padding:10px}.kmF{display:grid;grid-template-columns:repeat(3,1fr)}.kmF button{position:relative;display:flex;flex-direction:column;align-items:center;gap:7px}.kmF i{width:54px;height:34px;border-radius:5px;background:var(--c);border:1px solid rgba(255,255,255,.35)}.kmF small{position:absolute;right:8px;top:5px;opacity:.5}.kmC .ok{border-color:#2fd27a!important;background:rgba(47,210,122,.3)!important}.kmC .no{border-color:#ff4d4d!important;background:rgba(255,77,77,.28)!important}.kmC .mid{border-color:#ffb340!important}
+.kmRd{display:flex;flex-direction:column;gap:10px;min-height:340px}.kmRm{padding:11px 14px;border-radius:14px;background:#0d1522;border:1px solid rgba(255,255,255,.1);text-align:left;animation:mwIn .25s}.kmRt{height:5px;border-radius:3px;background:rgba(255,255,255,.1);overflow:hidden;margin-bottom:8px}.kmRt i{display:block;height:100%;background:#ffb340}.kmRm b{font-size:16px}.kmRm div:last-child{display:flex;gap:8px;margin-top:9px}.kmRm button{padding:7px 14px;font-size:14px}
+.kmG{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:12px}.kmG button{padding:9px;border-radius:13px;border:2px solid rgba(255,255,255,.12);background:#0d1522;color:#93a3b5;width:112px;cursor:default}.kmG.pick button{cursor:pointer}.kmG svg{width:100%;display:block}.kmG .sel{border-color:#ffb340}.kmBtn{margin-top:10px;padding:15px 26px!important;font-size:17px!important}
+.kmP{display:flex;gap:16px;align-items:center;text-align:left;margin:12px 0;padding:14px;border-radius:16px;background:#0d1522}.kmP .kFc{width:78px;height:78px}.kmP b{font-size:17px}.kmP em{margin-left:9px;font-style:normal;font-size:13px;color:#ffb340}.kmP p{margin:5px 0 0;font-size:18px}.kmO{flex-direction:column}.kmO button{text-align:left;font-weight:600}.kmO.four{display:grid;grid-template-columns:1fr 1fr}.kmO.four button{text-align:center;font-weight:700}.kmO button:disabled{opacity:.3}.kmMood{position:relative;height:30px;border-radius:15px;background:rgba(255,255,255,.09);overflow:hidden}.kmMood i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#ff4d4d,#ffb340,#2fd27a);background-size:700px;transition:width .4s}.kmMood span{position:relative;font-weight:700;line-height:30px}
+.kmE{padding:20px;color:#8793a1}.kmE.g{color:#ffb340}.kmE.s{color:#c9d3dd}.kmE.b{color:#cd7f3a}.kmM svg{width:130px;height:160px}.kmE h3{font:800 40px "Barlow Condensed",sans-serif;margin:6px 0 16px;letter-spacing:.1em}
+#kScB{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:36;display:flex;gap:18px;padding:9px 18px;border-radius:14px;background:rgba(7,12,21,.92);border:1px solid rgba(255,159,10,.6);color:#fff;font-size:14px}#kScB b{color:#ffb340}
+#kToasts{position:fixed;right:18px;bottom:18px;z-index:140;display:flex;flex-direction:column;gap:9px;align-items:flex-end;pointer-events:none}#kToasts div{padding:12px 18px;border-radius:13px;background:#16202f;border:1px solid rgba(255,255,255,.2);color:#fff;font:600 14.500px Barlow,sans-serif;animation:mwIn .3s;transition:opacity .4s}#kToasts .x{opacity:0}#kToasts .g{border-color:#14c0ff}#kToasts .a{border-color:#ffb340;background:#2a1f0a}#kToasts .n{border-color:#ff5a52}
+@media (max-width:980px){.kOff,.kPst,.kTwo,.kBh{grid-template-columns:1fr}.kActs,.kBc{grid-template-columns:1fr 1fr}.kSk{grid-template-columns:1fr 1fr}.kBgs{grid-template-columns:1fr 1fr}.kPaper p{columns:1}.kScene{min-height:0}}
+@media (max-width:700px){.kBody{grid-template-columns:1fr;grid-template-rows:1fr auto}.kBody.full{grid-template-rows:1fr}.kNav{flex-direction:row;order:2;border-right:0;border-top:1px solid rgba(255,255,255,.08);padding:4px 6px calc(4px + env(safe-area-inset-bottom,0px));overflow-x:auto}.kNav button{flex:0 0 66px;font-size:10px;padding:6px 0}.kNav i{right:8px}.kMain{padding:14px 12px 24px}.kActs,.kBc,.kBgs,.kSk{grid-template-columns:1fr}.kTop{padding:8px 12px;gap:10px}.kSt{width:100%;margin:0;gap:12px;justify-content:space-between}.kSt>div{min-width:70px}.kNewH{flex-direction:column;text-align:center}.kmF{grid-template-columns:1fr 1fr}.kmB{padding:14px}.kS1{flex-wrap:wrap}}
+@media (prefers-reduced-motion:reduce){.kScr,.kPing,.kPaper{animation:none}}
+body.light :is(#kar,#kPop .kPb,#kMg .kmB){filter:invert(.94) hue-rotate(180deg)}
+body.mob #kar{padding-top:var(--sat,0px)}
+
 /* =====================================================================
    RACE CONTROL – MOBILE (Hochkant) · Version 2
    Strecke bildschirmfüllend, alles Wichtige als schlanke Einblendung darüber.
@@ -4448,7 +4497,7 @@ document.addEventListener('click',e=>{
     const v=q.dataset.res;
     if(v==='leave'){netLeave();return}
     if(NET.role==='client'&&['again','menu','next','sfinal'].includes(v))return;
-    if(v==='again'){if(G&&G.opts&&G.opts.tut)tutStart();else if(G&&G.opts&&G.opts.career)startCareerRace();else if(SEASON)startSeasonRace();else startGame(SEL)}else if(v==='menu')toMenu();else if(v==='2')showResults(2);
+    if(v==='again'){if(G&&G.opts&&G.opts.k5)toMenu();else if(G&&G.opts&&G.opts.tut)tutStart();else if(G&&G.opts&&G.opts.career)startCareerRace();else if(SEASON)startSeasonRace();else startGame(SEL)}else if(v==='menu')toMenu();else if(v==='2')showResults(2);
     else if(v==='next'&&SEASON){SEASON.idx++;startSeasonRace()}
     else if(v==='sfinal'&&SEASON)showSeasonEnd();
     else if(v==='hlskip'&&G.end&&G.end.stage==='hl')afterHighlights();
@@ -6053,7 +6102,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='41.0';
+const GAMEVER='42.0';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -8427,7 +8476,7 @@ setInterval(sancPaint,1000);
 document.addEventListener('click',async e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-sn]');if(!q)return;e.stopPropagation();const A=acc42();
   if(q.dataset.sn==='out'){q.disabled=true;const d=sancActive()==='del';try{if(d&&A){SYNC_WIPE();try{await A.user.delete()}catch(_){await A.auth.signOut()}location.reload()}else if(A)await A.logout();else location.reload()}catch(_){location.reload()}}
   else if(q.dataset.sn==='ok')noteOk()},true);
-function SYNC_WIPE(){['rc_settings','rc_tracks','rc_career','rc_name','rc_fb_name','rc_warn','rc_lb','rc_owner','rc_reports','rc_vioq','rc_allow'].forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('rc_synced')}
+function SYNC_WIPE(){['rc_settings','rc_tracks','rc_career','rc_car5','rc_name','rc_fb_name','rc_warn','rc_lb','rc_owner','rc_reports','rc_vioq','rc_allow'].forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('rc_synced')}
 /* Benachrichtigungen: werden angezeigt, Aktionen (löschen/umbenennen) lokal angewendet */
 function noteApply(n){const a=n.act;if(!a)return;try{
   if(a.t==='del'||a.t==='ren'){let hit=false;CUST.forEach((c,i)=>{if(c&&modHash(c.pts)===a.h){hit=true;if(a.t==='del')CUST[i]=null;else c.name=clean(a.n,28)||'Strecke'}});if(hit){custSave();custApply();if(!G)initMenuKeep()}}
@@ -8757,6 +8806,613 @@ function safePlayers(L){if(!Array.isArray(L))return;for(const p of L){if(!p)cont
 {const cm=clientMsg;clientMsg=function(d){if(d&&typeof d==='object'){safeMsg(d);if(d.players)safePlayers(d.players)}return cm(d)}}
 {const hm=hostMsg;hostMsg=function(conn,d){if(d&&typeof d==='object'){safeMsg(d);if(d.t==='hello'){d.name=String(d.name||'Spieler').replace(/[<>&"'`]/g,'').slice(0,16);if(d.jid!=null)d.jid=String(d.jid).replace(/[^\w]/g,'').slice(0,16)}}return hm(conn,d)}}
 
+/* =====================================================================
+   RACE CONTROL 46 – Karriere: Inhalte
+   Beziehungen: ve Verband · te Teams · me Medien · fa Fans · po Streckenposten
+   Effekte: mo Geld · xp Erfahrung · en Energie · st Stress · nx Rennmodifikation fürs nächste Rennen
+   ===================================================================== */
+const KREL={ve:['Verband','#58c6ff'],te:['Teams','#ffb340'],me:['Medien','#ff5fa2'],fa:['Fans','#b388ff'],po:['Posten','#3ddc84']};
+const KBG=[
+ {id:'driver',n:'Ex-Rennfahrer',x:'Du kennst jede Kurve und jeden Trick.',e:{te:12,fa:8,ve:-4},p:'calm1'},
+ {id:'law',n:'Juristin / Jurist',x:'Regeln sind deine Sprache.',e:{ve:14,me:-4},p:'auth1'},
+ {id:'eng',n:'Ingenieur:in',x:'Daten lügen nicht.',e:{te:6,ve:4},p:'eye1'},
+ {id:'post',n:'Streckenposten',x:'Du hast ganz unten angefangen.',e:{po:18,fa:4},p:'calm3'},
+ {id:'tv',n:'TV-Expert:in',x:'Die Kamera liebt dich.',e:{me:16,fa:8,ve:-6},p:'ch1'}];
+/* Serien: je Klasse zwei, mit eigenem Charakter */
+const KSER=[
+ [{id:'k1',n:'Kart-Cup',x:'Klassischer Einstieg',pay:700},{id:'k2',n:'Regen-Kart-Liga',x:'Fast immer nass',pay:800,wx:'rain'}],
+ [{id:'f1',n:'Formel 4',x:'Die Nachwuchsschmiede',pay:1050},{id:'f2',n:'City-Serie F4',x:'Nur Stadtkurse',pay:1150,street:1}],
+ [{id:'g1',n:'Formel 2',x:'Das Sprungbrett',pay:1500},{id:'g2',n:'Sprint-Trophy F2',x:'Kurze, wilde Rennen',pay:1600,laps:5,chaos:'wild'}],
+ [{id:'w1',n:'Königsklasse',x:'Die Weltbühne',pay:2100},{id:'w2',n:'Welt-Langstrecke',x:'Lange Rennen, viel Wetter',pay:2300,laps:14,wx:'mixed'}]];
+/* Wochenend-Besonderheiten */
+const KMOD={
+ std:{n:'Normales Wochenende',x:'Keine Besonderheiten.'},
+ rain:{n:'Regenschlacht',x:'Starkregen das ganze Rennen.',wx:'rain',b:3},
+ wild:{n:'Hitzköpfe',x:'Im Fahrerlager brodelt es.',chaos:'wild',b:3},
+ sprint:{n:'Sprint-Format',x:'Nur vier Runden, alles muss schnell gehen.',laps:4,b:1},
+ long:{n:'Ausdauer-Prüfung',x:'Vier Runden mehr als üblich.',dl:4,b:2},
+ novar:{n:'Technikausfall',x:'Keine Videoanalysen in diesem Rennen.',noVar:1,b:4},
+ fans:{n:'Fan-Wochenende',x:'Ausverkauft! Spannung zählt doppelt.',w:{e:2},b:1},
+ safe:{n:'Sicherheits-Gipfel',x:'Der Verband schaut zu. Sicherheit zählt doppelt.',w:{s:2},b:1},
+ press:{n:'Medientag',x:'Jede Entscheidung wird zerlegt. Gerechtigkeit zählt doppelt.',w:{f:2},b:1},
+ derby:{n:'Erzrivalen-Derby',x:'Zwei Teams hassen sich. Schlechte Stimmung von Beginn an.',mood:-14,b:3},
+ heat:{n:'Hitzeschlacht',x:'40 Grad. Alle sind gereizt, Fehler häufen sich.',chaos:'wild',s:-8,b:3},
+ change:{n:'Aprilwetter',x:'Das Wetter wechselt ständig.',wx:'mixed',b:2},
+ final:{n:'Saisonfinale',x:'Die Bewertung zählt doppelt.',dbl:1,b:2}};
+/* Aufträge je Rennen (zusätzlich zu CHAL) */
+const KTASK=[
+ {id:'t_safe',t:'Sicherheit am Ende mindestens 65',ok:()=>G.meters.s>=65},
+ {id:'t_fair',t:'Gerechtigkeit am Ende mindestens 65',ok:()=>G.meters.f>=65},
+ {id:'t_show',t:'Spannung am Ende mindestens 60',ok:()=>G.meters.e>=60},
+ {id:'t_team',t:'Teamstimmung mindestens 60',ok:()=>tmAvg()>=60},
+ {id:'t_ex',t:'2 Entscheidungen exakt richtig',ok:()=>G.hist.filter(h=>h.entries.every(e=>e.diff===0)).length>=2},
+ {id:'t_red',t:'Keine Rote Flagge',ok:()=>!G.redUsed},
+ {id:'t_cl',t:'Keine grobe Fehlentscheidung',ok:()=>!G.hist.some(h=>h.entries.some(e=>Math.abs(e.diff)>=2))},
+ {id:'t_var',t:'Mindestens eine Videoanalyse aufheben',ok:()=>G.varLeft>=1},
+ {id:'t_all',t:'Alle vier Werte über 45',ok:()=>Math.min(G.meters.f,G.meters.s,G.meters.e,tmAvg())>=45},
+ {id:'t_fin',t:'Mindestens 80 % der Autos im Ziel',ok:()=>G.cars.filter(c=>!c.out&&!c.dsq).length>=G.cars.length*.8}];
+/* Ansagen vor dem Rennen */
+const KBRIEF=[
+ {id:'hard',n:'Klare Kante',x:'„Wer drängelt, wird bestraft.“',d:'Ruhigeres Feld, Spannung −6',calm:1,e:-6},
+ {id:'free',n:'Lasst sie fahren',x:'„Zeigt mir echtes Racing!“',d:'Wilderes Feld, Spannung +10',wild:1,e:10},
+ {id:'safe',n:'Sicherheit zuerst',x:'„Alle kommen heil nach Hause.“',d:'Sicherheit +10, Spannung −4',s:10,e:-4},
+ {id:'tech',n:'Volle Technik',x:'„Mehr Kameras, bitte.“',d:'+1 Videoanalyse, kostet 300',v:1,mo:-300},
+ {id:'talk',n:'Einzelgespräche',x:'„Ich will euch zuhören.“',d:'Teamstimmung +8',m:8},
+ {id:'fair',n:'Regelkunde',x:'„Artikel für Artikel.“',d:'Gerechtigkeit +9',f:9},
+ {id:'show',n:'Show-Programm',x:'„Die Tribünen wollen was sehen.“',d:'Spannung +7, Stimmung −3',e:7,m:-3}];
+/* Fähigkeiten */
+const KPERK={
+ eye:['Adlerauge','#58c6ff',[['eye1','Zweiter Blick','+1 Videoanalyse pro Rennen'],['eye2','Zeitlupe','Mehr Zeit im Steward-Raum'],['eye3','Regelbuch im Kopf','Gerechtigkeit sinkt 25 % langsamer'],['eye4','Präzision','Exakte Entscheidungen geben doppelte Erfahrung'],['eye5','Meisterblick','Noch +1 Videoanalyse']]],
+ calm:['Ruhe','#3ddc84',[['calm1','Dickes Fell','Stress steigt 30 % langsamer'],['calm2','Ruhige Hand','Mehr Zeit in allen Minispielen'],['calm3','Schutzengel','Sicherheit sinkt 20 % langsamer'],['calm4','Frühaufsteher','+1 Energie pro Woche'],['calm5','Zen','Stress sinkt jede Woche um 10']]],
+ auth:['Autorität','#ffb340',[['auth1','Respekt','Gerechtigkeit startet +6'],['auth2','Teamversteher','Teamstimmung sinkt 20 % langsamer'],['auth3','Ehrgeiz','Aufträge geben +2 Bewertung extra'],['auth4','Doppelansage','Zwei Ansagen vor dem Rennen'],['auth5','Platzhirsch','Rivalen schaden dir nur halb so viel']]],
+ ch:['Charme','#ff5fa2',[['ch1','Medienprofi','Medien-Gewinne +30 %'],['ch2','Verhandler','Gehalt +15 %'],['ch3','Showtalent','Spannung sinkt 20 % langsamer'],['ch4','Menschenkenner','Hinweise bei Verhandlungen'],['ch5','Publikumsliebling','Fans +2 nach jedem Rennen']]]};
+/* Personal */
+const KSTAFF={
+ stew:['Chef-Steward','Gerechtigkeit sinkt langsamer','f'],
+ mars:['Streckenchef','Sicherheit sinkt langsamer','s'],
+ show:['TV-Regie','Spannung sinkt langsamer','e'],
+ press:['Pressesprecher','Bessere Wirkung bei Medien','p'],
+ doc:['Mentalcoach','Weniger Stress, mehr Energie','d'],
+ met:['Meteorologin','Wettervorhersage, Sicherheit im Regen','w']};
+const KNAMES=['Anouk Verhoeven','Tomasz Zielny','Ronja Alm','Bo Castellan','Imke Draeger','Paolo Serafin','Keiko Harada','Lothar Finsterwald','Nadia Belkacem','Sven Utterström','Greta Lohmar','Emre Tuncer','Pilar Montoro','Henk Oosting','Yara Daoud','Fynn Wolters'];
+/* Büro-Ausstattung */
+const KITEM=[
+ ['coffee','Espressomaschine',1200,'Jede Woche −3 Stress'],['plant','Zimmerpalme',500,'Jede Woche −1 Stress'],['sofa','Ledersofa',1800,'Erholung wirkt doppelt'],
+ ['wall','Monitorwand',5200,'+1 Videoanalyse pro Rennen'],['dog','Bürohund Box',3000,'Jede Woche +1 Laune bei allen Posten'],['sim','Rennsimulator',6800,'+25 % Erfahrung aus Minispielen'],
+ ['radio','Vintage-Funkgerät',2400,'Mehr Zeit in der Funkzentrale'],['shelf','Trophäenregal',900,'Zeigt deine Pokale'],['art','Rennplakat',700,'Fans +1 pro Rennen'],
+ ['fish','Aquarium',2600,'Stress steigt langsamer'],['bell','Boxenglocke',1500,'Teams +1 pro Rennen'],['safe','Aktenschrank',3500,'Skandale treffen dich weniger'],
+ ['old','Oldtimer',22000,'Jede Woche −2 Stress. Und er glänzt.'],['boat','Hausboot',38000,'Wellness-Tage wirken noch stärker'],['fund','Nachwuchsstiftung',55000,'Fans und Posten +1 pro Woche'],['trk','Eigene Kartbahn',90000,'Dein Lebenswerk. +30 % Erfahrung.']];
+/* Aktivitäten einer Woche: c Energie, g Minispiel, e Grundeffekt, m Multiplikator fürs Minispiel */
+const KACT=[
+ {id:'stew',n:'Steward-Schulung',x:'Strittige Szenen beurteilen',i:'eye',c:1,g:'stew',r:'ve',w:3},
+ {id:'insp',n:'Streckenbegehung',x:'Mängel an der Strecke finden',i:'walk',c:1,g:'insp',r:'po',w:3,nx:{s:4}},
+ {id:'flag',n:'Flaggentraining',x:'Blitzschnell richtig reagieren',i:'flag',c:1,g:'flag',r:'po',w:3},
+ {id:'radio',n:'Funkzentrale',x:'Meldungen richtig sortieren',i:'radio',c:1,g:'radio',r:'te',w:2},
+ {id:'grid',n:'Startaufstellung prüfen',x:'Finde die vertauschten Autos',i:'grid',c:1,g:'grid',r:'te',w:2},
+ {id:'radar',n:'Wetterradar',x:'Wann trifft der Regen ein?',i:'rain',c:1,g:'radar',r:'ve',w:2,nx:{s:3}},
+ {id:'sc',n:'Safety-Car-Prüfung',x:'Fahre gegen die Zielzeit',i:'car',c:1,g:'sc',r:'po',w:2},
+ {id:'neg',n:'Teamchef-Runde',x:'Verhandle einen Streit',i:'talk',c:1,g:'neg',r:'te',w:3},
+ {id:'press',n:'Talkshow-Auftritt',x:'Schlagfertig bleiben',i:'mic',c:1,g:'press',r:'me',w:3},
+ {id:'fan',n:'Autogrammstunde',x:'Zeit für die Fans',i:'fan',c:1,e:{fa:6,st:3},t:'Vier Stunden, 600 Unterschriften und ein Kind, das jetzt Rennleiter werden will.',w:2},
+ {id:'rest',n:'Wellness-Tag',x:'Einfach mal abschalten',i:'rest',c:1,e:{st:-22},t:'Handy aus, Sauna an. Morgen bist du wieder da.',w:3},
+ {id:'vis',n:'Besuch beim Nachwuchs',x:'Zurück zu den Wurzeln',i:'kid',c:1,e:{po:4,fa:3,xp:15},t:'Auf der Kartbahn fragt dich ein Zehnjähriger nach der Blauen Flagge. Du erklärst eine Stunde lang.',w:2},
+ {id:'lob',n:'Dinner mit dem Verband',x:'Kontakte pflegen',i:'dine',c:1,e:{ve:6,mo:-250,st:2},t:'Der Fisch war trocken, das Gespräch nicht.',w:2},
+ {id:'over',n:'Nachtschicht',x:'Arbeiten bis zum Umfallen',i:'night',c:0,e:{xp:35,st:16},t:'Um drei Uhr findest du den Fehler im Regelwerk. Niemand wird es je merken.',w:1},
+ {id:'gig',n:'Gastvortrag',x:'Gutes Geld für eine Stunde',i:'money',c:1,e:{mo:900,te:-2,st:3},t:'„Führen unter Druck“, vor 200 Versicherungsmaklern.',w:1}];
+/* Sonderwochen ohne Rennen */
+const KSPEC={
+ cup:{n:'Steward-Meisterschaft',x:'Acht Fälle, sieben Kolleg:innen, ein Pokal.',g:'stew',o:{n:8},i:'eye'},
+ scc:{n:'Safety-Car-Trophäe',x:'Die schnellste Runde der Rennleiter-Elite.',g:'sc',i:'car'},
+ aud:{n:'Großes Sicherheits-Audit',x:'Der Verband prüft dich auf Herz und Nieren.',seq:['insp','flag','radar'],i:'walk'},
+ gal:{n:'Nacht der Medien',x:'Live, zur besten Sendezeit.',seq:['press','press'],i:'mic'},
+ sum:{n:'Krisengipfel der Teams',x:'Drei Parteien, ein Tisch, keine Pausen.',seq:['neg','neg','neg'],i:'talk'},
+ dec:{n:'Zehnkampf der Rennleiter',x:'Fünf Disziplinen hintereinander.',seq:['flag','grid','stew','radio','radar'],i:'grid'}};
+/* Rivalinnen und Rivalen */
+const KRIV=[['Magnus Thorvald','Der Eiskalte',66],['Celeste Aubry','Die Diplomatin',64],['Rocco Balestra','Der Showman',60],['Ingrid Falkenrath','Die Regelfanatikerin',67],['Jun-ho Baek','Das Wunderkind',63],['Desmond Achebe','Der Veteran',62],['Viktoria Sokol','Die Unbestechliche',65]];
+/* Ereignisse. {T}=Team {D}=Fahrer {R}=Rivale {S}=Strecke {P}=Person */
+const KEV=[
+ {id:'bias',t:'Vorwurf der Parteilichkeit',f:'Teamchef {T}',x:'„Dieser Rennleiter hat etwas gegen uns. Jeder sieht es.“ Das Zitat läuft in Dauerschleife.',o:[['Mit Daten antworten',{ve:4,me:2,te:-2},'Deine Statistik überzeugt. Fast alle.'],['Zum Kaffee einladen',{te:5,st:3},'Nach zwei Stunden lacht ihr sogar.'],['Ignorieren',{me:-4,st:-2},'Schweigen füllt Sendezeit.']]},
+ {id:'dogtrack',t:'Hund auf der Strecke',f:'Streckenposten',x:'Beim Test läuft ein Terrier seelenruhig über die Gegengerade. Das Video hat zwei Millionen Aufrufe.',o:[['Den Hund zum Maskottchen machen',{fa:8,me:4,ve:-2},'Terrier „Apex“ hat jetzt einen Pass fürs Fahrerlager.'],['Zäune verstärken lassen',{po:4,ve:4,mo:-400},'Sicher ist sicher.']]},
+ {id:'bribe',t:'Ein Umschlag',f:'Unbekannt',x:'Auf deinem Schreibtisch liegt ein Umschlag. Darin: 5.000 und ein Zettel. „Nur ein bisschen Nachsicht für {T}.“',o:[['Sofort melden',{ve:8,te:-3,xp:20},'Die Ermittlungen beginnen. Deine Weste bleibt weiß.',['bribe2',2]],['Zurückschicken und schweigen',{st:6},'Niemand erfährt davon. Hoffentlich.'],['Behalten',{mo:5000,st:14},'Du redest dir ein, dass es nichts ändert.',['bribe3',2]]]},
+ {id:'bribe2',q:1,t:'Der Umschlag: Ergebnis',f:'Ethik-Kommission',x:'Die Spur führt zu einem entlassenen Mechaniker von {T}. Das Team ist erleichtert, dass du richtig gehandelt hast.',o:[['Gut so',{te:8,ve:4,me:4},'Dein Ruf wächst.']]},
+ {id:'bribe3',q:1,t:'Der Umschlag: Enthüllung',f:'Investigativ-Redaktion',x:'„Wir wissen von dem Geld. Möchten Sie Stellung nehmen, bevor wir veröffentlichen?“',o:[['Alles gestehen und zurückzahlen',{mo:-6000,ve:-12,me:6,fa:4},'Ehrlich währt am längsten. Es tut trotzdem weh.'],['Leugnen',{ve:-20,me:-14,st:20},'Die Beweise erscheinen zwei Stunden später.']]},
+ {id:'rook',t:'Der Wunderknabe',f:'{D}',x:'Ein 17-Jähriger fährt allen davon, und jede Woche über das Limit. Er schreibt dir: „Darf ich mal mit Ihnen reden?“',o:[['Mentor werden',{te:3,fa:4,st:4},'Ihr telefoniert jetzt jeden Dienstag.',['rook2',2]],['Distanz wahren',{ve:3},'Rennleiter haben keine Lieblinge.']]},
+ {id:'rook2',q:1,t:'Der Wunderknabe: Versuchung',f:'{D}',x:'Dein Schützling hat im Training absichtlich gelbe Flaggen missachtet. Er bittet dich, es für dich zu behalten.',o:[['Bestrafen wie jeden anderen',{ve:6,te:4,fa:-3},'Er ist wütend. Drei Wochen später bedankt er sich.',['rook3',2]],['Ein Auge zudrücken',{fa:3,ve:-6,te:-5,st:8},'Das Fahrerlager tuschelt.']]},
+ {id:'rook3',q:1,t:'Der Wunderknabe: Dank',f:'{D}',x:'Im Siegerinterview sagt er: „Ich fahre heute sauberer, weil mir jemand Grenzen gezeigt hat.“',o:[['Stolz sein',{fa:8,me:6,xp:40},'Du tust so, als hättest du etwas im Auge.']]},
+ {id:'mole',t:'Interne Papiere im Netz',f:'Pressestelle',x:'Dein vertraulicher Strafenkatalog steht im Internet. Jemand aus deinem Team muss ihn weitergegeben haben.',o:[['Eine Falle stellen',{st:6},'Du verteilst fünf leicht verschiedene Versionen.',['mole2',1]],['Alle zur Rede stellen',{po:-6,st:4},'Die Stimmung ist eisig, der Maulwurf bleibt.'],['Katalog selbst veröffentlichen',{me:6,fa:5,ve:-5},'Transparenz als Flucht nach vorn.']]},
+ {id:'mole2',q:1,t:'Der Maulwurf: Falle zugeschnappt',f:'Pressestelle',x:'Version 3 taucht im Netz auf. Die hatte nur {P}.',o:[['Entlassen',{ve:5,po:-3},'Konsequent.'],['Zweite Chance geben',{po:7,st:-4},'Unter Tränen verspricht {P}, dass es nie wieder passiert.',['mole3',3]],['Als Doppelspion nutzen',{me:8,xp:30,st:6},'Ab jetzt streust du, was du willst.']]},
+ {id:'mole3',q:1,t:'Der Maulwurf: Wiedergutmachung',f:'{P}',x:'{P} hat nachts einen Fehler in der Zeitmessung gefunden und dir eine Blamage erspart.',o:[['Danke',{ve:6,po:6,xp:25},'Manchmal lohnt sich Vertrauen.']]},
+ {id:'doku',t:'Die Streaming-Doku',f:'Filmproduktion',x:'Ein Kamerateam möchte dich zwei Rennen lang begleiten. Rund um die Uhr.',o:[['Zusagen',{mo:2500,fa:6,st:8},'Das Mikro sitzt. Immer.',['doku2',2]],['Nur im Büro',{mo:800,me:3},'Viele Aufnahmen von dir mit Kaffee.'],['Absagen',{st:-4},'Privatsphäre ist auch was wert.']]},
+ {id:'doku2',q:1,t:'Die Doku: Rohschnitt',f:'Regie',x:'In Folge 4 sieht man, wie du nach einem Unfall weinst. Sie fragen, ob die Szene bleiben darf.',o:[['Drin lassen',{fa:12,me:8,te:4},'Millionen sehen den Menschen hinter dem Funkgerät.'],['Rausschneiden',{ve:3},'Die Serie wird nett. Und schnell vergessen.']]},
+ {id:'strike',t:'Posten drohen mit Streik',f:'Gewerkschaft',x:'Die Streckenposten bekommen ihr Essen nicht bezahlt. Wenn das so weitergeht, kommt niemand mehr.',o:[['Aus eigener Tasche zahlen',{mo:-900,po:14,fa:3},'Suppe für alle. Du wirst gefeiert.'],['Beim Verband kämpfen',{po:8,ve:-5,st:5},'Es dauert, aber sie bekommen recht.'],['Freiwillige suchen',{po:-12,ve:2},'Billig, aber wackelig.']]},
+ {id:'weather',t:'Streit ums Startfenster',f:'TV-Sender',x:'Der Sender will den Start verschieben, mitten in die Gewitterfront.',o:[['Ablehnen',{ve:5,po:5,me:-6},'Sicherheit schlägt Quote.'],['Zustimmen',{me:7,mo:1200,nx:{wx:'mixed',s:-5}},'Es wird dramatisch. Vielleicht zu dramatisch.']]},
+ {id:'rivtaunt',t:'{R} stichelt',f:'{R}',x:'„Nett, was du da machst. Bei uns nennt man das Praktikum.“ So stand es heute in der Zeitung.',o:[['Mit Humor kontern',{me:6,fa:5},'Dein Konter wird zum Meme.'],['Auf der Strecke antworten',{xp:20,st:3,nx:{f:4}},'Du arbeitest doppelt so genau.'],['Direkt anrufen',{st:-3,ve:2},'Ihr einigt euch auf ein Bier. Irgendwann.',['rivbet',1]]]},
+ {id:'rivbet',q:1,t:'Die Wette',f:'{R}',x:'„Wer das nächste Rennen schlechter bewertet bekommt, trägt einen Tag lang das Trikot des anderen. Deal?“',o:[['Deal!',{flag:'bet',st:3},'Es gilt das nächste Rennen.'],['Nein danke',{fa:-2},'Langweilig, aber würdevoll.']]},
+ {id:'birthday',t:'Überraschung!',f:'Dein Team',x:'Dein Büro ist voller Luftballons. Niemand hat dir gesagt, dass alle deinen Geburtstag kennen.',o:[['Torte für alle',{po:5,st:-12},'Es gibt drei Stück für jeden.']]},
+ {id:'tyre',t:'Reifen-Affäre',f:'Technik',x:'Bei {T} liegt der Reifendruck ein halbes Prozent unter dem Limit. Das Team schwört, es war die Kälte.',o:[['Disqualifizieren',{ve:6,te:-8,me:4},'Regel ist Regel.'],['Verwarnen',{te:4,ve:-2},'Augenmaß, sagen die einen. Schwäche, die anderen.'],['Nachmessen lassen',{mo:-300,ve:3,te:2,xp:15},'Das Messgerät war falsch geeicht.']]},
+ {id:'kid',t:'Brief einer Schulklasse',f:'Klasse 4b',x:'24 Kinder haben dir gemalt, wie sie sich einen Rennleiter vorstellen. Auf zehn Bildern trägst du einen Umhang.',o:[['Alle einladen',{fa:9,me:5,mo:-350},'Der lauteste Freitag des Jahres.'],['Zurückschreiben',{fa:4},'Mit Autogramm und einer echten Gelben Flagge.']]},
+ {id:'hack',t:'Hackerangriff',f:'IT',x:'Die Zeitmessung steht. Auf allen Bildschirmen: eine tanzende Ente.',o:[['Lösegeld zahlen',{mo:-1500,st:4,ve:-4},'Die Ente verschwindet. Vorerst.'],['Mit Stoppuhren messen',{po:8,fa:6,st:8},'40 Posten, 40 Stoppuhren. Es klappt!'],['Quali absagen',{fa:-6,te:-3,ve:2},'Vernünftig und unbeliebt.']]},
+ {id:'sponsor',t:'Peinlicher Sponsor',f:'Marketing',x:'Ein Anbieter für Schlafmatten möchte das Safety Car bekleben. „Ganz entspannt hinterher.“',o:[['Annehmen',{mo:2200,fa:-3,me:3},'Das Safety Car heißt jetzt „Schlummer-Express“.'],['Ablehnen',{ve:3,fa:2},'Würde ist unbezahlbar.']]},
+ {id:'curb',t:'Umstrittene Kerbs',f:'Fahrervereinigung',x:'Die Fahrer wollen die hohen Kerbs weg. Die Fans lieben sie.',o:[['Abflachen',{te:6,fa:-4,nx:{s:6}},'Sicherer, aber glatter.'],['Stehen lassen',{fa:5,te:-4,nx:{e:5}},'Es fliegen wieder Funken.']]},
+ {id:'ex',t:'Alter Freund, neuer Job',f:'{P}',x:'Dein bester Freund aus der Anfangszeit ist jetzt Teammanager bei {T}. Er lädt dich zum Essen ein.',o:[['Hingehen',{st:-8,te:3,ve:-3},'Schöner Abend. Jemand hat Fotos gemacht.',['ex2',1]],['Erst nach der Saison',{ve:4,st:3},'Er versteht es. Sagt er.']]},
+ {id:'ex2',q:1,t:'Das Foto',f:'Boulevard',x:'„RENNLEITER UND {T}: DIE GEHEIME FREUNDSCHAFT“. Das Dessert ist rot eingekreist.',o:[['Offen dazu stehen',{me:5,fa:4,ve:-2},'„Ja, wir sind befreundet. Und die Crème brûlée war gut.“'],['Dementieren',{me:-7,st:6},'Das Foto ist sehr scharf.']]},
+ {id:'quiz',t:'Einladung zur Quizshow',f:'TV-Sender',x:'Eine Million Zuschauer, eine Frage: Welche Farbe hat die Flagge für „Strecke frei“?',o:[['Grün',{fa:6,mo:700,me:3},'Richtig! Das Publikum tobt.'],['Weiß',{fa:8,me:-3,st:5},'Du warst nervös. Das Internet vergisst nie.'],['Gar nicht hingehen',{st:-2},'Du schaust es auf dem Sofa.']]},
+ {id:'med',t:'Arzt zieht Notbremse',f:'Rennarzt',x:'{D} hatte einen Einschlag mit 48 g und will trotzdem starten. Das Team auch.',o:[['Startverbot',{ve:6,po:5,te:-6,fa:-3},'Er wird dir eines Tages danken.'],['Zweite Untersuchung',{te:3,st:5,mo:-200},'Freigabe in letzter Minute.']]},
+ {id:'song',t:'Der Fan-Song',f:'Tribüne Nord',x:'Die Fans haben ein Lied über dich. Es reimt „Strafe“ auf „Schafe“.',o:[['Mitsingen',{fa:10,me:4,ve:-2},'Schief, aber mit Herz.'],['Winken',{fa:4},'Royal.']]},
+ {id:'night',t:'Schlaflos',f:'Du',x:'Drei Uhr nachts. Die Szene von letzter Woche läuft in deinem Kopf in Dauerschleife.',c:K=>K.stress>50,o:[['Spazieren gehen',{st:-14},'Die Stadt schläft. Endlich auch du.'],['Nochmal alle Bilder ansehen',{xp:30,st:10},'Um fünf bist du sicher: Es war richtig.']]},
+ {id:'burn',t:'Warnsignal',f:'Mentalcoach',x:'„Du bist kurz vorm Umkippen. Nimm dir eine Woche frei, oder dein Körper nimmt sie sich.“',c:K=>K.stress>78,o:[['Pause machen',{st:-40,en:-2,ve:-3},'Keine Termine. Kein Funk. Nur Wald.'],['Durchziehen',{ve:3,st:8},'Es geht schon. Muss ja.']]},
+ {id:'rich',t:'Investment-Tipp',f:'Teamchef {T}',x:'„Meine Firma für Elektro-Rollerskates geht durch die Decke. Steig ein!“',c:K=>K.money>2500,o:[['2.000 investieren',{mo:-2000},'Die Rollerskates sehen super aus.',['rich2',2]],['Lieber nicht',{te:-1},'Interessenkonflikt vermieden.']]},
+ {id:'rich2',q:1,t:'Rollerskates: Bilanz',f:'Bank',x:'RND',o:[['Nachsehen',{rnd:[{mo:5200,fa:2,_:'Ein Hype! Dein Anteil hat sich mehr als verdoppelt.'},{mo:300,_:'Die Akkus schmelzen. Übrig bleiben 300.'}]},'']]},
+ {id:'statue',t:'Eine Statue?',f:'Bürgermeister',x:'Die Stadt an der Strecke {S} möchte dir ein Denkmal bauen. Aus Altreifen.',c:K=>K.rel.fa>65,o:[['Geehrt annehmen',{fa:8,me:5,st:2},'Sie sieht dir nicht ähnlich. Egal.'],['Lieber Spielplatz',{fa:10,ve:4},'Er bekommt deinen Namen und eine Rutsche in Safety-Car-Form.']]},
+ {id:'lost',t:'Verlorenes Funkgerät',f:'Streckenposten',x:'Ein Fan hat dein Funkgerät gefunden und funkt seit einer Stunde Witze.',o:[['Mitlachen',{fa:6,po:4},'Der mit der Boxengasse war gut.'],['Kanal sperren',{ve:3,fa:-2},'Stille.']]},
+ {id:'prot',t:'Massenprotest',f:'Fünf Teams',x:'Fünf Teams protestieren gemeinsam gegen deine letzte Strafe.',c:K=>K.rel.te<45,o:[['Anhörung live im TV',{me:8,fa:5,st:10,te:3},'Vier Stunden, kein Werbeblock.'],['Protest abweisen',{ve:4,te:-8},'Aktenzeichen geschlossen.'],['Strafe zurücknehmen',{te:10,ve:-8,fa:-3},'Ein Präzedenzfall.']]},
+ {id:'legend',t:'Anruf einer Legende',f:'{P}',x:'Dein großes Vorbild, 81 Jahre, vierzig Jahre Rennleitung. „Ich schaue jedes deiner Rennen. Darf ich dir etwas verraten?“',c:K=>K.season>1,o:[['Zuhören',{xp:80,st:-10},'„Du wirst nie alle glücklich machen. Mach es richtig.“']]},
+ {id:'elec',t:'Wahl im Verband',f:'Verband',x:'Zwei Kandidaten für das Präsidentenamt bitten um deine Unterstützung.',c:K=>K.tier>1,o:[['Die Reformerin',{fa:8,me:5,ve:-4},'Sie will alles ändern.',['elec2',3]],['Den Amtsinhaber',{ve:8,fa:-4},'Er will nichts ändern.'],['Neutral bleiben',{te:3},'Beide sind beleidigt.']]},
+ {id:'elec2',q:1,t:'Die Reformerin gewinnt',f:'Präsidentin',x:'„Ohne dich hätte ich es nicht geschafft. Was wünschst du dir?“',o:[['Mehr Budget',{mo:4000,ve:6},'Erledigt.'],['Mehr Technik',{nx:{v:2},ve:6,po:4},'Zwei zusätzliche Videoanalysen im nächsten Rennen.'],['Mehr Respekt für Posten',{po:16,fa:5,ve:6},'Eine Erwähnung in jeder Übertragung.']]},
+ {id:'ghost',t:'Spuk in der Rennleitung',f:'Nachtwache',x:'Jede Nacht um 2:14 Uhr geht das Licht am Pult an. Die Posten trauen sich nicht mehr rein.',o:[['Eine Nacht wach bleiben',{xp:25,po:8,st:6},'Es war der Bewegungsmelder. Und ein Marder.'],['Geisterführung anbieten',{fa:6,mo:600,ve:-2},'Ausverkauft bis Dezember.']]},
+ {id:'twin',t:'Der Doppelgänger',f:'Security',x:'Jemand, der genau aussieht wie du, gibt im Fahrerlager Interviews.',o:[['Ihn einstellen',{me:7,fa:5,mo:-500},'Er übernimmt jetzt die langweiligen Termine. Energie steigt!',['twin2',1]],['Rauswerfen',{ve:2},'Er winkt zum Abschied. Sehr überzeugend.']]},
+ {id:'twin2',q:1,t:'Der Doppelgänger arbeitet',f:'Dein Doppelgänger',x:'„Ich habe heute drei Sponsoren die Hand geschüttelt. Du kannst schlafen gehen.“',o:[['Wunderbar',{en:2,st:-10,mo:800},'Du hast plötzlich Zeit.']]}];
+/* Schlagzeilen */
+const KNEWS={
+ top:['SOUVERÄN! {N} LIEFERT EIN MEISTERSTÜCK','PERFEKTES WOCHENENDE IN {S}','„BESTER RENNLEITER SEIT JAHREN“','{N} HAT ALLES IM GRIFF'],
+ ok:['SOLIDER JOB IN {S}','{W} SIEGT, RENNLEITUNG UNAUFFÄLLIG','RUHIGE HAND, RUHIGES RENNEN','ARBEITSSIEG FÜR DIE RENNLEITUNG'],
+ bad:['KRITIK AN {N} WÄCHST','FRAGEZEICHEN NACH {S}','TEAMS UNZUFRIEDEN','„DAS MUSS BESSER WERDEN“'],
+ fail:['CHAOS IN {S}!','RENNLEITUNG AM ABGRUND','{N} VERLIERT DIE KONTROLLE','SKANDALRENNEN!'],
+ safe:['SICHER DURCH DEN STURM','KEIN KRATZER: VORBILD {S}'],show:['WAS FÜR EIN SPEKTAKEL!','{S} STEHT KOPF'],red:['ROTE FLAGGE SCHOCKT {S}'],win:['{W} TRIUMPHIERT IN {S}','{W} JUBELT, {N} LÄCHELT']};
+/* Erfolge */
+const KACH=[
+ ['first','Erstes Rennen','Leite dein erstes Karriererennen',K=>K.st.races>=1],['r80','Glanzleistung','Bewertung 80 oder mehr',K=>K.st.best>=80],['r90','Legendär','Bewertung 90 oder mehr',K=>K.st.best>=90],
+ ['mg10','Trainingsfleiß','10 Minispiele gespielt',K=>K.st.mg>=10],['mg50','Unermüdlich','50 Minispiele gespielt',K=>K.st.mg>=50],['gold5','Goldfinger','5× Gold in Minispielen',K=>K.st.gold>=5],['gold25','Goldregen','25× Gold in Minispielen',K=>K.st.gold>=25],
+ ['rich','Gut verdient','10.000 auf dem Konto',K=>K.money>=10000],['fan','Publikumsliebling','Fans bei 85',K=>K.rel.fa>=85],['team','Einer von uns','Teams bei 80',K=>K.rel.te>=80],['ver','Musterschüler','Verband bei 90',K=>K.rel.ve>=90],
+ ['up','Aufsteiger','Wechsle in eine höhere Klasse',K=>K.tier>=1||K.st.up>=1],['top','Ganz oben','Leite die Königsklasse',K=>K.tier>=3],['num1','Nummer 1','Beende eine Saison als bester Rennleiter',K=>K.st.num1>=1],['num3','Dynastie','Dreimal bester Rennleiter',K=>K.st.num1>=3],
+ ['obj','Planerfüllung','Alle Saisonziele in einer Saison',K=>K.st.objAll>=1],['dog','Bester Freund','Kaufe den Bürohund',K=>K.items.includes('dog')],['full','Traumbüro','Kaufe alle Gegenstände',K=>K.items.length>=KITEM.length],
+ ['perk5','Talentiert','5 Fähigkeiten gelernt',K=>K.perks.length>=5],['perk20','Komplett','Alle Fähigkeiten gelernt',K=>K.perks.length>=20],['ev30','Viel erlebt','30 Ereignisse entschieden',K=>K.st.ev>=30],['sea5','Fünf Jahre im Dienst','5 Saisons',K=>K.season>5],['sea10','Ein Jahrzehnt','10 Saisons',K=>K.season>10],['lux','Lebenswerk','Baue deine eigene Kartbahn',K=>K.items.includes('trk')],['fund','Gutes tun','Gründe die Nachwuchsstiftung',K=>K.items.includes('fund')],['wins','Pokaljäger','Gewinne 5 Trophäen',K=>K.trophies.length>=5],['num5','Unsterblich','Fünfmal bester Rennleiter',K=>K.st.num1>=5],['r50','Alter Hase','Leite 50 Rennen',K=>K.st.races>=50],['zen','Die Ruhe selbst','Saison mit unter 10 Stress beenden',K=>K.st.zen>=1]];
+/* =====================================================================
+   RACE CONTROL 46 – Karriere: Minispiele. kPlay(id,opt) → Promise<0..100 | null (abgebrochen)>
+   ===================================================================== */
+const KG={open:null};
+const kRnd=(a,b)=>a+Math.random()*(b-a),kInt=(a,b)=>Math.floor(kRnd(a,b+1)),kPick=a=>a[Math.floor(Math.random()*a.length)],kShuf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+function kSnd(ok){try{beep(ok?820:220,ok?.1:.2,ok?'triangle':'sawtooth',.04)}catch(_){}}
+const KGN={stew:['STEWARD-RAUM','Wer trägt die Schuld? Schau genau hin.'],insp:['STRECKENBEGEHUNG','Klick alle Mängel an, bevor die Zeit abläuft.'],flag:['FLAGGENTRAINING','Wähle zu jeder Lage die richtige Flagge.'],radio:['FUNKZENTRALE','Sofort, später oder ignorieren? Entscheide, bevor der Ring leer ist.'],grid:['STARTAUFSTELLUNG','Merk dir die Reihenfolge. Danach sind zwei Autos vertauscht.'],radar:['WETTERRADAR','Der Regen verschwindet hinter Wolken. Drück, wenn er die Strecke erreicht.'],press:['PRESSEKONFERENZ','Jede Person will etwas anderes hören.'],neg:['VERHANDLUNG','Lies die Stimmung und wähle die passende Taktik.'],sc:['SAFETY-CAR-PRÜFUNG','Fahre eine saubere Runde unter der Zielzeit.']};
+function kPlay(id,opt){
+  opt=opt||{};if(id==='sc')return kScTrial(opt);
+  return new Promise(res=>{
+    let el=$('kMg');if(el)el.remove();el=document.createElement('div');el.id='kMg';el.innerHTML=`<div class="kmB"><div class="kmH"><div><b>${KGN[id][0]}</b><span>${KGN[id][1]}</span></div><button class="btn sm" data-kmx>Aufgeben</button></div><div class="kmT"><i></i></div><div class="kmC"></div></div>`;document.body.appendChild(el);
+    const ctl={el,c:el.querySelector('.kmC'),bar:el.querySelector('.kmT i'),dead:false,timers:[],tm:opt.slow||1,opt};
+    ctl.every=(f,ms)=>{const h=setInterval(()=>{if(!ctl.dead)f()},ms);ctl.timers.push(h);return h};
+    ctl.after=(f,ms)=>{const h=setTimeout(()=>{if(!ctl.dead)f()},ms);ctl.timers.push(h);return h};
+    ctl.clock=(sec,fn)=>{clearInterval(ctl.ck);const t0=performance.now(),S=sec*ctl.tm;ctl.left=S;ctl.ck=ctl.every(()=>{ctl.left=S-(performance.now()-t0)/1000;ctl.bar.style.width=clamp(ctl.left/S*100,0,100)+'%';ctl.bar.className=ctl.left<S*.25?'lo':'';if(ctl.left<=0){clearInterval(ctl.ck);fn()}},50)};
+    const end=s=>{if(ctl.dead)return;ctl.dead=true;ctl.timers.forEach(h=>{clearInterval(h);clearTimeout(h)});KG.open=null;
+      if(s==null){el.remove();res(null);return}
+      s=Math.round(clamp(s,0,100));const m=s>=80?['GOLD','g']:s>=55?['SILBER','s']:s>=30?['BRONZE','b']:['VERSUCH','n'];kSnd(s>=55);
+      ctl.c.innerHTML=`<div class="kmE ${m[1]}"><div class="kmM"><svg viewBox="0 0 80 100"><path d="M22 2l18 34L58 2" fill="none" stroke="currentColor" stroke-width="10" opacity=".5"/><circle cx="40" cy="64" r="30" fill="currentColor"/><text x="40" y="74" text-anchor="middle" font-size="28" font-weight="800" fill="#10151d">${s}</text></svg></div><h3>${m[0]}</h3><button class="btn primary" data-kmk>Weiter</button></div>`;ctl.bar.style.width='0';
+      ctl.c.querySelector('[data-kmk]').onclick=()=>{el.remove();res(s)}};
+    el.querySelector('[data-kmx]').onclick=()=>end(null);KG.open=end;
+    KGAME[id](ctl,end,opt);
+  });
+}
+const KGAME={};
+/* ---------- 1) Steward-Raum: animierte Szene ---------- */
+const KCASE=[
+ {k:'rear',a:'B',p:2,w:'Rot fährt Blau ins Heck.'},{k:'squeeze',a:'A',p:1,w:'Blau drängt Rot von der Strecke.'},{k:'dive',a:'B',p:2,w:'Rot sticht zu spät innen rein.'},
+ {k:'racing',a:'N',p:0,w:'Beide lassen Platz, leichte Berührung. Rennunfall.'},{k:'cut',a:'B',p:1,w:'Rot kürzt ab und behält den Platz.'},{k:'brake',a:'A',p:2,w:'Blau bremst ohne Grund mitten auf der Geraden.'}];
+KGAME.stew=(ctl,end,opt)=>{
+  const n=opt.n||4,L=[];while(L.length<n)L.push(...kShuf(KCASE));L.length=n;let i=0,pts=0;
+  const next=()=>{
+    if(i>=n){end(pts/n*100);return}
+    const cs=L[i],flip=Math.random()<.5?-1:1,sp=kRnd(.9,1.15);let fault=null,t0=performance.now();
+    ctl.c.innerHTML=`<div class="kmN">Fall ${i+1} von ${n}</div><canvas width="640" height="300"></canvas><div class="kmQ"><div class="kmA" data-q="f"><button data-v="A" style="--c:#2f9bff">Blau ist schuld</button><button data-v="B" style="--c:#ff4d4d">Rot ist schuld</button><button data-v="N" style="--c:#8fa0b3">Rennunfall</button></div><div class="kmA hide" data-q="p"><button data-v="1" style="--c:#ffd34d">5 Sekunden</button><button data-v="2" style="--c:#ff8a3d">10 Sekunden</button></div><div class="kmR"></div></div>`;
+    const cv=ctl.c.querySelector('canvas'),g=cv.getContext('2d');
+    const draw=()=>{if(ctl.dead||!cv.isConnected)return;const T0=3.4,t=((performance.now()-t0)/1000*sp)%(T0+.8),u=Math.min(t,T0)/T0;kScene(g,cs.k,u,flip);requestAnimationFrame(draw)};draw();
+    const done=(f,p)=>{clearInterval(ctl.ck);const okF=f===cs.a,okP=cs.p===0?okF:p===cs.p,s=okF?(okP?1:.6):0;pts+=s;kSnd(s>.5);
+      ctl.c.querySelector('.kmR').innerHTML=`<b class="${s===1?'ok':s?'mid':'no'}">${s===1?'Richtig!':s?'Schuld richtig, Strafe daneben.':'Falsch.'}</b> ${cs.w}${cs.p?` (${cs.p===1?'5':'10'} Sekunden)`:''}`;ctl.c.querySelectorAll('.kmA').forEach(a=>a.classList.add('hide'));i++;ctl.after(next,1900)};
+    ctl.c.querySelectorAll('[data-q="f"] button').forEach(b=>b.onclick=()=>{fault=b.dataset.v;if(fault==='N'){done('N',0);return}ctl.c.querySelector('[data-q="f"]').classList.add('hide');ctl.c.querySelector('[data-q="p"]').classList.remove('hide')});
+    ctl.c.querySelectorAll('[data-q="p"] button').forEach(b=>b.onclick=()=>done(fault,+b.dataset.v));
+    ctl.clock((opt.sec||15),()=>done(null,0));
+  };next();
+};
+function kScene(g,k,u,flip){
+  const W=640,H=300,cy=150;g.setTransform(1,0,0,1,0,0);g.fillStyle='#1d4a2b';g.fillRect(0,0,W,H);if(flip<0){g.translate(0,H);g.scale(1,-1)}
+  const off=-(u*900)%80;g.fillStyle='#2a3038';g.fillRect(0,cy-72,W,144);g.strokeStyle='#f2f5f9';g.lineWidth=4;g.beginPath();g.moveTo(0,cy-72);g.lineTo(W,cy-72);g.moveTo(0,cy+72);g.lineTo(W,cy+72);g.stroke();
+  for(let x=off-80;x<W+80;x+=80){g.fillStyle='rgba(255,255,255,.16)';g.fillRect(x,cy-2,38,4);g.fillStyle=((x-off)/80|0)%2?'#e33':'#eee';g.fillRect(x,cy-84,40,10);g.fillRect(x,cy+74,40,10)}
+  const s=(a,b)=>{const t=clamp((u-a)/(b-a),0,1);return t*t*(3-2*t)};let ax=340,ay=cy,bx=200,by=cy,ar=0,br=0,hit=0;
+  if(k==='rear'){bx=170+s(0,.6)*128;hit=s(.6,.62);if(u>.6){ax=340+s(.6,1)*70;ar=s(.6,1)*1.9;ay=cy+s(.6,1)*50;bx=298-s(.6,1)*40}}
+  else if(k==='squeeze'){bx=190+s(0,.45)*130;by=cy+34;ay=cy-22+s(.35,.75)*64;hit=s(.62,.64);by=cy+34+s(.5,.9)*70;if(u>.6){br=s(.62,1)*.7}}
+  else if(k==='dive'){ay=cy-30+s(.3,.75)*56;ar=s(.3,.7)*.25;bx=110+s(.2,.68)*225;by=cy+48;hit=s(.66,.68);if(u>.66){ax=340+s(.66,1)*60;ay+=-s(.66,1)*70;ar=-s(.66,1)*1.5;bx=335+s(.66,1)*40;by=cy+48-s(.66,1)*20}}
+  else if(k==='racing'){bx=200+s(0,.5)*135;ay=cy-26;by=cy+26;ay+=s(.45,.6)*8;by-=s(.45,.6)*8;hit=s(.56,.58)*.5;if(u>.6){ay-=s(.6,.9)*16;by+=s(.6,.9)*16}}
+  else if(k==='cut'){by=cy+20+s(.2,.45)*88-s(.6,.85)*80;bx=200+s(.25,.85)*260;br=s(.2,.35)*.3-s(.45,.7)*.5}
+  else if(k==='brake'){bx=196;ax=360-s(.45,.6)*118;hit=s(.6,.62);if(u>.6){bx=196-s(.6,1)*50;br=-s(.6,1)*1.1;by=cy-s(.6,1)*46}if(u>.42&&u<.72){g.fillStyle='rgba(255,40,40,.9)';g.fillRect(ax-32,ay-9,7,18)}}
+  const car=(x,y,r,c)=>{g.save();g.translate(x,y);g.rotate(r);g.fillStyle='rgba(0,0,0,.35)';g.fillRect(-30,-9,62,24);g.fillStyle='#0b0b0d';[[-24,-17],[-24,9],[14,-16],[14,8]].forEach(w=>g.fillRect(w[0],w[1],16,8));g.fillStyle=c;g.beginPath();g.moveTo(-30,-7);g.lineTo(-4,-10);g.lineTo(10,-8);g.lineTo(34,-3);g.lineTo(34,3);g.lineTo(10,8);g.lineTo(-4,10);g.lineTo(-30,7);g.fill();g.fillStyle='#0f1319';g.beginPath();g.ellipse(0,0,8,4.5,0,0,7);g.fill();g.fillStyle=c;g.fillRect(-34,-13,6,26);g.fillRect(28,-14,5,28);g.restore()};
+  car(ax,ay,ar,'#2f9bff');car(bx,by,br,'#ff4d4d');
+  if(hit>0&&u<.85){g.save();g.translate((ax+bx)/2,(ay+by)/2);g.fillStyle=`rgba(255,210,90,${.8*(1-s(.62,.85))})`;for(let i=0;i<9;i++){const a=i*.7+u*9,r=14+i*3*(u*2);g.fillRect(Math.cos(a)*r,Math.sin(a)*r,5,5)}g.restore()}
+}
+/* ---------- 2) Streckenbegehung ---------- */
+KGAME.insp=(ctl,end,opt)=>{
+  const N=7,bad=['barrier','oil','cone','light','post','debris','drain'];const need=kShuf(bad.flatMap(b=>[b,b])).slice(0,N),objs=[];
+  const cols=8,rows=4;const cells=kShuf([...Array(cols*rows).keys()]);
+  for(let i=0;i<cols*rows;i++){const c=cells[i],t=i<N?need[i]:kPick(bad);objs.push({x:(c%cols+.5)*80+kRnd(-12,12),y:(Math.floor(c/cols)+.5)*84+kRnd(-8,8),t,bad:i<N,hit:false})}
+  ctl.c.innerHTML='<div class="kmN" id="kmCnt"></div><canvas width="640" height="336" style="cursor:crosshair"></canvas>';
+  const cv=ctl.c.querySelector('canvas'),g=cv.getContext('2d');let found=0,miss=0,flash=null;
+  const paint=()=>{$('kmCnt').textContent=`Gefunden: ${found} von ${N}`;g.fillStyle='#25472f';g.fillRect(0,0,640,336);g.fillStyle='#31373f';[0,168].forEach(y=>g.fillRect(0,y+30,640,24));
+    objs.forEach(o=>{g.save();g.translate(o.x,o.y);const b=o.bad;
+      if(o.t==='barrier'){g.fillStyle='#d7dde4';for(let i=0;i<4;i++){if(b&&i===2)continue;g.fillRect(-28+i*15,-8,13,16);g.fillStyle='#b9322e';g.fillRect(-28+i*15,-2,13,4);g.fillStyle='#d7dde4'}}
+      else if(o.t==='oil'){g.fillStyle=b?'#0a0a12':'#5b6470';g.beginPath();g.ellipse(0,0,24,10,.3,0,7);g.fill();if(b){g.strokeStyle='rgba(160,90,255,.7)';g.lineWidth=2;g.beginPath();g.ellipse(-3,-1,13,5,.3,0,7);g.stroke()}}
+      else if(o.t==='cone'){if(b)g.rotate(1.5);g.fillStyle='#ff7a1a';g.beginPath();g.moveTo(0,-18);g.lineTo(12,12);g.lineTo(-12,12);g.fill();g.fillStyle='#fff';g.fillRect(-7,-2,14,4)}
+      else if(o.t==='light'){g.fillStyle='#1a222c';g.fillRect(-9,-24,18,40);g.fillStyle=b?'#3a424d':'#35e07d';g.beginPath();g.arc(0,-13,6,0,7);g.fill();g.fillStyle='#3a424d';g.beginPath();g.arc(0,4,6,0,7);g.fill();g.fillStyle='#1a222c';g.fillRect(-2,16,4,10)}
+      else if(o.t==='post'){g.fillStyle='#ff8c2e';g.fillRect(-8,-4,16,22);g.fillStyle='#f0c39b';g.beginPath();g.arc(0,-11,7,0,7);g.fill();if(!b){g.fillStyle='#ffd83d';g.fillRect(8,-22,18,12);g.fillStyle='#ddd';g.fillRect(8,-22,2,26)}else{g.fillStyle='#222';g.fillRect(6,-8,8,11)}}
+      else if(o.t==='debris'){g.fillStyle=b?'#14171c':'#4c8a5c';g.beginPath();if(b){g.moveTo(-22,6);g.lineTo(-4,-10);g.lineTo(20,-4);g.lineTo(8,10);g.fill();g.fillStyle='#e33';g.fillRect(-4,-4,10,4)}else{g.ellipse(0,0,18,11,0,0,7);g.fill()}}
+      else{g.fillStyle='#808b98';g.fillRect(-22,-9,44,18);g.fillStyle='#20262d';for(let i=0;i<6;i++)g.fillRect(-19+i*7,-6,3,12);if(b){g.fillStyle='#7a4a20';g.beginPath();g.ellipse(2,0,19,8,0,0,7);g.fill()}}
+      if(o.hit){g.strokeStyle='#3ddc84';g.lineWidth=4;g.beginPath();g.arc(0,0,33,0,7);g.stroke()}g.restore()});
+    if(flash){g.strokeStyle='#ff4d4d';g.lineWidth=4;g.beginPath();g.arc(flash[0],flash[1],30,0,7);g.stroke()}};
+  paint();
+  cv.onclick=e=>{const r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*640/r.width,y=(e.clientY-r.top)*336/r.height;const o=objs.map(o=>[Math.hypot(o.x-x,o.y-y),o]).sort((a,b)=>a[0]-b[0])[0];if(!o||o[0]>38||o[1].hit)return;
+    if(o[1].bad){o[1].hit=true;found++;kSnd(true);if(found===N){paint();ctl.after(()=>end(70+30*clamp(ctl.left/(22*ctl.tm)*1.6,0,1)-miss*6),400)}}else{miss++;kSnd(false);flash=[o[1].x,o[1].y];ctl.after(()=>{flash=null;paint()},350)}paint()};
+  ctl.clock(28,()=>end(found/N*70-miss*6));
+};
+/* ---------- 3) Flaggentraining ---------- */
+const KFL=[['gr','Grün','#2fd27a'],['ge','Gelb','#ffd83d'],['bl','Blau','#2f9bff'],['sw','Schwarz','#20252c'],['sc','Safety Car','#ff9f0a'],['ro','Rot','#ff3b30']];
+const KFQ=[['Ein Auto steht neben der Strecke, Fahrer steigt aus.','ge'],['Trümmer auf der ganzen Ideallinie, Posten müssen räumen.','sc'],['Strecke komplett blockiert, drei Autos quer.','ro'],['Überrundeter hält den Führenden auf.','bl'],['Alles geräumt, Posten melden frei.','gr'],['Fahrer ignoriert dreimal die Durchfahrtsstrafe.','sw'],['Dreher in Kurve 4, Auto rollt wieder an.','ge'],['Wolkenbruch, Autos schwimmen von der Strecke.','ro'],['Kran muss an die Strecke, um ein Auto zu bergen.','sc'],['Langsames Auto vor schnellerem mit einer Runde Vorsprung.','bl'],['Gefährlich loses Teil am Auto, Team reagiert nicht.','sw'],['Gefahrenstelle vorbei, nächster Sektor sauber.','gr'],['Rettungshubschrauber kann nicht fliegen.','ro'],['Reifenstapel verschoben, muss repariert werden.','sc'],['Auto rollt langsam im Gras, außerhalb der Linie.','ge'],['Restart: Strecke ist wieder sicher.','gr']];
+KGAME.flag=(ctl,end)=>{const Q=kShuf(KFQ).slice(0,10);let i=0,p=0;
+  const next=()=>{if(i>=10){end(p/10*100);return}const q=Q[i];ctl.c.innerHTML=`<div class="kmN">${i+1} von 10</div><div class="kmBig">${q[0]}</div><div class="kmF">${KFL.map((f,k)=>`<button data-v="${f[0]}" style="--c:${f[2]}"><i></i>${f[1]}<small>${k+1}</small></button>`).join('')}</div>`;
+    let used=false;const pickF=v=>{if(used)return;used=true;clearInterval(ctl.ck);const ok=v===q[1];if(ok)p+=.7+.3*clamp(ctl.left/(5*ctl.tm)*1.4,0,1);kSnd(ok);ctl.c.querySelectorAll('.kmF button').forEach(b=>{if(b.dataset.v===q[1])b.classList.add('ok');else if(b.dataset.v===v)b.classList.add('no')});i++;ctl.after(next,ok?420:1050)};
+    ctl.c.querySelectorAll('.kmF button').forEach(b=>b.onclick=()=>pickF(b.dataset.v));ctl.key=k=>{const f=KFL[+k-1];if(f)pickF(f[0])};ctl.clock(Math.max(3.4,5.4-i*.2),()=>pickF(null))};
+  const kh=e=>{if(ctl.dead){removeEventListener('keydown',kh,true);return}if(/^[1-6]$/.test(e.key)){e.preventDefault();e.stopPropagation();ctl.key&&ctl.key(e.key)}};addEventListener('keydown',kh,true);next()};
+/* ---------- 4) Funkzentrale ---------- */
+const KRQ=[['Unfall in Kurve 7, Fahrer antwortet nicht!',2],['Öl auf der Start-Ziel-Geraden.',2],['Brand in der Boxengasse!',2],['Zuschauer klettert über den Zaun.',2],['Rettungswagen blockiert.',2],['Reifenteile neben der Strecke in Kurve 3.',1],['Team fragt nach der Strafe von eben.',1],['Regen erreicht in 10 Minuten Sektor 2.',1],['Posten 12 braucht Ablösung.',1],['Zeitmessung Sektor 1 hakt.',1],['Mein Kaffee ist kalt.',0],['Weiß jemand, wer gestern Fußball gewonnen hat?',0],['Teamchef beschwert sich über die Musik.',0],['Die Ente sitzt wieder am Teich.',0],['Kann ich kurz ein Selfie machen?',0]];
+KGAME.radio=(ctl,end)=>{const Q=[...kShuf(KRQ.filter(q=>q[1]===2)).slice(0,4),...kShuf(KRQ.filter(q=>q[1]===1)).slice(0,4),...kShuf(KRQ.filter(q=>q[1]===0)).slice(0,3)],L=kShuf(Q);let i=0,done=0,p=0;
+  ctl.c.innerHTML='<div class="kmRd"></div>';const box=ctl.c.firstChild;
+  const add=()=>{if(i>=L.length)return;const q=L[i++],life=7.5*ctl.tm,d=document.createElement('div');d.className='kmRm';d.innerHTML=`<div class="kmRt"><i></i></div><b>${q[0]}</b><div><button data-v="2" style="--c:#ff4d4d">Sofort</button><button data-v="1" style="--c:#ffd34d">Später</button><button data-v="0" style="--c:#8fa0b3">Ignorieren</button></div>`;box.appendChild(d);
+    const t0=performance.now();let fin=false;const close=v=>{if(fin)return;fin=true;clearInterval(h);const ok=v===q[1],near=v!=null&&Math.abs(v-q[1])===1;p+=ok?1:near?.35:q[1]===2?-.3:0;kSnd(ok);d.classList.add(ok?'ok':'no');ctl.after(()=>d.remove(),380);done++;if(done===L.length)ctl.after(()=>end(p/L.length*100),600)};
+    const h=ctl.every(()=>{const l=1-(performance.now()-t0)/1000/life;d.querySelector('i').style.width=l*100+'%';if(l<=0)close(q[1]===0?0:null)},60);d.querySelectorAll('button').forEach(b=>b.onclick=()=>close(+b.dataset.v))};
+  add();ctl.every(add,2600*Math.min(1.2,ctl.tm));ctl.bar.parentNode.style.visibility='hidden'};
+/* ---------- 5) Startaufstellung ---------- */
+KGAME.grid=(ctl,end)=>{const COL=['#e10600','#2f9bff','#2fd27a','#ffd34d','#b388ff','#ff8a3d','#ff5fa2','#27d3c3','#f2f5f9','#8a5a2b'];let r=0,p=0;
+  const row=(L,cls)=>`<div class="kmG ${cls||''}">${L.map((c,i)=>`<button data-i="${i}"><svg viewBox="0 0 60 34"><rect x="6" y="3" width="12" height="7" rx="2" fill="#0b0b0d"/><rect x="6" y="24" width="12" height="7" rx="2" fill="#0b0b0d"/><rect x="40" y="3" width="12" height="7" rx="2" fill="#0b0b0d"/><rect x="40" y="24" width="12" height="7" rx="2" fill="#0b0b0d"/><path d="M2 10h26l28 4v6l-28 4H2z" fill="${COL[c.c]}"/><text x="18" y="22" font-size="12" font-weight="800" text-anchor="middle" fill="#0b0f14">${c.n}</text></svg><small>${i+1}</small></button>`).join('')}</div>`;
+  const next=()=>{if(r>=4){end(p/4*100);return}const n=6+r,cs=kShuf([...Array(10).keys()]).slice(0,n).map(c=>({c,n:kInt(2,98)}));const a=kInt(0,n-1);let b;do b=kInt(0,n-1);while(b===a);
+    ctl.c.innerHTML=`<div class="kmN">Runde ${r+1} von 4 · Merken!</div>${row(cs)}`;
+    ctl.clock(4.2+r*.6,()=>{const L=cs.slice();[L[a],L[b]]=[L[b],L[a]];const sel=new Set();ctl.c.innerHTML=`<div class="kmN">Welche zwei sind vertauscht?</div>${row(L,'pick')}`;
+      const fin=()=>{clearInterval(ctl.ck);const hit=[...sel].filter(x=>x===a||x===b).length;p+=hit/2;kSnd(hit===2);ctl.c.querySelectorAll('.kmG button').forEach(q=>{const i=+q.dataset.i;if(i===a||i===b)q.classList.add('ok');else if(sel.has(i))q.classList.add('no');q.disabled=true});r++;ctl.after(next,1300)};
+      ctl.c.querySelectorAll('.kmG button').forEach(q=>q.onclick=()=>{const i=+q.dataset.i;sel.has(i)?sel.delete(i):sel.add(i);q.classList.toggle('sel',sel.has(i));if(sel.size===2)fin()});ctl.clock(9,fin)})};next()};
+/* ---------- 6) Wetterradar ---------- */
+KGAME.radar=(ctl,end)=>{let r=0,p=0;
+  const next=()=>{if(r>=4){end(p/4*100);return}const ang=kRnd(0,6.28),dist=kRnd(150,185),v=kRnd(26,48),hide=kRnd(.38,.52),T=(dist-26)/v,t0=performance.now();let stop=null;
+    ctl.c.innerHTML=`<div class="kmN">Front ${r+1} von 4</div><canvas width="420" height="380" style="max-width:420px"></canvas><button class="btn primary kmBtn">REGEN ERREICHT DIE STRECKE!</button><div class="kmR"></div>`;
+    const cv=ctl.c.querySelector('canvas'),g=cv.getContext('2d'),btn=ctl.c.querySelector('.kmBtn');
+    const fin=()=>{if(stop!=null)return;stop=(performance.now()-t0)/1000;btn.disabled=true;const d=stop-T,s=clamp(1-Math.max(0,Math.abs(d)-.12)/(.95*ctl.tm),0,1);p+=s;kSnd(s>.6);ctl.c.querySelector('.kmR').innerHTML=`<b class="${s>.75?'ok':s>.3?'mid':'no'}">${Math.abs(d)<.18?'Punktgenau!':d<0?Math.abs(d).toFixed(1)+' s zu früh':d.toFixed(1)+' s zu spät'}</b>`;r++;ctl.after(next,1500)};
+    const draw=()=>{if(ctl.dead||!cv.isConnected)return;const t=stop!=null?(performance.now()-t0)/1000:(performance.now()-t0)/1000,c=[210,190];g.fillStyle='#06140f';g.fillRect(0,0,420,380);g.strokeStyle='rgba(61,220,132,.3)';for(let i=1;i<5;i++){g.beginPath();g.arc(c[0],c[1],i*42,0,7);g.stroke()}
+      const sw=t*1.8;g.strokeStyle='rgba(61,220,132,.6)';g.beginPath();g.moveTo(...c);g.lineTo(c[0]+Math.cos(sw)*172,c[1]+Math.sin(sw)*172);g.stroke();
+      const d=Math.max(0,dist-v*t),x=c[0]+Math.cos(ang)*d,y=c[1]+Math.sin(ang)*d;if(t<T*hide||stop!=null){for(let i=0;i<6;i++){g.fillStyle='rgba(60,140,255,.34)';g.beginPath();g.arc(x+Math.cos(i)*12,y+Math.sin(i*1.7)*12,20,0,7);g.fill()}}
+      g.strokeStyle='#ffb340';g.lineWidth=3;g.beginPath();g.ellipse(c[0],c[1],24,15,.4,0,7);g.stroke();g.lineWidth=1;if(t>T+3.2&&stop==null)fin();requestAnimationFrame(draw)};draw();btn.onclick=fin};
+  ctl.bar.parentNode.style.visibility='hidden';next()};
+/* ---------- 7) Pressekonferenz ---------- */
+const KJR=[['Boulevardblatt','mag Drama','an'],['Fachmagazin','mag Fakten','eh'],['Regionalradio','mag Wärme','di'],['Sportsender','mag klare Worte','eh'],['Klatschportal','mag Provokation','an'],['Familienmagazin','mag Höflichkeit','di']];
+const KPQ=[['Waren Ihre Strafen zuletzt zu hart?',['Wir prüfen jeden Fall mit großer Sorgfalt und hören alle an.','Zwei waren richtig, eine war zu hart. Das bessern wir nach.','Wer fair fährt, muss mich nicht fürchten. Der Rest schon.']],['Fürchten Sie um Ihren Job?',['Ich konzentriere mich auf das Team und das nächste Rennen.','Natürlich spüre ich den Druck. Das gehört dazu.','Fragen Sie das lieber die, die auf meinen Stuhl schielen.']],['Was sagen Sie zu den Vorwürfen von {R}?',['Ich schätze den Austausch unter Kollegen sehr.','Zwei Punkte stimmen, drei nicht. Hier sind die Daten.','Getroffene Hunde bellen. Laut.']],['Ist das Reglement noch zeitgemäß?',['Wir arbeiten gemeinsam mit allen an Verbesserungen.','Artikel 14 ist unklar, den würde ich streichen.','Das Reglement ist älter als manche Reifen hier.']],['Wer ist Ihr Lieblingsfahrer?',['Alle, die heute gesund nach Hause kommen.','Keiner. Sonst wäre ich falsch in diesem Job.','Der, der am wenigsten funkt.']],['Wie reagieren Sie auf den Unmut der Fans?',['Ich verstehe jeden, der mit dem Herzen dabei ist.','Sie haben recht, wir haben zu spät informiert.','Wer pfeift, hat wenigstens Puls.']],['War die Rote Flagge nötig?',['Die Sicherheit aller stand an erster Stelle.','Ja. Zwei Posten standen auf der Strecke.','Wollen Sie lieber einen Nachruf schreiben?']],['Was war Ihr größter Fehler?',['Ich lerne jeden Tag dazu, dank eines tollen Teams.','Monza, letzte Runde. Ich habe zu lange gewartet.','Dieses Interview, vielleicht.']]];
+KGAME.press=(ctl,end,opt)=>{const Q=kShuf(KPQ).slice(0,5);let i=0,p=0;opt.tone=opt.tone||{di:0,eh:0,an:0};
+  const next=()=>{if(i>=5){end(p/5*100);return}const q=Q[i],j=kPick(KJR),A=kShuf([['di',q[1][0]],['eh',q[1][1]],['an',q[1][2]]]);
+    ctl.c.innerHTML=`<div class="kmN">Frage ${i+1} von 5</div><div class="kmP">${kFace(j[0]+i)}<div><b>${j[0]}</b><em>${j[1]}</em><p>„${q[0].replace('{R}',opt.riv||'Ihrem Rivalen')}“</p></div></div><div class="kmO">${A.map(a=>`<button data-v="${a[0]}">${a[1]}</button>`).join('')}</div>`;let u=false;
+    const go=v=>{if(u)return;u=true;clearInterval(ctl.ck);const s=v==null?0:v===j[2]?1:(v==='eh'||j[2]==='eh')?.5:.2;if(v)opt.tone[v]++;p+=s;kSnd(s>.6);ctl.c.querySelectorAll('.kmO button').forEach(b=>{if(b.dataset.v===j[2])b.classList.add('ok');else if(b.dataset.v===v)b.classList.add(s>=.5?'mid':'no')});i++;ctl.after(next,1200)};
+    ctl.c.querySelectorAll('.kmO button').forEach(b=>b.onclick=()=>go(b.dataset.v));ctl.clock(13,()=>go(null))};next()};
+/* ---------- 8) Verhandlung ---------- */
+const KNT={fa:'Fakten zeigen',ch:'Charme',dr:'Druck machen',zu:'Zuhören'};
+const KNM=[['tippt genervt auf den Tisch und redet ohne Pause.','zu'],['wirkt unsicher und blättert in den Unterlagen.','fa'],['lehnt sich zurück und grinst überheblich.','dr'],['sieht müde aus und nippt am Kaffee.','ch'],['erzählt von der Familie und wirkt gekränkt.','zu'],['behauptet etwas, das nicht stimmt.','fa'],['droht mit dem Anwalt, aber die Stimme zittert.','dr'],['lacht über einen deiner Witze.','ch'],['verschränkt die Arme und schweigt.','zu'],['verlangt plötzlich doppelt so viel.','dr'],['fragt, warum das überhaupt nötig ist.','fa'],['sucht deinen Blick und seufzt.','ch']];
+KGAME.neg=(ctl,end,opt)=>{const Q=kShuf(KNM).slice(0,6),who=opt.who||kPick(KNAMES);let i=0,m=40;
+  const next=()=>{if(m>=100){end(100);return}if(i>=6||m<=0){end(m);return}const q=Q[i],hint=opt.hint?kShuf(Object.keys(KNT).filter(k=>k!==q[1])).slice(0,1):[];
+    ctl.c.innerHTML=`<div class="kmN">Runde ${i+1} von 6</div><div class="kmP">${kFace(who)}<div><b>${esc(who)}</b><p>${esc(who.split(' ')[0])} ${q[0]}</p></div></div><div class="kmMood"><i style="width:${m}%"></i><span>Einigung ${Math.round(m)} %</span></div><div class="kmO four">${Object.keys(KNT).map(k=>`<button data-v="${k}" ${hint.includes(k)?'disabled':''}>${KNT[k]}</button>`).join('')}</div>`;let u=false;
+    const go=v=>{if(u)return;u=true;clearInterval(ctl.ck);const ok=v===q[1],d=ok?kRnd(13,19):v==null?-12:kRnd(-11,-4);m=clamp(m+d,0,100);kSnd(ok);ctl.c.querySelectorAll('.kmO button').forEach(b=>{if(b.dataset.v===q[1])b.classList.add('ok');else if(b.dataset.v===v)b.classList.add('no')});ctl.c.querySelector('.kmMood i').style.width=m+'%';i++;ctl.after(next,1050)};
+    ctl.c.querySelectorAll('.kmO button').forEach(b=>b.onclick=()=>go(b.dataset.v));ctl.clock(10,()=>go(null))};next()};
+/* ---------- 9) Safety-Car-Prüfung: echte Fahrt ---------- */
+function kScTarget(tr,as){const t=buildTrack(TRACKS[tr]);return t.L*.0068*(TRACKS[tr].street?1.1:1)*(as==='strong'?1.1:1)}
+function kScTrial(opt){return new Promise(res=>{
+  const tr=opt.track!=null?opt.track:kInt(0,TRK_BASE-1),as=SETS.scAssist||'strong',tg=kScTarget(tr,as);
+  kHide();EVE.kind='solo';EVE.track=tr;eveStart();if(!G){res(null);return}const g0=G;G.kSc={tg,best:null};
+  addLog('PRÜFUNG',`Zielzeit ${eveFmt(tg)}. Du hast drei Runden.`,'good');banner('ZIELZEIT '+eveFmt(tg),'warn');
+  const score=b=>b==null?0:b<=tg?clamp(80+(tg-b)/tg*250,80,100):clamp(80-(b-tg)/tg*320,0,79);
+  const h=setInterval(()=>{
+    if(G!==g0){clearInterval(h);res(g0.kSc.best==null?null:score(g0.kSc.best));return}
+    const L=G.eveLaps||[],ok=L.filter(l=>l.clean);g0.kSc.best=ok.length?Math.min(...ok.map(l=>l.t)):null;
+    let el=$('kScB');if(!el){el=document.createElement('div');el.id='kScB';document.body.appendChild(el)}el.innerHTML=`<b>ZIEL ${eveFmt(tg)}</b><span>Runde ${Math.min(3,L.length+1)} von 3</span><span>Bestzeit ${g0.kSc.best!=null?eveFmt(g0.kSc.best):'–'}</span>`;
+    if(L.length>=3||g0.kSc.best!=null&&g0.kSc.best<=tg*.97){clearInterval(h);const s=score(g0.kSc.best);toMenu();if($('kScB'))$('kScB').remove();res(s)}
+  },200);
+})}
+setInterval(()=>{if($('kScB')&&!(G&&G.kSc))$('kScB').remove()},500);
+/* ---------- Gesichter ---------- */
+function kFace(seed){let h=0;for(const c of String(seed))h=(h*31+c.charCodeAt(0))>>>0;const p=(n,k)=>(h>>>k)%n,sk=['#f3c9a5','#e0ac7e','#c68642','#8d5524','#ffdbc0','#a56a3a'][p(6,1)],hr=['#2b1d12','#6b3f1d','#c98b3a','#1b1b22','#8a8f98','#a5342a','#e7d39b'][p(7,4)],sh=['#e10600','#14a8ff','#2fd27a','#ffb340','#b388ff','#39424f'][p(6,7)],st=p(5,10),gl=p(4,13)===0,be=p(3,15)===0;
+  return `<svg class="kFc" viewBox="0 0 80 80"><rect width="80" height="80" rx="20" fill="#13202f"/><path d="M8 80c2-20 14-26 32-26s30 6 32 26z" fill="${sh}"/><rect x="33" y="46" width="14" height="14" fill="${sk}"/><ellipse cx="40" cy="34" rx="18" ry="21" fill="${sk}"/>${[`<path d="M21 32c-1-20 10-25 19-25s21 5 19 25c-3-9-9-13-19-13s-16 4-19 13z" fill="${hr}"/>`,`<path d="M20 30c0-22 14-24 20-24 8 0 20 4 20 24l-4 24-3-26c-6-2-16-6-22-8-2 5-4 7-6 9l-2 25z" fill="${hr}"/>`,`<path d="M22 24c4-14 12-17 18-17s14 3 18 17c-10-5-26-5-36 0z" fill="${hr}"/>`,`<path d="M22 27c0-14 8-20 18-20s18 6 18 20l-5-7H27z" fill="${hr}"/><circle cx="40" cy="5" r="7" fill="${hr}"/>`,`<path d="M23 20c5-8 11-10 17-10s12 2 17 10z" fill="${hr}" opacity=".55"/>`][st]}<circle cx="33" cy="35" r="2.600" fill="#1a1a22"/><circle cx="47" cy="35" r="2.600" fill="#1a1a22"/>${gl?'<g fill="none" stroke="#10151d" stroke-width="2"><circle cx="33" cy="35" r="6.500"/><circle cx="47" cy="35" r="6.500"/><path d="M39 35h2"/></g>':''}${be?`<path d="M25 40c2 14 10 16 15 16s13-2 15-16c-4 6-9 4-15 4s-11 2-15-4z" fill="${hr}"/>`:''}<path d="M34 46q6 4 12 0" fill="none" stroke="#7a3b2a" stroke-width="2.200" stroke-linecap="round"/></svg>`}
+/* =====================================================================
+   RACE CONTROL 46 – Karriere: Ablauf und Oberfläche
+   Eine Saison besteht aus Wochen. Jede Woche: Postfach, Aktivitäten (Energie), dann Rennwochenende oder Sonderevent.
+   Spielstand: localStorage 'rc_car5' (wird mit dem Konto synchronisiert)
+   ===================================================================== */
+let K=null,KTAB='office',KPOP=null,KVIEW=null;
+function kLoad(){try{const k=JSON.parse(localStorage.getItem('rc_car5'));K=k&&k.v===5?k:null}catch(_){K=null}return K}
+function kSave(){if(K)try{localStorage.setItem('rc_car5',JSON.stringify(K))}catch(_){}}
+const kHas=p=>K.perks.includes(p),kItem=i=>K.items.includes(i),kTier=()=>TIERS[K.tier],kSer=()=>KSER[K.tier].find(s=>s.id===K.ser)||KSER[K.tier][0],kCal=()=>K.cal[K.wk],kStaff=r=>(K.staff[r]&&K.staff[r].l)||0;
+const kEur=n=>Math.round(n).toLocaleString('de-DE')+' €',kNeed=()=>70+K.lvl*35;
+/* ---------- Neuer Spielstand ---------- */
+function kNew(name,bg,tier){
+  const b=KBG.find(x=>x.id===bg)||KBG[0];
+  K={v:5,name,bg,tier,ser:KSER[tier][0].id,season:1,wk:0,cal:[],money:1500,xp:0,lvl:1,sp:1,perks:[b.p],en:3,stress:10,rel:{ve:45,te:45,me:40,fa:40,po:45},staff:{},items:[],inbox:[],queue:[],seen:[],nx:{},ach:[],hist:[],news:[],
+    st:{races:0,best:0,mg:0,gold:0,ev:0,up:0,num1:0,objAll:0,zen:0,sum:0},pay:KSER[tier][0].pay,phase:'week',acts:[],riv:KRIV.map(r=>({n:r[0],x:r[1],s:r[2],p:0,r:null})),main:kInt(0,KRIV.length-1),trophies:[],bet:false};
+  for(const k in b.e)K.rel[k]=clamp(K.rel[k]+b.e[k],0,100);kSeason();kSave();
+}
+/* ---------- Saison anlegen ---------- */
+const KOBJ=[
+ {id:'avg',t:K=>`Schnitt von mindestens ${kObjAvg()}`,ok:K=>kAvg()>=kObjAvg(),v:K=>kAvg()??'–'},
+ {id:'task',t:K=>`${kObjTask()} Rennaufträge erfüllen`,ok:K=>K.ss.tasks>=kObjTask(),v:K=>K.ss.tasks},
+ {id:'gold',t:K=>'3× Gold in Minispielen',ok:K=>K.ss.gold>=3,v:K=>K.ss.gold},
+ {id:'rank',t:K=>'Unter die besten Drei der Rennleiter',ok:K=>kRank()<=3,v:K=>'P'+kRank()},
+ {id:'low',t:K=>'Kein Rennen unter 45',ok:K=>K.ss.ratings.length>0&&Math.min(...K.ss.ratings)>=45,v:K=>K.ss.ratings.length?Math.min(...K.ss.ratings):'–'},
+ {id:'fa',t:K=>'Fans auf mindestens 60',ok:K=>K.rel.fa>=60,v:K=>Math.round(K.rel.fa)},
+ {id:'te',t:K=>'Teams auf mindestens 58',ok:K=>K.rel.te>=58,v:K=>Math.round(K.rel.te)},
+ {id:'po',t:K=>'Posten auf mindestens 62',ok:K=>K.rel.po>=62,v:K=>Math.round(K.rel.po)},
+ {id:'me',t:K=>'Medien auf mindestens 58',ok:K=>K.rel.me>=58,v:K=>Math.round(K.rel.me)},
+ {id:'st',t:K=>'Saison mit höchstens 40 Stress beenden',ok:K=>K.stress<=40,v:K=>Math.round(K.stress)}];
+const kObjAvg=()=>58+K.tier*4,kObjTask=()=>Math.max(3,Math.round(K.cal.filter(c=>c.k==='race').length*.9));
+function kSeason(){
+  const n=kTier().season+1,s=kSer(),all=[...Array(TRK_BASE).keys()],str=all.filter(i=>TRACKS[i].street),pool=s.street&&str.length?str:all;let tr=[];while(tr.length<n)tr.push(...kShuf(pool));tr.length=n;
+  const mods=kShuf(['rain','wild','sprint','long','novar','fans','safe','press','derby','heat','change']),L=[];
+  for(let i=0;i<n;i++)L.push({k:'race',tr:tr[i],m:i===n-1?'final':i===0?'std':Math.random()<.2?'std':mods[i%mods.length]});
+  const sp=kShuf(Object.keys(KSPEC)).slice(0,K.tier<2?2:3);sp.forEach((id,j)=>L.splice(clamp(Math.round((j+1)*(n)/(sp.length+1))+j,1,L.length-1),0,{k:'ev',id}));
+  K.cal=L;K.wk=0;K.ss={ratings:[],w:[],tasks:0,gold:0,spec:[]};K.champ={};K.riv.forEach(r=>{r.p=0;r.r=null;r.s=clamp(r.s+kRnd(-2,2.4),52,78)});K.rp=0;
+  K.obj=kShuf(KOBJ.map(o=>o.id)).slice(0,3);if(!K.obj.includes('avg'))K.obj[0]='avg';kWeek(true);
+}
+const kAvg=()=>{const r=K.ss.ratings;if(!r.length)return null;let s=0,w=0;r.forEach((x,i)=>{s+=x*K.ss.w[i];w+=K.ss.w[i]});return Math.round(s/w)};
+const kTable=()=>[{n:K.name,x:'Du',p:K.rp,me:1,r:K.ss.last},...K.riv].sort((a,b)=>b.p-a.p||(b.r||0)-(a.r||0)),kRank=()=>kTable().findIndex(x=>x.me)+1;
+/* ---------- Woche ---------- */
+function kWeek(first){
+  K.phase='week';K.en=3+(kHas('calm4')?1:0)+(kStaff('doc')>=3?1:0)-(K.stress>80?1:0);K.brief=null;K.ac=0;
+  if(!first){K.money+=K.pay*(kHas('ch2')?1.15:1)-kWages();K.stress-=4+(kHas('calm5')?10:0)+(kItem('coffee')?3:0)+(kItem('plant')?1:0)+(kItem('old')?2:0)+kStaff('doc')*2;for(const k in K.rel)K.rel[k]=clamp(K.rel[k]+(48-K.rel[k])*.035,0,100);if(kItem('dog'))K.rel.po=clamp(K.rel.po+1,0,100);if(kItem('fund')){K.rel.fa=clamp(K.rel.fa+1,0,100);K.rel.po=clamp(K.rel.po+1,0,100)}if(K.money<0){K.stress+=6;kMail('Buchhaltung','Konto im Minus','Dein Konto ist überzogen. Das kostet Nerven und Ansehen.');K.rel.ve-=2}}
+  K.stress=clamp(K.stress,0,100);
+  const L=[];const pool=KACT.slice();while(L.length<6&&pool.length){const W=pool.reduce((a,x)=>a+x.w,0);let r=Math.random()*W,i=0;while((r-=pool[i].w)>0&&i<pool.length-1)i++;L.push(pool.splice(i,1)[0].id)}if(!L.includes('rest'))L[5]='rest';
+  if(!L.some(i=>KACT.find(a=>a.id===i).g))L[0]='stew';K.acts=L.map(id=>({id,d:0}));
+  const due=K.queue.filter(q=>q.at<=K.st.wk);K.queue=K.queue.filter(q=>q.at>K.st.wk);due.forEach(q=>kAddEv(q.id,q.v));
+  let n=due.length?(Math.random()<.5?1:0):1+(Math.random()<.35?1:0);const av=kShuf(KEV.filter(e=>!e.q&&!K.seen.includes(e.id)&&!K.inbox.some(m=>m.id===e.id)&&(!e.c||e.c(K))));
+  if(av.length<n+2)K.seen=K.seen.slice(Math.ceil(K.seen.length/2));for(const e of av.slice(0,n))kAddEv(e.id);
+  K.st.wk=(K.st.wk||0)+1;K.inbox=K.inbox.slice(-14);kAch();kSave();
+}
+const kWages=()=>Object.values(K.staff).reduce((a,s)=>a+s.l*140*(1+K.tier*.35),0);
+function kVars(v){if(v)return v;const tn=K.tier<3?TEAMNAMES[K.tier]:RC_ORIG.t,c=K.cal[Math.min(K.wk,K.cal.length-1)];return {T:kPick(tn),D:kPick(FIRSTN)+' '+kPick(LASTN),R:K.riv[K.main].n,S:c&&c.k==='race'?TRACKS[c.tr].name.replace(/^GP von /,''):'der Strecke',P:kPick(KNAMES)}}
+function kAddEv(id,v){if(!KEV.some(e=>e.id===id))return;K.inbox.push({id,v:kVars(v),d:0,n:1});if(!K.seen.includes(id))K.seen.push(id)}
+function kMail(f,t,x){K.inbox.push({mail:1,f,t,x,d:1,n:1})}
+const kFill=(s,v)=>String(s).replace(/\{([TDRSP])\}/g,(_,k)=>esc(v[k]||''));
+const kOpenEv=()=>K.inbox.filter(m=>!m.mail&&!m.d).length;
+/* ---------- Effekte ---------- */
+const KLBL={mo:'Geld',xp:'Erfahrung',en:'Energie',st:'Stress'};
+function kEff(e,src){
+  const out=[];if(!e)return out;
+  for(const k in e){let v=e[k];if(k==='flag'){if(v==='bet')K.bet=true;continue}if(k==='nx'){kNx(v);out.push([kNxTxt(v),1]);continue}if(k==='_'||k==='rnd')continue;
+    if(KREL[k]){if(k==='me'&&v>0)v*=(kHas('ch1')?1.3:1)*(1+kStaff('press')*.12);if(src==='ev'&&v<-5&&kItem('safe'))v*=.7;if(src==='riv'&&v<0&&kHas('auth5'))v*=.5;v=Math.round(v);K.rel[k]=clamp(K.rel[k]+v,0,100);out.push([`${KREL[k][0]} ${v>0?'+':''}${v}`,v])}
+    else if(k==='st'){if(v>0){if(kHas('calm1'))v*=.7;if(kItem('fish'))v*=.85;v*=1-kStaff('doc')*.07}v=Math.round(v);K.stress=clamp(K.stress+v,0,100);out.push([`Stress ${v>0?'+':''}${v}`,-v])}
+    else if(k==='mo'){K.money+=v;out.push([`${v>0?'+':'−'}${kEur(Math.abs(v))}`,v])}
+    else if(k==='xp'){v=Math.round(v*(kItem('trk')?1.3:1));K.xp+=v;out.push([`Erfahrung +${v}`,1])}
+    else if(k==='en'){K.en=Math.max(0,K.en+v);out.push([`Energie ${v>0?'+':''}${v}`,v])}}
+  let up=0;while(K.xp>=kNeed()){K.xp-=kNeed();K.lvl++;K.sp++;up++}if(up)kToast(`Level ${K.lvl}! Du hast ${K.sp} Fähigkeitspunkt${K.sp>1?'e':''}.`,'g');
+  kAch();return out;
+}
+function kNx(v){for(const k in v)K.nx[k]=typeof v[k]==='number'?(K.nx[k]||0)+v[k]:v[k]}
+const kNxTxt=v=>'Nächstes Rennen: '+Object.entries(v).map(([k,x])=>k==='wx'?(x==='rain'?'Regen':'Wechselwetter'):`${{f:'Gerechtigkeit',s:'Sicherheit',e:'Spannung',m:'Stimmung',v:'Videoanalysen'}[k]||k} ${x>0?'+':''}${x}`).join(', ');
+const kChips=L=>L.length?`<div class="kChips">${L.map(c=>`<span class="${c[1]>0?'p':c[1]<0?'n':''}">${c[0]}</span>`).join('')}</div>`:'';
+function kAch(){for(const a of KACH)if(!K.ach.includes(a[0])){let ok=false;try{ok=a[3](K)}catch(_){}if(ok){K.ach.push(a[0]);kToast(`Erfolg: ${a[1]}`,'a')}}}
+function kToast(t,c){const w=$('kToasts')||(()=>{const d=document.createElement('div');d.id='kToasts';document.body.appendChild(d);return d})();const d=document.createElement('div');d.className=c||'';d.textContent=t;w.appendChild(d);setTimeout(()=>d.classList.add('x'),3600);setTimeout(()=>d.remove(),4100);kSnd(true)}
+/* ---------- Aktivitäten ---------- */
+function kSlow(g){return 1+(kHas('calm2')?.2:0)+(g==='stew'&&kHas('eye2')?.3:0)+(g==='radio'&&kItem('radio')?.3:0)+(g==='radar'?kStaff('met')*.1:0)}
+async function kGame(g,o){const opt=Object.assign({slow:kSlow(g),riv:K.riv[K.main].n,hint:kHas('ch4')},o||{});const s=await kPlay(g,opt);if(s!=null){K.st.mg++;if(s>=80){K.st.gold++;K.ss.gold++}}return s==null?null:{s,opt}}
+async function kAct(i){
+  const A=K.acts[i],a=A&&KACT.find(x=>x.id===A.id);if(!a||A.d||KBUSY)return;if(K.en<a.c){kToast('Nicht genug Energie.','n');return}
+  if(!a.g){K.en-=a.c;A.d=1;let e=Object.assign({},a.e);if(e.st<0)e.st*=(kItem('sofa')?1.6:1)*(kItem('boat')?1.4:1);const L=kEff(e);kSave();kPop(a.n,`<div class="kIcB">${KIC[a.i]}</div><p>${a.t}</p>${kChips(L)}`);return}
+  KBUSY=true;const r=await kGame(a.g,a.g==='neg'?{who:kPick(KNAMES)}:a.g==='sc'?{track:kNextTrack()}:{});KBUSY=false;kOpen();if(!r)return;
+  K.en-=a.c;A.d=1;const s=r.s,e={xp:Math.round(s*.35*(kItem('sim')?1.25:1)),st:3};e[a.r]=s>=80?7:s>=55?4:s>=30?2:-1;if(a.nx&&s>=55)e.nx=a.nx;
+  if(a.g==='press'){const t=r.opt.tone;if(t.an>=3){e.fa=3;e.ve=-3}else if(t.eh>=3)e.ve=2;else if(t.di>=3)e.te=2}
+  const L=kEff(e);kSave();kPop(a.n,`<div class="kMd ${s>=80?'g':s>=55?'s':s>=30?'b':'n'}">${s}</div>${kChips(L)}`);
+}
+let KBUSY=false;
+const kNextTrack=()=>{const c=K.cal.slice(K.wk).find(x=>x.k==='race');return c?c.tr:0};
+/* ---------- Postfach ---------- */
+function kAnswer(i,j){
+  const m=K.inbox[i],ev=m&&KEV.find(e=>e.id===m.id);if(!ev||m.d)return;const o=ev.o[j];let e=o[1]||{},txt=o[2];
+  if(e.mo<0&&K.money+e.mo<0&&ev.o.length>1){kToast('Dafür reicht das Geld nicht.','n');return}
+  if(e.rnd){const r=kPick(e.rnd);txt=r._;e=r}
+  const L=kEff(e,'ev');m.d=1;m.a=j;m.r=kFill(txt,m.v);K.st.ev++;if(o[3])K.queue.push({id:o[3][0],at:(K.st.wk||0)+o[3][1],v:m.v});
+  kAch();kSave();kRender();kPop(kFill(ev.t,m.v),`<p>${m.r}</p>${kChips(L)}`);
+}
+/* ---------- Weiter: Rennen oder Sonderevent ---------- */
+function kGo(){
+  if(kOpenEv()){KTAB='inbox';kRender();kToast('Im Postfach wartet noch eine Entscheidung.','n');return}
+  const c=kCal();if(!c)return;if(c.k==='ev')KVIEW='spec';else{if(!K.brief){const cards=kShuf(KBRIEF).slice(0,4).map(b=>b.id);K.brief={cards,sel:[],tasks:kShuf(KTASK.filter(t=>!(t.id==='t_red'&&K.tier===0))).slice(0,3).map(t=>t.id)}}KVIEW='brief'}
+  kSave();kRender();
+}
+async function kSpecial(){
+  const c=kCal(),s=KSPEC[c.id];if(KBUSY)return;KBUSY=true;const seq=s.seq||[s.g],R=[];
+  for(const g of seq){const r=await kGame(g,Object.assign({},s.o,g==='neg'?{who:kPick(KNAMES)}:g==='sc'?{track:kNextTrack()}:{}));R.push(r?r.s:0)}
+  KBUSY=false;const sc=Math.round(R.reduce((a,b)=>a+b,0)/R.length),T=[{n:K.name,s:sc,me:1},...K.riv.map(r=>({n:r.n,s:Math.round(clamp(r.s+kRnd(-18,22)+K.tier*2,20,98))}))].sort((a,b)=>b.s-a.s),p=T.findIndex(x=>x.me)+1;
+  const e={xp:30+Math.round(sc*.5),st:6,ve:p<=2?6:p<=4?2:-2,fa:p===1?5:0,mo:Math.round((p===1?1800:p===2?900:p===3?450:0)*(1+K.tier*.5))};const L=kEff(e);K.ss.spec.push(sc);
+  const pts=[6,4,3,2,1,0,0,0];K.rp+=pts[p-1]||0;T.forEach((x,i)=>{const r=K.riv.find(r=>r.n===x.n);if(r)r.p+=pts[i]||0});
+  if(p===1)K.trophies.push({n:s.n,y:K.season});K.pend={spec:1,n:s.n,sc,p,T,chips:L};K.phase='post';KVIEW=null;kAch();kSave();kOpen();
+}
+/* ---------- Rennen ---------- */
+function kRace(){
+  const c=kCal(),m=KMOD[c.m]||KMOD.std,s=kSer(),t=kTier();if(!K.brief)return;if(NET.role)netLeave();
+  const B=K.brief.sel.map(id=>KBRIEF.find(b=>b.id===id)).filter(Boolean);
+  let ch=m.chaos||s.chaos||t.chaos;const O=['calm','normal','wild'];let oi=O.indexOf(ch);if(oi<0)oi=1;B.forEach(b=>{if(b.calm)oi--;if(b.wild)oi++});ch=O[clamp(oi,0,2)];
+  const r=Math.random(),wx=m.wx||K.nx.wx||(s.wx&&Math.random()<.8?s.wx:r<.6?'dry':r<.86?'mixed':'rain');
+  const cost=B.reduce((a,b)=>a+(b.mo||0),0);K.money+=cost;kSave();SEASON=null;kHide();
+  startGame({track:c.tr,laps:Math.max(3,(m.laps||s.laps||t.laps)+(m.dl||0)),chaos:ch,wx,tier:K.tier,k5:true,quali:SETS.defQuali||'on',form:SETS.defForm||'on'});
+}
+{const sg=startGame;startGame=function(o,g){const r=sg.apply(this,arguments);if(G&&G.opts&&G.opts.k5&&K&&K.brief)try{kApply()}catch(e){console.error(e)}return r}}
+function kApply(){
+  const m=KMOD[kCal().m]||KMOD.std,x=K.nx,B=K.brief.sel.map(id=>KBRIEF.find(b=>b.id===id)).filter(Boolean),M=G.meters,sum=k=>B.reduce((a,b)=>a+(b[k]||0),0);
+  M.f=clamp(M.f+sum('f')+(x.f||0)+(kHas('auth1')?6:0)+(K.rel.ve-50)*.08,20,95);
+  M.s=clamp(M.s+sum('s')+(x.s||0)+(m.s||0)+(K.rel.po-50)*.14+(kStaff('met')&&G.opts.wx!=='dry'?kStaff('met')*3:0),20,95);
+  M.e=clamp(M.e+sum('e')+(x.e||0)+(K.rel.fa-50)*.12,20,95);
+  const mo=sum('m')+(x.m||0)+(m.mood||0)+(K.rel.te-50)*.22;G.mood=G.mood.map(v=>clamp(v+mo+kRnd(-4,4),10,95));
+  G.varLeft=m.noVar?0:Math.max(0,(kTier().var||3)+(kHas('eye1')?1:0)+(kHas('eye5')?1:0)+(kItem('wall')?1:0)+sum('v')+(x.v||0));
+  G.k5={last:null,sh:{f:(kHas('eye3')?.25:0)+kStaff('stew')*.07,s:(kHas('calm3')?.2:0)+kStaff('mars')*.07,e:(kHas('ch3')?.2:0)+kStaff('show')*.07,t:kHas('auth2')?.2:0}};
+  addLog('KARRIERE',`${m.n}: ${m.x}`,'warn');addLog('KARRIERE','Aufträge: '+K.brief.tasks.map(id=>KTASK.find(t=>t.id===id).t).join(' · '),'good');
+}
+/* Fähigkeiten und Personal dämpfen Verluste */
+setInterval(()=>{if(!G||!G.k5||G.ended||G.paused)return;const M=G.meters,L=G.k5.last,sh=G.k5.sh;if(L){for(const k of ['f','s','e']){const d=L[k]-M[k];if(d>0&&sh[k])M[k]=clamp(M[k]+d*sh[k],0,100)}if(sh.t)G.mood=G.mood.map((v,i)=>L.m[i]-v>0?clamp(v+(L.m[i]-v)*sh.t,0,100):v)}G.k5.last={f:M.f,s:M.s,e:M.e,m:G.mood.slice()}},200);
+/* Rennende */
+{const sf=showFinal;showFinal=function(){const r=sf.apply(this,arguments);if(G&&G.opts&&G.opts.k5)kFinal();return r}}
+{const fi=fired;fired=function(w){const was=G&&G.ended,k=G&&G.opts&&G.opts.k5;const r=fi.apply(this,arguments);if(k&&!was&&G&&G.ended)kFinal(true);return r}}
+function kFinal(sacked){
+  if(!K||!K.brief)return;
+  if(!G.kDone){G.kDone=true;
+    const m=KMOD[kCal().m]||KMOD.std,M=G.meters,t=tmAvg(),w=Object.assign({f:1,s:1,e:1,t:1},m.w||{}),base=(M.f*w.f+M.s*w.s+M.e*w.e+t*w.t)/(w.f+w.s+w.e+w.t);
+    const tk=K.brief.tasks.map(id=>{const T=KTASK.find(x=>x.id===id);let ok=false;try{ok=!!T.ok()}catch(_){}return {t:T.t,ok:ok&&!sacked}}),nOk=tk.filter(x=>x.ok).length;
+    let parts=[['Grundwert',Math.round(base)],[`Aufträge (${nOk} von ${tk.length})`,nOk*(2+(kHas('auth3')?1:0))]];if(m.b)parts.push([m.n,m.b]);if(K.stress>70)parts.push(['Überlastet',-5]);
+    let rating=sacked?kInt(8,18):clamp(Math.round(parts.reduce((a,p)=>a+p[1],0)),0,100);if(sacked)parts=[['Entlassen im Rennen',rating]];
+    const cls=classify(),win=cls[0]&&cls[0].c.drv.n,ex=G.hist.filter(h=>h.entries.every(x=>x.diff===0)).length,P=[25,18,15,12,10,8,6,4,2,1];
+    cls.slice(0,10).forEach((r,i)=>{if(!r.out&&!r.dsq)K.champ[r.c.drv.n]=(K.champ[r.c.drv.n]||0)+P[i]});
+    const g=(v,c,q)=>Math.round((v-c)/q),e={ve:sacked?-14:g(rating,60,6),te:g(t,58,6.5),me:g(M.f,58,7),fa:g(M.e,58,6.5)+(kHas('ch5')?2:0)+(kItem('art')?1:0),po:g(M.s,58,6.5),st:sacked?18:clamp(Math.round((62-rating)/4)+5,-4,16),xp:Math.round(rating*.6)+nOk*8+ex*(kHas('eye4')?12:6),mo:rating>=75?Math.round((rating-65)*16*(1+K.tier*.4)):0};if(kItem('bell'))e.te+=1;
+    K.ss.ratings.push(rating);K.ss.w.push(m.dbl?2:1);K.ss.tasks+=nOk;K.ss.last=rating;K.st.races++;K.st.sum+=rating;K.st.best=Math.max(K.st.best,rating);
+    const T=[{me:1,r:rating},...K.riv.map(r=>{r.r=clamp(Math.round(r.s+kRnd(-13,13)+K.tier*2.4),20,97);return {o:r,r:r.r}})].sort((a,b)=>b.r-a.r),pts=[10,8,6,5,4,3,2,1];T.forEach((x,i)=>{if(x.me)K.rp+=pts[i];else x.o.p+=pts[i]});
+    const day=T.findIndex(x=>x.me)+1;let bet=null;if(K.bet){K.bet=false;const R=K.riv[K.main];bet=rating>=R.r;Object.assign(e,{fa:(e.fa||0)+(bet?6:-3),me:(e.me||0)+(bet?3:-2)})}
+    const chips=kEff(e);const c=kCal(),S=TRACKS[c.tr].name.replace(/^GP von /,'');
+    const key=sacked||rating<35?'fail':rating>=76?'top':G.redUsed&&Math.random()<.5?'red':M.s>=78&&Math.random()<.4?'safe':M.e>=76&&Math.random()<.5?'show':rating>=56?(Math.random()<.4?'win':'ok'):'bad';
+    const head=kPick(KNEWS[key]).replace('{N}',K.name.toUpperCase()).replace('{S}',S.toUpperCase()).replace('{W}',String(win||'').toUpperCase());
+    K.news.unshift({h:head,r:rating,s:S,w:win,y:K.season});K.news=K.news.slice(0,8);
+    K.pend={rating,parts,tk,win,S,head,chips,day,bet,dnf:G.cars.filter(x=>x.out).length,ex,dec:G.hist.length,press:0,key,m:[M.f,M.s,M.e,t].map(Math.round)};K.phase='post';K.nx={};K.brief=null;KVIEW=null;kAch();kSave();
+  }
+  const el=$('results'),A=el.querySelectorAll('.acts'),last=A[A.length-1];if(last)last.innerHTML='<button class="btn primary" data-kk="leave">Zurück in die Karriere<kbd>⏎</kbd></button>';
+}
+{const tm=toMenu;toMenu=function(){const k=G&&G.opts&&G.opts.k5,done=G&&G.kDone;const r=tm.apply(this,arguments);if(k&&K){if(!done&&K.phase==='week'){K.rel.ve=clamp(K.rel.ve-3,0,100);K.stress=clamp(K.stress+4,0,100);kSave();kToast('Rennen abgebrochen. Der Verband ist nicht erfreut.','n')}kOpen()}return r}}
+async function kPress(){
+  const P=K.pend;if(!P||P.press||KBUSY)return;KBUSY=true;const r=await kGame('press',{});KBUSY=false;if(!r){kOpen();return}
+  P.press=1;const t=r.opt.tone,e={me:r.s>=80?8:r.s>=55?5:r.s>=30?1:-4,xp:Math.round(r.s*.2),st:2};if(t.an>=3){e.fa=4;e.ve=-4;if(Math.random()<.5){K.riv[K.main].s+=1}}else if(t.di>=3){e.te=3}else if(t.eh>=3){e.ve=3}
+  const L=kEff(e);kSave();kOpen();kPop('Pressekonferenz',`<div class="kMd ${r.s>=80?'g':r.s>=55?'s':r.s>=30?'b':'n'}">${r.s}</div>${kChips(L)}`);
+}
+function kNext(){
+  K.pend=null;K.wk++;KVIEW=null;KTAB='office';
+  if(K.rel.ve<=4){K.sacked=true;K.wk=K.cal.length}
+  if(K.wk>=K.cal.length)kSeasonEnd();else kWeek();
+  kSave();kRender();const c=document.querySelector('#kar .kMain');if(c)c.scrollTop=0;
+}
+/* ---------- Saisonende: Gala, Ziele, Angebote ---------- */
+function kSeasonEnd(){
+  const avg=kAvg()??0,rank=kRank(),obj=K.obj.map(id=>{const o=KOBJ.find(x=>x.id===id);return {t:o.t(K),ok:!K.sacked&&o.ok(K),v:o.v(K)}}),n=obj.filter(o=>o.ok).length,ch=Object.entries(K.champ).sort((a,b)=>b[1]-a[1]);
+  const L=[];if(rank===1&&!K.sacked){K.st.num1++;K.trophies.push({n:'Rennleiter des Jahres',y:K.season});L.push(...kEff({mo:2500+K.tier*1500,fa:6,ve:5}))}
+  if(n===3){K.st.objAll++;L.push(...kEff({mo:1500+K.tier*900,ve:6}))}if(K.stress<10)K.st.zen++;
+  L.push(...kEff({xp:40+n*25}));
+  const off=[],add=(t,id,pf,tag)=>{const s=KSER[t].find(x=>x.id===id)||KSER[t][0];off.push({t,id:s.id,n:s.n,x:s.x,pay:Math.round(s.pay*pf/50)*50,tag})},cur=kSer();
+  if(K.sacked){if(K.tier>0)KSER[K.tier-1].forEach(s=>add(K.tier-1,s.id,.95,'Neuanfang'));else add(0,'k1',.8,'Letzte Chance')}
+  else{const up=K.tier<3&&(avg>=TIERS[K.tier].promote+3||n>=2&&avg>=TIERS[K.tier].promote||rank===1);if(up)KSER[K.tier+1].forEach(s=>add(K.tier+1,s.id,1,'Aufstieg'));
+    if(K.rel.ve>=22)add(K.tier,cur.id,(1+.08*n)*clamp(K.pay/cur.pay,1,1.6),'Verlängerung');else add(K.tier,cur.id,.8,'Bewährung');
+    if(rank<=5||K.rel.me>=55)KSER[K.tier].filter(s=>s.id!==cur.id).forEach(s=>add(K.tier,s.id,1.05,'Wechsel'));
+    if(avg<42&&K.tier>0){KSER[K.tier-1].forEach(s=>add(K.tier-1,s.id,1.1,'Rückschritt'))}}
+  K.hist.push({y:K.season,n:cur.n,avg,rank,obj:n,champ:ch[0]&&ch[0][0]});K.end={avg,rank,obj,n,champ:ch.slice(0,3),off,chips:L,sacked:!!K.sacked,table:kTable().map(x=>({n:x.n,p:x.p,me:x.me}))};K.phase='end';kAch();kSave();
+}
+function kSign(i){const o=K.end&&K.end.off[i];if(!o)return;if(o.t>K.tier)K.st.up++;if(K.sacked){K.rel.ve=Math.max(K.rel.ve,35);K.stress=clamp(K.stress-20,0,100)}K.sacked=false;K.tier=o.t;K.ser=o.id;K.pay=o.pay;K.season++;K.end=null;K.stress=clamp(K.stress-25,0,100);for(const k in K.rel)K.rel[k]=Math.round(K.rel[k]+(50-K.rel[k])*.12);
+  K.main=kInt(0,K.riv.length-1);kSeason();kMail('Verband','Willkommen: '+o.n,`Dein Vertrag läuft für Saison ${K.season}. Gehalt: ${kEur(o.pay)} pro Woche. Dein größter Konkurrent: ${K.riv[K.main].n}, „${K.riv[K.main].x}“.`);kAch();kSave();KTAB='office';kRender()}
+/* =====================================================================
+   Oberfläche
+   ===================================================================== */
+const ic=p=>`<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.200" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const KIC={office:ic('<path d="M6 40V18L24 7l18 11v22M18 40V27h12v13"/>'),inbox:ic('<path d="M5 12h38v26H5zM5 14l19 14 19-14"/>'),cal:ic('<path d="M7 11h34v30H7zM7 20h34M16 6v9M32 6v9"/>'),skill:ic('<path d="M24 5l5 13 14 1-11 9 4 14-12-8-12 8 4-14L5 19l14-1z"/>'),staff:ic('<circle cx="17" cy="16" r="7"/><path d="M4 41c0-9 5-14 13-14s13 5 13 14M31 10a7 7 0 0 1 0 13M34 28c6 1 10 6 10 13"/>'),shop:ic('<path d="M5 8h6l5 23h22l4-16H13"/><circle cx="19" cy="39" r="3"/><circle cx="35" cy="39" r="3"/>'),rel:ic('<path d="M24 41S5 30 5 17c0-6 4-10 9-10s8 3 10 7c2-4 5-7 10-7s9 4 9 10c0 13-19 24-19 24z"/>'),rank:ic('<path d="M6 42V28h10v14M19 42V12h10v30M32 42V20h10v22"/>'),ach:ic('<path d="M14 7h20v11c0 8-4 12-10 12s-10-4-10-12zM14 10H7c0 8 3 12 8 12M34 10h7c0 8-3 12-8 12M24 30v8M15 41h18"/>'),
+ eye:ic('<path d="M4 24s7-13 20-13 20 13 20 13-7 13-20 13S4 24 4 24z"/><circle cx="24" cy="24" r="6"/>'),walk:ic('<path d="M8 40c8-4 8-16 16-18s10 8 16 4M8 30l4-18 8 4M30 12l8 4"/><circle cx="33" cy="33" r="5"/>'),flag:ic('<path d="M11 6v37M11 8h26l-6 8 6 8H11"/>'),radio:ic('<rect x="12" y="16" width="24" height="27" rx="4"/><path d="M18 16V5M19 24h10M19 31h4M27 31h3"/>'),grid:ic('<path d="M7 9h14v12H7zM27 9h14v12H27zM7 27h14v12H7zM27 27h14v12H27z"/>'),rain:ic('<path d="M14 28a9 9 0 1 1 3-17 11 11 0 0 1 20 6 6 6 0 0 1-2 11zM16 35l-3 7M25 35l-3 7M34 35l-3 7"/>'),car:ic('<path d="M4 33c0-7 5-9 12-10l6-7h12l4 6c5 1 6 5 6 11z"/><circle cx="14" cy="35" r="4"/><circle cx="35" cy="35" r="4"/><path d="M24 9h8"/>'),talk:ic('<path d="M5 9h24v16H16l-7 6v-6H5zM33 18h10v15h-4v6l-7-6H21v-3"/>'),mic:ic('<rect x="18" y="5" width="12" height="22" rx="6"/><path d="M10 22c0 8 6 13 14 13s14-5 14-13M24 35v8M16 43h16"/>'),fan:ic('<path d="M9 42V24l-4-9M39 42V24l4-9M16 42V30c0-5 3-8 8-8s8 3 8 8v12"/><circle cx="24" cy="13" r="6"/>'),rest:ic('<path d="M6 36h36M9 36c0-9 6-15 15-15s15 6 15 15M16 14c-2-3 2-4 0-8M24 14c-2-3 2-4 0-8M32 14c-2-3 2-4 0-8"/>'),kid:ic('<circle cx="24" cy="14" r="8"/><path d="M10 42c0-10 6-15 14-15s14 5 14 15M20 13h.1M28 13h.1M20 17q4 3 8 0"/>'),dine:ic('<path d="M12 5v15M8 5v9c0 4 8 4 8 0V5M12 20v23M34 5c-6 4-6 16 0 18v20"/>'),night:ic('<path d="M38 29A16 16 0 1 1 21 8a13 13 0 0 0 17 21zM34 7v8M30 11h8"/>'),money:ic('<circle cx="24" cy="24" r="17"/><path d="M30 17c-8-5-13 1-13 7s5 12 13 7M13 22h12M13 27h11"/>'),bolt:ic('<path d="M27 4L9 27h13l-3 17 19-25H25z"/>'),brain:ic('<path d="M24 8c-9-4-16 3-13 10-6 4-4 13 2 15 1 8 11 8 11 2zM24 8c9-4 16 3 13 10 6 4 4 13-2 15-1 8-11 8-11 2z"/>')};
+const KTABS=[['office','Büro'],['inbox','Postfach'],['cal','Saison'],['skill','Fähigkeiten'],['staff','Personal'],['shop','Ausstattung'],['rel','Beziehungen'],['rank','Rangliste'],['ach','Erfolge']];
+function kOpen(){if(G)return;if(!K)kLoad();let el=$('kar');if(!el){el=document.createElement('div');el.id='kar';document.body.appendChild(el)}el.classList.remove('hide');kRender()}
+function kHide(){const el=$('kar');if(el)el.classList.add('hide');const p=$('kPop');if(p)p.remove()}
+function kPop(t,h,btn){let p=$('kPop');if(p)p.remove();p=document.createElement('div');p.id='kPop';p.innerHTML=`<div class="kPb"><h3>${t}</h3>${h}<div class="kPa">${btn||'<button class="btn primary" data-kk="pop">Weiter</button>'}</div></div>`;document.body.appendChild(p)}
+function kBar(v,c){return `<div class="kBr"><i style="width:${clamp(v,0,100)}%;background:${c}"></i></div>`}
+function kRender(){
+  const el=$('kar');if(!el||el.classList.contains('hide'))return;const sc=el.querySelector('.kMain'),y=sc?sc.scrollTop:0;
+  if(!K){el.innerHTML=kStartHTML();return}
+  const ev=kOpenEv(),c=kCal(),full=K.phase!=='week'||KVIEW;
+  el.innerHTML=`<header class="kTop"><button class="btn sm" data-kk="exit">◂ Startmenü</button><div class="kWho">${kFace(K.name)}<div><b>${esc(K.name)}</b><span>${esc(kSer().n)} · Saison ${K.season}</span></div></div>
+    <div class="kSt"><div title="Level"><em>LEVEL ${K.lvl}</em>${kBar(K.xp/kNeed()*100,'#14c0ff')}</div><div title="Energie"><em>ENERGIE</em><span class="kEn">${[...Array(Math.max(5,K.en))].map((_,i)=>`<i class="${i<K.en?'on':''}">${KIC.bolt}</i>`).slice(0,6).join('')}</span></div><div title="Stress"><em>STRESS ${Math.round(K.stress)}</em>${kBar(K.stress,K.stress>70?'#ff4d4d':K.stress>40?'#ffb340':'#2fd27a')}</div><div class="kMo"><em>KONTO</em><b class="${K.money<0?'n':''}">${kEur(K.money)}</b></div></div></header>
+   <div class="kBody ${full?'full':''}">${full?'':`<nav class="kNav">${KTABS.map(t=>`<button class="${KTAB===t[0]?'on':''}" data-kt="${t[0]}">${KIC[t[0]]}<span>${t[1]}</span>${t[0]==='inbox'&&ev?`<i>${ev}</i>`:t[0]==='skill'&&K.sp?`<i>${K.sp}</i>`:''}</button>`).join('')}</nav>`}
+   <div class="kMain">${K.phase==='post'?kPostHTML():K.phase==='end'?kEndHTML():KVIEW==='brief'?kBriefHTML():KVIEW==='spec'?kSpecHTML():KH[KTAB]()}</div></div>`;
+  const s2=el.querySelector('.kMain');if(s2)s2.scrollTop=y;
+  el.querySelectorAll('canvas[data-ktr]').forEach(cv=>{try{previewDraw(cv.getContext('2d'),buildTrack(TRACKS[+cv.dataset.ktr]))}catch(_){}});
+}
+/* ---------- Anfang: Figur erstellen ---------- */
+let KNB='driver',KNT2=0;
+function kStartHTML(){const A=window.RCACC,nm=lsGet('rc_name')||(A&&A.name)||'';let old=0;try{const o=JSON.parse(localStorage.getItem('rc_career'));old=clamp(+o.tier||0,0,3)}catch(_){}
+  return `<header class="kTop"><button class="btn sm" data-kk="exit">◂ Startmenü</button></header><div class="kBody full"><div class="kMain"><div class="kNew"><div class="kNewH">${HART.career}<div><small>NEUE KARRIERE</small><h2>Vom Kart-Cup zur Weltbühne</h2><p>Rennen leiten, Intrigen überstehen, Minispiele meistern und bester Rennleiter der Welt werden.</p></div></div>
+   <h4>DEIN NAME</h4><input id="kNm" maxlength="16" value="${esc(nm)}" autocomplete="off">
+   <h4>DEINE VERGANGENHEIT</h4><div class="kBgs">${KBG.map(b=>`<div class="kBg ${KNB===b.id?'on':''}" data-kbg="${b.id}">${kFace(b.id+'x')}<b>${b.n}</b><span>${b.x}</span><em>${Object.values(KPERK).flatMap(p=>p[2]).find(p=>p[0]===b.p)[1]}</em></div>`).join('')}</div>
+   ${old?`<h4>START</h4><div class="kBgs two"><div class="kBg ${KNT2===0?'on':''}" data-ktier="0"><b>Ganz von vorn</b><span>Kart-Cup</span></div><div class="kBg ${KNT2?'on':''}" data-ktier="${old}"><b>Bisherige Klasse übernehmen</b><span>${TIERS[old].n}</span></div></div>`:''}
+   <button class="btn primary kBig" data-kk="new">KARRIERE STARTEN</button></div></div></div>`}
+/* ---------- Seiten ---------- */
+const KH={};
+function kNextCard(){const c=kCal();if(!c)return '';const isR=c.k==='race',m=isR?KMOD[c.m]:KSPEC[c.id],ev=kOpenEv();
+  return `<div class="kNextC ${isR?'':'ev'}">${isR?`<canvas width="300" height="180" data-ktr="${c.tr}"></canvas>`:`<div class="kIcB">${KIC[m.i]}</div>`}<small>WOCHE ${K.wk+1} VON ${K.cal.length}</small><h3>${isR?esc(TRACKS[c.tr].name):m.n}</h3>${isR?`<span class="kTag ${c.m}">${m.n}</span><p>${m.x}</p>`:`<span class="kTag spec">Sonderevent</span><p>${m.x}</p>`}<button class="btn primary kBig" data-kk="go">${ev?`ERST ${ev} NACHRICHT${ev>1?'EN':''}`:isR?'ZUM RENNWOCHENENDE':'ZUM EVENT'}</button></div>`}
+KH.office=()=>`<div class="kOff"><div class="kScene">${kOfficeSVG()}</div>${kNextCard()}</div>
+  <h4 class="kH">DIESE WOCHE <span>Wähle, wofür du deine Energie einsetzt</span></h4><div class="kActs">${K.acts.map((A,i)=>{const a=KACT.find(x=>x.id===A.id);return `<div class="kAct ${A.d?'done':K.en<a.c?'off':''} ${a.g?'gm':''}" data-kact="${i}"><span>${KIC[a.i]}</span><div><b>${a.n}</b><i>${a.x}</i></div><em>${A.d?'✓':a.c?KIC.bolt.repeat(a.c):'frei'}</em></div>`}).join('')}</div>
+  <div class="kTwo"><div class="kCard"><h4>SAISONZIELE</h4>${K.obj.map(id=>{const o=KOBJ.find(x=>x.id===id),ok=o.ok(K);return `<div class="kObj ${ok?'ok':''}"><i>${ok?'✓':''}</i><span>${o.t(K)}</span><b>${o.v(K)}</b></div>`}).join('')}</div>
+  <div class="kCard"><h4>SCHLAGZEILEN</h4>${K.news.slice(0,3).map(n=>`<div class="kNl"><b>${esc(n.h)}</b><span>${esc(n.s)} · Bewertung ${n.r}</span></div>`).join('')||'<p class="mut">Noch schreibt niemand über dich.</p>'}</div></div>`;
+KH.inbox=()=>`<h4 class="kH">POSTFACH</h4><div class="kIn">${K.inbox.map((m,i)=>[m,i]).reverse().map(([m,i])=>{if(m.mail)return `<div class="kMl info">${kFace(m.f)}<div><small>${esc(m.f)}</small><b>${esc(m.t)}</b><p>${esc(m.x)}</p></div></div>`;const e=KEV.find(x=>x.id===m.id);if(!e)return '';const f=kFill(e.f,m.v),x=e.x==='RND'?'Die Rollerskate-Firma legt ihre Zahlen vor.':kFill(e.x,m.v);
+   return `<div class="kMl ${m.d?'done':'new'}">${kFace(f)}<div><small>${f}</small><b>${kFill(e.t,m.v)}</b><p>${x}</p>${m.d?`<div class="kAns"><em>${e.o[m.a][0]}</em>${m.r}</div>`:`<div class="kOp">${e.o.map((o,j)=>`<button class="btn" data-kans="${i}:${j}">${o[0]}</button>`).join('')}</div>`}</div></div>`}).join('')||'<p class="mut">Keine Nachrichten.</p>'}</div>`;
+KH.cal=()=>{let ri=0;return `<h4 class="kH">SAISON ${K.season} · ${esc(kSer().n.toUpperCase())}</h4><div class="kCal">${K.cal.map((c,i)=>{const isR=c.k==='race',r=isR?K.ss.ratings[ri++]:null;return `<div class="kCw ${i<K.wk?'done':i===K.wk?'cur':''} ${isR?'':'ev'}"><small>${i+1}</small>${isR?`<canvas width="150" height="92" data-ktr="${c.tr}"></canvas>`:`<div class="kIcB">${KIC[KSPEC[c.id].i]}</div>`}<b>${isR?esc(TRACKS[c.tr].name.replace(/^GP von /,'')):KSPEC[c.id].n}</b><span>${isR?KMOD[c.m].n:'Sonderevent'}</span>${r!=null?`<em style="color:${colFor(r)}">${r}</em>`:''}</div>`}).join('')}</div>
+  <div class="kTwo"><div class="kCard"><h4>FAHRERWERTUNG</h4>${Object.entries(K.champ).sort((a,b)=>b[1]-a[1]).slice(0,8).map((x,i)=>`<div class="kRw"><i>${i+1}</i><span>${esc(x[0])}</span><b>${x[1]}</b></div>`).join('')||'<p class="mut">Noch kein Rennen gefahren.</p>'}</div><div class="kCard"><h4>VERTRAG</h4><div class="kRw"><span>Serie</span><b>${esc(kSer().n)}</b></div><div class="kRw"><span>Besonderheit</span><b>${kSer().x}</b></div><div class="kRw"><span>Gehalt pro Woche</span><b>${kEur(K.pay)}</b></div><div class="kRw"><span>Personalkosten</span><b>${kEur(kWages())}</b></div><div class="kRw"><span>Saisonschnitt</span><b>${kAvg()??'–'}</b></div><div class="kRw"><span>Aufstieg etwa ab</span><b>${K.tier<3?'Ø '+(TIERS[K.tier].promote+3):'–'}</b></div></div></div>`};
+KH.skill=()=>`<h4 class="kH">FÄHIGKEITEN <span>${K.sp} Punkt${K.sp===1?'':'e'} frei</span></h4><div class="kSk">${Object.entries(KPERK).map(([k,p])=>`<div class="kSkC" style="--c:${p[1]}"><h4>${p[0].toUpperCase()}</h4>${p[2].map((q,i)=>{const h=kHas(q[0]),can=!h&&K.sp>0&&(i===0||kHas(p[2][i-1][0])||K.perks.includes(q[0]));return `<div class="kPk ${h?'on':can?'can':'lock'}" ${can?`data-kperk="${q[0]}"`:''}><b>${q[1]}</b><span>${q[2]}</span></div>`}).join('')}</div>`).join('')}</div>`;
+KH.staff=()=>`<h4 class="kH">PERSONAL <span>Kosten pro Woche: ${kEur(kWages())}</span></h4><div class="kStf">${Object.entries(KSTAFF).map(([r,s])=>{const l=kStaff(r),p=K.staff[r],cost=[900,2200,4800][l]*(1+K.tier*.25);return `<div class="kCard kS1">${p?kFace(p.n):`<div class="kIcB">${KIC.staff}</div>`}<div><b>${s[0]}</b><span>${p?esc(p.n):'Nicht besetzt'}</span><i>${s[1]}</i><div class="kStars">${[1,2,3].map(x=>`<u class="${x<=l?'on':''}"></u>`).join('')}</div></div><div class="kSb">${l<3?`<button class="btn sm ${K.money>=cost?'primary':''}" data-khire="${r}" ${K.money<cost?'disabled':''}>${l?'Fördern':'Einstellen'} · ${kEur(cost)}</button>`:'<span class="kTag">Spitze</span>'}${p?`<button class="btn sm" data-kfire="${r}">Entlassen</button>`:''}</div></div>`}).join('')}</div>`;
+KH.shop=()=>`<h4 class="kH">AUSSTATTUNG <span>Alles landet sichtbar in deinem Büro</span></h4><div class="kShp">${KITEM.map(i=>{const h=kItem(i[0]);return `<div class="kIt ${h?'on':''}"><div class="kItS">${KIS[i[0]]}</div><b>${i[1]}</b><span>${i[3]}</span>${h?'<em>Gekauft</em>':`<button class="btn sm ${K.money>=i[2]?'primary':''}" data-kbuy="${i[0]}" ${K.money<i[2]?'disabled':''}>${kEur(i[2])}</button>`}</div>`}).join('')}</div>`;
+KH.rel=()=>`<h4 class="kH">BEZIEHUNGEN</h4><div class="kRel">${Object.entries(KREL).map(([k,r])=>`<div class="kCard" style="--c:${r[1]}"><div class="kRn"><b>${r[0]}</b><em>${Math.round(K.rel[k])}</em></div>${kBar(K.rel[k],r[1])}<span>${{ve:'Entscheidet über deinen Vertrag. Bei 0 wirst du freigestellt.',te:'Bestimmt die Teamstimmung beim Start.',me:'Öffnet Türen zu anderen Serien.',fa:'Mehr Spannung beim Start.',po:'Mehr Sicherheit beim Start.'}[k]}</span></div>`).join('')}</div>
+  <h4 class="kH">DEIN KONKURRENT</h4><div class="kCard kRvC">${kFace(K.riv[K.main].n)}<div><b>${esc(K.riv[K.main].n)}</b><span>${K.riv[K.main].x}</span><p>${K.riv[K.main].p>K.rp?`Liegt ${K.riv[K.main].p-K.rp} Punkte vor dir.`:K.riv[K.main].p<K.rp?`Liegt ${K.rp-K.riv[K.main].p} Punkte hinter dir.`:'Ihr seid gleichauf.'}</p></div></div>`;
+KH.rank=()=>`<h4 class="kH">RENNLEITER-RANGLISTE <span>Punkte nach jedem Rennen und Event</span></h4><div class="kCard">${kTable().map((x,i)=>`<div class="kRw big ${x.me?'me':''}"><i>${i+1}</i>${kFace(x.n)}<span>${esc(x.n)}<small>${esc(x.x)}</small></span><u>${x.r!=null?'zuletzt '+x.r:''}</u><b>${x.p}</b></div>`).join('')}</div>
+  ${K.hist.length?`<h4 class="kH">DEINE LAUFBAHN</h4><div class="kCard">${K.hist.slice().reverse().map(h=>`<div class="kRw"><i>${h.y}</i><span>${esc(h.n)}<small>Meister: ${esc(h.champ||'–')}</small></span><u>Ø ${h.avg} · Ziele ${h.obj}/3</u><b>P${h.rank}</b></div>`).join('')}</div>`:''}`;
+KH.ach=()=>`<h4 class="kH">ERFOLGE <span>${K.ach.length} von ${KACH.length}</span></h4><div class="kAch">${KACH.map(a=>`<div class="${K.ach.includes(a[0])?'on':''}"><span>${KIC.ach}</span><div><b>${a[1]}</b><i>${a[2]}</i></div></div>`).join('')}</div>
+  <h4 class="kH">TROPHÄEN</h4><div class="kTro">${K.trophies.map(t=>`<div>${HART.career}<b>${esc(t.n)}</b><span>Saison ${t.y}</span></div>`).join('')||'<p class="mut">Noch leer. Gewinne Events oder werde Rennleiter des Jahres.</p>'}</div>
+  <div class="kRst"><button class="btn sm" data-kk="reset">Karriere neu beginnen</button></div>`;
+/* ---------- Rennwochenende ---------- */
+function kBriefHTML(){const c=kCal(),m=KMOD[c.m],n=kHas('auth4')?2:1,B=K.brief,s=kSer(),met=kStaff('met');
+  return `<div class="kBrf"><div class="kBh"><canvas width="360" height="220" data-ktr="${c.tr}"></canvas><div><small>RENNWOCHENENDE</small><h2>${esc(TRACKS[c.tr].name)}</h2><span class="kTag ${c.m}">${m.n}</span><p>${m.x}</p>${met?`<p class="mut sm">Meteorologin: ${m.wx||K.nx.wx?{rain:'Regen sicher.',mixed:'Wechselhaft.',dry:'Trocken.'}[m.wx||K.nx.wx]:s.wx?'Feuchte Luft, eher nass.':'Vermutlich trocken, Restrisiko.'}</p>`:''}${Object.keys(K.nx).length?`<p class="kNx">${kNxTxt(K.nx)}</p>`:''}</div></div>
+   <h4 class="kH">AUFTRÄGE</h4><div class="kTk">${B.tasks.map(id=>`<div><i></i>${KTASK.find(t=>t.id===id).t}</div>`).join('')}</div>
+   <h4 class="kH">DEINE ANSAGE AN DIE FAHRER <span>Wähle ${n}</span></h4><div class="kBc">${B.cards.map(id=>{const b=KBRIEF.find(x=>x.id===id);return `<div class="${B.sel.includes(id)?'on':''}" data-kbr="${id}"><b>${b.n}</b><i>${b.x}</i><span>${b.d}</span></div>`}).join('')}</div>
+   <div class="kBa"><button class="btn" data-kk="back">Zurück ins Büro</button><button class="btn primary kBig" data-kk="race" ${B.sel.length?'':'disabled'}>RENNEN LEITEN</button></div></div>`}
+function kSpecHTML(){const s=KSPEC[kCal().id];return `<div class="kBrf kSpc"><div class="kIcB xl">${KIC[s.i]}</div><small>SONDEREVENT</small><h2>${s.n}</h2><p>${s.x}</p><div class="kSeq">${(s.seq||[s.g]).map(g=>`<span>${KGN[g][0]}</span>`).join('<i>›</i>')}</div><div class="kBa"><button class="btn" data-kk="back">Zurück ins Büro</button><button class="btn primary kBig" data-kk="spec">ANTRETEN</button></div></div>`}
+function kPostHTML(){const P=K.pend;if(!P)return '<div class="kBa"><button class="btn primary kBig" data-kk="next">WEITER</button></div>';
+  if(P.spec)return `<div class="kBrf kSpc"><small>${P.n.toUpperCase()}</small><div class="kMd xl ${P.p===1?'g':P.p===2?'s':P.p===3?'b':'n'}">P${P.p}</div><div class="kCard" style="width:min(460px,100%);text-align:left">${P.T.map((x,i)=>`<div class="kRw ${x.me?'me':''}"><i>${i+1}</i><span>${esc(x.n)}</span><b>${x.s}</b></div>`).join('')}</div>${kChips(P.chips)}<div class="kBa"><button class="btn primary kBig" data-kk="next">NÄCHSTE WOCHE</button></div></div>`;
+  return `<div class="kPst"><div class="kPaper"><div class="kPh"><b>DER BOXENBOTE</b><span>Saison ${K.season} · ${esc(P.S)}</span></div><h1>${esc(P.head)}</h1><div class="kPi ${P.key}">${kPaperArt(P.key)}</div><p>${esc(P.win||'–')} gewinnt in ${esc(P.S)}. ${P.dnf?`${P.dnf} Auto${P.dnf>1?'s':''} sehen das Ziel nicht.`:'Alle Autos kommen ins Ziel.'} Die Rennleitung traf ${P.dec} Entscheidung${P.dec===1?'':'en'}${P.dec?`, davon ${P.ex} exakt richtig`:''}. ${P.day===1?`Kein Kollege war an diesem Wochenende besser als ${esc(K.name)}.`:`Im Vergleich der Rennleiter reicht es für Platz ${P.day}.`}${P.bet!=null?(P.bet?` Die Wette ist gewonnen: ${esc(K.riv[K.main].n)} trägt morgen dein Trikot.`:` Die Wette ist verloren: ${esc(K.name)} trägt morgen das Trikot der Konkurrenz.`):''}</p></div>
+   <div class="kPr"><div class="kRate" style="--c:${colFor(P.rating)}"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="52" style="stroke-dasharray:${P.rating*3.267} 400"/></svg><b>${P.rating}</b></div>
+    <div class="kCard">${P.parts.map(p=>`<div class="kRw"><span>${p[0]}</span><b>${p[1]>0&&p[0]!=='Grundwert'?'+':''}${p[1]}</b></div>`).join('')}${['Gerechtigkeit','Sicherheit','Spannung','Teams'].map((t,i)=>`<div class="kRw sm"><span>${t}</span><b>${P.m[i]}</b></div>`).join('')}</div>
+    <div class="kTk">${P.tk.map(t=>`<div class="${t.ok?'ok':'no'}"><i>${t.ok?'✓':'✗'}</i>${t.t}</div>`).join('')}</div>${kChips(P.chips)}
+    <div class="kBa"><button class="btn ${P.press?'':'warn'}" data-kk="press" ${P.press?'disabled':''}>${P.press?'Pressekonferenz vorbei':'Zur Pressekonferenz'}</button><button class="btn primary kBig" data-kk="next">NÄCHSTE WOCHE</button></div></div></div>`}
+function kEndHTML(){const E=K.end;return `<div class="kGala"><div class="kGh">${HART.career}<small>${E.sacked?'FREIGESTELLT':'GALA-NACHT'}</small><h2>${E.sacked?'Der Verband trennt sich von dir':E.rank===1?'Rennleiter des Jahres!':`Saison ${K.season}: Platz ${E.rank}`}</h2><p>Schnitt ${E.avg} · ${E.n} von 3 Zielen${E.champ[0]?` · Meister: ${esc(E.champ[0][0])}`:''}</p>${kChips(E.chips)}</div>
+  <div class="kTwo"><div class="kCard"><h4>SAISONZIELE</h4>${E.obj.map(o=>`<div class="kObj ${o.ok?'ok':''}"><i>${o.ok?'✓':'✗'}</i><span>${o.t}</span><b>${o.v}</b></div>`).join('')}</div><div class="kCard"><h4>RANGLISTE</h4>${E.table.map((x,i)=>`<div class="kRw ${x.me?'me':''}"><i>${i+1}</i><span>${esc(x.n)}</span><b>${x.p}</b></div>`).join('')}</div></div>
+  <h4 class="kH">DEINE ANGEBOTE</h4><div class="kOffs">${E.off.map((o,i)=>`<div class="kOf ${o.tag}" data-ksign="${i}"><em>${o.tag}</em><b>${esc(o.n)}</b><span>${o.x}</span><i>${TIERS[o.t].season+1} Rennen</i><u>${kEur(o.pay)} / Woche</u><button class="btn primary">Unterschreiben</button></div>`).join('')}</div></div>`}
+/* ---------- Bilder ---------- */
+const KIS={coffee:'<svg viewBox="0 0 60 60"><rect x="14" y="10" width="32" height="40" rx="5" fill="#c9d1da"/><rect x="19" y="16" width="22" height="10" fill="#27313d"/><path d="M24 34h12v8c0 4-12 4-12 0z" fill="#fff"/><circle cx="22" cy="30" r="2" fill="#e10600"/></svg>',plant:'<svg viewBox="0 0 60 60"><path d="M30 36C14 34 10 18 12 10c10 2 18 10 18 26 0-18 8-26 18-28 2 12-4 26-18 28z" fill="#2fd27a"/><path d="M20 38h20l-4 16H24z" fill="#b5652c"/></svg>',sofa:'<svg viewBox="0 0 60 60"><rect x="6" y="24" width="48" height="18" rx="6" fill="#7a3b2a"/><rect x="12" y="16" width="36" height="16" rx="6" fill="#9b4c36"/><path d="M12 42v6M48 42v6" stroke="#3b241a" stroke-width="4"/></svg>',wall:'<svg viewBox="0 0 60 60"><g fill="#0f2236" stroke="#14a8ff" stroke-width="2"><rect x="6" y="10" width="22" height="16"/><rect x="32" y="10" width="22" height="16"/><rect x="6" y="30" width="22" height="16"/><rect x="32" y="30" width="22" height="16"/></g><path d="M10 22l6-6 5 4 4-5M36 42l5-8 4 5 5-6" stroke="#3ddc84" stroke-width="2" fill="none"/></svg>',dog:'<svg viewBox="0 0 60 60"><path d="M14 30c0-8 6-12 16-12s16 4 16 12v14H14z" fill="#b98548"/><circle cx="30" cy="20" r="11" fill="#c9955a"/><path d="M19 14l-5 12 8-3zM41 14l5 12-8-3z" fill="#8a5c2c"/><circle cx="26" cy="19" r="2"/><circle cx="34" cy="19" r="2"/><ellipse cx="30" cy="25" rx="3.500" ry="2.500"/><path d="M46 36c8-2 8-10 6-12" stroke="#b98548" stroke-width="4" fill="none"/></svg>',sim:'<svg viewBox="0 0 60 60"><rect x="22" y="8" width="32" height="20" rx="3" fill="#0f2236" stroke="#ff9f0a" stroke-width="2"/><path d="M8 50l6-24h8l2 16h14v8z" fill="#e10600"/><circle cx="32" cy="34" r="6" fill="none" stroke="#20252c" stroke-width="3"/></svg>',radio:'<svg viewBox="0 0 60 60"><rect x="8" y="18" width="44" height="30" rx="5" fill="#7a4a20"/><circle cx="22" cy="33" r="8" fill="#e9c98f"/><rect x="36" y="24" width="12" height="6" fill="#ffd34d"/><path d="M40 18l8-12" stroke="#c9d1da" stroke-width="3"/></svg>',shelf:'<svg viewBox="0 0 60 60"><path d="M6 24h48M6 46h48" stroke="#8a5a2b" stroke-width="5"/><path d="M14 10h10v6c0 4-10 4-10 0zM34 32h10v6c0 4-10 4-10 0z" fill="#ffb340"/><path d="M19 16v6M39 38v6" stroke="#ffb340" stroke-width="3"/></svg>',art:'<svg viewBox="0 0 60 60"><rect x="12" y="6" width="36" height="48" fill="#f2e6cf" stroke="#8a5a2b" stroke-width="3"/><path d="M16 38c4-8 10-10 14-10s10 2 14 10z" fill="#e10600"/><circle cx="22" cy="40" r="4"/><circle cx="38" cy="40" r="4"/><path d="M18 16h24" stroke="#1b3a5c" stroke-width="4"/></svg>',fish:'<svg viewBox="0 0 60 60"><rect x="6" y="14" width="48" height="32" rx="4" fill="#1673b0"/><path d="M18 30c6-7 14-7 18 0-4 7-12 7-18 0l-6-5v10z" fill="#ff9f0a"/><circle cx="44" cy="22" r="2" fill="#fff"/><circle cx="46" cy="30" r="1.500" fill="#fff"/></svg>',bell:'<svg viewBox="0 0 60 60"><path d="M14 42c6-4 4-24 16-26 12 2 10 22 16 26z" fill="#ffb340"/><circle cx="30" cy="47" r="4" fill="#b8620c"/><path d="M30 16v-6" stroke="#b8620c" stroke-width="4"/></svg>',old:'<svg viewBox="0 0 60 60"><path d="M4 38c2-8 8-9 14-10l6-9h16l7 9c6 1 9 4 9 10z" fill="#1d6b4a"/><path d="M22 27l4-6h6v6zM34 21h5l5 6H34z" fill="#cfe9ff"/><circle cx="17" cy="40" r="7"/><circle cx="45" cy="40" r="7"/><circle cx="17" cy="40" r="3" fill="#ccc"/><circle cx="45" cy="40" r="3" fill="#ccc"/></svg>',boat:'<svg viewBox="0 0 60 60"><path d="M0 44q8-5 15 0t15 0 15 0 15 0v16H0z" fill="#1673b0"/><path d="M8 34h44l-7 12H15z" fill="#e10600"/><rect x="18" y="20" width="24" height="14" fill="#f2e6cf"/><path d="M14 20h32l-4-6H18z" fill="#7a4a20"/></svg>',fund:'<svg viewBox="0 0 60 60"><path d="M30 50S8 37 8 22c0-7 5-11 11-11 5 0 9 3 11 8 2-5 6-8 11-8 6 0 11 4 11 11 0 15-22 28-22 28z" fill="#ff5fa2"/><path d="M22 28h16M30 20v16" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg>',trk:'<svg viewBox="0 0 60 60"><rect width="60" height="60" rx="8" fill="#2a5a38"/><path d="M14 40c-6-12 4-24 16-20 8 3 10-6 18-2 8 6 4 22-6 24-10 1-20 8-28-2z" fill="none" stroke="#39414a" stroke-width="9"/><path d="M14 40c-6-12 4-24 16-20 8 3 10-6 18-2 8 6 4 22-6 24-10 1-20 8-28-2z" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="4 4"/></svg>',safe:'<svg viewBox="0 0 60 60"><rect x="14" y="6" width="32" height="48" rx="3" fill="#6f7d8c"/><path d="M14 22h32M14 38h32" stroke="#3a4550" stroke-width="3"/><path d="M26 14h8M26 30h8M26 46h8" stroke="#e6edf5" stroke-width="3"/></svg>'};
+function kOfficeSVG(){
+  const sky=[['#7fb7e8','#dff0ff'],['#f3a25c','#ffe0b0'],['#33497a','#8a6fb0'],['#0b1030','#31206b']][K.tier],h=id=>kItem(id),put=(id,x,y,s)=>h(id)?`<g transform="translate(${x} ${y}) scale(${s})">${KIS[id].replace(/<svg[^>]*>|<\/svg>/g,'')}</g>`:'';
+  const city=[...Array(14)].map((_,i)=>{const hh=20+((i*37)%50)+K.tier*14;return `<rect x="${250+i*26}" y="${190-hh}" width="22" height="${hh}" fill="rgba(10,16,30,${.35+K.tier*.12})"/>${K.tier>1?`<rect x="${255+i*26}" y="${196-hh}" width="4" height="4" fill="#ffd97a"/><rect x="${263+i*26}" y="${206-hh}" width="4" height="4" fill="#ffd97a"/>`:''}`}).join('');
+  return `<svg viewBox="0 0 860 420" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="kSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${sky[0]}"/><stop offset="1" stop-color="${sky[1]}"/></linearGradient><clipPath id="kWin"><rect x="250" y="50" width="360" height="170" rx="6"/></clipPath></defs>
+   <rect width="860" height="420" fill="#1b2636"/><rect y="300" width="860" height="120" fill="#2b2119"/><path d="M0 300h860" stroke="#0e1520" stroke-width="6"/>
+   <g clip-path="url(#kWin)"><rect x="250" y="50" width="360" height="170" fill="url(#kSky)"/>${city}<path d="M250 220c60-40 120 0 180-26s120-6 180-20v60H250z" fill="#2a5a38"/><path class="kRoad" d="M262 214c50-22 110 0 170-18s120-4 170-16" fill="none" stroke="#40474f" stroke-width="9"/><path d="M262 214c50-22 110 0 170-18s120-4 170-16" fill="none" stroke="#fff" stroke-width="1.200" stroke-dasharray="8 8"/></g><rect x="250" y="50" width="360" height="170" rx="6" fill="none" stroke="#c9a06a" stroke-width="9"/><path d="M430 50v170" stroke="#c9a06a" stroke-width="6"/>
+   ${h('art')?put('art',70,60,2.1):'<rect x="90" y="80" width="90" height="70" fill="#141d2a" stroke="#31415a" stroke-width="4"/>'}${put('wall',640,40,2.6)}${put('shelf',640,190,2.1)}${h('shelf')?K.trophies.slice(0,3).map((t,i)=>`<circle cx="${665+i*28}" cy="${222}" r="6" fill="#ffd34d"/>`).join(''):''}${put('safe',20,190,2.2)}${put('plant',165,220,1.700)}${put('fish',780,196,1.200)}
+   <path d="M270 300h330l26 70H244z" fill="#6b4526"/><rect x="244" y="366" width="382" height="14" fill="#4b2f18"/><path d="M270 380v40M600 380v40" stroke="#4b2f18" stroke-width="12"/>
+   <rect x="382" y="236" width="104" height="62" rx="6" fill="#0c1420" stroke="#31415a" stroke-width="5"/><path class="kScr" d="M394 282l16-22 14 12 18-26 14 20 18-10" fill="none" stroke="#3ddc84" stroke-width="3.500"/><path d="M434 298v14M410 314h48" stroke="#31415a" stroke-width="7"/>
+   <g transform="translate(300 268)"><rect width="46" height="30" rx="3" fill="#e9edf2"/><path d="M6 9h30M6 16h34M6 23h20" stroke="#98a4b1" stroke-width="2.500"/></g>${kOpenEv()?`<g class="kPing"><circle cx="352" cy="266" r="13" fill="#e10600"/><text x="352" y="271" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">${kOpenEv()}</text></g>`:''}
+   ${put('coffee',520,238,1.150)}${put('radio',612,318,1)}${put('bell',566,236,.800)}${put('sofa',30,296,2.300)}${put('sim',715,296,2.050)}${put('dog',188,318,1.500)}</svg>`}
+function kPaperArt(k){const c={top:'#2fd27a',ok:'#58c6ff',bad:'#ffb340',fail:'#ff4d4d',safe:'#3ddc84',show:'#b388ff',red:'#ff3b30',win:'#ffd34d'}[k]||'#58c6ff';
+  return `<svg viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice"><rect width="400" height="150" fill="#cfc8b8"/><path d="M0 120c80-40 160 10 240-20s120-10 160-30v80H0z" fill="#a89f8c"/><path d="M-10 138c90-40 170 0 250-24s120-6 170-26" fill="none" stroke="#5d574c" stroke-width="20"/><path d="M-10 138c90-40 170 0 250-24s120-6 170-26" fill="none" stroke="#e9e3d5" stroke-width="2" stroke-dasharray="12 10"/>${k==='fail'||k==='red'?'<g fill="#3a352d" opacity=".75"><circle cx="230" cy="70" r="26"/><circle cx="255" cy="50" r="30"/><circle cx="285" cy="62" r="24"/></g>':''}<g transform="translate(205 92) rotate(-8)"><path d="M0 8h30l34 4v7l-34 4H0z" fill="${c}"/><rect x="4" y="0" width="16" height="7" fill="#222"/><rect x="4" y="24" width="16" height="7" fill="#222"/><rect x="42" y="0" width="14" height="7" fill="#222"/><rect x="42" y="24" width="14" height="7" fill="#222"/></g></svg>`}
+/* ---------- Eingaben ---------- */
+document.addEventListener('click',e=>{
+  const q=e.target&&e.target.closest&&e.target.closest('[data-kk],[data-kt],[data-kact],[data-kans],[data-kperk],[data-khire],[data-kfire],[data-kbuy],[data-kbr],[data-ksign],[data-kbg],[data-ktier]');if(!q||q.disabled)return;const d=q.dataset;
+  e.preventDefault();e.stopPropagation();
+  if(d.kk){const a=d.kk;if(a==='pop'){const p=$('kPop');if(p)p.remove();kRender()}else if(a==='exit'){kHide();lMonitors()}else if(a==='leave')toMenu();else if(a==='go')kGo();else if(a==='back'){KVIEW=null;kRender()}else if(a==='race')kRace();else if(a==='spec')kSpecial();else if(a==='press')kPress();else if(a==='next')kNext();
+    else if(a==='new'){const n=($('kNm').value||'').replace(/[<>&"'`]/g,'').trim().slice(0,16);if(n.length<2){kToast('Bitte einen Namen eingeben.','n');return}if(modCheck(n)){VIO.ctx={kind:'name',val:n};modWarn('Der Name „'+esc(n)+'“');return}kNew(n,KNB,KNT2);KTAB='office';KVIEW=null;kMail('Verband','Willkommen im Amt',`Glückwunsch, ${n}! Du leitest ab sofort Rennen im ${kSer().n}. Dein größter Konkurrent heißt ${K.riv[K.main].n}, „${K.riv[K.main].x}“. Schau ins Postfach, nutze deine Energie und dann ab zum ersten Rennen.`);kSave();kRender()}
+    else if(a==='reset'){kPop('Karriere neu beginnen?','<p>Dein gesamter Fortschritt in dieser Karriere geht verloren.</p>','<button class="btn" data-kk="pop">Abbrechen</button><button class="btn danger" data-kk="reset2">Ja, alles löschen</button>')}
+    else if(a==='reset2'){localStorage.removeItem('rc_car5');K=null;KVIEW=null;const p=$('kPop');if(p)p.remove();kRender()}return}
+  if(d.kt){KTAB=d.kt;kRender();const m=document.querySelector('#kar .kMain');if(m)m.scrollTop=0;return}
+  if(d.kact!=null){kAct(+d.kact);return}
+  if(d.kans){const [i,j]=d.kans.split(':');kAnswer(+i,+j);return}
+  if(d.kperk){if(K.sp>0&&!kHas(d.kperk)){K.sp--;K.perks.push(d.kperk);kAch();kSave();kSnd(true);kRender()}return}
+  if(d.khire){const l=kStaff(d.khire),c=[900,2200,4800][l]*(1+K.tier*.25);if(K.money>=c&&l<3){K.money-=c;K.staff[d.khire]=K.staff[d.khire]||{n:kPick(KNAMES.filter(n=>!Object.values(K.staff).some(s=>s.n===n))),l:0};K.staff[d.khire].l++;kSave();kSnd(true);kRender()}return}
+  if(d.kfire){delete K.staff[d.kfire];kSave();kRender();return}
+  if(d.kbuy){const i=KITEM.find(x=>x[0]===d.kbuy);if(i&&K.money>=i[2]&&!kItem(i[0])){K.money-=i[2];K.items.push(i[0]);kAch();kSave();kSnd(true);kRender()}return}
+  if(d.kbr){const s=K.brief.sel,n=kHas('auth4')?2:1,k=s.indexOf(d.kbr);if(k>=0)s.splice(k,1);else{if(s.length>=n)s.shift();s.push(d.kbr)}kSave();kRender();return}
+  if(d.ksign!=null){kSign(+d.ksign);return}
+  if(d.kbg){KNB=d.kbg;const v=$('kNm').value;kRender();$('kNm').value=v;return}
+  if(d.ktier!=null){KNT2=+d.ktier;const v=$('kNm').value;kRender();$('kNm').value=v}
+},true);
+/* ---------- Anbindung ans Spiel ---------- */
+{const ha=homeAct;homeAct=function(a){if(a==='career'){if(NET.role)netLeave();try{actx()}catch(_){}kOpen();return}return ha(a)}}
+{const lm=lMonitors;lMonitors=function(){const r=lm.apply(this,arguments);if(!K)kLoad();const el=$('monCareer'),b=$('monBest');if(el&&K){const c=kCal();el.innerHTML=`<div class="big">${esc(kSer().n.toUpperCase())}</div><div>Saison ${K.season} · ${K.phase==='end'?'Saisonende':`Woche ${Math.min(K.wk+1,K.cal.length)} von ${K.cal.length}`}</div>`;if(b)b.textContent=K.st.races?`Level ${K.lvl} · P${kRank()} der Rennleiter`:'Dein erstes Rennen wartet'}else if(el){el.innerHTML='<div class="big">NEU</div><div>Dein Weg zur Weltbühne</div>';if(b)b.textContent=''}return r}}
+{const ra=rcAct;rcAct=function(a){if(a==='tut2car'){if(G)toMenu();kOpen();return}return ra(a)}}
+document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;const p=$('kPop');if(p){e.stopPropagation();p.remove();kRender()}},true);
+
 if(JOIN_CODE){const sg=document.querySelector('.seg[data-k="net"]');if(sg)sg.querySelectorAll('span').forEach(x=>x.classList.toggle('on',x.dataset.v==='mp'))}
 initMenu();
 if(JOIN_CODE)setTimeout(()=>{const n=$('mpName');if(n){n.focus();n.placeholder='Dein Name – dann „Beitreten“'}},50);
@@ -8964,7 +9620,7 @@ Object.assign(LA,{'Karte':'Tabula','Tempo':'Celeritas','Ton':'Sonus','MOBILE ANS
    ===================================================================== */
 (function(){
 const FB_CFG=window.RC_FIREBASE||null;            // wird beim Bauen eingesetzt
-const FB_V='10.12.2',SYNC_KEYS=['rc_settings','rc_tracks','rc_career','rc_name','rc_fb_name','rc_warn','rc_lb'];
+const FB_V='10.12.2',SYNC_KEYS=['rc_settings','rc_tracks','rc_career','rc_name','rc_fb_name','rc_warn','rc_lb','rc_car5'];
 const PSEUDO=n=>n.toLowerCase()+'@player.race-control.invalid';
 const ACC={user:null,name:null,db:null,auth:null,last:'',ready:false};window.RCACC=ACC;
 const t=s=>(typeof tl==='function'?tl(s):s);
@@ -9276,7 +9932,7 @@ setInterval(()=>{
 },1500);
 /* ---------- Spiel-Ereignisse ---------- */
 function modeOf(o){
-  if(G&&G.scRace)return 'vortag_sc_rennen';if(G&&G.scSolo)return 'vortag_sc_test';if(G&&G.cruise)return 'vortag_zuschauen';
+  if(G&&G.opts&&G.opts.k5)return 'karriere';if(G&&G.scRace)return 'vortag_sc_rennen';if(G&&G.scSolo)return 'vortag_sc_test';if(G&&G.cruise)return 'vortag_zuschauen';
   if(o&&(o.tut||o.tut2))return 'tutorial';if(o&&o.career)return 'karriere';
   if(G&&G.mp)return NET.role==='host'?'mehrspieler_host':'mehrspieler_gast';
   if(typeof SEASON!=='undefined'&&SEASON)return 'saison';return 'einzelrennen';

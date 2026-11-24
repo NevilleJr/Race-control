@@ -6102,7 +6102,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='42.0';
+const GAMEVER='42.1';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -6882,13 +6882,10 @@ if(IS_BETA){const l=document.querySelector('#menu .lhead .logo');if(l&&!l.queryS
    RACE CONTROL 35 – Karriere 3.0, Klassen mit eigenen Autos/Strecken,
    scrollbare Meldungen/Vorfälle
    ===================================================================== */
-/* ---------- Klassen: Strecken kürzer/enger, eigene Fahrzeuge ---------- */
-const TIER_TRK=[{f:.36,w:44,lbl:'Kartbahn'},{f:.62,w:58,lbl:'Kurzanbindung'},{f:.85,w:66,lbl:'Grand-Prix-Kurs'},{f:1,w:null,lbl:'Grand-Prix-Kurs'}];
-function tierTrack(def,tier){
-  if(tier==null||!TIER_TRK[tier]||tier===3)return def;const k=TIER_TRK[tier];
-  return Object.assign({},def,{km:+(def.km*k.f).toFixed(3),w:Math.min(def.w||84,k.w),street:tier===0?false:def.street});
-}
-function tierKm(i,tier){const d=TRACKS[i];return d?(tier!=null&&TIER_TRK[tier]&&tier<3?d.km*TIER_TRK[tier].f:d.km):0}
+/* ---------- Klassen: eigene Fahrzeuge, gleiche Strecken ---------- */
+const TIER_TRK=[{f:.36,w:44,lbl:'Grand-Prix-Kurs'},{f:.62,w:58,lbl:'Grand-Prix-Kurs'},{f:.85,w:66,lbl:'Grand-Prix-Kurs'},{f:1,w:null,lbl:'Grand-Prix-Kurs'}];
+function tierTrack(def){return def}                      // alle Klassen fahren auf den normalen Grand-Prix-Strecken
+function tierKm(i){const d=TRACKS[i];return d?d.km:0}
 /* Kart: offener Rahmen, dicke Räder, Fahrer sitzt mittig */
 function drawKart(c,d,l,o){
   ctx.fillStyle='rgba(0,0,0,.3)';ctx.fillRect(-10,-6,22,13);
