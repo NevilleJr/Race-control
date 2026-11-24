@@ -29,6 +29,9 @@ input[type=search]{background:#04080e;border:1px solid var(--line);border-radius
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:12px}
 .tr{background:var(--card2);border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden;cursor:pointer;transition:border-color .15s,transform .15s}
 .tr:hover{border-color:var(--acc);transform:translateY(-2px)}
+.bRow{display:flex;align-items:center;gap:12px;padding:9px 4px;border-top:1px solid rgba(255,255,255,.05)}.bRow .av{width:32px;height:32px;font-size:15px}.bRow .nm{flex:1;min-width:0}.bRow .nm b{display:block}
+.bOn{color:var(--warn);font:800 11px "Barlow Condensed",sans-serif;letter-spacing:.16em;border:1px solid rgba(255,179,64,.5);border-radius:6px;padding:1px 7px}
+.btn.danger{border-color:rgba(255,107,97,.55);color:#ff8a80}
 .tr canvas{display:block;width:100%;aspect-ratio:4/3;background:#0a1a10}
 .tr .ti{padding:8px 10px}.tr .tn{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tr.empty{display:flex;align-items:center;justify-content:center;aspect-ratio:4/3.9;color:var(--mut);cursor:default;border-style:dashed}.tr.empty:hover{transform:none;border-color:rgba(255,255,255,.06)}
@@ -50,7 +53,7 @@ code{background:#04080e;border-radius:6px;padding:2px 6px}
 <body>
 <header>
   <div class="logo">RACE <b>CONTROL</b></div><span class="tag">ADMIN</span>
-  <nav><button data-tab="users" class="on">Alle Nutzer</button><button data-tab="decode">Code auslesen</button></nav>
+  <nav><button data-tab="users" class="on">Alle Nutzer</button><button data-tab="beta">Beta-Rechte</button><button data-tab="decode">Code auslesen</button></nav>
 </header>
 <main>
   <!-- ===== Alle Nutzer ===== -->
@@ -64,6 +67,18 @@ code{background:#04080e;border-radius:6px;padding:2px 6px}
       <div class="stats" id="stats"></div>
       <div class="row" style="margin-bottom:12px"><input type="search" id="q" placeholder="Nutzer oder Strecke suchen …"><label class="sm mut"><input type="checkbox" id="onlyTracks" checked> nur Nutzer mit Strecken</label></div>
       <div id="users"></div>
+    </div>
+  </section>
+  <!-- ===== Beta-Rechte ===== -->
+  <section id="tabBeta" class="hide">
+    <div class="panel">
+      <h2>Beta-Rechte</h2>
+      <p class="mut sm" style="margin-top:0">Freigeschaltete Spieler sehen in ihren Einstellungen den Button „Zur Beta wechseln“. Ohne Freigabe wird die Beta-Seite automatisch auf die normale Version umgeleitet. Änderungen wirken beim nächsten Login bzw. spätestens nach 5 Minuten.</p>
+      <div id="betaNeed" class="mut">Bitte zuerst unter „Alle Nutzer“ mit Google anmelden.</div>
+      <div id="betaArea" class="hide">
+        <div class="row" style="margin-bottom:12px"><input type="search" id="bq" placeholder="Spieler suchen …"><span id="betaCount" class="chip"></span></div>
+        <div id="betaList"></div>
+      </div>
     </div>
   </section>
   <!-- ===== Code auslesen ===== -->
@@ -93,7 +108,7 @@ const fmtDate=t=>t?new Date(t).toLocaleString('de-DE',{dateStyle:'medium',timeSt
 
 /* ---------- Tabs ---------- */
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));
-  $('tabUsers').classList.toggle('hide',b.dataset.tab!=='users');$('tabDecode').classList.toggle('hide',b.dataset.tab!=='decode')});
+  $('tabUsers').classList.toggle('hide',b.dataset.tab!=='users');$('tabDecode').classList.toggle('hide',b.dataset.tab!=='decode');$('tabBeta').classList.toggle('hide',b.dataset.tab!=='beta')});
 
 /* ---------- Strecken-Code lesen ---------- */
 function parseTracks(raw){
@@ -170,6 +185,8 @@ async function loadUsers(){
       let career=null;try{career=typeof sv.rc_career==='string'?JSON.parse(sv.rc_career):sv.rc_career}catch(_){}
       return {uid:d.id,name:v.name||'(ohne Name)',updated:v.updated||0,tracks,career}}).sort((a,b)=>b.updated-a.updated);
     render();
+    try{const bs=await DB.collection('beta').get();BETA={};bs.docs.forEach(d=>BETA[d.id]=d.data())}catch(_){BETA={}}
+    renderBeta();
   }catch(e){
     $('users').innerHTML=e.code==='permission-denied'?`<div class="panel"><b class="err">Kein Admin-Zugriff.</b><p class="mut" style="margin-bottom:0">Dieses Konto ist noch nicht als Admin freigeschaltet. Admin-ID: <code>${esc(AUTH.currentUser&&AUTH.currentUser.uid)}</code></p></div>`:`<p class="err">Fehler: ${esc(e.code||e.message)}</p>`;
     $('stats').innerHTML='';
@@ -191,6 +208,21 @@ function render(){
     el.appendChild(g);box.appendChild(el);
   }
 }
+let BETA={};
+function renderBeta(){
+  $('betaNeed').classList.add('hide');$('betaArea').classList.remove('hide');
+  const q=$('bq').value.trim().toLowerCase();
+  const L=ALL.filter(u=>!q||u.name.toLowerCase().includes(q)).sort((a,b)=>(!!BETA[b.uid]-!!BETA[a.uid])||a.name.localeCompare(b.name));
+  $('betaCount').textContent=Object.keys(BETA).length+' freigeschaltet';
+  $('betaList').innerHTML=L.map(u=>{const on=!!BETA[u.uid];return `<div class="bRow"><div class="av">${esc((u.name[0]||'?').toUpperCase())}</div>
+    <div class="nm"><b>${esc(u.name)}</b><span class="sm mut">${on?'freigeschaltet am '+fmtDate(BETA[u.uid].at):'zuletzt aktiv '+fmtDate(u.updated)}</span></div>
+    ${on?'<span class="bOn">BETA</span>':''}<button class="btn ${on?'danger':'primary'}" data-bt="${esc(u.uid)}">${on?'Beta entziehen':'Beta freischalten'}</button></div>`}).join('')||'<p class="mut">Keine Spieler gefunden.</p>';
+}
+$('betaList').onclick=async e=>{const b=e.target.closest('[data-bt]');if(!b)return;const uid=b.dataset.bt,u=ALL.find(x=>x.uid===uid);b.disabled=true;
+  try{if(BETA[uid]){await DB.collection('beta').doc(uid).delete();delete BETA[uid]}
+    else{const d={name:u?u.name:'',at:Date.now()};await DB.collection('beta').doc(uid).set(d);BETA[uid]=d}
+    renderBeta()}catch(err){b.disabled=false;alert('Fehler: '+(err.code||err.message))}};
+$('bq').oninput=renderBeta;
 $('q').oninput=render;$('onlyTracks').onchange=render;
 </script>
 </body>
