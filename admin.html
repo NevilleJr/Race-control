@@ -112,7 +112,7 @@ function drawTrack(cv,t){
   const X=p=>ox+(p[0]-x0)*sc,Y=p=>oy+(p[1]-y0)*sc;
   // Streckenbreite: w ist relativ zur Streckenlänge (km) – auf das Bild umgerechnet
   let len=0;for(let i=0;i<P.length;i++){const a=P[i],b=P[(i+1)%P.length];len+=Math.hypot(b[0]-a[0],b[1]-a[1])}
-  const mPerUnit=(t.km||2)*1000/Math.max(1,len),wPx=clamp(((t.w||60)/6)/mPerUnit*sc,W*.012,W*.05);
+  const mPerUnit=(t.km||2)*1000/Math.max(1,len),wPx=clamp(((t.w||60)/6)/mPerUnit*sc,W*.024,W*.06);
   const path=()=>{g.beginPath();g.moveTo(X(P[0]),Y(P[0]));for(let i=1;i<P.length;i++)g.lineTo(X(P[i]),Y(P[i]));g.closePath()};
   g.lineJoin='round';g.lineCap='round';
   path();g.strokeStyle=t.street?'#6d6458':'#2c7a3c';g.lineWidth=wPx*2.1;g.stroke();       // Auslauf / Mauern
