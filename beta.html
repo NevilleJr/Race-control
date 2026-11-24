@@ -638,6 +638,19 @@ body.light #evePanel{filter:invert(.94) hue-rotate(180deg)}
 .scLvl{display:inline-block;padding:1px 8px;border-radius:5px;font-weight:700;font-size:12px}.scLvl.none{background:rgba(255,90,82,.2);color:#ff8a80}.scLvl.light{background:rgba(255,211,77,.18);color:#ffd34d}.scLvl.strong{background:rgba(47,210,122,.18);color:#6ff0a6}
 body.mob .sNew .sCards{grid-template-columns:1fr}
 
+/* ===== RACE CONTROL 41 – Rangliste ===== */
+.lbWrap{margin:12px 0;padding:12px 14px;border-radius:12px;background:#0b111b;border:1px solid rgba(255,159,10,.35)}
+.lbTitle{font:800 12px "Barlow Condensed",sans-serif;letter-spacing:.16em;color:#ffb340;margin-bottom:8px}.lbTitle .mut{font:500 11.5px Barlow,sans-serif;letter-spacing:0;margin-left:6px}
+.lbCols{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.lbCol{padding:8px 10px;border-radius:9px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.06)}.lbCol.on{border-color:rgba(255,159,10,.55)}
+.lbH{font:800 11px "Barlow Condensed",sans-serif;letter-spacing:.14em;color:#7fd4ff;margin-bottom:5px;text-transform:uppercase}
+.lbR{display:grid;grid-template-columns:18px 1fr auto;gap:6px;align-items:center;padding:3px 0;font-size:12.5px;border-top:1px solid rgba(255,255,255,.04)}
+.lbR i{font-style:normal;font-weight:800;color:var(--mut)}.lbR:nth-child(2) i{color:#ffd34d}.lbR span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.lbR b{font-variant-numeric:tabular-nums}
+.lbR.me{color:#ffb340}.lbE{font-size:12px;color:var(--mut);padding:3px 0}
+.evLb{margin-top:8px;padding-top:6px;border-top:1px solid rgba(255,159,10,.25)}.evLb .lbCol{padding:0;background:none;border:0}
+@media (max-width:640px){.lbCols{grid-template-columns:1fr}}
+body.mob .evLb .lbR{font-size:10.5px}
+
 /* =====================================================================
    RACE CONTROL – MOBILE (Hochkant) · Version 2
    Strecke bildschirmfüllend, alles Wichtige als schlanke Einblendung darüber.
@@ -879,6 +892,10 @@ body.authLocked #menu{filter:blur(6px)}
 .accAv{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:800 20px "Barlow Condensed",sans-serif;background:linear-gradient(135deg,#14c0ff,#0060a0);color:#fff}
 .accBtns{display:flex;flex-wrap:wrap;gap:6px}.accForm{display:flex;flex-direction:column;gap:6px;padding:10px;border-radius:9px;background:rgba(0,0,0,.25)}.accForm.danger{border:1px solid rgba(255,90,82,.4)}
 .accForm input{background:#05090f;border:1px solid rgba(0,180,255,.25);border-radius:8px;color:var(--tx);padding:8px 10px;font:inherit}
+#statAsk{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:290;width:min(460px,calc(100% - 32px));padding:14px 16px 12px;border-radius:14px;background:linear-gradient(180deg,rgba(14,22,36,.98),rgba(8,13,22,.98));border:1px solid rgba(0,180,255,.35);box-shadow:0 20px 60px rgba(0,0,0,.55);display:flex;flex-direction:column;gap:8px;animation:mwIn .4s}
+#statAsk .saT{font:800 12px "Barlow Condensed",sans-serif;letter-spacing:.2em;color:#7fd4ff;text-transform:uppercase}#statAsk p{margin:0;font-size:13px;line-height:1.45;color:#c9d3df}
+#statAsk .saB{display:flex;justify-content:flex-end;gap:8px}#statAsk a{font-size:11.5px;color:#7fd4ff;cursor:pointer;align-self:flex-start}
+body.light #statAsk{filter:invert(.94) hue-rotate(180deg)}
 .sCard.sAcc{border-color:rgba(20,192,255,.45)}
 body.light #authGate .agCard,body.light #agPriv .agCard{filter:invert(.94) hue-rotate(180deg)}
 </style>
@@ -5931,7 +5948,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='38.5';
+const GAMEVER='38.6';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -7645,6 +7662,157 @@ Object.assign(EN,{'SAFETY CAR IN DIESER RUNDE':'SAFETY CAR IN THIS LAP','Safety 
  'Feld eng zusammengeführt – spannender Restart (+3 Spannung).':'Field bunched up – exciting restart (+3 excitement).','SAFETY CAR · IN DIESER RUNDE – zur Boxeneinfahrt':'SAFETY CAR · IN THIS LAP – head to pit entry'});
 Object.assign(LA,{'SAFETY CAR IN DIESER RUNDE':'CURRUS TUTELAE HOC CIRCUITU','RENNEN FREIGEGEBEN':'CERTAMEN LIBERUM'});
 
+/* =====================================================================
+   RACE CONTROL 41 – weicheres Safety-Car-Tempo, Kurventempo, Online-Rangliste
+   · keine harte Geschwindigkeitsgrenze mehr: Beschleunigung lässt mit dem Tempo nach
+   · Hilfe-Stufen bremsen vor Kurven bzw. beschleunigen über dem Zieltempo nur noch langsam
+   · „Keine“: noch weniger Hilfe (mehr Rutschen, größerer Lenkwinkel)
+   · Safety-Car-Test: Rundenzeiten (Simulationszeit) + Top 5 je Strecke und Stufe
+   ===================================================================== */
+Object.assign(SC_ASSIST.none,  {lim:1.35,slip:2.4,soft:1,  cruise:false,corner:0,  scrub:1.35});
+Object.assign(SC_ASSIST.light, {lim:.8,  slip:1.4,soft:.45,cruise:false,corner:.95,scrub:1});
+Object.assign(SC_ASSIST.strong,{lim:.6,  slip:1.0,soft:.22,cruise:true, corner:.85,scrub:.8});
+const SC_VTOP=185;   // ≈ 150 km/h – natürliches Ende der Beschleunigung, kein hartes Limit
+function scKAt(s){const M=T.M,i=((Math.floor(mod(s,T.L)/T.ds)%M)+M)%M;return T.KS[i]||0}
+function scCornerV(s,v){ // langsamste Kurve im Vorausblick
+  const look=40+v*1.6;let vm=1e9;
+  for(let x=0;x<=look;x+=T.ds*3){const k=Math.abs(scKAt(s+x));if(k>1e-4){const vc=Math.sqrt(190/k)+x*.35;if(vc<vm)vm=vc}}
+  return vm;
+}
+scDriveStep=function(dt,tg){
+  const k=scInput(),S=G.sc,A=scAssistCfg();S.free=false;
+  const s=mod(S.dist,T.L),kc=scKAt(s),steer=(k.d?1:0)-(k.a?1:0);
+  /* ---------- Tempo ---------- */
+  const vT=80/.82,vC=A.corner?scCornerV(s,S.v)*A.corner:1e9;
+  const cap=A.cruise?Math.min(vT,vC):vC;                       // Zieltempo der Hilfe (Kurven langsamer)
+  let acc;
+  if(k.w&&!k.s){
+    acc=78*Math.max(0,1-(S.v/SC_VTOP)**2);                      // Motor: je schneller, desto schwächer
+    if(S.v>cap)acc*=Math.max(A.soft,1-(S.v-cap)/28);            // über dem Zieltempo nur noch langsam schneller
+  }else if(k.s)acc=-200;
+  else if(A.cruise){const dv=cap-S.v;acc=Math.abs(dv)<4?dv*.6:clamp(dv*1.1,-38,20)}   // sanft treiben lassen, vor Kurven abbremsen
+  else acc=-14-(S.v>cap?Math.min(26,(S.v-cap)*.8):0);         // Wenig: vor Kurven etwas mehr Motorbremse
+  S.v+=acc*dt;
+  // Reifen radieren in Kurven und beim Lenken – natürlich langsamer
+  S.v-=(Math.abs(kc)*S.v*S.v*.024+Math.abs(steer)*S.v*.05)*A.scrub*dt;
+  S.v=clamp(S.v,0,SC_VTOP+5);
+  /* ---------- Lenken ---------- */
+  const look=Math.max(60,S.v*.9),tgtD=idealD(s+look*.5),aim=Math.atan2(tgtD-(S.d||0),look);
+  let y=S.yaw||0;
+  y-=kc*S.v*dt*(1-A.follow);
+  y+=steer*1.25*Math.min(1,S.v/22)*dt;
+  y+=(aim-y)*(steer?A.aimS:A.aim)*dt;
+  const vmax=Math.sqrt(190/Math.max(Math.abs(kc),1e-4));
+  if(S.v>vmax){y-=Math.sign(kc)*(S.v-vmax)/vmax*A.slip*dt}
+  y=clamp(y,-A.lim,A.lim);S.yaw=y;
+  S.dist+=S.v*Math.cos(y)*dt;S.d=(S.d||0)+S.v*Math.sin(y)*dt;
+  const wall=(T.street?HALF+11:HALF+48);
+  if(Math.abs(S.d)>=wall){
+    S.d=Math.sign(S.d)*(wall-.5);S.yaw=0;
+    if(S.v*.82>15&&!G.scCrash){G.scCrash=true;S.v=0;addLog('SAFETY CAR',tl('Das Safety Car ist in die Mauer gekracht!'),'bad');banner(tl('SAFETY CAR IN DER MAUER'),'red');try{thud()}catch(_){}
+      setTimeout(()=>{if(G&&!G.ended)fired('sc')},1600);return}
+    S.v=Math.min(S.v,6);
+  }
+  const R=G.scRate||(G.scRate={t:0,good:0,fast:0,slow:0,msgT:0,offMsg:false});
+  if(Math.abs(S.d)>HALF+1){if(!G.scSolo)G.meters.s=clamp(G.meters.s-6*dt,0,100);
+    if(!R.offMsg){R.offMsg=true;G.scOffs=(G.scOffs||0)+1;if(G.scSolo)G.eveLapClean=false;if(!G.scSolo)addLog('SAFETY CAR',tl('Safety Car neben der Strecke – lebensgefährlich!'),'bad');banner(tl('SAFETY CAR NEBEN DER STRECKE'),'red')}}
+  else R.offMsg=false;
+  if(G.scSolo)return;
+  const kv=S.v*.82;R.t+=dt;
+  if(kv>95)R.fast+=dt;else if(kv<60&&G.flagT>4)R.slow+=dt;else if(kv>=65)R.good+=dt;
+  if(R.t>=3){
+    if(R.fast>1.5){G.meters.s=clamp(G.meters.s-1.5,0,100);if(G.simT>R.msgT){addLog('SAFETY CAR',tl('Zu schnell – das Feld kann nicht sicher folgen!'),'bad');R.msgT=G.simT+8}}
+    else if(R.slow>1.5){G.mood=G.mood.map(v=>clamp(v-1,0,100));if(G.simT>R.msgT){addLog('SAFETY CAR',tl('Zu langsam – die Teams sind unzufrieden, Reifen und Bremsen kühlen aus.'),'warn');R.msgT=G.simT+8}}
+    else if(R.good>2){G.meters.s=clamp(G.meters.s+.8,0,100)}
+    R.t=0;R.good=0;R.fast=0;R.slow=0;
+  }
+};
+/* =====================================================================
+   Online-Rangliste Safety-Car-Test
+   Firestore: scBoard/{strecke}_{stufe} → { <uid>: {n:Name, t:Rundenzeit s, at:Zeit, v:Version} }
+   ===================================================================== */
+const LB={},LB_LV=['none','light','strong'];
+function lbSlug(ti){const t=TRACKS[ti];if(!t||t.custom||ti>=(typeof TRK_BASE!=='undefined'?TRK_BASE:1e9))return null;return t.name.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40)}
+function lbKey(ti,lv){const s=lbSlug(ti);return s?s+'_'+lv:null}
+function lbDb(){const A=window.RCACC;return A&&A.user&&A.db?A:null}
+async function lbLoad(key,force){
+  if(!key)return null;const c=LB[key];if(c&&!force&&(c.busy||Date.now()-c.at<60000))return c;
+  const A=lbDb();if(!A)return null;
+  const e=LB[key]=Object.assign(c||{list:[],at:0},{busy:true});
+  try{const d=await A.db.collection('scBoard').doc(key).get();const o=d.exists?d.data():{};
+    e.list=Object.keys(o).map(u=>({uid:u,n:o[u].n,t:o[u].t})).filter(x=>typeof x.t==='number').sort((a,b)=>a.t-b.t);e.err=false}
+  catch(_){e.err=true}
+  e.at=Date.now();e.busy=false;lbPaint();return e;
+}
+function lbMine(e){const A=lbDb();if(!A||!e)return null;const i=e.list.findIndex(x=>x.uid===A.user.uid);return i<0?null:{rank:i+1,t:e.list[i].t}}
+function lbTable(key,title,hl){
+  const e=LB[key],A=lbDb();
+  let rows;
+  if(!A)rows=`<div class="lbE">${tl('Rangliste nur mit Konto.')}</div>`;
+  else if(!e||e.busy&&!e.at)rows=`<div class="lbE">${tl('Lade …')}</div>`;
+  else if(e.err)rows=`<div class="lbE">${tl('Rangliste nicht erreichbar.')}</div>`;
+  else if(!e.list.length)rows=`<div class="lbE">${tl('Noch keine Zeiten – fahr die erste!')}</div>`;
+  else{rows=e.list.slice(0,5).map((x,i)=>`<div class="lbR ${x.uid===A.user.uid?'me':''}"><i>${i+1}</i><span>${esc(x.n||'?')}</span><b>${eveFmt(x.t)}</b></div>`).join('');
+    const m=lbMine(e);if(m&&m.rank>5)rows+=`<div class="lbR me"><i>${m.rank}</i><span>${esc(A.name||'')}</span><b>${eveFmt(m.t)}</b></div>`}
+  return `<div class="lbCol ${hl?'on':''}"><div class="lbH">${title}</div>${rows}</div>`;
+}
+function lbBoardsHTML(ti){
+  if(!lbSlug(ti))return `<div class="lbWrap"><div class="lbTitle">${tl('ONLINE-RANGLISTE')}</div><div class="lbE">${tl('Eigene Strecken haben keine Rangliste.')}</div></div>`;
+  const cur=SETS.scAssist||'strong';
+  return `<div class="lbWrap"><div class="lbTitle">${tl('ONLINE-RANGLISTE')} · ${esc(TRACKS[ti].name)} <span class="mut">${tl('beste saubere Runde je Fahrhilfe')}</span></div>
+    <div class="lbCols">${LB_LV.map(lv=>lbTable(lbKey(ti,lv),tl(SC_ASSIST[lv].n),lv===cur)).join('')}</div></div>`;
+}
+function lbPaint(){
+  const box=$('eveLb');if(box&&EVE.kind==='solo')box.innerHTML=lbBoardsHTML(EVE.track);
+}
+function lbRefresh(ti,force){LB_LV.forEach(lv=>lbLoad(lbKey(ti,lv),force));lbPaint()}
+/* Setup-Seite „Vortag“: Rangliste unter der Streckenwahl */
+{const eh=eveHTML;eveHTML=function(){let h=eh.apply(this,arguments);
+  if(EVE.kind==='solo'){const i=h.lastIndexOf('<div class="fbrow">');if(i>=0)h=h.slice(0,i)+`<div id="eveLb">${lbBoardsHTML(EVE.track)}</div>`+h.slice(i)}
+  return h}}
+{const eo=eveOpen;eveOpen=function(){const r=eo.apply(this,arguments);if(EVE.kind==='solo')lbRefresh(EVE.track);return r}}
+document.addEventListener('change',e=>{if(e.target&&e.target.id==='eveTrack'){EVE.track=+e.target.value;if(EVE.kind==='solo')lbRefresh(EVE.track)}});
+/* Rundenzeit in Simulationszeit (unabhängig von Bildrate/Tab-Drosselung) */
+const LT={on:false,prevS:0,prevT:0,t0:null,offs:0,crash:0,lv:null};
+{const es=eveStart;eveStart=function(){const r=es.apply(this,arguments);
+  if(G&&G.scSolo){Object.assign(LT,{on:true,prevS:mod(G.sc.dist,T.L),prevT:G.simT,t0:null,offs:0,crash:0,lv:null,best:{}});G.eveLb=null;lbRefresh(EVE.track)}else LT.on=false;return r}}
+async function lbSubmit(ti,lv,t){
+  const key=lbKey(ti,lv),A=lbDb();if(!key||!A)return;
+  let e=LB[key];if(!e||!e.at)e=await lbLoad(key,true);if(!e||e.err)return;
+  const m=lbMine(e);if(m&&m.t<=t)return;
+  try{await A.db.collection('scBoard').doc(key).set({[A.user.uid]:{n:String(A.name||'?').slice(0,16),t:Math.round(t*1000)/1000,at:Date.now(),v:String(GAMEVER)}},{merge:true});
+    try{const ks=JSON.parse(localStorage.getItem('rc_lb')||'[]');if(!ks.includes(key)){ks.push(key);localStorage.setItem('rc_lb',JSON.stringify(ks))}}catch(_){}
+    const ex=e.list.find(x=>x.uid===A.user.uid);if(ex)ex.t=t;else e.list.push({uid:A.user.uid,n:A.name,t});e.list.sort((a,b)=>a.t-b.t);
+    const r=lbMine(e);banner(`${tl('NEUE BESTZEIT')} · ${tl(SC_ASSIST[lv].n).toUpperCase()} · ${tl('PLATZ')} ${r?r.rank:'?'}`,'good');
+    addLog('RANGLISTE',`${tl('Neue persönliche Bestzeit')}: ${eveFmt(t)} (${tl(SC_ASSIST[lv].n)}) – ${tl('Platz')} ${r?r.rank:'?'}`,'good');
+    try{window.rcEv&&rcEv('sc_test_bestzeit',{strecke:TRACKS[ti].name,fahrhilfe:lv,zeit:Math.round(t*100)/100,platz:r?r.rank:null})}catch(_){}
+    lbLoad(key,true);
+  }catch(err){addLog('RANGLISTE',tl('Zeit konnte nicht gespeichert werden.'),'warn')}
+}
+setInterval(()=>{
+  if(!LT.on||!G||!G.scSolo||G.ended){LT.on=LT.on&&!!G&&!G.ended;return}
+  const S=G.sc,s=mod(S.dist,T.L),now=G.simT;
+  if((G.eveCrash||0)!==LT.crash){LT.crash=G.eveCrash||0;LT.t0=null}               // Unfall → Runde ungültig, neu starten
+  if(LT.t0==null){if(S.v>5){LT.t0=now;LT.offs=G.scOffs||0;LT.lv=scAssistKey()}}
+  else if(LT.prevS>T.L*.85&&s<T.L*.15){
+    const f=(T.L-LT.prevS)/Math.max(1e-6,T.L-LT.prevS+s),tc=LT.prevT+(now-LT.prevT)*f,lap=tc-LT.t0;
+    const clean=(G.scOffs||0)===LT.offs&&scAssistKey()===LT.lv;
+    if(clean&&lap>5){const lv=LT.lv;if(!LT.best[lv]||lap<LT.best[lv])LT.best[lv]=lap;lbSubmit(EVE.track,lv,lap)}
+    G.eveLbLast={t:lap,clean};LT.t0=tc;LT.offs=G.scOffs||0;LT.lv=scAssistKey();
+  }
+  LT.prevS=s;LT.prevT=now;
+},30);
+/* Fahranzeige: Top 5 der aktuellen Stufe */
+{const ep=evePanel;evePanel=function(on){ep.apply(this,arguments);
+  const el=$('evePanel');if(!on||!el||!G||!G.scSolo)return;
+  const lv=scAssistKey(),key=lbKey(EVE.track,lv);
+  el.insertAdjacentHTML('beforeend',`<div class="evLb">${key?lbTable(key,tl('RANGLISTE')+' · '+tl(SC_ASSIST[lv].n),false):`<div class="lbE">${tl('Eigene Strecken haben keine Rangliste.')}</div>`}</div>`);
+}}
+setInterval(()=>{if(LT.on&&G&&G.scSolo&&!G.ended)LB_LV.forEach(lv=>lbLoad(lbKey(EVE.track,lv)))},60000);
+Object.assign(EN,{'ONLINE-RANGLISTE':'ONLINE LEADERBOARD','beste saubere Runde je Fahrhilfe':'best clean lap per driving aid','Rangliste nur mit Konto.':'Leaderboard requires an account.','Lade …':'Loading …',
+ 'Rangliste nicht erreichbar.':'Leaderboard unavailable.','Noch keine Zeiten – fahr die erste!':'No times yet – set the first one!','Eigene Strecken haben keine Rangliste.':'Custom tracks have no leaderboard.',
+ 'NEUE BESTZEIT':'NEW BEST TIME','PLATZ':'RANK','Platz':'rank','Neue persönliche Bestzeit':'New personal best','RANGLISTE':'LEADERBOARD','Zeit konnte nicht gespeichert werden.':'Time could not be saved.'});
+
 if(JOIN_CODE){const sg=document.querySelector('.seg[data-k="net"]');if(sg)sg.querySelectorAll('span').forEach(x=>x.classList.toggle('on',x.dataset.v==='mp'))}
 initMenu();
 if(JOIN_CODE)setTimeout(()=>{const n=$('mpName');if(n){n.focus();n.placeholder='Dein Name – dann „Beitreten“'}},50);
@@ -7852,7 +8020,7 @@ Object.assign(LA,{'Karte':'Tabula','Tempo':'Celeritas','Ton':'Sonus','MOBILE ANS
    ===================================================================== */
 (function(){
 const FB_CFG=window.RC_FIREBASE||null;            // wird beim Bauen eingesetzt
-const FB_V='10.12.2',SYNC_KEYS=['rc_settings','rc_tracks','rc_career','rc_name','rc_fb_name','rc_warn'];
+const FB_V='10.12.2',SYNC_KEYS=['rc_settings','rc_tracks','rc_career','rc_name','rc_fb_name','rc_warn','rc_lb'];
 const PSEUDO=n=>n.toLowerCase()+'@player.race-control.invalid';
 const ACC={user:null,name:null,db:null,auth:null,last:'',ready:false};window.RCACC=ACC;
 const t=s=>(typeof tl==='function'?tl(s):s);
@@ -8026,6 +8194,7 @@ ACC.linkMail=async(pw,mail)=>{await reauth(pw);await ACC.user.verifyBeforeUpdate
   await ACC.db.collection('usernames').doc(ACC.name.toLowerCase()).set(Object.assign({uid:ACC.user.uid,name:ACC.name},await encMail(mail,pw)));
   await ACC.db.collection('users').doc(ACC.user.uid).set({mail:true},{merge:true})};
 ACC.remove=async(pw)=>{await reauth(pw);const uid=ACC.user.uid;
+  try{const lb=JSON.parse(localStorage.getItem('rc_lb')||'[]');for(const k of lb){try{await ACC.db.collection('scBoard').doc(k).update({[uid]:firebase.firestore.FieldValue.delete()})}catch(_){}}}catch(_){}
   await ACC.db.collection('users').doc(uid).delete();await ACC.db.collection('usernames').doc(ACC.name.toLowerCase()).delete();
   await ACC.user.delete();SYNC_KEYS.concat(['rc_owner','rc_reports']).forEach(k=>localStorage.removeItem(k));location.reload()};
 ACC.download=async()=>{const d=(await ACC.db.collection('users').doc(ACC.user.uid).get()).data()||{};
@@ -8036,8 +8205,10 @@ function privacy(){
   el.innerHTML=`<div class="agCard agPrivC"><div class="agSub">${t('DATENSCHUTZ')}</div><div class="agPrivT">
    <p><b>Was gespeichert wird:</b> dein Benutzername, ein verschlüsseltes Passwort (nur beim Anmeldedienst, nie im Spiel sichtbar), optional deine E-Mail-Adresse, sowie dein Spielstand (Einstellungen, eigene Strecken, Karriere, Anzeigename, Verwarnungen).</p>
    <p><b>Wo:</b> bei Google Firebase (Authentication und Cloud Firestore). Die verknüpfte E-Mail liegt zusätzlich verschlüsselt vor und ist nur mit deinem Passwort lesbar.</p>
-   <p><b>Wofür:</b> nur, damit du dich anmelden und deinen Spielstand auf jedem Gerät nutzen kannst. Keine Werbung, keine Weitergabe.</p>
+   <p><b>Wofür:</b> nur, damit du dich anmelden und deinen Spielstand auf jedem Gerät nutzen kannst. Keine Werbung, kein Verkauf von Daten.</p>
+   <p><b>Nutzungsstatistik (nur mit deiner Zustimmung):</b> Wenn du sie erlaubst, erfasst Google Analytics (Datenspeicherort Italien/EU-Einstellungen von Google) anonymisiert, wie das Spiel genutzt wird – z. B. gestartete Rennen, Spielmodi, Strecken, Flaggen-Entscheidungen, Gerätetyp und Sprache. Dafür werden Cookies von Google gesetzt und dein Konto wird über eine zufällige ID wiedererkannt (nicht über Name oder E-Mail). Du kannst die Zustimmung jederzeit in den Einstellungen unter „Statistik“ widerrufen.</p>
    <p><b>Deine Rechte:</b> In den Einstellungen unter „Konto“ kannst du deine Daten herunterladen und dein Konto samt Spielstand jederzeit vollständig löschen.</p>
+   <p><b>Online-Rangliste (Safety-Car-Test):</b> Wenn du eine saubere Runde fährst, werden dein Benutzername und deine beste Rundenzeit je Strecke und Fahrhilfe gespeichert und sind für alle angemeldeten Spieler sichtbar. Beim Löschen des Kontos werden diese Einträge entfernt.</p>
    <p><b>Feedback & Meldungen</b> gehen über ein Google-Formular an den Entwickler und enthalten den angegebenen Namen.</p>
    <p><b>Kontakt:</b> über „Feedback“ im Startmenü.</p></div>
    <button class="btn primary agBtn" data-pv="close">${t('Schließen')}</button></div>`;
@@ -8088,6 +8259,95 @@ Object.assign(EN,{'KONTO':'ACCOUNT','ANMELDUNG':'SIGN IN','KONTO ERSTELLEN':'CRE
  'Datenschutz':'Privacy','Abmelden':'Sign out','Konto löschen':'Delete account','Passwort ändern':'Change password','E-Mail verknüpfen':'Link email','E-Mail ändern':'Change email','Daten herunterladen':'Download data',
  'Keine E-Mail verknüpft':'No email linked','E-Mail verknüpft':'Email linked','Dein Spielstand wird in deinem Konto gespeichert.':'Your progress is saved in your account.','Verbinde mit dem Kontoserver …':'Connecting to the account server …',
  'Falsches Passwort.':'Wrong password.','Diesen Benutzernamen gibt es nicht.':'This username does not exist.','Dieser Benutzername ist schon vergeben.':'This username is already taken.','Spielstand auf diesem Gerät löschen':'Delete progress on this device'});
+})();
+
+/* =====================================================================
+   RACE CONTROL – Nutzungsstatistik (Google Analytics über Firebase)
+   · nur nach ausdrücklicher Zustimmung (Opt-in), widerrufbar in den Einstellungen
+   · Events: Rennstart/-ende, Modi, Strecken, Flaggen, Strafen, eigene Strecken, Feedback
+   ===================================================================== */
+(function(){
+const CFG=window.RC_FIREBASE||{};
+let GA=null,loading=false,queue=[],uidSet=null;
+const allowed=()=>SETS.stats==='on';
+function trackName(t){try{if(TRACKS[t])return TRACKS[t].name;}catch(_){}return typeof t==='string'?t:'eigene Strecke'}
+function ev(name,p){if(!allowed())return;p=Object.assign({ver:GAMEVER},p||{});
+  for(const k in p){if(p[k]==null)delete p[k];else if(typeof p[k]==='boolean')p[k]=p[k]?1:0;else if(typeof p[k]==='string')p[k]=p[k].slice(0,90)}
+  if(GA){try{GA.logEvent(name,p)}catch(_){}}else{queue.push([name,p]);if(queue.length>60)queue.shift();init()}}
+window.rcEv=ev;
+async function init(){
+  if(GA||loading||!allowed()||!CFG.measurementId)return;
+  if(!window.firebase||!firebase.apps||!firebase.apps.length)return;   // wartet auf den Login-Baustein
+  loading=true;
+  try{
+    if(!firebase.analytics){await new Promise((res,rej)=>{const s=document.createElement('script');s.src=`https://www.gstatic.com/firebasejs/${FB_V}/firebase-analytics-compat.js`;s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
+    if(firebase.analytics.isSupported&&!(await firebase.analytics.isSupported()))throw 0;
+    GA=firebase.analytics();GA.setAnalyticsCollectionEnabled(true);
+    props();queue.splice(0).forEach(([n,p])=>{try{GA.logEvent(n,p)}catch(_){}});
+  }catch(e){GA=null}finally{loading=false}
+}
+function props(){
+  if(!GA)return;const A=window.RCACC;
+  try{if(A&&A.user&&uidSet!==A.user.uid){GA.setUserId(A.user.uid);uidSet=A.user.uid}
+    GA.setUserProperties({sprache:SETS.lang||'de',geraet:document.body.classList.contains('mob')?'mobil':'desktop',modus_hell:SETS.theme==='light'?'hell':'dunkel',sc_fahrhilfe:SETS.scAssist||'strong',
+      eigene_strecken:String((JSON.parse(lsGet('rc_tracks')||'[]')||[]).length),email_verknuepft:A&&A.user&&A.user.email&&!/\.invalid$/.test(A.user.email)?'ja':'nein'})}catch(_){}
+}
+function off(){if(GA){try{GA.setAnalyticsCollectionEnabled(false)}catch(_){}}queue=[];
+  // Google-Analytics-Cookies entfernen
+  document.cookie.split(';').map(c=>c.split('=')[0].trim()).filter(n=>/^_ga/.test(n)).forEach(n=>{const h=location.hostname;[h,'.'+h,''].forEach(d=>{document.cookie=`${n}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`+(d?`;domain=${d}`:'')})})}
+/* ---------- Zustimmung ---------- */
+function persist(){try{setSave()}catch(_){try{localStorage.setItem(SET_KEY,JSON.stringify(SETS))}catch(__){}}}
+function askConsent(){
+  if(document.getElementById('statAsk'))return;
+  const el=document.createElement('div');el.id='statAsk';
+  el.innerHTML=`<div class="saT">${tl('Nutzungsstatistik')}</div>
+   <p>${tl('Darf Race Control anonym erfassen, wie das Spiel genutzt wird (z. B. Rennen, Modi, Strecken)? Das hilft bei der Weiterentwicklung. Dafür werden Cookies von Google Analytics gesetzt.')}</p>
+   <div class="saB"><button class="btn sm" data-sa="off">${tl('Nein, danke')}</button><button class="btn primary sm" data-sa="on">${tl('Erlauben')}</button></div>
+   <a data-sa="priv">${tl('Datenschutz')}</a>`;
+  document.body.appendChild(el);
+  el.addEventListener('click',e=>{const q=e.target.closest('[data-sa]');if(!q)return;const a=q.dataset.sa;
+    if(a==='priv'){window.RCACC&&RCACC.privacy&&RCACC.privacy();return}
+    SETS.stats=a;persist();el.remove();if(a==='on'){init();ev('statistik_erlaubt')}else off()});
+}
+let loggedIn=false;
+setInterval(()=>{
+  if(!CFG.measurementId)return;   // Analytics noch nicht eingerichtet → keine Abfrage
+  const A=window.RCACC;if(!A||!A.ready||document.body.classList.contains('authLocked'))return;
+  if(SETS.stats==null){if(!G||G.ended)askConsent();return}
+  if(allowed()){init();if(GA){props();if(!loggedIn&&A.user){loggedIn=true;ev('login',{method:'konto'})}}}
+},1500);
+/* ---------- Spiel-Ereignisse ---------- */
+function modeOf(o){
+  if(G&&G.scSolo)return 'vortag_sc_test';if(G&&G.cruise)return 'vortag_zuschauen';
+  if(o&&(o.tut||o.tut2))return 'tutorial';if(o&&o.career)return 'karriere';
+  if(G&&G.mp)return NET.role==='host'?'mehrspieler_host':'mehrspieler_gast';
+  if(typeof SEASON!=='undefined'&&SEASON)return 'saison';return 'einzelrennen';
+}
+{const sg=startGame;startGame=function(o,grid){const r=sg.apply(this,arguments);
+  setTimeout(()=>{try{if(!G)return;const op=G.opts||o||{};
+    ev('rennen_start',{modus:modeOf(o||op),strecke:trackName(op.track),eigene_strecke:typeof op.track!=='number'||op.track>=TRACKS.length,runden:+(op.laps||G.laps||0),chaos:op.chaos,wetter:op.wx,qualifying:op.quali,einfuehrungsrunde:op.form,klasse:op.tier,
+      sc_selbst_fahren:!!G.scDriverId,spieler_mp:G.mp&&typeof NET!=='undefined'&&NET.conns?Object.keys(NET.conns).length+1:null});
+    G._evT=performance.now();G._evMode=modeOf(o||op)}catch(_){}},600);return r}}
+{const er=endRace;endRace=function(reason){const was=G&&!G.ended;const r=er.apply(this,arguments);
+  if(was)try{const m=G.meters||{},dur=G._evT?Math.round((performance.now()-G._evT)/60000):null;
+    ev('rennen_ende',{modus:G._evMode,strecke:trackName(G.opts&&G.opts.track),grund:reason||'ziel',dauer_min:dur,fairness:Math.round(m.f||0),sicherheit:Math.round(m.s||0),spannung:Math.round(m.e||0),
+      sc_ausritte:G.scOffs||0,sc_fahrhilfe:G.scStat?Object.keys(G.scStat.lvl||{}).join('+'):null})}catch(_){}
+  return r}}
+{const sf=setFlag;setFlag=function(f,src){const prev=G&&G.flag;const r=sf.apply(this,arguments);
+  try{if(G&&G.flag!==prev&&src!=='auto'&&src!=='sc-end'&&f!=='green')ev('flagge',{flagge:f,quelle:src||'spieler',runde:G.lap||null})}catch(_){}return r}}
+{const ap=applyPenalty;applyPenalty=function(c,P){const r=ap.apply(this,arguments);try{ev('strafe',{stufe:P,name:(PEN[P]&&PEN[P].n)||(P===1?'Verwarnung':P===6?'Disqualifikation':String(P))})}catch(_){}return r}}
+if(typeof teSave==='function'){const ts=teSave;teSave=function(){const r=ts.apply(this,arguments);try{ev('eigene_strecke_gespeichert')}catch(_){}return r}}
+if(typeof fbSend==='function'){const fs=fbSend;fbSend=function(){const r=fs.apply(this,arguments);try{ev('feedback_gesendet')}catch(_){}return r}}
+/* ---------- Einstellungen: Karte „Statistik“ ---------- */
+SET_DEF.stats=null;
+{const sh=setHTML;setHTML=function(){const h=sh.apply(this,arguments);if(!CFG.measurementId)return h;
+  const card=sCard('chart','STATISTIK',sRow('NUTZUNGSSTATISTIK',setSegH('stats',[['on','Erlauben'],['off','Nicht erlauben']]),'Anonyme Nutzungsdaten über Google Analytics (Rennen, Modi, Strecken). Hilft bei der Weiterentwicklung.'));
+  const i=h.indexOf('<div class="sCards">');return i<0?h:h.slice(0,i+20)+card+h.slice(i+20)}}
+SICON.chart='<path d="M4 20V10M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+{const sc=setCommit;setCommit=function(){const r=sc.apply(this,arguments);if(allowed())init();else off();return r}}
+Object.assign(EN,{'Nutzungsstatistik':'Usage statistics','STATISTIK':'STATISTICS','NUTZUNGSSTATISTIK':'USAGE STATISTICS','Erlauben':'Allow','Nicht erlauben':"Don't allow",'Nein, danke':'No, thanks',
+ 'Darf Race Control anonym erfassen, wie das Spiel genutzt wird (z. B. Rennen, Modi, Strecken)? Das hilft bei der Weiterentwicklung. Dafür werden Cookies von Google Analytics gesetzt.':'May Race Control anonymously record how the game is used (e.g. races, modes, tracks)? It helps further development. Google Analytics cookies will be set.',
+ 'Anonyme Nutzungsdaten über Google Analytics (Rennen, Modi, Strecken). Hilft bei der Weiterentwicklung.':'Anonymous usage data via Google Analytics (races, modes, tracks). Helps further development.'});
 })();
 </script>
 </body>
