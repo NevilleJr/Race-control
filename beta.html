@@ -7690,7 +7690,10 @@ scDriveStep=function(dt,tg){
     acc=78*Math.max(0,1-(S.v/SC_VTOP)**2);                      // Motor: je schneller, desto schwächer
     if(S.v>cap)acc*=Math.max(A.soft,1-(S.v-cap)/28);            // über dem Zieltempo nur noch langsam schneller
   }else if(k.s)acc=-200;
-  else if(A.cruise){const dv=cap-S.v;acc=Math.abs(dv)<4?dv*.6:clamp(dv*1.1,-38,20)}   // sanft treiben lassen, vor Kurven abbremsen
+  else if(A.cruise){                                             // kein Festhalten: rollen lassen, bei Bedarf sanft nachschieben, vor Kurven abbremsen
+    const dv=cap-S.v;
+    if(dv<-3){acc=clamp(dv*1.1,-38,-5);S.crUp=false}
+    else{if(dv>11)S.crUp=true;else if(dv<2)S.crUp=false;acc=S.crUp?Math.min(16,4+dv*.9):-5}}
   else acc=-14-(S.v>cap?Math.min(26,(S.v-cap)*.8):0);         // Wenig: vor Kurven etwas mehr Motorbremse
   S.v+=acc*dt;
   // Reifen radieren in Kurven und beim Lenken – natürlich langsamer
