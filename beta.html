@@ -5442,7 +5442,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='46.0';
+const GAMEVER='47.0';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -9841,6 +9841,14 @@ setInterval(()=>push(false),15000);
 addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')push(false)});
 addEventListener('pagehide',()=>push(false));
 ACC.push=push;
+/* ---------- Karriere-Geld (Admin, zu Testzwecken): Auftrag ausführen, speichern, Auftrag löschen ---------- */
+let cashUn=null;
+function cashWatch(){if(cashUn||!ACC.user||!ACC.db||!ACC.ready||ACC.offline)return;
+  cashUn=ACC.db.collection('cash').doc(ACC.user.uid).onSnapshot(async d=>{if(!d.exists)return;const c=d.data();if(!K)kLoad();if(!K||!Number.isFinite(c.v))return;
+    if(K.cashId!==c.n){K.cashId=c.n;K.money=c.m==='add'?Math.round(K.money+c.v):c.v;kSave();kToast(tl('Kontostand geändert')+': '+kEur(K.money),'a');try{if(!KBUSY)kRender()}catch(_){}}
+    try{await push(true);await d.ref.delete()}catch(_){}},()=>{})}
+setInterval(cashWatch,3000);
+Object.assign(EN,{'Kontostand geändert':'Balance changed'});
 /* ---------- Konto-Aktionen (Einstellungen) ---------- */
 async function reauth(pw){const u=ACC.user;await u.reauthenticateWithCredential(firebase.auth.EmailAuthProvider.credential(u.email,pw))}
 ACC.logout=async()=>{await push(true);SYNC_KEYS.concat(['rc_owner']).forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('rc_synced');await ACC.auth.signOut();location.reload()};
@@ -9852,7 +9860,7 @@ ACC.linkMail=async(pw,mail)=>{await reauth(pw);await ACC.user.verifyBeforeUpdate
   await ACC.db.collection('users').doc(ACC.user.uid).set({mail:true},{merge:true})};
 ACC.remove=async(pw)=>{await reauth(pw);const uid=ACC.user.uid;
   try{const lb=JSON.parse(localStorage.getItem('rc_lb')||'[]');for(const k of lb){try{await ACC.db.collection('scBoard').doc(k).update({[uid]:firebase.firestore.FieldValue.delete()})}catch(_){}}}catch(_){}
-  for(const c of ['profiles','presence','maps','kcar'])try{await ACC.db.collection(c).doc(uid).delete()}catch(_){}
+  for(const c of ['profiles','presence','maps','kcar','cash'])try{await ACC.db.collection(c).doc(uid).delete()}catch(_){}
   try{const fr=await ACC.db.collection('friends').where('m','array-contains',uid).get();for(const d of fr.docs)try{await d.ref.delete()}catch(_){}}catch(_){}
   try{const ch=await ACC.db.collection('chats').where('m','array-contains',uid).get();for(const d of ch.docs){const ms=await d.ref.collection('m').where('by','==',uid).get();for(const m of ms.docs)try{await m.ref.delete()}catch(_){}}}catch(_){}
   for(let i=0;i<9;i++)try{await ACC.db.collection('tracks').doc(uid+'_'+i).delete()}catch(_){}
