@@ -208,7 +208,7 @@ function punish(uid,o){o=o||{};const t=o.track;
   const d=()=>{const k=$('pT').value;$('pD').classList.toggle('hide',!TIMED.includes(k));delete $('dOk').dataset.sure;$('dOk').textContent='Strafe verhängen';$('pW').classList.toggle('hide',k!=='del');$('pW').textContent=k==='del'?'Spielstand, Profil, Strecken, Uploads und Freundschaften werden gelöscht. Der Zugang selbst wird beim nächsten Anmeldeversuch des Spielers entfernt.':''};const r=$('dlgB').querySelectorAll('[name=pt]');r.forEach(x=>x.onchange=()=>{$('pT').value=x.value;d()});$('pT').onchange=d;if(o.preset)$('pT').value=o.preset;r.forEach(x=>x.checked=x.value===$('pT').value);if(o.min)$('pM').value=o.min;d()}
 async function rmAv(uid){if(DB0.prof[uid])await DB.collection('profiles').doc(uid).update({av:''})}
 async function wipe(uid){const del=async(c,id)=>{try{await DB.collection(c).doc(id).delete()}catch(_){}};
-  for(const c of ['users','profiles','presence','maps','lobbies','uplock','beta','leagueP'])await del(c,uid);for(let i=0;i<5;i++)await del('tracks',uid+'_'+i);
+  for(const c of ['users','profiles','presence','maps','lobbies','uplock','beta','leagueP','kcar'])await del(c,uid);for(let i=0;i<9;i++)await del('tracks',uid+'_'+i);
   for(const c of ['friends','chats'])try{const s=await DB.collection(c).where('m','array-contains',uid).get();for(const d of s.docs)await d.ref.delete()}catch(_){}
   try{const s=await DB.collection('scBoard').get();for(const d of s.docs)if(d.data()[uid])await d.ref.update({[uid]:firebase.firestore.FieldValue.delete()})}catch(_){}
   for(const u of DB0.users.filter(x=>x.uid===uid))try{await DB.collection('usernames').doc(u.name.toLowerCase()).update({del:true})}catch(_){}}
