@@ -932,6 +932,17 @@ body.h24 #tower .row b{white-space:nowrap!important;min-width:76px}body.h24:not(
 /* Name „Under Investigation“: Kopfzeile am Handy */
 body.mob .lhead .logo{font-size:16.500px!important;letter-spacing:.05em!important}body.mob .lhead .lclock{display:none!important}
 @media(max-width:420px){.agLogo{font-size:26px!important;letter-spacing:.06em!important}}
+/* ===== UNDER INVESTIGATION 51 – Gruppenchats ===== */
+.grAv{position:relative;background:linear-gradient(160deg,#1c5c8a,#0f2f4d);color:#bfe7ff}.grAv svg{width:20px;height:20px}.grAv u{position:absolute;right:-4px;bottom:-3px;min-width:16px;height:16px;padding:0 3px;border-radius:8px;background:#14c0ff;color:#041019;font:800 10px/16px Barlow,sans-serif;text-decoration:none;text-align:center;border:2px solid #0b121d}
+.grNewB{padding:2px 4px 8px}.grNewB .btn{width:100%;display:flex;align-items:center;justify-content:center;gap:8px}.grNewB svg{width:17px;height:17px}
+.grBox{flex:1;overflow-y:auto;padding:14px 18px;display:flex;flex-direction:column;gap:8px}
+.grL{font:800 11px "Barlow Condensed",sans-serif;letter-spacing:.16em;color:#7fd4ff;margin-top:6px}.grL .mut{letter-spacing:0;font:500 11px Barlow,sans-serif}
+#grNm,#grRn{background:#05090f;border:1px solid rgba(0,180,255,.25);border-radius:8px;color:var(--tx);padding:9px 11px;font:inherit;font-size:14px}
+.grPick{display:flex;flex-direction:column;gap:2px;max-height:330px;overflow-y:auto;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:4px}
+.grP.off{opacity:.4;pointer-events:none}.grChk{width:22px;height:22px;border-radius:6px;border:2px solid rgba(127,212,255,.45);display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:800;color:#041019;flex:none}.grP.on .grChk{background:#14c0ff;border-color:#14c0ff}
+.grBox>.btn.primary{align-self:flex-start;margin-top:4px}.grMem .soS{padding:0}.grAct{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap;margin-top:10px}
+.grSys{align-self:center;font-size:12px;color:var(--mut);text-align:center;padding:3px 12px;border-radius:10px;background:rgba(20,192,255,.06);max-width:90%}.grSys b{color:#bfe7ff}
+.grBy{font-size:11px;font-weight:700;color:#7fd4ff;padding:0 8px 2px}
 /* =====================================================================
    UNDER INVESTIGATION – MOBILE (Hochkant) · Version 2
    Strecke bildschirmfüllend, alles Wichtige als schlanke Einblendung darüber.
@@ -3910,6 +3921,7 @@ function tick(rdt){
   if(G.modal){replayAdvance(rdt);if(!G.mp)return}        // Mehrspieler: Rennen läuft während der Überprüfung weiter
   if(G.paused&&!G.mp)return;
   if(G.pending){G.crashT-=rdt;if(G.crashT<=0){finishPending();return}}
+  if(spdLock()&&G.speed!==1)G.speed=1;
   const rate=G.mp?1:G.pending?G.slow:G.speed;
   G.acc+=rdt*rate;let n=0;
   while(G.acc>=DT&&n<14){simStep(DT);G.acc-=DT;n++;if((G.modal&&!G.mp)||G.ended)break}
@@ -3927,7 +3939,7 @@ function updateHud(){
    $('cFL').querySelector('span').innerHTML=fl?`<i style="background:${fl.color}"></i> ${fl.drv.c} ${lapFmt(G.fl.t)} <small style="color:var(--mut)">R${G.fl.lap}</small>`:'–';
    $('cFS').querySelector('span').innerHTML=fs?`<i style="background:${fs.color}"></i> ${fs.team.n} ${G.fs.t.toFixed(2).replace('.',',')} s`:'–'}
   $('cWx').textContent=G.wet>.5?'REGEN '+Math.round(G.wet*100)+' %':G.wet>.15?'NASS':'TROCKEN';
-  $('cSpd').textContent=G.paused?'PAUSE':(G.phase==='grid'&&G.lightN>=5&&G.lightsOut>1e8)?'LEERTASTE = START':G.mp?'● LIVE':'×'+G.speed;
+  $('cSpd').textContent=G.paused?'PAUSE':(G.phase==='grid'&&G.lightN>=5&&G.lightsOut>1e8)?'LEERTASTE = START':G.mp?'● LIVE':spdLock()?'×1 · '+(SETS.lang==='en'?'FIXED':'FEST'):'×'+G.speed;
   mpHud();
   const st=standings(),ld=st[0];let h='';$('cGap').textContent=st[1]?ld.drv.c+' ▸ '+st[1].drv.c+'  +'+Math.max(0,(ld.dist-st[1].dist)/T.av).toFixed(1)+' s':'';
   const tower=$('tower');
@@ -4054,6 +4066,8 @@ function menuRefresh(){
   useTrack(TP[show2]||TP[show]||TP[0]);MENUCAM.z=Math.min(innerWidth/(2*(T.hw+150)),innerHeight/(2*(T.hh+150)));
   mpMenuRender();if(NET.role==='host')netLobby();
 }
+/* Rennen mit festem Tempo: Safety-Car, Online, Liga, Simulator, Autorennen */
+function spdLock(){return !!(G&&(G.mp||G.scRace||G.scSolo||G.kSim||G.scCar||(G.opts&&G.opts.oc)))}
 function startGame(o,grid){
   newGame(o||SEL,grid);
   if(NET.role){
@@ -4243,6 +4257,7 @@ addEventListener('keydown',e=>{
     const mf={g:'green',y:'yellow',v:'vsc',s:'sc',r:'red'}[k];if(mf){mpFlag(mf);return}
   }
   if(k===' '){e.preventDefault();if(G.phase==='grid'){if(G.lightN>=5&&G.lightsOut>1e8)G.lightsOut=G.gridT+rnd(.15,.9)}else togglePause();return}
+  if((k==='1'||k==='2'||k==='3')&&spdLock()){G.speed=1;updateHud();return}
   if(k==='1'){G.speed=1;updateHud()}else if(k==='2'){G.speed=2;updateHud()}else if(k==='3'){G.speed=4;updateHud()}
   else if(k==='f')cycleCam();
   else if(k==='c'){G.cz=1;setCam(0);banner('KAMERA: TV-REGIE','')}
@@ -5531,7 +5546,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='50.0';
+const GAMEVER='51.0';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -10335,6 +10350,138 @@ Object.assign(EN,{'Blackjack':'Blackjack','Roulette':'Roulette','Glücksrad':'Wh
  'In der Bank leihst du dir Geld. Jede Woche werden Zinsen und Rate fällig. Verpasste Raten machen neue Kredite teurer.':'Borrow money at the bank. Interest and an instalment are due every week. Missed instalments make new loans more expensive.',
  'Das Kasino':'The casino','Du hast im Kasino schon über 25.000 € verloren. Das Haus gewinnt auf Dauer immer. Hol dir das Geld nicht mit Krediten zurück.':'You have already lost over €25,000 in the casino. The house always wins in the end. Do not chase it with loans.',
  'Auf Pump':'On credit','Nimm deinen ersten Kredit auf':'Take out your first loan','Schuldenfrei':'Debt free','Zahle Kredite über 30.000 € zurück':'Repay loans over €30,000','High Roller':'High roller','Gewinne 20.000 € in einem Spiel':'Win €20,000 in one game'});
+/* =====================================================================
+   UNDER INVESTIGATION 51 – Gruppenchats im Freunde-Chat
+   Firestore groups/{gid} {own,m,n,name,last,at,rd} + groups/{gid}/m/{mid}
+   Bis zu 8 Mitglieder; hinzufügen kann nur der Gründer, und nur eigene Freunde.
+   ===================================================================== */
+const GMAX=8;
+SO.gr={};SO.gcur=null;SO.gmsgs=[];SO.gUn=null;SO.gnew=null;SO.gview='';SO.gmenu=false;SO.gerr='';SO.grn='';
+const GR_IC='<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="9" cy="8" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 19c.6-3.4 3-5 6-5s5.4 1.6 6 5M15 14.6c2.6-.3 5 1 5.6 4.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const grAv=(v,cls)=>`<span class="soAv grAv ${cls||''}">${GR_IC}<u>${(v&&v.m||[]).length}</u></span>`;
+const gUnread=g=>{const v=SO.gr[g];return !!(v&&v.last&&v.last.by!==SO.uid&&!blocked(v.last.by)&&v.ms>msOf((v.rd&&v.rd[SO.uid])||0))};
+const grOwn=g=>SO.gr[g]&&SO.gr[g].own===SO.uid;
+const grNames=v=>(v.m||[]).map(u=>u===SO.uid?tl('Du'):soName(u)).join(', ');
+/* ---------- Daten ---------- */
+function grSub(A){SO.gr={};
+  SO.subs.push(A.db.collection('groups').where('m','array-contains',SO.uid).onSnapshot(sn=>{const old=SO.gr;SO.gr={};
+    sn.docs.forEach(d=>{const v=d.data(),g=Object.assign({id:d.id,ms:msOf(v.at)},v);g.name=clean(g.name,30);SO.gr[d.id]=g;(v.m||[]).forEach(u=>{if(!SO.prof[u]){SO.prof[u]={name:clean(v.n&&v.n[u],16)||'?'};profGet(u)}});
+      const w=old[d.id];if(!SO.first&&v.last&&v.last.by!==SO.uid&&(!w||w.ms<g.ms)&&!blocked(v.last.by)&&!(SO.open&&SO.gcur===d.id))
+        soToast(`<b>${esc(g.name)}</b> · ${esc(soName(v.last.by))}: ${v.last.k==='inv'?tl('lädt in eine Lobby ein.'):v.last.k==='sys'?tl('Neue Gruppe'):esc(clean(v.last.t,80))}`,'g~'+d.id)});
+    if(SO.gcur&&!SO.gr[SO.gcur])grOpen(null);else{if(SO.gcur)grRead(SO.gcur);soPaint()}},()=>{}))}
+{const st=soStart;soStart=async function(A){const r=await st.apply(this,arguments);try{grSub(A)}catch(_){}return r}}
+function grClose(){if(SO.gUn){try{SO.gUn()}catch(_){}SO.gUn=null}SO.gcur=null;SO.gnew=null;SO.gview='';SO.gmenu=false;SO.gmsgs=[];SO.gerr=''}
+const soOC0=soOpenChat;
+soOpenChat=function(u){if(typeof u==='string'&&u.indexOf('g~')===0)return grOpen(u.slice(2));grClose();return soOC0.apply(this,arguments)};
+function grOpen(g){const A=acc42();grClose();soOC0(null);SO.tab='chats';if(!g||!A||!SO.gr[g]){soPaint();return}
+  SO.gcur=g;SO.grn=SO.gr[g].name;
+  SO.gUn=A.db.collection('groups').doc(g).collection('m').orderBy('at','desc').limit(80).onSnapshot(sn=>{if(SO.gcur!==g)return;SO.gmsgs=sn.docs.map(d=>Object.assign({id:d.id},d.data(),{ms:msOf(d.data().at)})).reverse();soMsgs();grRead(g)},()=>{});
+  soPaint(true);grRead(g)}
+async function grRead(g){const A=acc42();if(!A||!SO.open||SO.gcur!==g||!gUnread(g)||document.visibilityState!=='visible')return;try{await A.db.collection('groups').doc(g).update({['rd.'+SO.uid]:fsTs()})}catch(_){}}
+async function grSend(g,text,extra){const A=acc42(),v=SO.gr[g];if(!A||!v)return false;text=String(text||'').trim().slice(0,500);if(!text)return false;
+  if(chatCheck(text)){VIO.ctx={kind:'chat',val:text};modWarn(tl('Deine Nachricht'));return false}
+  if(Date.now()-SO.lastSend<700)return false;SO.lastSend=Date.now();
+  const gr=A.db.collection('groups').doc(g),mr=gr.collection('m').doc(),k=extra?'inv':'txt',b=A.db.batch();
+  b.update(gr,{last:{by:SO.uid,t:text.slice(0,100),k},at:fsTs(),['rd.'+SO.uid]:fsTs()});
+  b.set(mr,{by:SO.uid,t:text,k,x:extra?JSON.stringify(extra):'',at:fsTs()});
+  try{await b.commit();SO.err='';return true}catch(e){SO.err=sancActive()?tl('Du bist gerade gesperrt.'):tl('Nicht zugestellt.');soErr();return false}}
+async function grMake(){const A=acc42(),N=SO.gnew;if(!A||!N)return;const name=clean(String(N.name||'').trim(),30);
+  const fail=t=>{SO.gerr=t;soPaint()};
+  if(sancActive())return fail(tl('Du bist gerade gesperrt.'));
+  if(!name)return fail(tl('Bitte gib der Gruppe einen Namen.'));
+  if(modCheck(name))return fail(tl('Dieser Name ist nicht erlaubt.'));
+  const sel=N.sel.filter(isFr).slice(0,GMAX-1);if(sel.length<2)return fail(tl('Wähle mindestens zwei Freunde aus.'));
+  const m=[SO.uid,...sel],n={};m.forEach(u=>n[u]=clean(u===SO.uid?A.name:soName(u),16));
+  const gr=A.db.collection('groups').doc(),b=A.db.batch();
+  b.set(gr,{own:SO.uid,m,n,name,last:{by:SO.uid,t:'new',k:'sys'},at:fsTs(),rd:{[SO.uid]:fsTs()}});
+  b.set(gr.collection('m').doc(),{by:SO.uid,t:clean(A.name,16),k:'sys',x:'new',at:fsTs()});
+  N.busy=true;soPaint();
+  try{await b.commit();SO.gnew=null;SO.gr[gr.id]=SO.gr[gr.id]||{id:gr.id,own:SO.uid,m,n,name,last:{by:SO.uid,t:'new',k:'sys'},ms:Date.now(),rd:{}};grOpen(gr.id)}catch(_){N.busy=false;fail(tl('Die Gruppe konnte nicht erstellt werden.'))}}
+/* Änderungen am Gruppen-Dokument plus Systemnachricht in einem Schritt */
+async function grEdit(g,ch,x,t){const A=acc42();if(!A||!SO.gr[g])return false;const gr=A.db.collection('groups').doc(g),b=A.db.batch();b.update(gr,ch);
+  if(x&&!sancActive())b.set(gr.collection('m').doc(),{by:SO.uid,t:clean(t,500)||'?',k:'sys',x,at:fsTs()});
+  try{await b.commit();return true}catch(_){SO.gerr=tl('Das hat nicht geklappt.');soPaint();return false}}
+const grN=m=>{const n={};m.forEach(u=>n[u]=clean(u===SO.uid?(acc42()||{}).name:soName(u),16));return n};
+async function grAdd(g,u){const v=SO.gr[g];if(!v||!grOwn(g)||v.m.includes(u)||v.m.length>=GMAX||!isFr(u))return;const m=[...v.m,u];if(await grEdit(g,{m,n:grN(m)},'add',soName(u))){v.m=m;soPaint()}}
+async function grKick(g,u){const v=SO.gr[g];if(!v||!grOwn(g)||u===SO.uid||!v.m.includes(u))return;if(!confirm(`${soName(u)} ${tl('aus der Gruppe entfernen?')}`))return;const m=v.m.filter(x=>x!==u);if(await grEdit(g,{m,n:grN(m)},'kick',soName(u))){v.m=m;soPaint()}}
+async function grRename(g){const v=SO.gr[g],name=clean(String(SO.grn||'').trim(),30);if(!v||!grOwn(g)||!name||name===v.name)return;if(modCheck(name)){SO.gerr=tl('Dieser Name ist nicht erlaubt.');return soPaint()}
+  if(await grEdit(g,{name},'ren',name)){v.name=name;SO.gerr='';SO.gview='';soPaint()}}
+async function grLeave(g){const A=acc42(),v=SO.gr[g];if(!A||!v)return;if(!confirm(tl('Gruppe wirklich verlassen?')))return;const m=v.m.filter(u=>u!==SO.uid),gr=A.db.collection('groups').doc(g);
+  try{if(!m.length){await gr.delete()}else{const b=A.db.batch();if(!sancActive())b.set(gr.collection('m').doc(),{by:SO.uid,t:clean(A.name,16),k:'sys',x:'left',at:fsTs()});b.update(gr,v.own===SO.uid?{m,own:m[0]}:{m});await b.commit()}
+    delete SO.gr[g];grOpen(null)}catch(_){SO.gerr=tl('Das hat nicht geklappt.');soPaint()}}
+async function grInvite(g){if(NET.role!=='host')return;const ok=await grSend(g,`${tl('Komm in meine Lobby')}: ${lobTxt()}`,{h:SO.uid,c:NET.code,k:NET.kind,t:lobToken()});if(ok){SO.ginvDone=g+NET.code;soPaint()}}
+/* ---------- Oberfläche ---------- */
+function grRow(g){const v=SO.gr[g],un=gUnread(g),l=v.last||{};
+  const sub=l.k==='sys'?tl('Neue Gruppe'):l.t?`${l.by===SO.uid?tl('Du'):esc(soName(l.by))}: ${l.k==='inv'?tl('Lobby-Einladung'):esc(clean(l.t,60))}`:'';
+  return `<div class="soRow ${SO.gcur===g?'on':''}" data-so="gopen:${esc(g)}"><div class="soAvW">${grAv(v)}</div><div class="soI"><b>${esc(v.name)}</b><span>${sub}</span></div><span class="soT">${soTime(v.ms)}${un?'<i></i>':''}</span></div>`}
+function dmRow(u){const c=SO.chats[u],un=unread(u);return soRow(u,`${c.last&&c.last.by===SO.uid?tl('Du')+': ':''}${esc(clean(c.last&&c.last.t,60))}`,`<span class="soT">${soTime(c.ms)}${un?'<i></i>':''}</span>`)}
+{const sl=soLeft;soLeft=function(){if(SO.inv||SO.tab!=='chats')return sl();
+  const L=[...Object.keys(SO.chats).filter(u=>!blocked(u)).map(u=>({ms:SO.chats[u].ms,u})),...Object.keys(SO.gr).map(g=>({ms:SO.gr[g].ms,g}))].sort((a,b)=>b.ms-a.ms);
+  const top=`<div class="grNewB"><button class="btn sm ${SO.gnew?'primary':''}" data-so="gnew">${GR_IC}<span>${tl('Neue Gruppe')}</span></button></div>`;
+  return top+(L.length?L.map(x=>x.g?grRow(x.g):dmRow(x.u)).join(''):sl())}}
+function grNewHTML(){const N=SO.gnew,F=Object.keys(SO.fr).filter(isFr).sort((a,b)=>soName(a).localeCompare(soName(b))),full=N.sel.length>=GMAX-1;
+  return `<div class="soTop"><button class="btn sm soBack" data-so="back">◂</button>${grAv({m:[SO.uid,...N.sel]})}<div class="soI"><b>${tl('Neue Gruppe')}</b><span>${N.sel.length+1} / ${GMAX} ${tl('Mitglieder')}</span></div></div>
+   <div class="grBox"><label class="grL">${tl('Gruppenname')}</label><input id="grNm" maxlength="30" autocomplete="off" placeholder="${tl('z. B. Rennleitung Nord')}" value="${esc(N.name||'')}">
+   <label class="grL">${tl('Freunde auswählen')} <span class="mut">(${tl('mindestens zwei')})</span></label>
+   <div class="grPick">${F.map(u=>{const on=N.sel.includes(u);return `<div class="soRow grP ${on?'on':''} ${!on&&full?'off':''}" data-so="gsel:${esc(u)}"><div class="soAvW">${avHTML(SO.prof[u])}</div><div class="soI"><b>${esc(soName(u))}</b><span>${presTxt(u).t||''}</span></div><i class="grChk">${on?'✓':''}</i></div>`}).join('')||`<div class="soE">${tl('Du hast noch keine Freunde hinzugefügt.')}</div>`}</div>
+   <div class="soErr">${esc(SO.gerr||'')}</div><button class="btn primary" data-so="gmk" ${N.busy?'disabled':''}>${N.busy?tl('Wird erstellt …'):tl('Gruppe erstellen')}</button></div>`}
+function grMemHTML(g){const v=SO.gr[g],own=grOwn(g),F=Object.keys(SO.fr).filter(u=>isFr(u)&&!v.m.includes(u));
+  return `<div class="grBox grMem"><div class="soH">${tl('MITGLIEDER')} · ${v.m.length}/${GMAX}</div>
+   ${v.m.map(u=>`<div class="soRow"><div class="soAvW">${avHTML(u===SO.uid?Object.assign({name:(acc42()||{}).name},myProf()):SO.prof[u])}</div><div class="soI"><b>${u===SO.uid?tl('Du'):esc(soName(u))}</b><span>${u===v.own?tl('Gründer'):isFr(u)?tl('Freund'):''}</span></div><span class="soB">${u!==SO.uid&&!isFr(u)&&!(SO.fr[u])?`<button class="btn sm" data-so="add:${esc(u)}">${tl('+ Freund')}</button>`:''}${own&&u!==SO.uid?`<button class="btn sm" data-so="gkick:${esc(u)}">${tl('Entfernen')}</button>`:''}${u!==SO.uid?`<button class="btn sm" data-so="grepu:${esc(u)}">${tl('Melden')}</button>`:''}</span></div>`).join('')}
+   ${own&&v.m.length<GMAX?`<div class="soH">${tl('FREUNDE HINZUFÜGEN')}</div>${F.map(u=>soRow(u,presTxt(u).t||'',`<button class="btn sm primary" data-so="gadd:${esc(u)}">${tl('Hinzufügen')}</button>`).replace('data-so="chat:','data-so="x:')).join('')||`<div class="soE">${tl('Alle deine Freunde sind schon dabei.')}</div>`}`:''}
+   ${own?`<div class="soH">${tl('GRUPPENNAME')}</div><div class="soS"><input id="grRn" maxlength="30" autocomplete="off" value="${esc(SO.grn||v.name)}"><button class="btn sm primary" data-so="gren">${tl('Speichern')}</button></div>`:''}
+   <div class="soErr">${esc(SO.gerr||'')}</div>
+   <div class="grAct"><button class="btn" data-so="gview:">◂ ${tl('Zum Chat')}</button><button class="btn danger" data-so="gleave">${tl('Gruppe verlassen')}</button></div></div>`}
+function grViewHTML(g){const v=SO.gr[g];
+  return `<div class="soTop"><button class="btn sm soBack" data-so="back">◂</button>${grAv(v)}<div class="soI"><b>${esc(v.name)}</b><span>${esc(grNames(v))}</span></div>
+    <span class="soB">${NET.role==='host'?`<button class="btn sm ${SO.ginvDone===g+NET.code?'':'primary'}" data-so="ginv">${SO.ginvDone===g+NET.code?tl('Eingeladen ✓'):tl('In Lobby einladen')}</button>`:''}<button class="btn sm ${SO.gview==='mem'?'primary':''}" data-so="gview:mem">${tl('Mitglieder')}</button><button class="btn sm" data-so="gmenu">⋯</button></span></div>
+    <div class="soMenu ${SO.gmenu?'':'hide'}"><button data-so="gview:mem">${tl('Mitglieder')}</button>${grOwn(g)?`<button data-so="gview:mem">${tl('Umbenennen')}</button>`:''}<button data-so="gleave">${tl('Gruppe verlassen')}</button><button data-so="grepg">${tl('Gruppe melden')}</button></div>
+    ${SO.gview==='mem'?grMemHTML(g):`<div class="soMsgs" id="soMsgs"></div><div class="soErr" id="soErr">${esc(SO.err||'')}</div>
+    <div class="soIn"><textarea id="soTxt" rows="1" maxlength="500" placeholder="${tl('Nachricht an die Gruppe …')}"></textarea><button class="btn primary" data-so="gsend">${tl('Senden')}</button></div>`}`}
+{const sr=soRight;soRight=function(){if(SO.gnew)return grNewHTML();if(SO.gcur&&SO.gr[SO.gcur])return grViewHTML(SO.gcur);return sr()}}
+const GSYS={new:'hat die Gruppe erstellt.',left:'hat die Gruppe verlassen.',add:'ist jetzt dabei.',kick:'wurde aus der Gruppe entfernt.'};
+function grMsgs(){const b=$('soMsgs');if(!b)return;const near=b.scrollHeight-b.scrollTop-b.clientHeight<90||!b.childElementCount;let day='';
+  b.innerHTML=SO.gmsgs.map(m=>{const me=m.by===SO.uid,d=new Date(m.ms).toLocaleDateString(),h=d!==day?`<div class="soDay">${d===new Date().toLocaleDateString()?tl('Heute'):d}</div>`:'';day=d;
+    if(m.k==='sys')return h+`<div class="grSys">${m.x==='ren'?`${esc(me?tl('Du'):soName(m.by))} · ${tl('Neuer Gruppenname')}: <b>${esc(clean(m.t,30))}</b>`:`<b>${esc(clean(m.t,16))}</b> ${tl(GSYS[m.x]||'')}`}</div>`;
+    if(!me&&blocked(m.by))return h+`<div class="soM1"><small class="grBy">${esc(soName(m.by))}</small><div class="soBub mut">${tl('(Nachricht eines blockierten Spielers)')}</div></div>`;
+    const tx=!me&&chatCheck(m.t)?tl('(Nachricht vom Filter ausgeblendet)'):m.t;
+    return h+`<div class="soM1 ${me?'me':''} ${m.k==='inv'?'inv':''}">${me?'':`<small class="grBy">${esc(soName(m.by))}</small>`}<div class="soBub">${m.k==='inv'?`<small>${tl('LOBBY-EINLADUNG')}</small>`:''}${esc(tx)}${m.k==='inv'&&!me?`<button class="btn primary sm" data-so="gjoin:${esc(m.id)}">${tl('Beitreten')}</button>`:''}</div><span>${fmtClock(new Date(m.ms)).replace(/:\d\d(?=( |$))/,'')}${me?'':` · <a data-so="grepm:${esc(m.id)}">${tl('melden')}</a>`}</span></div>`}).join('')||`<div class="soE">${tl('Schreib die erste Nachricht.')}</div>`;
+  if(near)b.scrollTop=b.scrollHeight}
+{const sm=soMsgs;soMsgs=function(){if(SO.gcur)return grMsgs();return sm.apply(this,arguments)}}
+{const sb=soBadge;soBadge=function(){return sb()+Object.keys(SO.gr||{}).filter(gUnread).length}}
+{const sc=soClose;soClose=function(){grClose();return sc.apply(this,arguments)}}
+{const ss=soSubmit;soSubmit=async function(){if(!SO.gcur)return ss.apply(this,arguments);const t=$('soTxt');if(!t||SO.sending)return;const v=t.value;if(!v.trim())return;SO.sending=true;const g=SO.gcur,ok=await grSend(g,v);SO.sending=false;const t2=$('soTxt');if(t2&&SO.gcur===g){if(ok)t2.value='';t2.focus()}}}
+{const sp=soPaint;soPaint=function(full){const ae=document.activeElement&&document.activeElement.id,gd=SO.gDrawn;const r=sp.apply(this,arguments);if(!SO.open)return r;
+  const c=document.querySelector('#soc .socC');if(c&&(SO.gcur||SO.gnew))c.classList.add('chat');
+  const t=$('soTxt');if(t&&SO.gcur&&gd!==SO.gcur){t.value='';if(full)t.focus()}SO.gDrawn=SO.gcur;
+  if(ae==='grNm'||ae==='grRn'){const x=$(ae);if(x){x.focus();x.setSelectionRange(x.value.length,x.value.length)}}return r}}
+document.addEventListener('input',e=>{const id=e.target&&e.target.id;if(id==='grNm'&&SO.gnew)SO.gnew.name=e.target.value;else if(id==='grRn')SO.grn=e.target.value});
+document.addEventListener('keydown',e=>{const id=e.target&&e.target.id;if(e.key!=='Enter')return;if(id==='grNm'){e.preventDefault();grMake()}else if(id==='grRn'){e.preventDefault();grRename(SO.gcur)}});
+document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-so]');if(!q||!q.dataset.so)return;
+  const i=q.dataset.so.indexOf(':'),a=i<0?q.dataset.so:q.dataset.so.slice(0,i),v=i<0?'':q.dataset.so.slice(i+1),g=SO.gcur;if(a[0]!=='g')return;if(a!=='gmenu')SO.gmenu=false;
+  if(a==='gopen')grOpen(v);
+  else if(a==='gnew'){if(SO.gnew){grOpen(null);return}grOpen(null);SO.gnew={sel:[],name:''};SO.gerr='';soPaint();setTimeout(()=>{const x=$('grNm');if(x)x.focus()},30)}
+  else if(a==='gsel'&&SO.gnew){const S=SO.gnew.sel,k=S.indexOf(v);if(k>=0)S.splice(k,1);else if(S.length<GMAX-1)S.push(v);SO.gerr='';soPaint()}
+  else if(a==='gmk')grMake();
+  else if(!g)return;
+  else if(a==='gsend')soSubmit();
+  else if(a==='gmenu'){SO.gmenu=!SO.gmenu;soPaint()}
+  else if(a==='gview'){SO.gview=v;SO.gerr='';SO.grn=SO.gr[g]?SO.gr[g].name:'';soPaint();if(!v)setTimeout(()=>{const b=$('soMsgs');if(b)b.scrollTop=b.scrollHeight},20)}
+  else if(a==='gadd')grAdd(g,v);else if(a==='gkick')grKick(g,v);else if(a==='gren')grRename(g);else if(a==='gleave')grLeave(g);else if(a==='ginv')grInvite(g);
+  else if(a==='gjoin'){const m=SO.gmsgs.find(x=>x.id===v);if(m)soJoin(m.x)}
+  else if(a==='grepm'){const m=SO.gmsgs.find(x=>x.id===v);if(m)repOpen({who:'Gruppennachricht von '+soName(m.by),tuid:m.by,kind:'nachricht',ref:'groups/'+g+'/m/'+v,copy:m.t})}
+  else if(a==='grepu')repOpen({who:'Benutzer '+soName(v),tuid:v,kind:'nutzer'});
+  else if(a==='grepg'){const x=SO.gr[g];if(x)repOpen({who:'Gruppe „'+x.name+'“',tuid:x.own,kind:'nutzer',copy:x.name})}
+},true);
+Object.assign(EN,{
+'Neue Gruppe':'New group','Mitglieder':'Members','Gruppenname':'Group name','z. B. Rennleitung Nord':'e.g. Race Control North','Freunde auswählen':'Choose friends','mindestens zwei':'at least two',
+'Gruppe erstellen':'Create group','Wird erstellt …':'Creating …','Bitte gib der Gruppe einen Namen.':'Please give the group a name.','Dieser Name ist nicht erlaubt.':'This name is not allowed.',
+'Wähle mindestens zwei Freunde aus.':'Choose at least two friends.','Die Gruppe konnte nicht erstellt werden.':'The group could not be created.','MITGLIEDER':'MEMBERS','Gründer':'Founder','Freund':'Friend',
+'Entfernen':'Remove','Melden':'Report','FREUNDE HINZUFÜGEN':'ADD FRIENDS','Hinzufügen':'Add','Alle deine Freunde sind schon dabei.':'All your friends are already in.','GRUPPENNAME':'GROUP NAME',
+'Speichern':'Save','Zum Chat':'Back to chat','Gruppe verlassen':'Leave group','Umbenennen':'Rename','Gruppe melden':'Report group','Nachricht an die Gruppe …':'Message the group …',
+'hat die Gruppe erstellt.':'created the group.','hat die Gruppe verlassen.':'left the group.','ist jetzt dabei.':'joined.','wurde aus der Gruppe entfernt.':'was removed from the group.','Neuer Gruppenname':'New group name',
+'(Nachricht eines blockierten Spielers)':'(Message from a blocked player)','aus der Gruppe entfernen?':'remove from the group?','Gruppe wirklich verlassen?':'Really leave the group?','Nicht zugestellt.':'Not delivered.',
+'lädt in eine Lobby ein.':'invites you to a lobby.','Lobby-Einladung':'Lobby invite','Du':'You'});
 /* ---------- Start ---------- */
 initMenu();
 requestAnimationFrame(frame);
@@ -10457,7 +10604,7 @@ act.addEventListener('click',e=>{
   else if(k==='cam'){resetOff();key('f')}
   else if(k==='map'){body.classList.toggle('mMap');requestAnimationFrame(()=>{try{mmapDraw()}catch(e){}})}
   else if(k==='tw')body.classList.toggle('mTwOff');
-  else if(k==='spd')key(G.speed===1?'2':G.speed===2?'3':'1');
+  else if(k==='spd'){if(typeof spdLock==='function'&&spdLock())return;key(G.speed===1?'2':G.speed===2?'3':'1')}
   else if(k==='mute')key('m');
   setTimeout(sync,30);
 });
@@ -10487,7 +10634,7 @@ function sync(){
   $('mCam').querySelector('small').textContent=({0:'TV',1:'Übers.',2:'Fahrer',3:'Frei'})[G.cm||0];
   $('mMapB').classList.toggle('on',body.classList.contains('mMap'));
   $('mTwB').classList.toggle('on',!body.classList.contains('mTwOff'));
-  const sp=$('mSpd');sp.classList.toggle('hide',!!G.mp);sp.firstElementChild.textContent='×'+G.speed;
+  const sp=$('mSpd');sp.classList.toggle('hide',!!(G.mp||(typeof spdLock==='function'&&spdLock())));sp.firstElementChild.textContent='×'+G.speed;
   $('mMute').firstElementChild.textContent=MUTE?'✕':'♪';$('mMute').classList.toggle('on',!!MUTE);
   const s=$('cSpd');if(s&&/LEERTASTE/.test(s.textContent))s.textContent='▶ = START';
   const ses=$('cSes');if(ses&&ses.textContent.includes('(⏎)'))ses.textContent=ses.textContent.replace(' (⏎)','');
