@@ -1,17 +1,10 @@
-# Race Control
+# Under Investigation
 
-Du bist Rennleiter in einem Formel‑1‑Rennen: Flaggen setzen, Vorfälle untersuchen, Strafen verteilen.
+Du bist Rennleiter: Flaggen setzen, Vorfälle untersuchen, Strafen verteilen. Mit Karriere, Online-Lobbys, eigenen Strecken und 24-Stunden-Rennen.
 
-**Jetzt spielen:** https://nevillejr.github.io/Race-control/
+**Jetzt spielen:** https://nevillejr.github.io/under-investigation/
 
-## Mehrspieler (Beta, bis 5 Spieler)
-1. Host: **Mehrspieler** → Name → **Spiel hosten** → Einladungslink kopieren und verschicken.
-2. Mitspieler öffnen den Link (oder die Seite, **Mehrspieler**, Code eingeben) → **Beitreten**.
-3. Host wählt Strecke und startet.
-
-Im Mehrspieler gibt es keine Pause und keine Vorfall‑Meldungen – beobachtet das Rennen, klickt ein verdächtiges Auto an und drückt **E**.
-Der PC des Hosts berechnet das Rennen. Die Verbindung läuft wenn möglich direkt zwischen den Spielern (PeerJS/WebRTC). Klappt das nicht – z. B. bei verschiedenen Netzwerken oder Mobilfunk – wechselt das Spiel nach ein paar Sekunden automatisch auf einen öffentlichen WebSocket-Relay (MQTT). Internet nötig.
+## Mehrspieler
+Online → Lobby eröffnen oder einer offenen Lobby beitreten. Der PC des Hosts berechnet das Rennen. Die Verbindung läuft wenn möglich direkt zwischen den Spielern (PeerJS/WebRTC), sonst automatisch über einen öffentlichen WebSocket-Relay (MQTT).
 
 Zum Testen des Relay-Wegs: `?relay=1` an die Adresse hängen.
-
-Einzelspieler funktioniert auch offline als einzelne HTML‑Datei.

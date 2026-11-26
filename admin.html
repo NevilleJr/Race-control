@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Race Control Admin</title>
+<title>Under Investigation Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#05080e;--card:#0c131f;--card2:#09101a;--line:rgba(0,180,255,.2);--tx:#e6edf5;--mut:#8696a8;--acc:#14c0ff;--warn:#ffb340;--bad:#ff6b61;--ok:#3ddc84}
@@ -50,7 +50,7 @@ textarea{width:100%;resize:vertical}#code{min-height:130px;font:12.5px/1.4 ui-mo
 </style>
 </head>
 <body>
-<header><div class="logo">RACE <b>CONTROL</b></div><span class="tag">ADMIN</span><div style="flex:1"></div><button class="btn hide" id="reloadBtn">Neu laden</button><button class="btn hide" id="pwBtn">Passwort ändern</button><button class="btn hide" id="lockBtn">Sperren</button><a class="btn" href="./">Zum Spiel</a><button class="btn danger hide" id="outBtn">Abmelden</button></header>
+<header><div class="logo">UNDER <b>INVESTIGATION</b></div><span class="tag">ADMIN</span><div style="flex:1"></div><button class="btn hide" id="reloadBtn">Neu laden</button><button class="btn hide" id="pwBtn">Passwort ändern</button><button class="btn hide" id="lockBtn">Sperren</button><a class="btn" href="./">Zum Spiel</a><button class="btn danger hide" id="outBtn">Abmelden</button></header>
 <div class="app"><nav id="nav"></nav><main>
   <section id="t_home" class="hide"><div class="hi" id="hi"></div><div class="two"><div class="panel"><h2>Offene Fälle</h2><div id="hTodo"></div></div><div><div class="panel"><h2>Zuletzt aktiv am</h2><div class="bars" id="hBars"></div></div><div class="panel"><h2>Laufende Strafen</h2><div id="hSan"></div></div></div></div><div class="panel"><h2>Letzte Ereignisse</h2><div id="hFeed"></div></div></section>
   <section id="t_san" class="hide"><div class="panel"><h2>Laufende Strafen und Sperren</h2><div id="sanL"></div></div></section>
@@ -328,7 +328,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){for(const i of ['pi
 $('q').oninput=paintUsers;$('onlyVio').onchange=paintUsers;$('vioF').onchange=paintVio;$('repF').onchange=paintRep;$('bq').oninput=paintBeta;$('mq').oninput=paintMoney;$('lgF').onchange=paintLog;$('lgQ').oninput=paintLog;for(const i of ['nwT','nwX'])$(i).oninput=nwPrev;$('nwK').onchange=nwPrev;nwPrev();
 $('nwOk').onclick=async()=>{const t=$('nwT').value.trim(),x=$('nwX').value.trim(),B=$('nwOk');$('nwS').textContent='';if(!t){$('nwS').textContent='Bitte eine Überschrift eingeben.';return}if(!OPEN)return;B.disabled=true;
   try{const dd=+$('nwD').value,n={id:Math.random().toString(36).slice(2,12),t,x,k:$('nwK').value,at:Date.now(),until:dd?Date.now()+dd*864e5:0};await DB.collection('config').doc('news').set({l:[n,...DB0.news.filter(m=>!m.until||m.until>Date.now())].slice(0,6)});await logAdd('sys','','Ankündigung veröffentlicht: '+t,x);$('nwT').value=$('nwX').value='';await loadAll()}catch(e){$('nwS').textContent='Fehler: '+(e.code||e.message)}B.disabled=false};
-$('lgCsv').onclick=()=>{const q=v=>{v=String(v==null?'':v);if(/^[=+\-@\t\r]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"'},L=[['Datum','Art','Spieler','Aktion','Grund'],...logList().map(l=>[fmt(l.at),(LGK[l.k]||LGK.sys)[0],l.name,l.txt,l.why])];const a=document.createElement('a');a.download='race-control-protokoll.csv';a.href=URL.createObjectURL(new Blob(['\ufeff'+L.map(r=>r.map(q).join(';')).join('\r\n')],{type:'text/csv'}));a.click()};
+$('lgCsv').onclick=()=>{const q=v=>{v=String(v==null?'':v);if(/^[=+\-@\t\r]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"'},L=[['Datum','Art','Spieler','Aktion','Grund'],...logList().map(l=>[fmt(l.at),(LGK[l.k]||LGK.sys)[0],l.name,l.txt,l.why])];const a=document.createElement('a');a.download='under-investigation-protokoll.csv';a.href=URL.createObjectURL(new Blob(['\ufeff'+L.map(r=>r.map(q).join(';')).join('\r\n')],{type:'text/csv'}));a.click()};
 </script>
 </body>
 </html>
