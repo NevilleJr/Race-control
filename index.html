@@ -1147,6 +1147,54 @@ body.mob .lhead .logo{font-size:16.500px!important;letter-spacing:.05em!importan
 .mv6p{position:relative;height:96px;border-radius:10px;overflow:hidden}.mv6p .kH6{position:absolute}.mv6p b{position:absolute;left:6px;bottom:6px;z-index:2;padding:2px 8px;border-radius:6px;background:rgba(5,10,18,.8);font-size:13px}
 .mv6i p{margin:0 0 6px;font-size:13px;opacity:.85}.mv6i ul{margin:0 0 8px;padding-left:18px;font-size:12.5px;line-height:1.5}.mv6i em{color:#2fd27a;font-style:normal;font-weight:700}
 @media (max-width:640px){.mv6c{grid-template-columns:1fr}}
+/* ===== 54: Grand-Prix-Automat und Tische mit Freunden ===== */
+.g5{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%}
+.gxjp{display:flex;align-items:baseline;gap:12px;padding:6px 18px;border-radius:999px;background:linear-gradient(90deg,#3a0d14,#5a1420,#3a0d14);border:1px solid #ffd34d;box-shadow:0 0 18px rgba(255,211,77,.35)}
+.gxjp small{font-size:11px;letter-spacing:.14em;color:#ffd34d}.gxjp b{font:800 26px/1 "Barlow Condensed",sans-serif;color:#fff;text-shadow:0 0 10px #ffb300;animation:gxpulse 1.6s ease-in-out infinite}.gxjp span{font-size:11px;opacity:.75}
+@keyframes gxpulse{50%{text-shadow:0 0 22px #ffd34d}}
+.gxfs{padding:4px 14px;border-radius:10px;background:rgba(47,210,122,.18);border:1px solid #2fd27a;font-weight:700}
+.gxm{position:relative;padding:12px;border-radius:22px;background:linear-gradient(180deg,#c0151f,#7a0a12);box-shadow:inset 0 2px 0 rgba(255,255,255,.3),0 14px 40px rgba(0,0,0,.5);border:3px solid #ffd34d}
+.gxm.jp{animation:gxjp 1s ease-in-out 4}
+@keyframes gxjp{50%{box-shadow:0 0 60px #ffd34d,inset 0 2px 0 rgba(255,255,255,.3)}}
+.gxw{--gxh:76px;position:relative;display:grid;grid-template-columns:repeat(5,76px);gap:6px;padding:8px;border-radius:14px;background:#0c0f15}
+.gxr{height:calc(var(--gxh)*3);overflow:hidden;border-radius:8px;background:linear-gradient(180deg,#d9dee6,#fff 20%,#fff 80%,#c9d1da)}
+.gxs{display:flex;flex-direction:column}
+.gxs.sp{animation:gxsp var(--d) cubic-bezier(.2,.6,.25,1.06) forwards}
+.gxs.sp i{filter:blur(1.2px)}.gxs.sp i:nth-last-child(-n+3){filter:none}
+@keyframes gxsp{from{transform:translateY(0)}to{transform:translateY(calc(var(--n)*-1*var(--gxh)))}}
+.gxs i{display:flex;align-items:center;justify-content:center;height:var(--gxh);flex:none}
+.gxs i svg{width:58px;height:58px;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+.gxs i.hit{background:radial-gradient(circle,rgba(255,211,77,.65),transparent 70%);animation:gxhit .6s ease-in-out 3}
+@keyframes gxhit{50%{transform:scale(1.12)}}
+.gxln{position:absolute;left:8px;top:8px;width:calc(100% - 16px);height:calc(100% - 16px);pointer-events:none}
+.gxln polyline{fill:none;stroke-width:6;stroke-linejoin:round;stroke-linecap:round;opacity:.85;filter:drop-shadow(0 0 4px rgba(0,0,0,.6))}
+.gxwin{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;animation:gxwn 1.8s ease-out forwards}
+.gxwin b{font:800 46px/1 "Barlow Condensed",sans-serif;color:#ffd34d;-webkit-text-stroke:2px #5a1420;text-shadow:0 4px 18px rgba(0,0,0,.6)}
+@keyframes gxwn{0%{transform:translate(-50%,-50%) scale(.4);opacity:0}25%{transform:translate(-50%,-50%) scale(1.15);opacity:1}80%{opacity:1}100%{transform:translate(-50%,-80%) scale(1);opacity:0}}
+.gxpt{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 18px;padding:12px;border-radius:12px;background:rgba(0,0,0,.35);font-size:13px;max-width:620px}
+.gxpt>div{display:flex;align-items:center;gap:8px}.gxpt i svg{width:28px;height:28px}.gxpt p{grid-column:1/-1;margin:4px 0 0}
+@media (max-width:640px){.gxw{--gxh:54px;grid-template-columns:repeat(5,54px);gap:4px}.gxs i svg{width:42px;height:42px}.gxpt{grid-template-columns:1fr}}
+/* Tische */
+.ct6{width:100%;display:flex;flex-direction:column;gap:12px}
+.ct6L{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.ct6L button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:12px;border-radius:12px;border:1px solid rgba(255,211,77,.4);background:rgba(255,211,77,.08);color:inherit;font:inherit;cursor:pointer;text-align:left}
+.ct6L span{font-size:12px;opacity:.8}.ct6L em{font-style:normal;color:#ffd34d;font-size:13px;margin-top:4px}
+.ct6N{padding:14px;border-radius:14px;background:rgba(0,0,0,.3);display:flex;flex-direction:column;gap:10px;align-items:flex-start}.ct6N h4{margin:0;font-size:12px;letter-spacing:.14em;opacity:.8}
+.ct6N .ocF button small{display:block;font-size:10px;opacity:.7}.ct6N .ocF small.ok{color:#2fd27a;opacity:1}
+.ct6H{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.ct6H b{font-size:17px}.ct6H span{flex:1;font-size:13px;opacity:.8}.ct6H u{text-decoration:none;color:#ffd34d;font-weight:700;margin-left:6px}
+.ct6T{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:center;padding:14px;border-radius:18px;background:radial-gradient(120% 120% at 50% 0,#1f7a46,#0d3a22);border:6px solid #5a3518;box-shadow:inset 0 0 40px rgba(0,0,0,.45)}
+.ct6S{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ct6p{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px;border-radius:12px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.12);text-align:center}
+.ct6p.me{border-color:#14c0ff}.ct6p.w{border-color:#2fd27a;box-shadow:0 0 16px rgba(47,210,122,.5)}.ct6p.l{opacity:.75}
+.ct6p .soAv{width:40px;height:40px}.ct6p b{font-size:14px}.ct6p span{font-size:12px;opacity:.85}.ct6p em{font-style:normal;font-weight:800;font-size:14px}.ct6p.w em{color:#2fd27a}.ct6p.l em{color:#ff8a8a}
+.ct6p .c8{transform:scale(.8)}
+.ct6e{position:absolute;top:-14px;right:-6px;font-size:26px;font-style:normal;animation:ct6e 1.2s ease-out}
+@keyframes ct6e{0%{transform:scale(0) translateY(10px)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
+.ct6ro .rw8 svg.ct6sp{animation:ct6r 3s cubic-bezier(.15,.8,.2,1) forwards}
+@keyframes ct6r{from{transform:rotate(0)}to{transform:rotate(var(--a))}}
+.ct6pot{display:flex;flex-direction:column;align-items:center;gap:4px}.ct6pot small{letter-spacing:.14em;opacity:.8}.ct6pot b{font:800 40px/1 "Barlow Condensed",sans-serif;color:#ffd34d}
+.ct6em{font-size:18px!important;padding:4px 10px!important}
+@media (max-width:760px){.ct6T{grid-template-columns:1fr}}
 /* =====================================================================
    UNDER INVESTIGATION – MOBILE (Hochkant) · Version 2
    Strecke bildschirmfüllend, alles Wichtige als schlanke Einblendung darüber.
@@ -5750,7 +5798,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='53.0';
+const GAMEVER='54.0';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -11697,6 +11745,120 @@ document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.targ
    for(const c of d.kids){c.x.x=c.ox+(it.x-d.ox);c.x.y=c.oy+(it.y-d.oy);if(c.el){c.el.style.left=c.x.x+'%';c.el.style.top=c.x.y+'%';c.el.style.zIndex=kZ6(c.x,L)}}},true);
  document.addEventListener('pointerup',e=>{if(!d)return;e.stopPropagation();const it=d.it;if(!d.ok){it.x=d.ox;it.y=d.oy;if(d.on)it.on=d.on;for(const c of d.kids){c.x.x=c.ox;c.x.y=c.oy}kToast('Das braucht eine Ablage: Tisch, TV-Möbel, Regal, Bar …','n')}else delete it.loose;
    d=null;kHome6Fix();kAch();kSave();kRender()},true)}
+/* =====================================================================
+   UNDER INVESTIGATION 54 – Kasino: neuer Grand-Prix-Automat und Tische mit Freunden
+   Automat: 5 Walzen × 3 Reihen, 10 Gewinnlinien, Pokal = Joker, Zielflagge = Freispiele,
+   5 Safety-Cars irgendwo = Pole-Position-Jackpot. Simuliert (Hilfsskript slot5.py): ca. 91 % plus Jackpot.
+   Tische: Firestore ctab/{id} {host,m≤4,nm,g:'ro'|'kp',st,ph:'bet'|'spin',rd,t,sd,p,at}
+   Jeder rechnet sein eigenes Geld ab, der Gastgeber steuert die Runden.
+   ===================================================================== */
+/* ---------- Symbole ---------- */
+const GXS={
+ cup:'<svg viewBox="0 0 48 48"><path d="M14 8h20v10c0 8-4 13-10 13s-10-5-10-13z" fill="#ffd34d" stroke="#b8860b" stroke-width="2"/><path d="M14 11H8c0 7 3 10 7 11M34 11h6c0 7-3 10-7 11" stroke="#ffd34d" stroke-width="3" fill="none"/><rect x="21" y="31" width="6" height="7" fill="#e0b030"/><rect x="14" y="38" width="20" height="5" rx="1" fill="#6b4523"/><path d="M24 12l1.800 3.800 4 .5-3 2.800.8 4-3.600-2-3.600 2 .8-4-3-2.800 4-.5z" fill="#fff8d6"/></svg>',
+ flag:'<svg viewBox="0 0 48 48"><path d="M10 6v38" stroke="#c9d1da" stroke-width="3" stroke-linecap="round"/><path d="M11 8h28v20H11z" fill="#fff"/><g fill="#111"><rect x="11" y="8" width="7" height="5"/><rect x="25" y="8" width="7" height="5"/><rect x="18" y="13" width="7" height="5"/><rect x="32" y="13" width="7" height="5"/><rect x="11" y="18" width="7" height="5"/><rect x="25" y="18" width="7" height="5"/><rect x="18" y="23" width="7" height="5"/><rect x="32" y="23" width="7" height="5"/></g></svg>',
+ sc:'<svg viewBox="0 0 48 48"><path d="M4 32c0-6 4-8 9-9l5-6h12l5 6c5 1 9 3 9 9z" fill="#f4f6f9" stroke="#8a99aa" stroke-width="1.500"/><path d="M4 29h40" stroke="#ff9f0a" stroke-width="3"/><path d="M19 18h10l3 5H16z" fill="#7fb6e6"/><rect x="18" y="12" width="5" height="4" rx="1" fill="#ffb300"/><rect x="25" y="12" width="5" height="4" rx="1" fill="#ff3b30"/><circle cx="13" cy="33" r="4.500" fill="#1a1c22"/><circle cx="35" cy="33" r="4.500" fill="#1a1c22"/></svg>',
+ helm:'<svg viewBox="0 0 48 48"><path d="M8 30c0-12 7-20 18-20 9 0 14 6 14 14v8H8z" fill="#e10600"/><path d="M22 20h18v8H22c-3 0-4-2-4-4s1-4 4-4z" fill="#1a2540"/><path d="M8 30h32v6H10z" fill="#b00500"/><path d="M12 22c4-6 10-8 16-8" stroke="#fff" stroke-width="3" fill="none" opacity=".7"/></svg>',
+ tyre:'<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#1a1c22"/><circle cx="24" cy="24" r="10" fill="#8a99aa"/><circle cx="24" cy="24" r="4" fill="#3a414b"/><path d="M24 6a18 18 0 0 1 17 12" stroke="#ff3b30" stroke-width="3" fill="none"/><path d="M24 14v20M14 24h20M17 17l14 14M31 17L17 31" stroke="#5d6b7a" stroke-width="2"/></svg>',
+ light:'<svg viewBox="0 0 48 48"><rect x="15" y="4" width="18" height="40" rx="6" fill="#20252e" stroke="#3a414b" stroke-width="2"/><circle cx="24" cy="13" r="5" fill="#ff3b30"/><circle cx="24" cy="24" r="5" fill="#ffb300"/><circle cx="24" cy="35" r="5" fill="#2fd27a"/></svg>',
+ cone:'<svg viewBox="0 0 48 48"><path d="M20 8h8l9 32H11z" fill="#ff7a1a"/><path d="M17 20h14l2 7H15z" fill="#fff"/><rect x="7" y="39" width="34" height="5" rx="2" fill="#d65a10"/></svg>',
+ fuel:'<svg viewBox="0 0 48 48"><path d="M12 12h18l8 8v22H12z" fill="#2fd27a" stroke="#1b8a4c" stroke-width="2"/><rect x="16" y="6" width="10" height="6" rx="2" fill="#1b8a4c"/><path d="M18 22l14 14M32 22L18 36" stroke="#1b8a4c" stroke-width="3"/></svg>'};
+const GXW=[['cup',2],['flag',2.4],['sc',3],['helm',5],['tyre',7],['light',9],['cone',11],['fuel',13]],GXT=52.4;
+const GXP={cup:[0,0,0,35,230,1150],sc:[0,0,0,23,115,575],helm:[0,0,0,14,46,172],tyre:[0,0,0,9,29,92],light:[0,0,0,6,17,57],cone:[0,0,0,3.5,9,29],fuel:[0,0,0,2.3,7,21]};
+const GXL=[[1,1,1,1,1],[0,0,0,0,0],[2,2,2,2,2],[0,1,2,1,0],[2,1,0,1,2],[0,0,1,2,2],[2,2,1,0,0],[1,0,0,0,1],[1,2,2,2,1],[0,1,1,1,0]];
+const GXC=['#ffd34d','#ff5fa2','#2fd27a','#14c0ff','#ff8a3d','#b388ff','#ff3b4e','#7fd4ff','#c0f05a','#f0a0ff'];
+const gxPick=()=>{let r=Math.random()*GXT;for(const [k,w] of GXW){if((r-=w)<0)return k}return 'fuel'};
+function gxEval(g){const W=[];let tot=0;
+  GXL.forEach((l,li)=>{const sy=l.map((r,c)=>g[c][r]);let f=sy.find(s=>s!=='cup')||'cup';if(f==='flag')f='cup';let n=0;for(const s of sy){if(s===f||s==='cup')n++;else break}let wn=0;for(const s of sy){if(s==='cup')wn++;else break}
+    const a=(GXP[f]||[])[n]||0,b=GXP.cup[wn]||0,x=Math.max(a,b);if(x>0){const k=b>a?wn:n;W.push({l:li,n:k,x:x/10,s:b>a?'cup':f});tot+=x/10}});
+  const fl=g.flat().filter(s=>s==='flag').length,sc=g.flat().filter(s=>s==='sc').length;let fs=0,fx=0;if(fl>=3){fx={3:2,4:10,5:50}[Math.min(5,fl)];fs={3:8,4:12,5:15}[Math.min(5,fl)];tot+=fx}
+  return {W,tot,fs,fx,fl,jp:sc>=5}}
+const gxJpBase=()=>10000*(1+(K?K.tier:0));
+const gxJp=()=>{K.cas.jp=Math.max(K.cas.jp||0,gxJpBase());return K.cas.jp};
+KCAS.g5={g:[...Array(5)].map(()=>[gxPick(),gxPick(),gxPick()]),W:[],fs:0,fsw:0,sp:0,win:0,auto:0,pt:false,last:null};
+function gxSpin(){const C=KCAS,S=C.g5;if(C.roll)return;const free=S.fs>0;if(!free&&!casTake(C.bet))return(S.auto=0);
+  if(!free){gxJp();K.cas.jp+=Math.round(C.bet*.02)}else S.fs--;
+  const g=[...Array(5)].map(()=>[gxPick(),gxPick(),gxPick()]),E=gxEval(g);S.g=g;S.W=[];S.win=0;S.sp++;S.free=free;S.E=E;C.roll=1;C.msg='';C.dbl=null;kRender();
+  setTimeout(()=>{C.roll=null;const b=C.bet,mul=free?2:1;let w=Math.round(E.tot*b*mul);S.W=E.W;
+    if(E.jp){const j=gxJp();w+=j;K.cas.jp=gxJpBase();S.jpWon=j;ST53&&ST53.inc&&ST53.inc('casJack')}
+    if(E.fs){S.fs+=E.fs;S.fsTot=(S.fsTot||0)+E.fs}
+    if(free)S.fsw=(S.fsw||0)+w;
+    if(w>0)casPay(b,w/b,E.jp?tl('POLE-POSITION-JACKPOT!'):E.fs?`${E.fs} ${tl('Freispiele!')}`:w>=b*10?tl('Riesengewinn!'):tl('Gewonnen!'));else if(!free)casPay(b,0,E.fs?`${E.fs} ${tl('Freispiele!')}`:'');else{C.msg=tl('Freispiel')+` · ${S.fs} ${tl('übrig')}`;kSave()}
+    S.win=w;if(free&&S.fs===0){C.msg=`${tl('Freispiele vorbei')}: +${kEur(S.fsw||0)}`;S.fsw=0}
+    if(w>0||E.fs)C.dbl=w>0&&!S.fs&&!free?C.dbl:null;kRender();
+    if(S.fs>0||S.auto>0){if(S.fs<=0)S.auto--;setTimeout(()=>{if(KCAS.g==='sl'&&!KCAS.roll&&$('kOs'))gxSpin();else S.auto=0},S.W.length?1300:650)}},1500+4*220)}
+function gxHTML(){const C=KCAS,S=C.g5,busy=!!C.roll,sp=busy,hit=new Set();S.W.forEach(w=>{for(let c=0;c<w.n;c++)hit.add(c+':'+GXL[w.l][c])});
+  const reel=(c)=>{const fin=S.g[c],N=14,str=sp?[...Array(N)].map(()=>gxPick()).concat(fin):fin;return `<div class="gxr"><div class="gxs ${sp?'sp':''}" style="--n:${sp?N:0};--d:${.9+c*.22}s">${str.map((s,i)=>{const r=sp?i-N:i;return `<i class="${!sp&&hit.has(c+':'+r)?'hit':''} ${s}">${GXS[s]}</i>`}).join('')}</div></div>`};
+  const lines=!busy&&S.W.length?`<svg class="gxln" viewBox="0 0 500 300" preserveAspectRatio="none">${S.W.map(w=>`<polyline points="${GXL[w.l].map((r,c)=>`${c*100+50},${r*100+50}`).join(' ')}" stroke="${GXC[w.l]}"/>`).join('')}</svg>`:'';
+  return `<div class="g5"><div class="gxjp"><small>${tl('POLE-POSITION-JACKPOT')}</small><b>${kEur(gxJp())}</b><span>${tl('5 Safety-Cars irgendwo')}</span></div>
+   ${S.fs>0||S.free?`<div class="gxfs">🏁 ${tl('FREISPIELE')} <b>${S.fs}</b> · ${tl('alle Gewinne ×2')}</div>`:''}
+   <div class="gxm ${S.jpWon&&!busy?'jp':''}"><div class="gxw">${[0,1,2,3,4].map(reel).join('')}${lines}</div>${!busy&&S.win>0?`<div class="gxwin"><b>+${kEur(S.win)}</b></div>`:''}</div>
+   <div class="act8"><button class="btn primary big8" data-g5="spin" ${busy?'disabled':''}>${S.fs>0?tl('Freispiel'):tl('Drehen')}</button><button class="btn ${S.auto?'warn':''}" data-g5="auto" ${busy&&!S.auto?'disabled':''}>${S.auto?`${tl('Stopp')} (${S.auto})`:tl('Auto ×10')}</button><button class="btn sm" data-g5="pt">${tl('Gewinntabelle')}</button></div>
+   ${S.pt?`<div class="gxpt">${Object.keys(GXP).map(k=>`<div><i>${GXS[k]}</i><span>${[3,4,5].map(n=>`${n}× <b>${(GXP[k][n]/10).toLocaleString('de-DE',{maximumFractionDigits:2})}</b>`).join(' · ')}</span></div>`).join('')}<div><i>${GXS.flag}</i><span>${tl('3/4/5 Flaggen: 2/10/50× Einsatz und 8/12/15 Freispiele')}</span></div><p class="mut sm">${tl('Gewinne × Einsatz. Der Pokal ersetzt jedes Symbol außer der Flagge. 10 Gewinnlinien.')}</p></div>`:''}</div>`}
+document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-g5]');if(!q||q.disabled)return;e.preventDefault();e.stopPropagation();const a=q.dataset.g5,S=KCAS.g5;
+  if(a==='spin'){S.jpWon=0;gxSpin()}else if(a==='auto'){if(S.auto){S.auto=0;kRender()}else{S.auto=9;S.jpWon=0;gxSpin()}}else if(a==='pt'){S.pt=!S.pt;kRender()}},true);
+/* ---------- Tische mit Freunden ---------- */
+CASG.push(['tisch','Mit Freunden']);
+const CT6={l:null,cur:null,D:null,un:null,lun:null,sel:[],g:'ro',err:'',seen:{},done:{},tick:0,rob:'r',z:17,first:true};
+const ct6Me=()=>{const A=acc42();return A&&A.user&&A.user.uid};
+function ct6Clean(d){const o=d.data()||{},m=(o.m||[]).slice(0,4).map(String),nm={};m.forEach(u=>nm[u]=nm16((o.nm||{})[u]||soName(u)));const p={};m.forEach(u=>{const x=(o.p||{})[u];if(x&&typeof x==='object')p[u]={rd:mkI(x.rd,0,1e6),b:String(x.b||'').slice(0,3),z:mkI(x.z,0,36),s:mkI(x.s,0,1e7),e:String(x.e||'').slice(0,4),et:+x.et||0}});
+  return {id:d.id,host:String(o.host||''),m,nm,g:o.g==='kp'?'kp':'ro',st:mkI(o.st,1,1e6),ph:o.ph==='spin'?'spin':'bet',rd:mkI(o.rd,0,1e6),t:+o.t||0,sd:mkI(o.sd,0,2e9),p,at:msOf(o.at)}}
+/* Liste der eigenen Tische laufend halten, Einladungen melden */
+setInterval(()=>{const A=acc42(),me=ct6Me();if(!A||!me){if(CT6.lun){CT6.lun();CT6.lun=null}return}if(CT6.lun)return;
+  CT6.lun=A.db.collection('ctab').where('m','array-contains',me).onSnapshot(sn=>{const L=sn.docs.map(ct6Clean);
+    if(!CT6.first)L.forEach(o=>{if(!CT6.seen[o.id]&&o.host!==me){try{nt53Push('duel',`${o.nm[o.host]}: ${tl('Kasino-Tisch')}`,esc(tl(o.g==='ro'?'Roulette mit Freunden':'Kartenpott mit Freunden')),'',false);kToast(`${o.nm[o.host]} ${tl('lädt dich an einen Kasino-Tisch ein.')}`,'g')}catch(_){}}});
+    L.forEach(o=>CT6.seen[o.id]=1);CT6.first=false;CT6.l=L.sort((a,b)=>b.at-a.at);if(CT6.cur&&!L.some(o=>o.id===CT6.cur)){CT6.cur=null;CT6.D=null}ct6Paint()},()=>{CT6.l=[];CT6.err=tl('Dieser Bereich ist auf dem Server noch nicht freigeschaltet.')})},3000);
+function ct6Paint(){if(KCAS.g!=='tisch'||!K)return;const c=document.querySelector('.tb8.g-tisch .ct6');if(!c){try{kOsPaint()}catch(_){}return}const h=ct6Inner();if(c.dataset.h!==h){c.innerHTML=h;c.dataset.h=h}}
+function ct6Open(id){const A=acc42();if(CT6.un){CT6.un();CT6.un=null}CT6.cur=id;CT6.D=null;if(!id||!A)return ct6Paint();
+  CT6.un=A.db.collection('ctab').doc(id).onSnapshot(d=>{if(!d.exists){CT6.cur=null;CT6.D=null;ct6Paint();return}CT6.D=ct6Clean(d);ct6Settle();ct6Paint()},()=>{})}
+async function ct6New(){const A=acc42(),me=ct6Me(),sel=CT6.sel.filter(isFr).slice(0,3);if(!A||!sel.length)return;const m=[me,...sel],nm={};m.forEach(u=>nm[u]=u===me?nm16(A.name):nm16(soName(u)));const id=me+'_'+Date.now().toString(36);
+  try{await A.db.collection('ctab').doc(id).set({host:me,m,nm,g:CT6.g,st:KCAS.bet,ph:'bet',rd:1,t:Date.now()+25000,sd:0,p:{},at:fsTs()});CT6.sel=[];ct6Open(id)}catch(e){CT6.err=onErr(e);ct6Paint()}}
+const ct6R=()=>{const A=acc42();return A&&CT6.cur?A.db.collection('ctab').doc(CT6.cur):null};
+/* Gastgeber: Runden steuern */
+setInterval(()=>{const D=CT6.D,me=ct6Me();if(!D||D.host!==me||!K)return;const now=Date.now(),R=ct6R();if(!R)return;const inR=D.m.filter(u=>D.p[u]&&D.p[u].rd===D.rd&&D.p[u].s>0);
+  if(D.ph==='bet'&&(now>=D.t||(inR.length&&inR.length===D.m.length))){if(inR.length)R.update({ph:'spin',sd:Math.floor(Math.random()*2e9)+1,t:now+7000}).catch(()=>{});else R.update({t:now+25000}).catch(()=>{})}
+  else if(D.ph==='spin'&&now>=D.t)R.update({ph:'bet',rd:D.rd+1,t:now+25000,sd:0}).catch(()=>{})},1000);
+setInterval(()=>{if(CT6.D&&KCAS.g==='tisch'){const e=document.querySelector('.ct6 .ct6t');if(e)e.textContent=Math.max(0,Math.ceil((CT6.D.t-Date.now())/1000))+' s'}},500);
+/* Ergebnis einer Runde (für alle gleich aus der Saat) */
+const ct6No=sd=>ROW[sd%37];
+const ct6Card=(sd,u)=>{let h=sd;for(const c of u)h=(h*31+c.charCodeAt(0))%2147483647;return h%52};
+const ct6CV=c=>Math.floor(c/4);
+function ct6Win(D){const live=D.m.filter(u=>D.p[u]&&D.p[u].rd===D.rd&&D.p[u].s>0);if(D.g==='ro'){const n=ct6No(D.sd);return {n,res:live.map(u=>{const b=D.p[u],o=ROB.find(x=>x[0]===b.b)||ROB[0],ok=roWin(b.b,n,b.z);return {u,b,x:ok?o[2]:0}})}}
+  const cards=live.map(u=>({u,c:ct6Card(D.sd,u)})),mx=Math.max(...cards.map(x=>ct6CV(x.c))),w=cards.filter(x=>ct6CV(x.c)===mx),pot=live.reduce((a,u)=>a+D.p[u].s,0);
+  return {cards,res:live.map(u=>{const iw=w.some(x=>x.u===u);return {u,b:D.p[u],x:live.length<2?1:iw?pot*.95/w.length/D.p[u].s:0}})}}
+function ct6Settle(){const D=CT6.D,me=ct6Me();if(!D||D.ph!=='spin'||!D.sd||!K)return;const k=D.id+':'+D.rd;if(CT6.done[k])return;const W=ct6Win(D),mine=W.res.find(r=>r.u===me);if(!mine)return;CT6.done[k]=1;
+  setTimeout(()=>{const s=mine.b.s;casPay(s,mine.x,mine.x>1?tl('Gewonnen!'):mine.x===1?tl('Unentschieden.'):tl('Verloren.'));try{kOsPaint()}catch(_){}},D.g==='ro'?3200:1800)}
+async function ct6Bet(){const D=CT6.D,me=ct6Me(),R=ct6R();if(!D||D.ph!=='bet'||!R||(D.p[me]&&D.p[me].rd===D.rd))return;const s=D.g==='kp'?D.st:KCAS.bet;if(!casTake(s))return;
+  const v={rd:D.rd,b:D.g==='ro'?CT6.rob:'kp',z:CT6.z,s,e:(D.p[me]||{}).e||'',et:(D.p[me]||{}).et||0};try{await R.update({['p.'+me]:v})}catch(e){K.money+=s;K.cas.net+=s;kToast(onErr(e),'n')}kSave();try{kOsPaint()}catch(_){}}
+async function ct6Emo(x){const D=CT6.D,me=ct6Me(),R=ct6R();if(!D||!R)return;const o=Object.assign({rd:0,b:'',z:0,s:0},D.p[me]||{},{e:x,et:Date.now()});try{await R.update({['p.'+me]:o})}catch(_){}}
+function ct6Inner(){const A=acc42(),me=ct6Me();if(!A)return `<p class="mut">${tl('Nur mit Konto und Internet.')}</p>`;if(CT6.err&&!CT6.l)return `<p class="mut">${CT6.err}</p>`;const D=CT6.D;
+  if(!CT6.cur){const fr=Object.keys(SO.fr||{}).filter(isFr),L=CT6.l||[];
+    return `${L.length?`<div class="ct6L">${L.map(o=>`<button data-ct6="open:${esc(o.id)}"><b>${tl(o.g==='ro'?'Roulette':'Kartenpott')}</b><span>${o.m.map(u=>esc(u===me?tl('Du'):o.nm[u])).join(', ')}</span><em>${tl('Platz nehmen')} ▸</em></button>`).join('')}</div>`:''}
+     <div class="ct6N"><h4>${tl('NEUER TISCH')}</h4><div class="seg">${[['ro','Roulette'],['kp','Kartenpott']].map(x=>`<span class="${CT6.g===x[0]?'on':''}" data-ct6="g:${x[0]}">${tl(x[1])}</span>`).join('')}</div>
+     <p class="mut sm">${CT6.g==='ro'?tl('Alle setzen auf dasselbe Rad. Alle 25 Sekunden wird gedreht.'):tl('Jeder zahlt den Einsatz in den Pott, jeder bekommt eine Karte. Die höchste Karte gewinnt den Pott (5 % gehen ans Haus).')}</p>
+     ${fr.length?`<div class="ocF">${fr.map(u=>{const on=presTxt(u).on;return `<button class="${CT6.sel.includes(u)?'on':''}" data-ct6="sel:${esc(u)}">${avHTML(SO.prof[u]||{name:soName(u)})}<b>${esc(soName(u))}</b><small class="${on?'ok':''}">${on?'● online':'offline'}</small></button>`}).join('')}</div>`:`<p class="mut">${tl('Noch keine Freunde. Füge sie im Chat hinzu.')}</p>`}
+     <button class="btn primary" data-ct6="new" ${CT6.sel.length?'':'disabled'}>${tl('Tisch eröffnen')} · ${tl('Einsatz')} ${kEur(KCAS.bet)}</button></div>${CT6.err?`<p class="no sm">${CT6.err}</p>`:''}`}
+  if(!D)return `<p class="mut">${tl('Lade …')}</p>`;
+  const myIn=D.p[me]&&D.p[me].rd===D.rd&&D.p[me].s>0,W=D.ph==='spin'&&D.sd?ct6Win(D):null,host=D.host===me;
+  const seat=u=>{const p=D.p[u]||{},inr=p.rd===D.rd&&p.s>0,r=W&&W.res.find(x=>x.u===u),emo=p.e&&Date.now()-p.et<8000?`<i class="ct6e">${esc(p.e)}</i>`:'';
+    const card=W&&W.cards?W.cards.find(x=>x.u===u):null;return `<div class="ct6p ${u===me?'me':''} ${r?(r.x>1?'w':r.x===1?'':'l'):''}">${emo}${avHTML(SO.prof[u]||{name:D.nm[u]})}<b>${esc(u===me?tl('Du'):D.nm[u])}${u===D.host?' ★':''}</b>
+      <span>${inr?(D.g==='ro'?`${tl((ROB.find(x=>x[0]===p.b)||ROB[0])[1])}${p.b==='n'?' '+p.z:''} · ${kEur(p.s)}`:kEur(p.s)):tl('setzt noch …')}</span>${card?cardH([CR[ct6CV(card.c)],cSuit[card.c%4]],0,0):''}${r?`<em>${r.x>1?'+'+kEur(Math.round(r.b.s*r.x-r.b.s)):r.x===1?'±0':'−'+kEur(r.b.s)}</em>`:''}</div>`};
+  let mid='';if(D.g==='ro'){const n=W?W.n:null,ang=n!=null?-(ROW.indexOf(n)*360/37)+720:0;mid=`<div class="ro8 ct6ro"><div class="rw8"><svg viewBox="0 0 220 220" class="${W?'ct6sp':''}" style="--a:${ang}deg">${roSvg()}</svg><b class="res">${W?`<u class="${n===0?'g':RED.includes(n)?'r':'s'}">${n}</u>`:''}</b></div>
+     ${D.ph==='bet'&&!myIn?`<div class="rb8">${ROB.filter(x=>x[0]!=='n').map(x=>`<button class="${CT6.rob===x[0]?'on':''} ${x[0]}" data-ct6="rob:${x[0]}">${tl(x[1])}<small>×${x[2]}</small></button>`).join('')}<button class="${CT6.rob==='n'?'on':''}" data-ct6="rob:n">${tl('Zahl')} ${CT6.z} <small>×36</small></button></div>`:''}</div>`}
+  else mid=`<div class="ct6pot"><small>${tl('POTT')}</small><b>${kEur(D.m.reduce((a,u)=>a+(D.p[u]&&D.p[u].rd===D.rd?D.p[u].s:0),0))}</b><span>${tl('Einsatz pro Runde')}: ${kEur(D.st)}</span></div>`;
+  return `<div class="ct6H"><button class="btn sm" data-ct6="list">◂ ${tl('Tische')}</button><b>${tl(D.g==='ro'?'Roulette mit Freunden':'Kartenpott mit Freunden')}</b><span>${tl('Runde')} ${D.rd} · ${D.ph==='bet'?tl('Einsätze'):tl('Auflösung')} <u class="ct6t"></u></span><button class="btn sm danger" data-ct6="leave">${host?tl('Tisch schließen'):tl('Aufstehen')}</button></div>
+   <div class="ct6T"><div class="ct6S">${D.m.map(seat).join('')}</div>${mid}</div>
+   <div class="act8">${D.ph==='bet'?(myIn?`<em class="mut">${tl('Dein Einsatz steht. Warte auf die anderen …')}</em>`:`<button class="btn primary big8" data-ct6="bet">${tl('Setzen')} · ${kEur(D.g==='kp'?D.st:KCAS.bet)}</button>`):''}${['👏','😂','😱','🔥','🍀'].map(x=>`<button class="btn sm ct6em" data-ct6="emo:${x}">${x}</button>`).join('')}</div>`}
+function ct6HTML(){return `<div class="ct6">${ct6Inner()}</div>`}
+document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.target.closest('[data-ct6]');if(!q||q.disabled)return;e.preventDefault();e.stopPropagation();const p=q.dataset.ct6.split(':'),a=p[0],v=p.slice(1).join(':');
+  if(a==='g'){CT6.g=v}else if(a==='sel'){const i=CT6.sel.indexOf(v);if(i>=0)CT6.sel.splice(i,1);else if(CT6.sel.length<3)CT6.sel.push(v)}else if(a==='new')return ct6New();else if(a==='open')return ct6Open(v);else if(a==='list')return ct6Open(null);
+  else if(a==='rob'){CT6.rob=v;if(v==='n'){const z=prompt(tl('Auf welche Zahl (0–36)?'),String(CT6.z));if(z!=null)CT6.z=clamp(Math.round(+z||0),0,36)}}else if(a==='bet')return ct6Bet();else if(a==='emo')return ct6Emo(v);
+  else if(a==='leave'){const D=CT6.D,me=ct6Me(),R=ct6R();if(D&&R){(D.host===me?R.delete():R.update({m:D.m.filter(u=>u!==me)})).catch(()=>{})}return ct6Open(null)}
+  ct6Paint()},true);
+/* ---------- Einbau in die Kasino-App ---------- */
+{const kc=KH2.casino;KH2.casino=()=>{const C=KCAS;let h=kc();if(C.g==='sl')h=h.replace(/(<div class="tb8 g-sl">)[\s\S]*?(<h3 class="msg8">)/,(m,a,b)=>a+gxHTML()+b);
+  else if(C.g==='tisch')h=h.replace(/(<div class="tb8 g-tisch">)[\s\S]*?(<h3 class="msg8">)/,(m,a,b)=>a+ct6HTML()+b);return h}}
+Object.assign(EN,{'Mit Freunden':'With friends','Drehen':'Spin','Auto ×10':'Auto ×10','Stopp':'Stop','Gewinntabelle':'Paytable','Freispiel':'Free spin','FREISPIELE':'FREE SPINS','alle Gewinne ×2':'all wins ×2','Freispiele!':'free spins!','POLE-POSITION-JACKPOT':'POLE POSITION JACKPOT','POLE-POSITION-JACKPOT!':'POLE POSITION JACKPOT!','5 Safety-Cars irgendwo':'5 safety cars anywhere','Riesengewinn!':'Huge win!','Freispiele vorbei':'Free spins over','übrig':'left',
+ 'NEUER TISCH':'NEW TABLE','Kartenpott':'Card pot','Tisch eröffnen':'Open table','Platz nehmen':'Take a seat','Setzen':'Place bet','Tische':'Tables','Tisch schließen':'Close table','Aufstehen':'Leave','setzt noch …':'still betting …','POTT':'POT','Einsatz pro Runde':'Stake per round','Einsätze':'Bets','Auflösung':'Result','Roulette mit Freunden':'Roulette with friends','Kartenpott mit Freunden':'Card pot with friends','Kasino-Tisch':'Casino table','lädt dich an einen Kasino-Tisch ein.':'invites you to a casino table.','Dein Einsatz steht. Warte auf die anderen …':'Your bet is placed. Waiting for the others …','Verloren.':'Lost.'});
 /* ---------- Start ---------- */
 initMenu();
 requestAnimationFrame(frame);
@@ -11985,7 +12147,7 @@ async function act(a){
       if(!doc.exists){say(t('Diesen Benutzernamen gibt es nicht.'),'bad');return}
       const d=doc.data();let tried=false;
       if(d.enc){const mail=await decMail(d,pw);if(mail){tried=true;try{await ACC.auth.signInWithEmailAndPassword(mail,pw);return}catch(e){}}}
-      try{await ACC.auth.signInWithEmailAndPassword(PSEUDO(n),pw)}
+      try{await ACC.auth.signInWithEmailAndPassword(PSEUDO(d.pm||n),pw)}
       catch(e){say(d.enc&&!tried?t('Falsches Passwort. Falls du dein Passwort per E-Mail zurückgesetzt hast, melde dich einmal mit deiner E-Mail-Adresse an.'):t('Falsches Passwort.'),'bad')}
       return;
     }
@@ -12073,6 +12235,19 @@ Object.assign(EN,{'Kontostand geändert':'Balance changed'});
 /* ---------- Konto-Aktionen (Einstellungen) ---------- */
 async function reauth(pw){const u=ACC.user;await u.reauthenticateWithCredential(firebase.auth.EmailAuthProvider.credential(u.email,pw))}
 ACC.logout=async()=>{await push(true);SYNC_KEYS.concat(['rc_owner']).forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('rc_synced');await ACC.auth.signOut();location.reload()};
+/* Benutzernamen ändern: Passwort bestätigen, neue Zuordnung anlegen, alte als Reservierung behalten, dann neu anmelden.
+   Die Anmelde-Adresse des Kontos bleibt gleich (pm = ursprünglicher Name). */
+ACC.rename=async(pw,n)=>{n=String(n||'').trim();const E=m=>{const e=new Error(m);e.code='ui';throw e};
+  if(!validName(n))E(t('Benutzername: 3–16 Zeichen, nur Buchstaben, Zahlen, _ und -.'));if(typeof modCheck==='function'&&modCheck(n))E(t('Dieser Benutzername ist nicht erlaubt.'));
+  const old=ACC.name,lc=n.toLowerCase(),olc=String(old).toLowerCase();if(n===old)E(t('Das ist schon dein Benutzername.'));
+  await reauth(pw);const uid=ACC.user.uid,oref=ACC.db.collection('usernames').doc(olc),od=(await oref.get()).data()||{},nref=ACC.db.collection('usernames').doc(lc);
+  if(lc!==olc){const ex=await nref.get();if(ex.exists&&ex.data().uid!==uid)E(t('Dieser Benutzername ist schon vergeben.'))}
+  const pm=od.pm||(/\.invalid$/.test(ACC.user.email||'')?ACC.user.email.split('@')[0]:null),map=Object.assign({},od,{uid,name:n});delete map.to;if(pm)map.pm=pm;
+  await nref.set(map);if(lc!==olc)await oref.set(Object.assign({},od,{uid,name:old,to:n}));
+  await ACC.db.collection('users').doc(uid).set({name:n},{merge:true});
+  try{const pr=ACC.db.collection('profiles').doc(uid),pd=(await pr.get()).data();if(pd)await pr.set(Object.assign({},pd,{name:n,lc}))}catch(_){}
+  try{localStorage.setItem('rc_name',n);localStorage.setItem('rc_fb_name',n)}catch(_){}
+  ACC.name=n;await ACC.logout()};
 ACC.changePw=async(oldPw,newPw)=>{await reauth(oldPw);await ACC.user.updatePassword(newPw);
   const ref=ACC.db.collection('usernames').doc(ACC.name.toLowerCase()),d=(await ref.get()).data()||{};
   if(d.enc||ACC.mail){const mail=ACC.user.email;if(!/\.invalid$/.test(mail))await ref.set(Object.assign({uid:ACC.user.uid,name:ACC.name},await encMail(mail,newPw)))}};
@@ -12126,11 +12301,13 @@ function accCard(){
   let form='';
   if(accMode==='mail')form=`<div class="accForm"><input id="accMail" type="email" placeholder="${tl('E-Mail-Adresse')}"><input id="accPw" type="password" placeholder="${tl('Aktuelles Passwort')}"><button class="btn primary sm" data-acc="doMail">${tl('Verknüpfen')}</button></div>`;
   if(accMode==='pw')form=`<div class="accForm"><input id="accPw" type="password" placeholder="${tl('Aktuelles Passwort')}"><input id="accNew" type="password" placeholder="${tl('Neues Passwort (min. 6 Zeichen)')}"><button class="btn primary sm" data-acc="doPw">${tl('Ändern')}</button></div>`;
+  if(accMode==='name')form=`<div class="accForm"><input id="accNm" maxlength="16" placeholder="${tl('Neuer Benutzername')}" value="${esc(A.name)}"><input id="accPw" type="password" placeholder="${tl('Aktuelles Passwort')}"><p class="mut sm">${tl('Danach wirst du abgemeldet und meldest dich mit dem neuen Namen an. Dein Passwort bleibt gleich.')}</p><button class="btn primary sm" data-acc="doName">${tl('Namen ändern')}</button></div>`;
   if(accMode==='del')form=`<div class="accForm danger"><p class="sm">${tl('Das Konto und der gesamte Spielstand werden endgültig gelöscht. Das kann nicht rückgängig gemacht werden.')}</p><input id="accPw" type="password" placeholder="${tl('Passwort zur Bestätigung')}"><button class="btn sm danger" data-acc="doDel">${tl('Endgültig löschen')}</button></div>`;
   return sCard('user','KONTO',`
     <div class="accHead"><div class="accAv">${esc(A.name[0]||'?').toUpperCase()}</div><div><b>${esc(A.name)}</b><span class="mut sm">${mail?tl('E-Mail verknüpft')+': '+esc(mail):tl('Keine E-Mail verknüpft')}</span></div></div>
     <div class="accBtns">
       <button class="btn sm" data-acc="mail">${mail?tl('E-Mail ändern'):tl('E-Mail verknüpfen')}</button>
+      <button class="btn sm" data-acc="name">${tl('Benutzernamen ändern')}</button>
       <button class="btn sm" data-acc="pw">${tl('Passwort ändern')}</button>
       <button class="btn sm" data-acc="dl">${tl('Daten herunterladen')}</button>
       <button class="btn sm" data-acc="priv">${tl('Datenschutz')}</button>
@@ -12144,19 +12321,20 @@ function rerender(){const nm=$('setName')&&$('setName').value;setOpen();if(nm!=n
 document.addEventListener('click',async e=>{
   const q=e.target&&e.target.closest&&e.target.closest('[data-acc]');if(!q)return;e.stopPropagation();e.preventDefault();
   const A=window.RCACC,a=q.dataset.acc,v=id=>($(id)||{}).value||'';
-  if(['mail','pw','del'].includes(a)){accMode=accMode===a?null:a;rerender();return}
+  if(['mail','pw','del','name'].includes(a)){accMode=accMode===a?null:a;rerender();return}
   if(a==='priv'){A.privacy();return}
   if(a==='dl'){A.download();return}
   if(a==='out'){A.logout();return}
   try{
     if(a==='doMail'){st(tl('Bitte warten …'));await A.linkMail(v('accPw'),v('accMail').trim());accMode=null;rerender();st(tl('Bestätigungslink gesendet – nach dem Klick ist die E-Mail verknüpft.'),'var(--ok)')}
     if(a==='doPw'){if(v('accNew').length<6){st(tl('Das Passwort braucht mindestens 6 Zeichen.'),'var(--warn)');return}st(tl('Bitte warten …'));await A.changePw(v('accPw'),v('accNew'));accMode=null;rerender();st(tl('Passwort geändert.'),'var(--ok)')}
+    if(a==='doName'){st(tl('Bitte warten …'));await A.rename(v('accPw'),v('accNm'))}
     if(a==='doDel'){st(tl('Bitte warten …'));await A.remove(v('accPw'))}
-  }catch(err){const c=err&&err.code||'';st(c.includes('password')||c.includes('credential')?tl('Falsches Passwort.'):c==='auth/email-already-in-use'?tl('Diese E-Mail ist schon mit einem Konto verknüpft.'):c==='auth/invalid-email'?tl('Ungültige E-Mail-Adresse.'):tl('Fehler: ')+(err.message||err),'var(--warn)')}
+  }catch(err){const c=err&&err.code||'';st(c.includes('password')||c.includes('credential')?tl('Falsches Passwort.'):c==='auth/email-already-in-use'?tl('Diese E-Mail ist schon mit einem Konto verknüpft.'):c==='auth/invalid-email'?tl('Ungültige E-Mail-Adresse.'):c==='ui'?err.message:tl('Fehler: ')+(err.message||err),'var(--warn)')}
 },true);
 Object.assign(EN,{'KONTO':'ACCOUNT','ANMELDUNG':'SIGN IN','KONTO ERSTELLEN':'CREATE ACCOUNT','PASSWORT VERGESSEN':'FORGOT PASSWORD','Benutzername':'Username','Benutzername (oder E-Mail)':'Username (or email)','Passwort':'Password','Anmelden':'Sign in',
  'Neues Konto erstellen':'Create new account','Passwort vergessen?':'Forgot password?','Passwort wiederholen':'Repeat password','E-Mail (optional)':'Email (optional)','Konto erstellen':'Create account','Ich habe schon ein Konto':'I already have an account',
- 'Datenschutz':'Privacy','Abmelden':'Sign out','Konto löschen':'Delete account','Passwort ändern':'Change password','E-Mail verknüpfen':'Link email','E-Mail ändern':'Change email','Daten herunterladen':'Download data',
+ 'Datenschutz':'Privacy','Benutzernamen ändern':'Change username','Neuer Benutzername':'New username','Namen ändern':'Change name','Danach wirst du abgemeldet und meldest dich mit dem neuen Namen an. Dein Passwort bleibt gleich.':'You will be signed out and sign in with the new name. Your password stays the same.','Das ist schon dein Benutzername.':'That is already your username.','Abmelden':'Sign out','Konto löschen':'Delete account','Passwort ändern':'Change password','E-Mail verknüpfen':'Link email','E-Mail ändern':'Change email','Daten herunterladen':'Download data',
  'Keine E-Mail verknüpft':'No email linked','E-Mail verknüpft':'Email linked','Dein Spielstand wird in deinem Konto gespeichert.':'Your progress is saved in your account.','Verbinde mit dem Kontoserver …':'Connecting to the account server …',
  'Falsches Passwort.':'Wrong password.','Diesen Benutzernamen gibt es nicht.':'This username does not exist.','Dieser Benutzername ist schon vergeben.':'This username is already taken.','Spielstand auf diesem Gerät löschen':'Delete progress on this device'});
 })();
