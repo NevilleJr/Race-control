@@ -397,15 +397,30 @@ async function pwTok(){if(!TOKAPP){TOKAPP=firebase.initializeApp(CFG,'tok');awai
   const t=r.credential&&r.credential.accessToken,same=r.user&&AUTH.currentUser&&r.user.uid===AUTH.currentUser.uid;try{await TOKAPP.auth().signOut()}catch(_){}
   if(!same)throw {message:'Bitte mit demselben Google-Konto wie das Admin-Konto bestätigen.'};if(!t)throw {message:'Google hat keinen Zugriff erteilt.'};return t}
 async function pwSet(uid,pw){const t=await pwTok(),res=await fetch(`https://identitytoolkit.googleapis.com/v1/projects/${CFG.projectId}/accounts:update`,{method:'POST',headers:{'Authorization':'Bearer '+t,'Content-Type':'application/json','X-Goog-User-Project':CFG.projectId},body:JSON.stringify({localId:uid,password:pw})});
-  if(!res.ok){let m='';try{const j=await res.json();m=j.error&&j.error.message||''}catch(_){}throw {message:'Google lehnt ab ('+res.status+(m?': '+m:'')+')'}}}
+  if(!res.ok){let m='';try{const j=await res.json();m=j.error&&j.error.message||''}catch(_){}throw {message:'Google lehnt ab ('+res.status+(m?': '+m:'')+')'}}
+  /* tatsächliche Anmelde-Adresse des Kontos holen */
+  let mail='';try{const lk=await fetch(`https://identitytoolkit.googleapis.com/v1/projects/${CFG.projectId}/accounts:lookup`,{method:'POST',headers:{'Authorization':'Bearer '+t,'Content-Type':'application/json','X-Goog-User-Project':CFG.projectId},body:JSON.stringify({localId:[uid]})});const j=await lk.json();mail=(j.users&&j.users[0]&&j.users[0].email)||''}catch(_){}
+  return mail}
+/* gleiche Verschlüsselung wie im Spiel (konto.js encMail) */
+const pwB64=a=>btoa(String.fromCharCode(...new Uint8Array(a)));
+async function pwEnc(mail,pw){const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12)),k0=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']),k=await crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:150000,hash:'SHA-256'},k0,{name:'AES-GCM',length:256},false,['encrypt']);
+  const c=await crypto.subtle.encrypt({name:'AES-GCM',iv},k,new TextEncoder().encode(mail));return {enc:pwB64(c),iv:pwB64(iv),salt:pwB64(salt)}}
+/* Probe-Anmeldung in einer eigenen Instanz: klappt das neue Passwort wirklich? */
+let CHKAPP=null;
+async function pwCheck(mail,pw){if(!mail)return null;if(!CHKAPP){CHKAPP=firebase.initializeApp(CFG,'chk');await CHKAPP.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)}
+  try{await CHKAPP.auth().signInWithEmailAndPassword(mail,pw);await CHKAPP.auth().signOut();return true}catch(e){return e&&e.code||'fehler'}}
 document.addEventListener('click',e=>{const q=e.target.closest&&e.target.closest('[data-pwr]');if(!q)return;e.preventDefault();e.stopPropagation();const [a,id]=q.dataset.pwr.split(':'),r=(DB0.pwr||[]).find(x=>x.id===id);if(!r)return;
   if(a==='del'){ask('Anfrage ablehnen',`<p>Die Anfrage von <b>${esc(r.name)}</b> wird gelöscht. Das Passwort bleibt unverändert.</p>`,'Ablehnen',async()=>{await DB.collection('pwreq').doc(id).delete();await logAdd('sys',r.uid,'Passwort-Anfrage abgelehnt','')});return}
   const pw='Kennwort0';ask('Neues Passwort für '+r.name,`<p class="sm">Kontakt: <b>${esc(r.kon||'–')}</b></p><label class="f">Neues Passwort (sichtbar, Standard: Kennwort0)</label><input id="pwNew" type="text" class="pwV" autocomplete="off" spellcheck="false" maxlength="80" value="${esc(pw)}"><p class="sm mut">Gib es danach über den Kontakt weiter. Der Spieler bekommt im Spiel den Hinweis, es sofort zu ändern.</p><div class="pwD"><label class="f">Admin-PIN zur Bestätigung</label>${pinPad('dP')}</div>`,'Passwort setzen',async()=>{
     const v=$('pwNew').value;if(v.length<6){$('dSt').textContent='Mindestens 6 Zeichen.';return false}if(!await sure(r.uid))return false;
-    $('dSt').textContent='Google-Bestätigung …';await pwSet(r.uid,v);
+    $('dSt').textContent='Google-Bestätigung …';const mail=await pwSet(r.uid,v);
+    /* Konten mit echter E-Mail: Anmeldung per Name braucht die mit dem neuen Passwort verschlüsselte Adresse */
+    let fix='';if(mail&&!/\.invalid$/.test(mail)){try{await DB.collection('usernames').doc(id).set(await pwEnc(mail,v),{merge:true});fix='E-Mail-Zuordnung erneuert'}catch(e){fix='E-Mail-Zuordnung NICHT erneuert ('+(e.code||e.message)+')'}}
+    $('dSt').textContent='Prüfe Anmeldung …';const chk=await pwCheck(mail,v);
+    if(chk!==true&&chk!==null)throw {message:'Google meldet Erfolg, aber die Probe-Anmeldung schlägt fehl ('+chk+'). Bitte erneut versuchen.'};
     try{await notice(r.uid,{k:'info',title:'Passwort zurückgesetzt',text:'Der Admin hat dein Passwort auf deine Anfrage hin zurückgesetzt. Bitte ändere es jetzt unter Einstellungen → Konto → Passwort ändern.'})}catch(_){}
     await DB.collection('pwreq').doc(id).delete();await logAdd('sys',r.uid,'Passwort zurückgesetzt (auf Anfrage)','Kontakt: '+(r.kon||''));
-    setTimeout(()=>ask('Passwort gesetzt',`<p>Das neue Passwort von <b>${esc(r.name)}</b> lautet:</p><p class="pwShow">${esc(v)}</p><p class="sm">Gib es weiter an: <b>${esc(r.kon||'kein Kontakt angegeben')}</b>. Der Spieler soll es nach dem Anmelden sofort ändern.</p>`,'Fertig',async()=>{}),60)});
+    setTimeout(()=>ask('Passwort gesetzt',`<p>Das neue Passwort von <b>${esc(r.name)}</b> lautet:</p><p class="pwShow">${esc(v)}</p><p class="sm">Gib es weiter an: <b>${esc(r.kon||'kein Kontakt angegeben')}</b>. Der Spieler soll es nach dem Anmelden sofort ändern.</p><p class="sm mut">${chk===true?'✓ Probe-Anmeldung erfolgreich.':'Probe-Anmeldung nicht möglich.'}${fix?' · '+esc(fix):''}</p>`,'Fertig',async()=>{}),60)});
   setTimeout(()=>{const i=$('pwNew');if(i){i.focus();i.select()}},50)},true);
 </script>
 <style>.pwV{width:100%;font:600 18px ui-monospace,Consolas,monospace!important;letter-spacing:.06em}.pwShow{font:700 28px ui-monospace,Consolas,monospace;letter-spacing:.08em;padding:12px 16px;border-radius:10px;background:rgba(20,192,255,.1);border:1px solid rgba(20,192,255,.4);user-select:all;text-align:center}</style>
