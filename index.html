@@ -1195,6 +1195,11 @@ body.mob .lhead .logo{font-size:16.500px!important;letter-spacing:.05em!importan
 .ct6pot{display:flex;flex-direction:column;align-items:center;gap:4px}.ct6pot small{letter-spacing:.14em;opacity:.8}.ct6pot b{font:800 40px/1 "Barlow Condensed",sans-serif;color:#ffd34d}
 .ct6em{font-size:18px!important;padding:4px 10px!important}
 @media (max-width:760px){.ct6T{grid-template-columns:1fr}}
+/* ===== 55 ===== */
+.agF textarea{width:100%;background:#05090f;border:1px solid rgba(0,180,255,.25);border-radius:9px;color:var(--tx);padding:11px 12px;font:inherit;font-size:15px;resize:vertical}
+.agF textarea:focus{outline:none;border-color:#14c0ff;box-shadow:0 0 0 3px rgba(20,192,255,.15)}
+/* Mauszeiger im Computer immer ganz vorn, auch vor Benachrichtigungen */
+#kCur{z-index:1000}
 /* =====================================================================
    UNDER INVESTIGATION – MOBILE (Hochkant) · Version 2
    Strecke bildschirmfüllend, alles Wichtige als schlanke Einblendung darüber.
@@ -5798,7 +5803,7 @@ addEventListener('resize',()=>{if(G)hudLayout()});
    Sobald das Formular existiert, hier die Adresse und die entry-IDs eintragen (aus „Vorausgefüllten Link abrufen“). */
 const BUGFORM={url:'https://docs.google.com/forms/d/e/1FAIpQLSebb6va9q3Y3lpRF2cBUcBEONyq7UumrJIYpb5XAQHZFNUvEg/formResponse',
   name:'entry.1280007893',kind:'entry.464884109',area:'entry.536085958',text:'entry.1649161762',ver:'entry.2051325342',imgs:['entry.1391382836','entry.631126596','entry.1702414347']};
-const GAMEVER='54.0';
+const GAMEVER='55.0';
 function fbHTML(){
   const nm=esc(lsGet('rc_fb_name')||lsGet('rc_name')||''),live=!!BUGFORM.url;
   return `<div class="fb">
@@ -11859,6 +11864,11 @@ document.addEventListener('click',e=>{const q=e.target&&e.target.closest&&e.targ
   else if(C.g==='tisch')h=h.replace(/(<div class="tb8 g-tisch">)[\s\S]*?(<h3 class="msg8">)/,(m,a,b)=>a+ct6HTML()+b);return h}}
 Object.assign(EN,{'Mit Freunden':'With friends','Drehen':'Spin','Auto ×10':'Auto ×10','Stopp':'Stop','Gewinntabelle':'Paytable','Freispiel':'Free spin','FREISPIELE':'FREE SPINS','alle Gewinne ×2':'all wins ×2','Freispiele!':'free spins!','POLE-POSITION-JACKPOT':'POLE POSITION JACKPOT','POLE-POSITION-JACKPOT!':'POLE POSITION JACKPOT!','5 Safety-Cars irgendwo':'5 safety cars anywhere','Riesengewinn!':'Huge win!','Freispiele vorbei':'Free spins over','übrig':'left',
  'NEUER TISCH':'NEW TABLE','Kartenpott':'Card pot','Tisch eröffnen':'Open table','Platz nehmen':'Take a seat','Setzen':'Place bet','Tische':'Tables','Tisch schließen':'Close table','Aufstehen':'Leave','setzt noch …':'still betting …','POTT':'POT','Einsatz pro Runde':'Stake per round','Einsätze':'Bets','Auflösung':'Result','Roulette mit Freunden':'Roulette with friends','Kartenpott mit Freunden':'Card pot with friends','Kasino-Tisch':'Casino table','lädt dich an einen Kasino-Tisch ein.':'invites you to a casino table.','Dein Einsatz steht. Warte auf die anderen …':'Your bet is placed. Waiting for the others …','Verloren.':'Lost.'});
+/* =====================================================================
+   UNDER INVESTIGATION 55 – Kleinigkeiten
+   ===================================================================== */
+/* Formel 2: A. Peer fährt immer mit */
+{const rn=rcNames;rcNames=function(tier){const r=rn.apply(this,arguments);if(tier===2&&DRIVERS.length){const i=Math.min(4,DRIVERS.length-1);DRIVERS.forEach((d,j)=>{if(j!==i&&d.c==='PEE')d.c='PEX'});DRIVERS[i].n='A. Peer';DRIVERS[i].c='PEE'}return r}}
 /* ---------- Start ---------- */
 initMenu();
 requestAnimationFrame(frame);
@@ -12085,12 +12095,21 @@ function render(){
     <p class="agP"><b>${t('Mit verknüpfter E-Mail:')}</b> ${t('Gib deine E-Mail ein, du bekommst einen Link zum Zurücksetzen.')}</p>
     ${field('agMail','E-Mail','email','deine verknüpfte E-Mail','email')}
     <button class="btn primary agBtn" data-ag="reset">${t('Link senden')}</button>
-    <p class="agP" style="margin-top:14px"><b>${t('Ohne E-Mail:')}</b> ${t('Das Passwort lässt sich nicht wiederherstellen. Du kannst nur den Spielstand auf diesem Gerät löschen und ein neues Konto anlegen.')}</p>
+    <p class="agP" style="margin-top:14px"><b>${t('Ohne E-Mail:')}</b> ${t('Bitte den Admin, dein Passwort zurückzusetzen. Er setzt ein vorläufiges Passwort und gibt es dir weiter.')}</p>
+    <button class="btn primary agBtn" data-ag="toReq">${t('Admin um Zurücksetzen bitten')}</button>
+    <p class="agP" style="margin-top:14px">${t('Oder: Spielstand auf diesem Gerät löschen und ein neues Konto anlegen.')}</p>
     <button class="btn agBtn danger" data-ag="wipe">${t('Spielstand auf diesem Gerät löschen')}</button>
     <div class="agLinks"><a data-ag="toLogin">${t('Zurück zur Anmeldung')}</a></div>`;
+  else if(mode==='req')body=`
+    <p class="agP">${t('Der Admin bekommt deine Anfrage und setzt ein vorläufiges Passwort. Sag ihm, wie er dich erreicht (zum Beispiel Name im Chat, Discord oder ein gemeinsamer Freund).')}</p>
+    ${field('agUser','Benutzername','text','dein Benutzername','username')}
+    ${field('agKon','So erreicht dich der Admin','text','z. B. Discord-Name','off')}
+    <label class="agF"><span>${t('Nachricht (optional)')}</span><textarea id="agMsg" rows="3" maxlength="300" placeholder="${t('Woran erkennt der Admin, dass es dein Konto ist?')}"></textarea></label>
+    <button class="btn primary agBtn" data-ag="sendReq">${t('Anfrage senden')}</button>
+    <div class="agLinks"><a data-ag="toForgot">${t('Zurück')}</a> · <a data-ag="toLogin">${t('Zur Anmeldung')}</a></div>`;
   gate.innerHTML=`<div class="agCard">
     <div class="agLogo">UNDER <b>INVESTIGATION</b></div>
-    <div class="agSub">${mode==='register'?t('KONTO ERSTELLEN'):mode==='forgot'?t('PASSWORT VERGESSEN'):t('ANMELDUNG')}</div>
+    <div class="agSub">${mode==='register'?t('KONTO ERSTELLEN'):mode==='forgot'?t('PASSWORT VERGESSEN'):mode==='req'?t('PASSWORT ZURÜCKSETZEN LASSEN'):t('ANMELDUNG')}</div>
     ${body}
     <div class="agMsg ${msgCls}">${msg||''}</div>
     <div class="agFoot"><span style="display:flex;gap:12px"><a data-ag="privacy">${t('Datenschutz')}</a><a href="admin.html" style="opacity:.55">Admin</a></span><span>${t('Dein Spielstand wird in deinem Konto gespeichert.')}</span></div>
@@ -12130,6 +12149,7 @@ async function act(a){
   if(a==='toReg'){mode='register';msg='';render();return}
   if(a==='toLogin'){mode='login';msg='';render();return}
   if(a==='toForgot'){mode='forgot';msg='';render();return}
+  if(a==='toReq'){mode='req';msg='';render();return}
   if(a==='retry'){msg='';boot();return}
   if(a==='privacy'){privacy();return}
   if(a==='offline'){unlock(true);return}
@@ -12168,6 +12188,14 @@ async function act(a){
       await ACC.db.collection('users').doc(cred.user.uid).set({name:n,created:Date.now(),mail:!!mail},{merge:true});
       if(mail)try{await cred.user.sendEmailVerification()}catch(_){}
       return;
+    }
+    if(a==='sendReq'){
+      const n=v('agUser').trim(),kon=v('agKon').trim().slice(0,80),m=(gate.querySelector('#agMsg')||{}).value||'';if(!n){say(t('Bitte deinen Benutzernamen eingeben.'),'bad');return}
+      if(!kon){say(t('Bitte gib an, wie dich der Admin erreicht.'),'bad');return}
+      const lc=n.toLowerCase(),d=await ACC.db.collection('usernames').doc(lc).get();if(!d.exists){say(t('Diesen Benutzernamen gibt es nicht.'),'bad');return}
+      try{await ACC.db.collection('pwreq').doc(lc).set({name:String(d.data().name||n).slice(0,16),uid:d.data().uid,kon,msg:String(m).trim().slice(0,300),at:firebase.firestore.FieldValue.serverTimestamp()})}
+      catch(e){if(e&&e.code==='permission-denied'){say(t('Für diesen Namen liegt schon eine Anfrage beim Admin.'),'bad');return}throw e}
+      say(t('Anfrage gesendet. Der Admin meldet sich bei dir mit einem vorläufigen Passwort.'),'ok');return;
     }
     if(a==='reset'){
       const mail=v('agMail').trim();if(!mail){say(t('Bitte deine E-Mail eingeben.'),'bad');return}
